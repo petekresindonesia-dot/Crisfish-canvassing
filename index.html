@@ -3,7 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>CRISFISH SALES</title>
+
+<title>CRISPI SALES - Canvassing System</title>
 
 <style>
 *{
@@ -97,9 +98,10 @@ body{
 }
 
 .progress-bar{
-  width:62%;
+  width:0%;
   height:100%;
   background:#16a34a;
+  transition:.4s;
 }
 
 .btn{
@@ -112,6 +114,11 @@ body{
   font-size:16px;
   font-weight:bold;
   cursor:pointer;
+}
+
+.btn:active,
+.menu:active{
+  transform:scale(.98);
 }
 
 .outlet{
@@ -153,6 +160,7 @@ body{
   display:flex;
   justify-content:space-around;
   padding:12px 5px;
+  z-index:10;
 }
 
 .bottom button{
@@ -167,6 +175,72 @@ body{
   font-size:20px;
   margin-bottom:3px;
 }
+
+input,select{
+  width:100%;
+  padding:13px;
+  border:1px solid #ddd;
+  border-radius:10px;
+  margin-top:6px;
+  margin-bottom:12px;
+  font-size:15px;
+}
+
+label{
+  font-size:13px;
+  font-weight:bold;
+}
+
+.modal{
+  display:none;
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.55);
+  z-index:100;
+  padding:20px;
+  align-items:center;
+  justify-content:center;
+}
+
+.modal-box{
+  background:white;
+  width:100%;
+  max-width:460px;
+  max-height:90vh;
+  overflow:auto;
+  border-radius:18px;
+  padding:20px;
+}
+
+.modal-title{
+  font-size:20px;
+  font-weight:bold;
+  margin-bottom:15px;
+}
+
+.btn-secondary{
+  width:100%;
+  border:0;
+  padding:13px;
+  border-radius:10px;
+  background:#e5e7eb;
+  margin-top:8px;
+  font-weight:bold;
+}
+
+.status{
+  font-size:12px;
+  margin-top:8px;
+  color:#666;
+}
+
+.success{
+  color:#15803d;
+}
+
+.error{
+  color:#b91c1c;
+}
 </style>
 </head>
 
@@ -175,29 +249,36 @@ body{
 <div class="app">
 
   <div class="header">
-    <div class="logo">CRISFISH SALES</div>
+    <div class="logo">CRISPI SALES</div>
     <div class="subtitle">PETEKRES • Sales Canvassing System</div>
   </div>
 
   <div class="container">
 
     <div class="card">
-      <div class="welcome">Halo, Andi 👋</div>
+      <div class="welcome">Halo, <span id="salesName">Andi</span> 👋</div>
       <div>Sales Motoris</div>
+      <div class="status" id="firebaseStatus">
+        Menghubungkan database...
+      </div>
     </div>
 
     <div class="card">
+
       <b>Target Penjualan Bulanan</b>
 
-      <div class="target">930 / 1.500 Pack</div>
+      <div class="target">
+        <span id="totalSales">0</span> / 1.500 Pack
+      </div>
 
       <div class="progress">
-        <div class="progress-bar"></div>
+        <div class="progress-bar" id="progressBar"></div>
       </div>
 
       <p style="margin-top:8px;font-size:13px;color:#666;">
-        62% target tercapai
+        <span id="progressText">0%</span> target tercapai
       </p>
+
     </div>
 
     <div class="grid">
@@ -225,55 +306,59 @@ body{
     </div>
 
     <div class="card" style="margin-top:15px;">
+
       <b>KPI Saya</b>
 
       <div class="kpi">
         <span>Pencapaian Sales</span>
-        <span class="kpi-score">88</span>
+        <span class="kpi-score" id="kpiSales">0</span>
       </div>
 
       <div class="kpi">
         <span>Produktivitas</span>
-        <span class="kpi-score">91</span>
+        <span class="kpi-score" id="kpiProductivity">0</span>
       </div>
 
       <div class="kpi">
         <span>Disiplin & Reporting</span>
-        <span class="kpi-score">95</span>
+        <span class="kpi-score" id="kpiDiscipline">0</span>
       </div>
 
       <button class="btn" onclick="showKPI()">
         Lihat Detail KPI
       </button>
+
     </div>
 
     <div class="card">
+
       <b>Outlet Hari Ini</b>
 
-      <div class="outlet">
-        <b>Warung Barokah</b><br>
-        <span class="badge">Sudah dikunjungi</span>
+      <div id="outletList">
+
+        <div class="outlet">
+          <b>Warung Barokah</b><br>
+          <span class="badge">Contoh outlet</span>
+        </div>
+
+        <div class="outlet">
+          <b>Warung Sari</b><br>
+          <span class="badge">Contoh outlet</span>
+        </div>
+
+        <div class="outlet">
+          <b>Toko Rizki</b><br>
+          <span class="badge">Contoh outlet</span>
+        </div>
+
       </div>
 
-      <div class="outlet">
-        <b>Warung Sari</b><br>
-        <span class="badge">Order 20 Pack</span>
-      </div>
-
-      <div class="outlet">
-        <b>Toko Rizki</b><br>
-        <span class="badge">Belum dikunjungi</span>
-      </div>
-
-      <div class="outlet">
-        <b>Warung Maju</b><br>
-        <span class="badge">Belum dikunjungi</span>
-      </div>
     </div>
 
   </div>
 
   <div class="bottom">
+
     <button onclick="home()">
       <span>🏠</span>
       Home
@@ -298,46 +383,595 @@ body{
       <span>👤</span>
       Profil
     </button>
+
   </div>
 
 </div>
 
-<script>
 
-function checkin(){
-  alert("Fitur Check-in GPS akan digunakan untuk mencatat lokasi outlet.");
+<!-- ========================= -->
+<!-- MODAL PENJUALAN -->
+<!-- ========================= -->
+
+<div class="modal" id="saleModal">
+
+  <div class="modal-box">
+
+    <div class="modal-title">
+      🛒 Catat Penjualan
+    </div>
+
+    <label>Nama Outlet</label>
+    <input
+      id="saleOutlet"
+      type="text"
+      placeholder="Contoh: Warung Barokah"
+    >
+
+    <label>Jumlah Pack</label>
+    <input
+      id="saleQty"
+      type="number"
+      min="1"
+      placeholder="Contoh: 20"
+    >
+
+    <label>Total Uang</label>
+    <input
+      id="saleAmount"
+      type="number"
+      min="0"
+      placeholder="Contoh: 300000"
+    >
+
+    <button class="btn" onclick="saveSale()">
+      SIMPAN PENJUALAN
+    </button>
+
+    <button class="btn-secondary" onclick="closeModal('saleModal')">
+      BATAL
+    </button>
+
+  </div>
+
+</div>
+
+
+<!-- ========================= -->
+<!-- MODAL CHECK-IN -->
+<!-- ========================= -->
+
+<div class="modal" id="checkinModal">
+
+  <div class="modal-box">
+
+    <div class="modal-title">
+      📍 Check-in Outlet
+    </div>
+
+    <label>Nama Outlet</label>
+
+    <input
+      id="checkinOutlet"
+      type="text"
+      placeholder="Nama outlet"
+    >
+
+    <button class="btn" onclick="saveCheckin()">
+      AMBIL LOKASI & SIMPAN
+    </button>
+
+    <button class="btn-secondary" onclick="closeModal('checkinModal')">
+      BATAL
+    </button>
+
+  </div>
+
+</div>
+
+
+<!-- ========================= -->
+<!-- MODAL SETOR KAS -->
+<!-- ========================= -->
+
+<div class="modal" id="depositModal">
+
+  <div class="modal-box">
+
+    <div class="modal-title">
+      💰 Setor Kas
+    </div>
+
+    <label>Jumlah Setoran</label>
+
+    <input
+      id="depositAmount"
+      type="number"
+      min="0"
+      placeholder="Contoh: 500000"
+    >
+
+    <label>Keterangan</label>
+
+    <input
+      id="depositNote"
+      type="text"
+      placeholder="Contoh: Setoran penjualan hari ini"
+    >
+
+    <button class="btn" onclick="saveDeposit()">
+      SIMPAN SETORAN
+    </button>
+
+    <button class="btn-secondary" onclick="closeModal('depositModal')">
+      BATAL
+    </button>
+
+  </div>
+
+</div>
+
+
+<!-- ========================= -->
+<!-- FIREBASE -->
+<!-- ========================= -->
+
+<script type="module">
+
+import { initializeApp }
+from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+
+import {
+  getDatabase,
+  ref,
+  push,
+  set,
+  onValue
 }
+from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
 
-function sale(){
-  alert("Fitur pencatatan penjualan PETEKRES CRISFISH.");
-}
 
-function outlet(){
-  alert("Database outlet PETEKRES.");
-}
+/*
+=================================================
+FIREBASE CONFIG
+GANTI BAGIAN INI DENGAN CONFIG MILIK KAMU
+=================================================
+*/
 
-function deposit(){
-  alert("Fitur setor kas sales.");
-}
+const firebaseConfig = {
 
-function showKPI(){
-  alert(
-    "KPI CRISFISH SALES\n\n"+
-    "Sales Achievement: 35%\n"+
-    "Productivity: 20%\n"+
-    "Strike Rate: 15%\n"+
-    "Outlet Development: 15%\n"+
-    "Discipline & Reporting: 15%"
+  apiKey: "PASTE_API_KEY_DI_SINI",
+
+  authDomain: "PASTE_AUTH_DOMAIN_DI_SINI",
+
+  databaseURL: "PASTE_DATABASE_URL_DI_SINI",
+
+  projectId: "PASTE_PROJECT_ID_DI_SINI",
+
+  storageBucket: "PASTE_STORAGE_BUCKET_DI_SINI",
+
+  messagingSenderId: "PASTE_MESSAGING_SENDER_ID_DI_SINI",
+
+  appId: "PASTE_APP_ID_DI_SINI"
+
+};
+
+
+/* INISIALISASI FIREBASE */
+
+const app = initializeApp(firebaseConfig);
+
+const database = getDatabase(app);
+
+
+/* STATUS KONEKSI */
+
+document.getElementById("firebaseStatus").innerText =
+  "🟢 Firebase siap digunakan";
+
+document.getElementById("firebaseStatus").classList.add("success");
+
+
+/* SALES AKTIF */
+
+const SALES_ID = "andi";
+
+const SALES_NAME = "Andi";
+
+
+/* =========================
+   CATAT PENJUALAN
+========================= */
+
+window.sale = function(){
+
+  document.getElementById("saleModal").style.display = "flex";
+
+};
+
+
+/* SIMPAN PENJUALAN */
+
+window.saveSale = async function(){
+
+  const outlet =
+    document.getElementById("saleOutlet").value.trim();
+
+  const qty =
+    Number(document.getElementById("saleQty").value);
+
+  const amount =
+    Number(document.getElementById("saleAmount").value);
+
+
+  if(!outlet){
+
+    alert("Nama outlet wajib diisi.");
+
+    return;
+
+  }
+
+
+  if(!qty || qty <= 0){
+
+    alert("Jumlah pack harus diisi.");
+
+    return;
+
+  }
+
+
+  try{
+
+    const salesRef =
+      push(ref(database,"sales"));
+
+    await set(salesRef,{
+
+      salesId: SALES_ID,
+
+      salesName: SALES_NAME,
+
+      outlet: outlet,
+
+      quantity: qty,
+
+      amount: amount,
+
+      date: new Date().toISOString(),
+
+      createdAt: Date.now()
+
+    });
+
+
+    alert("✅ Penjualan berhasil disimpan ke Firebase.");
+
+    document.getElementById("saleOutlet").value = "";
+
+    document.getElementById("saleQty").value = "";
+
+    document.getElementById("saleAmount").value = "";
+
+    closeModal("saleModal");
+
+  }
+
+  catch(error){
+
+    console.error(error);
+
+    alert("❌ Gagal menyimpan penjualan.\n\n" + error.message);
+
+  }
+
+};
+
+
+/* =========================
+   CHECK-IN
+========================= */
+
+window.checkin = function(){
+
+  document.getElementById("checkinModal").style.display = "flex";
+
+};
+
+
+window.saveCheckin = function(){
+
+  const outlet =
+    document.getElementById("checkinOutlet").value.trim();
+
+
+  if(!outlet){
+
+    alert("Nama outlet wajib diisi.");
+
+    return;
+
+  }
+
+
+  if(!navigator.geolocation){
+
+    alert("GPS tidak tersedia di perangkat ini.");
+
+    return;
+
+  }
+
+
+  navigator.geolocation.getCurrentPosition(
+
+    async function(position){
+
+      try{
+
+        const checkinRef =
+          push(ref(database,"checkins"));
+
+        await set(checkinRef,{
+
+          salesId: SALES_ID,
+
+          salesName: SALES_NAME,
+
+          outlet: outlet,
+
+          latitude: position.coords.latitude,
+
+          longitude: position.coords.longitude,
+
+          accuracy: position.coords.accuracy,
+
+          date: new Date().toISOString(),
+
+          createdAt: Date.now()
+
+        });
+
+
+        alert("✅ Check-in berhasil disimpan.");
+
+        document.getElementById("checkinOutlet").value = "";
+
+        closeModal("checkinModal");
+
+      }
+
+      catch(error){
+
+        alert(
+          "❌ Gagal menyimpan check-in.\n\n" +
+          error.message
+        );
+
+      }
+
+    },
+
+    function(error){
+
+      alert(
+        "GPS tidak bisa digunakan.\n\n" +
+        "Pastikan izin lokasi diberikan pada browser."
+      );
+
+    }
+
   );
-}
 
-function profile(){
-  alert("Profil Sales");
-}
+};
 
-function home(){
-  alert("Dashboard CRISFISH SALES");
-}
+
+/* =========================
+   SETOR KAS
+========================= */
+
+window.deposit = function(){
+
+  document.getElementById("depositModal").style.display = "flex";
+
+};
+
+
+window.saveDeposit = async function(){
+
+  const amount =
+    Number(document.getElementById("depositAmount").value);
+
+  const note =
+    document.getElementById("depositNote").value.trim();
+
+
+  if(!amount || amount <= 0){
+
+    alert("Jumlah setoran harus diisi.");
+
+    return;
+
+  }
+
+
+  try{
+
+    const depositRef =
+      push(ref(database,"deposits"));
+
+    await set(depositRef,{
+
+      salesId: SALES_ID,
+
+      salesName: SALES_NAME,
+
+      amount: amount,
+
+      note: note,
+
+      date: new Date().toISOString(),
+
+      createdAt: Date.now()
+
+    });
+
+
+    alert("✅ Setoran berhasil disimpan.");
+
+    document.getElementById("depositAmount").value = "";
+
+    document.getElementById("depositNote").value = "";
+
+    closeModal("depositModal");
+
+  }
+
+  catch(error){
+
+    alert(
+      "❌ Gagal menyimpan setoran.\n\n" +
+      error.message
+    );
+
+  }
+
+};
+
+
+/* =========================
+   DASHBOARD PENJUALAN
+========================= */
+
+const salesDataRef =
+  ref(database,"sales");
+
+
+onValue(
+
+  salesDataRef,
+
+  function(snapshot){
+
+    let total = 0;
+
+    snapshot.forEach(function(child){
+
+      const data = child.val();
+
+      if(data && data.salesId === SALES_ID){
+
+        total += Number(data.quantity || 0);
+
+      }
+
+    });
+
+
+    document.getElementById("totalSales").innerText =
+      total.toLocaleString("id-ID");
+
+
+    const target = 1500;
+
+    let percent =
+      Math.round((total / target) * 100);
+
+
+    if(percent > 100) percent = 100;
+
+
+    document.getElementById("progressBar").style.width =
+      percent + "%";
+
+
+    document.getElementById("progressText").innerText =
+      percent + "%";
+
+  }
+
+);
+
+
+/* =========================
+   KPI
+========================= */
+
+window.showKPI = function(){
+
+  alert(
+
+    "KPI CRISPI SALES\n\n" +
+
+    "Sales Achievement: 35%\n" +
+
+    "Productivity: 20%\n" +
+
+    "Strike Rate: 15%\n" +
+
+    "Outlet Development: 15%\n" +
+
+    "Discipline & Reporting: 15%"
+
+  );
+
+};
+
+
+/* =========================
+   OUTLET
+========================= */
+
+window.outlet = function(){
+
+  alert(
+    "Database outlet akan kita kembangkan pada tahap berikutnya."
+  );
+
+};
+
+
+/* =========================
+   PROFILE
+========================= */
+
+window.profile = function(){
+
+  alert(
+    "Sales: " + SALES_NAME +
+    "\nID: " + SALES_ID
+  );
+
+};
+
+
+/* =========================
+   HOME
+========================= */
+
+window.home = function(){
+
+  window.scrollTo({
+
+    top:0,
+
+    behavior:"smooth"
+
+  });
+
+};
+
+
+/* =========================
+   MODAL
+========================= */
+
+window.closeModal = function(id){
+
+  document.getElementById(id).style.display = "none";
+
+};
 
 </script>
 
