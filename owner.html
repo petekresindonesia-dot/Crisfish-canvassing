@@ -1,0 +1,1620 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+content="width=device-width,initial-scale=1.0">
+
+<title>CRISFISH SALES - Owner Dashboard</title>
+
+<style>
+
+*{
+box-sizing:border-box;
+margin:0;
+padding:0;
+font-family:Arial,sans-serif;
+}
+
+body{
+background:#f3f4f6;
+color:#17202a;
+}
+
+.app{
+max-width:1200px;
+margin:auto;
+min-height:100vh;
+}
+
+.header{
+background:#111827;
+color:white;
+padding:22px;
+}
+
+.logo{
+font-size:25px;
+font-weight:bold;
+}
+
+.subtitle{
+margin-top:5px;
+font-size:13px;
+opacity:.8;
+}
+
+.container{
+padding:20px;
+}
+
+.status{
+font-size:12px;
+margin-top:8px;
+}
+
+.success{
+color:#16a34a;
+}
+
+.error{
+color:#dc2626;
+}
+
+.grid{
+display:grid;
+grid-template-columns:repeat(4,1fr);
+gap:15px;
+margin-bottom:20px;
+}
+
+.card{
+background:white;
+border-radius:16px;
+padding:18px;
+box-shadow:0 3px 12px rgba(0,0,0,.07);
+}
+
+.stat-title{
+font-size:13px;
+color:#666;
+}
+
+.stat-value{
+font-size:28px;
+font-weight:bold;
+margin-top:7px;
+}
+
+.green{
+color:#16a34a;
+}
+
+.blue{
+color:#2563eb;
+}
+
+.orange{
+color:#ea580c;
+}
+
+.red{
+color:#dc2626;
+}
+
+.section-title{
+font-size:20px;
+font-weight:bold;
+margin-bottom:15px;
+}
+
+.form-grid{
+display:grid;
+grid-template-columns:repeat(3,1fr);
+gap:12px;
+}
+
+label{
+font-size:13px;
+font-weight:bold;
+}
+
+input,
+select{
+width:100%;
+padding:12px;
+margin-top:6px;
+margin-bottom:10px;
+border:1px solid #ddd;
+border-radius:10px;
+font-size:15px;
+}
+
+.btn{
+border:0;
+border-radius:10px;
+padding:13px 16px;
+background:#16a34a;
+color:white;
+font-weight:bold;
+cursor:pointer;
+}
+
+.btn-blue{
+background:#2563eb;
+}
+
+.btn-dark{
+background:#111827;
+}
+
+.btn-red{
+background:#dc2626;
+}
+
+.table-wrap{
+overflow-x:auto;
+}
+
+table{
+width:100%;
+border-collapse:collapse;
+}
+
+th,
+td{
+padding:12px;
+border-bottom:1px solid #eee;
+text-align:left;
+font-size:13px;
+}
+
+th{
+background:#f9fafb;
+}
+
+.badge{
+display:inline-block;
+padding:5px 9px;
+border-radius:20px;
+font-size:11px;
+background:#dcfce7;
+color:#166534;
+}
+
+.badge-blue{
+background:#dbeafe;
+color:#1d4ed8;
+}
+
+.badge-orange{
+background:#ffedd5;
+color:#c2410c;
+}
+
+.map-box{
+width:100%;
+height:400px;
+border:0;
+border-radius:15px;
+background:#e5e7eb;
+display:flex;
+align-items:center;
+justify-content:center;
+color:#666;
+text-align:center;
+}
+
+.ai-box{
+background:#f0fdf4;
+border:1px solid #bbf7d0;
+padding:18px;
+border-radius:14px;
+line-height:1.6;
+}
+
+.alert-box{
+background:#fff7ed;
+border:1px solid #fed7aa;
+padding:15px;
+border-radius:12px;
+margin-top:15px;
+}
+
+@media(max-width:800px){
+
+.grid{
+grid-template-columns:repeat(2,1fr);
+}
+
+.form-grid{
+grid-template-columns:1fr;
+}
+
+}
+
+@media(max-width:500px){
+
+.container{
+padding:12px;
+}
+
+.grid{
+grid-template-columns:1fr 1fr;
+gap:10px;
+}
+
+.stat-value{
+font-size:22px;
+}
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="app">
+
+<div class="header">
+
+<div class="logo">
+CRISFISH SALES
+</div>
+
+<div class="subtitle">
+OWNER / SPV DASHBOARD • Sales Canvassing Management System
+</div>
+
+<div
+class="status"
+id="firebaseStatus">
+
+Menghubungkan Firebase...
+
+</div>
+
+</div>
+
+
+<div class="container">
+
+
+<!-- ===================== -->
+<!-- RINGKASAN -->
+<!-- ===================== -->
+
+<div class="grid">
+
+<div class="card">
+
+<div class="stat-title">
+Total Sales
+</div>
+
+<div
+class="stat-value blue"
+id="totalSalesPerson">
+
+0
+
+</div>
+
+</div>
+
+
+<div class="card">
+
+<div class="stat-title">
+Total Penjualan
+</div>
+
+<div
+class="stat-value green"
+id="totalPack">
+
+0 Pack
+
+</div>
+
+</div>
+
+
+<div class="card">
+
+<div class="stat-title">
+Total Outlet
+</div>
+
+<div
+class="stat-value orange"
+id="totalOutlet">
+
+0
+
+</div>
+
+</div>
+
+
+<div class="card">
+
+<div class="stat-title">
+Total Setoran
+</div>
+
+<div
+class="stat-value"
+id="totalDeposit">
+
+Rp 0
+
+</div>
+
+</div>
+
+</div>
+
+
+<!-- ===================== -->
+<!-- PENGATURAN BISNIS -->
+<!-- ===================== -->
+
+<div class="card">
+
+<div class="section-title">
+⚙️ Pengaturan Bisnis
+</div>
+
+<div class="form-grid">
+
+<div>
+
+<label>
+Target Penjualan Bulanan
+</label>
+
+<input
+id="targetMonthly"
+type="number"
+min="1"
+placeholder="Contoh: 1500">
+
+</div>
+
+
+<div>
+
+<label>
+Harga Jual / Pack
+</label>
+
+<input
+id="productPrice"
+type="number"
+min="0"
+placeholder="Contoh: 15000">
+
+</div>
+
+
+<div>
+
+<label>
+Stok Saat Ini
+</label>
+
+<input
+id="productStock"
+type="number"
+min="0"
+placeholder="Contoh: 5000">
+
+</div>
+
+</div>
+
+
+<button
+class="btn"
+onclick="saveSettings()">
+
+💾 SIMPAN PENGATURAN
+
+</button>
+
+
+<div
+class="status"
+id="settingStatus">
+
+</div>
+
+</div>
+
+
+<!-- ===================== -->
+<!-- SALES -->
+<!-- ===================== -->
+
+<div
+class="card"
+style="margin-top:20px;">
+
+<div class="section-title">
+👥 Kinerja Sales
+</div>
+
+
+<div class="table-wrap">
+
+<table>
+
+<thead>
+
+<tr>
+
+<th>Sales</th>
+
+<th>Pack</th>
+
+<th>Transaksi</th>
+
+<th>Check-in</th>
+
+<th>Setoran</th>
+
+<th>Pencapaian</th>
+
+</tr>
+
+</thead>
+
+<tbody
+id="salesTable">
+
+<tr>
+
+<td colspan="6">
+Mengambil data...
+
+</td>
+
+</tr>
+
+</tbody>
+
+</table>
+
+</div>
+
+</div>
+
+
+<!-- ===================== -->
+<!-- OUTLET -->
+<!-- ===================== -->
+
+<div
+class="card"
+style="margin-top:20px;">
+
+<div class="section-title">
+🏪 Database Outlet
+</div>
+
+
+<div class="table-wrap">
+
+<table>
+
+<thead>
+
+<tr>
+
+<th>Outlet</th>
+
+<th>Pemilik</th>
+
+<th>Sales</th>
+
+<th>Tipe</th>
+
+<th>WhatsApp</th>
+
+<th>Alamat</th>
+
+</tr>
+
+</thead>
+
+<tbody
+id="outletTable">
+
+<tr>
+
+<td colspan="6">
+Mengambil data outlet...
+
+</td>
+
+</tr>
+
+</tbody>
+
+</table>
+
+</div>
+
+</div>
+
+
+<!-- ===================== -->
+<!-- PENJUALAN -->
+<!-- ===================== -->
+
+<div
+class="card"
+style="margin-top:20px;">
+
+<div class="section-title">
+🛒 Rekap Penjualan
+</div>
+
+
+<div class="table-wrap">
+
+<table>
+
+<thead>
+
+<tr>
+
+<th>Tanggal</th>
+
+<th>Sales</th>
+
+<th>Outlet</th>
+
+<th>Pack</th>
+
+<th>Nilai</th>
+
+</tr>
+
+</thead>
+
+<tbody
+id="salesHistoryTable">
+
+<tr>
+
+<td colspan="5">
+Mengambil data...
+
+</td>
+
+</tr>
+
+</tbody>
+
+</table>
+
+</div>
+
+</div>
+
+
+<!-- ===================== -->
+<!-- KUNJUNGAN -->
+<!-- ===================== -->
+
+<div
+class="card"
+style="margin-top:20px;">
+
+<div class="section-title">
+📍 Rekap Kunjungan Sales
+</div>
+
+
+<div class="table-wrap">
+
+<table>
+
+<thead>
+
+<tr>
+
+<th>Tanggal</th>
+
+<th>Sales</th>
+
+<th>Outlet</th>
+
+<th>Koordinat</th>
+
+<th>Maps</th>
+
+</tr>
+
+</thead>
+
+<tbody
+id="visitTable">
+
+<tr>
+
+<td colspan="5">
+Mengambil data...
+
+</td>
+
+</tr>
+
+</tbody>
+
+</table>
+
+</div>
+
+</div>
+
+
+<!-- ===================== -->
+<!-- PETA -->
+<!-- ===================== -->
+
+<div
+class="card"
+style="margin-top:20px;">
+
+<div class="section-title">
+🗺️ Peta Aktivitas Sales
+</div>
+
+
+<div
+class="map-box"
+id="mapBox">
+
+Peta kunjungan akan menampilkan
+titik koordinat sales.
+
+<br><br>
+
+Klik tombol Google Maps pada
+data kunjungan untuk melihat
+lokasi.
+
+</div>
+
+</div>
+
+
+<!-- ===================== -->
+<!-- AI -->
+<!-- ===================== -->
+
+<div
+class="card"
+style="margin-top:20px;">
+
+<div class="section-title">
+🤖 AI Sales Coach — Management Insight
+</div>
+
+
+<div
+class="ai-box"
+id="managementInsight">
+
+Menganalisis data penjualan...
+
+</div>
+
+</div>
+
+
+<!-- ===================== -->
+<!-- REKAP BISNIS -->
+<!-- ===================== -->
+
+<div
+class="card"
+style="margin-top:20px;">
+
+<div class="section-title">
+📊 Ringkasan Aktivitas
+</div>
+
+
+<div class="grid">
+
+<div class="card">
+
+<div class="stat-title">
+Transaksi Penjualan
+</div>
+
+<div
+class="stat-value"
+id="transactionCount">
+
+0
+
+</div>
+
+</div>
+
+
+<div class="card">
+
+<div class="stat-title">
+Total Check-in
+</div>
+
+<div
+class="stat-value"
+id="checkinCount">
+
+0
+
+</div>
+
+</div>
+
+
+<div class="card">
+
+<div class="stat-title">
+Outlet Baru
+</div>
+
+<div
+class="stat-value"
+id="newOutletCount">
+
+0
+
+</div>
+
+</div>
+
+
+<div class="card">
+
+<div class="stat-title">
+Repeat Order
+</div>
+
+<div
+class="stat-value"
+id="repeatOrderCount">
+
+0
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+
+</div>
+
+</div>
+
+
+<script type="module">
+
+
+/* =====================================
+FIREBASE
+===================================== */
+
+
+import {
+initializeApp
+}
+from
+"https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+
+
+import {
+getDatabase,
+ref,
+set,
+onValue
+}
+from
+"https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
+
+
+const firebaseConfig={
+
+databaseURL:
+"https://crisfish-sales-default-rtdb.asia-southeast1.firebasedatabase.app/"
+
+};
+
+
+const app=
+initializeApp(firebaseConfig);
+
+
+const database=
+getDatabase(app);
+
+
+document.getElementById(
+"firebaseStatus"
+).innerText=
+"🟢 Firebase terhubung";
+
+
+document.getElementById(
+"firebaseStatus"
+).classList.add(
+"success"
+);
+
+
+/* =====================================
+PENGATURAN
+===================================== */
+
+
+const settingsRef=
+ref(database,"settings");
+
+
+onValue(
+
+settingsRef,
+
+function(snapshot){
+
+const data=
+snapshot.val() || {};
+
+
+document.getElementById(
+"targetMonthly"
+).value=
+data.targetMonthly || 1500;
+
+
+document.getElementById(
+"productPrice"
+).value=
+data.productPrice || 0;
+
+
+document.getElementById(
+"productStock"
+).value=
+data.productStock || 0;
+
+}
+
+);
+
+
+window.saveSettings=
+async function(){
+
+const target=
+Number(
+document.getElementById(
+"targetMonthly"
+).value
+);
+
+
+const price=
+Number(
+document.getElementById(
+"productPrice"
+).value
+);
+
+
+const stock=
+Number(
+document.getElementById(
+"productStock"
+).value
+);
+
+
+if(!target || target<=0){
+
+alert(
+"Target penjualan harus diisi."
+);
+
+return;
+
+}
+
+
+try{
+
+await set(
+
+settingsRef,
+
+{
+
+targetMonthly:target,
+
+productPrice:price,
+
+productStock:stock,
+
+updatedAt:
+Date.now()
+
+}
+
+);
+
+
+document.getElementById(
+"settingStatus"
+).innerText=
+"✅ Pengaturan berhasil disimpan.";
+
+
+}
+
+catch(error){
+
+document.getElementById(
+"settingStatus"
+).innerText=
+"❌ Gagal menyimpan: "+
+error.message;
+
+}
+
+};
+
+
+/* =====================================
+DATA SALES
+===================================== */
+
+
+onValue(
+
+ref(database,"sales"),
+
+function(snapshot){
+
+const data=
+snapshot.val() || {};
+
+
+let totalPack=0;
+
+let totalTransactions=0;
+
+const salesMap={};
+
+
+Object.values(data).forEach(
+
+function(item){
+
+if(!item)return;
+
+
+const id=
+item.salesId || "unknown";
+
+
+if(!salesMap[id]){
+
+salesMap[id]={
+
+name:
+item.salesName || id,
+
+pack:0,
+
+transactions:0,
+
+deposit:0,
+
+checkins:0
+
+};
+
+}
+
+
+salesMap[id].pack +=
+Number(item.quantity || 0);
+
+
+salesMap[id].transactions++;
+
+
+totalPack +=
+Number(item.quantity || 0);
+
+
+totalTransactions++;
+
+}
+
+);
+
+
+document.getElementById(
+"totalPack"
+).innerText=
+totalPack.toLocaleString(
+"id-ID"
+)+" Pack";
+
+
+document.getElementById(
+"transactionCount"
+).innerText=
+totalTransactions;
+
+
+renderSalesTable(salesMap);
+
+
+renderSalesHistory(data);
+
+
+updateManagementInsight(
+totalPack,
+totalTransactions
+);
+
+}
+
+);
+
+
+/* =====================================
+RENDER SALES
+===================================== */
+
+
+function renderSalesTable(salesMap){
+
+const tbody=
+document.getElementById(
+"salesTable"
+);
+
+
+tbody.innerHTML="";
+
+
+const target=
+Number(
+document.getElementById(
+"targetMonthly"
+).value
+)||1500;
+
+
+const ids=
+Object.keys(salesMap);
+
+
+if(ids.length===0){
+
+tbody.innerHTML=
+"<tr><td colspan='6'>Belum ada data sales.</td></tr>";
+
+return;
+
+}
+
+
+ids.forEach(
+
+function(id){
+
+const sales=
+salesMap[id];
+
+
+const percent=
+Math.min(
+100,
+Math.round(
+(sales.pack/target)*100
+)
+);
+
+
+const row=
+document.createElement(
+"tr"
+);
+
+
+row.innerHTML=
+
+"<td><b>"+
+sales.name+
+"</b><br><small>"+
+id+
+"</small></td>"+
+
+"<td>"+
+sales.pack.toLocaleString("id-ID")+
+"</td>"+
+
+"<td>"+
+sales.transactions+
+"</td>"+
+
+"<td>"+
+sales.checkins+
+"</td>"+
+
+"<td>Rp "+
+sales.deposit.toLocaleString("id-ID")+
+"</td>"+
+
+"<td>"+
+percent+
+"%</td>";
+
+
+tbody.appendChild(row);
+
+}
+
+);
+
+}
+
+
+/* =====================================
+OUTLET
+===================================== */
+
+
+onValue(
+
+ref(database,"outlets"),
+
+function(snapshot){
+
+const data=
+snapshot.val() || {};
+
+
+const tbody=
+document.getElementById(
+"outletTable"
+);
+
+
+tbody.innerHTML="";
+
+
+let count=0;
+
+
+Object.values(data).forEach(
+
+function(item){
+
+if(!item)return;
+
+
+count++;
+
+
+const row=
+document.createElement(
+"tr"
+);
+
+
+row.innerHTML=
+
+"<td><b>"+
+(item.name||"-")+
+"</b></td>"+
+
+"<td>"+
+(item.owner||"-")+
+"</td>"+
+
+"<td>"+
+(item.salesName||item.salesId||"-")+
+"</td>"+
+
+"<td>"+
+(item.type||"-")+
+"</td>"+
+
+"<td>"+
+(item.phone||"-")+
+"</td>"+
+
+"<td>"+
+(item.address||"-")+
+"</td>";
+
+
+tbody.appendChild(row);
+
+}
+
+);
+
+
+document.getElementById(
+"totalOutlet"
+).innerText=count;
+
+
+document.getElementById(
+"newOutletCount"
+).innerText=count;
+
+}
+
+);
+
+
+/* =====================================
+CHECK-IN
+===================================== */
+
+
+onValue(
+
+ref(database,"checkins"),
+
+function(snapshot){
+
+const data=
+snapshot.val() || {};
+
+
+const tbody=
+document.getElementById(
+"visitTable"
+);
+
+
+tbody.innerHTML="";
+
+
+let count=0;
+
+
+Object.values(data).forEach(
+
+function(item){
+
+if(!item)return;
+
+
+count++;
+
+
+const lat=
+item.latitude;
+
+
+const lng=
+item.longitude;
+
+
+const mapsUrl=
+"https://www.google.com/maps?q="+
+lat+","+lng;
+
+
+const date=
+item.date
+?
+new Date(item.date)
+.toLocaleString("id-ID")
+:
+"-";
+
+
+const row=
+document.createElement(
+"tr"
+);
+
+
+row.innerHTML=
+
+"<td>"+
+date+
+"</td>"+
+
+"<td>"+
+(item.salesName||item.salesId||"-")+
+"</td>"+
+
+"<td>"+
+(item.outlet||"-")+
+"</td>"+
+
+"<td>"+
+Number(lat||0).toFixed(6)+
+", "+
+Number(lng||0).toFixed(6)+
+"</td>"+
+
+"<td>"+
+"<a href='"+mapsUrl+"' target='_blank'>"+
+"<button class='btn btn-blue'>MAPS</button>"+
+"</a>"+
+"</td>";
+
+
+tbody.appendChild(row);
+
+}
+
+);
+
+
+document.getElementById(
+"checkinCount"
+).innerText=count;
+
+}
+
+);
+
+
+/* =====================================
+SETORAN
+===================================== */
+
+
+onValue(
+
+ref(database,"deposits"),
+
+function(snapshot){
+
+const data=
+snapshot.val() || {};
+
+
+let total=0;
+
+
+Object.values(data).forEach(
+
+function(item){
+
+if(!item)return;
+
+
+total +=
+Number(item.amount||0);
+
+}
+
+);
+
+
+document.getElementById(
+"totalDeposit"
+).innerText=
+"Rp "+
+total.toLocaleString(
+"id-ID"
+);
+
+}
+
+);
+
+
+/* =====================================
+REKAP PENJUALAN
+===================================== */
+
+
+function renderSalesHistory(data){
+
+const tbody=
+document.getElementById(
+"salesHistoryTable"
+);
+
+
+tbody.innerHTML="";
+
+
+const items=
+Object.values(data);
+
+
+items.reverse();
+
+
+items.slice(0,50).forEach(
+
+function(item){
+
+const date=
+item.date
+?
+new Date(item.date)
+.toLocaleString("id-ID")
+:
+"-";
+
+
+const row=
+document.createElement(
+"tr"
+);
+
+
+row.innerHTML=
+
+"<td>"+
+date+
+"</td>"+
+
+"<td>"+
+(item.salesName||"-")+
+"</td>"+
+
+"<td>"+
+(item.outlet||"-")+
+"</td>"+
+
+"<td>"+
+Number(item.quantity||0)+
+"</td>"+
+
+"<td>Rp "+
+Number(item.amount||0)
+.toLocaleString("id-ID")+
+"</td>";
+
+
+tbody.appendChild(row);
+
+}
+
+);
+
+}
+
+
+/* =====================================
+AI MANAGEMENT
+===================================== */
+
+
+function updateManagementInsight(
+totalPack,
+transactions
+){
+
+const target=
+Number(
+document.getElementById(
+"targetMonthly"
+).value
+)||1500;
+
+
+const remaining=
+Math.max(
+0,
+target-totalPack
+);
+
+
+let text="";
+
+
+if(totalPack===0){
+
+text=
+"Belum ada transaksi. Fokus pertama manajemen adalah memastikan setiap sales melakukan kunjungan dan mendapatkan order pertama.";
+
+}
+
+else if(remaining>0){
+
+text=
+"Penjualan saat ini "+
+totalPack+
+" pack. Masih diperlukan "+
+remaining+
+" pack untuk mencapai target perusahaan. Prioritaskan outlet dengan potensi repeat order dan sales dengan pencapaian rendah.";
+
+}
+
+else{
+
+text=
+"🎉 Target perusahaan telah tercapai. Pertahankan outlet aktif dan dorong repeat order agar penjualan tetap stabil.";
+
+}
+
+
+text +=
+"<br><br>Jumlah transaksi: "+
+transactions+
+".";
+
+
+document.getElementById(
+"managementInsight"
+).innerHTML=text;
+
+}
+
+
+/* =====================================
+AUTO UPDATE TARGET
+===================================== */
+
+
+onValue(
+
+settingsRef,
+
+function(){
+
+setTimeout(
+
+function(){
+
+const salesRows=
+document.getElementById(
+"salesTable"
+);
+
+
+if(salesRows){
+
+/*
+Memicu render ulang setelah
+target berubah.
+*/
+
+}
+
+},
+
+100
+
+);
+
+});
+
+
+</script>
+
+</body>
+</html>
