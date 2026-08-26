@@ -20,7 +20,7 @@ color:#17202a;
 }
 
 .app{
-max-width:1250px;
+max-width:1200px;
 margin:auto;
 min-height:100vh;
 }
@@ -29,6 +29,7 @@ min-height:100vh;
 background:#111827;
 color:white;
 padding:22px;
+border-radius:0 0 18px 18px;
 }
 
 .logo{
@@ -62,8 +63,8 @@ color:#dc2626;
 .grid{
 display:grid;
 grid-template-columns:repeat(4,1fr);
-gap:14px;
-margin-bottom:18px;
+gap:15px;
+margin-bottom:20px;
 }
 
 .card{
@@ -71,6 +72,7 @@ background:white;
 border-radius:16px;
 padding:18px;
 box-shadow:0 3px 12px rgba(0,0,0,.07);
+margin-bottom:18px;
 }
 
 .stat-title{
@@ -84,21 +86,10 @@ font-weight:bold;
 margin-top:7px;
 }
 
-.green{
-color:#16a34a;
-}
-
-.blue{
-color:#2563eb;
-}
-
-.orange{
-color:#ea580c;
-}
-
-.red{
-color:#dc2626;
-}
+.green{color:#16a34a}
+.blue{color:#2563eb}
+.orange{color:#ea580c}
+.red{color:#dc2626}
 
 .section-title{
 font-size:20px;
@@ -115,6 +106,7 @@ gap:12px;
 label{
 font-size:13px;
 font-weight:bold;
+display:block;
 }
 
 input,
@@ -123,7 +115,7 @@ textarea{
 width:100%;
 padding:12px;
 margin-top:6px;
-margin-bottom:10px;
+margin-bottom:12px;
 border:1px solid #ddd;
 border-radius:10px;
 font-size:15px;
@@ -136,11 +128,12 @@ min-height:80px;
 .btn{
 border:0;
 border-radius:10px;
-padding:12px 15px;
+padding:12px 16px;
 background:#16a34a;
 color:white;
 font-weight:bold;
 cursor:pointer;
+margin:3px;
 }
 
 .btn-blue{
@@ -159,17 +152,6 @@ background:#dc2626;
 background:#ea580c;
 }
 
-.btn-gray{
-background:#e5e7eb;
-color:#111827;
-}
-
-.button-row{
-display:flex;
-gap:8px;
-flex-wrap:wrap;
-}
-
 .table-wrap{
 overflow-x:auto;
 }
@@ -179,13 +161,12 @@ width:100%;
 border-collapse:collapse;
 }
 
-th,
-td{
+th,td{
 padding:11px;
 border-bottom:1px solid #eee;
 text-align:left;
 font-size:13px;
-vertical-align:top;
+white-space:nowrap;
 }
 
 th{
@@ -206,29 +187,17 @@ background:#fee2e2;
 color:#991b1b;
 }
 
-.badge-yellow{
-background:#fef3c7;
-color:#92400e;
+.badge-orange{
+background:#ffedd5;
+color:#c2410c;
 }
 
-.badge-blue{
-background:#dbeafe;
-color:#1d4ed8;
-}
-
-.kpi-box{
-padding:12px;
+.alert{
+padding:13px;
 border-radius:12px;
-background:#f9fafb;
-margin-top:8px;
-}
-
-.alert-box{
-padding:15px;
-border-radius:12px;
+margin-bottom:8px;
 background:#fff7ed;
 border:1px solid #fed7aa;
-line-height:1.6;
 }
 
 .ai-box{
@@ -239,35 +208,21 @@ border-radius:14px;
 line-height:1.6;
 }
 
-.progress{
-height:10px;
-background:#e5e7eb;
-border-radius:10px;
-overflow:hidden;
-margin-top:7px;
-}
-
-.progress-bar{
-height:100%;
-background:#16a34a;
-width:0%;
-}
-
 .modal{
 display:none;
 position:fixed;
 inset:0;
-background:rgba(0,0,0,.6);
+background:rgba(0,0,0,.55);
 z-index:1000;
-padding:15px;
 align-items:center;
 justify-content:center;
+padding:15px;
 }
 
 .modal-box{
 background:white;
 width:100%;
-max-width:650px;
+max-width:600px;
 max-height:92vh;
 overflow:auto;
 border-radius:18px;
@@ -280,54 +235,60 @@ font-weight:bold;
 margin-bottom:18px;
 }
 
-.small{
-font-size:12px;
-color:#666;
-}
-
-.map-link{
-color:#2563eb;
+.close{
+float:right;
+border:0;
+background:#eee;
+border-radius:50%;
+width:32px;
+height:32px;
+cursor:pointer;
 font-weight:bold;
-text-decoration:none;
 }
 
-@media(max-width:900px){
+.kpi-green{
+color:#16a34a;
+font-weight:bold;
+}
+
+.kpi-yellow{
+color:#ca8a04;
+font-weight:bold;
+}
+
+.kpi-red{
+color:#dc2626;
+font-weight:bold;
+}
+
+@media(max-width:800px){
 
 .grid{
 grid-template-columns:repeat(2,1fr);
 }
 
 .form-grid{
-grid-template-columns:1fr 1fr;
+grid-template-columns:1fr;
 }
 
 }
 
-@media(max-width:600px){
+@media(max-width:500px){
 
 .container{
 padding:10px;
 }
 
 .grid{
-grid-template-columns:1fr 1fr;
-gap:9px;
-}
-
-.form-grid{
-grid-template-columns:1fr;
+gap:8px;
 }
 
 .stat-value{
 font-size:21px;
 }
 
-.section-title{
-font-size:18px;
-}
-
-th,td{
-font-size:12px;
+.card{
+padding:14px;
 }
 
 }
@@ -345,7 +306,7 @@ CRISFISH SALES
 </div>
 
 <div class="subtitle">
-OWNER / SPV DASHBOARD • MANAGEMENT SYSTEM
+OWNER / SPV DASHBOARD
 </div>
 
 <div
@@ -356,13 +317,9 @@ Menghubungkan Firebase...
 
 </div>
 
-
 <div class="container">
 
-
-<!-- =========================
-RINGKASAN UTAMA
-========================= -->
+<!-- RINGKASAN -->
 
 <div class="grid">
 
@@ -378,243 +335,18 @@ RINGKASAN UTAMA
 
 <div class="card">
 <div class="stat-title">Omzet</div>
-<div class="stat-value green" id="totalOmzet">Rp 0</div>
+<div class="stat-value orange" id="totalOmzet">Rp 0</div>
 </div>
 
 <div class="card">
-<div class="stat-title">Outlet</div>
-<div class="stat-value orange" id="totalOutlet">0</div>
+<div class="stat-title">Setoran</div>
+<div class="stat-value" id="totalDeposit">Rp 0</div>
 </div>
 
 </div>
 
 
-<div class="grid">
-
-<div class="card">
-<div class="stat-title">Total Check-in</div>
-<div class="stat-value blue" id="totalCheckin">0</div>
-</div>
-
-<div class="card">
-<div class="stat-title">Total Setoran</div>
-<div class="stat-value green" id="totalDeposit">Rp 0</div>
-</div>
-
-<div class="card">
-<div class="stat-title">Estimasi Komisi</div>
-<div class="stat-value orange" id="totalCommission">Rp 0</div>
-</div>
-
-<div class="card">
-<div class="stat-title">Estimasi Margin</div>
-<div class="stat-value green" id="totalMargin">Rp 0</div>
-</div>
-
-</div>
-
-
-<!-- =========================
-PENGATURAN TARGET
-========================= -->
-
-<div class="card">
-
-<div class="section-title">
-⚙️ Target & Pengaturan Penggajian
-</div>
-
-<div class="form-grid">
-
-<div>
-<label>Target Pack / Bulan</label>
-<input id="targetMonthly" type="number">
-</div>
-
-<div>
-<label>Hari Kerja</label>
-<input id="workingDays" type="number">
-</div>
-
-<div>
-<label>Target Outlet / Hari</label>
-<input id="targetOutletDaily" type="number">
-</div>
-
-<div>
-<label>Harga Jual / Pack</label>
-<input id="productPrice" type="number">
-</div>
-
-<div>
-<label>HPP / Pack</label>
-<input id="productHpp" type="number">
-</div>
-
-<div>
-<label>Isi Sachet / Pack</label>
-<input id="sachetPerPack" type="number">
-</div>
-
-<div>
-<label>Harga Eceran / Sachet</label>
-<input id="retailPrice" type="number">
-</div>
-
-<div>
-<label>Keuntungan Warung / Pack</label>
-<input id="outletProfit" type="number">
-</div>
-
-<div>
-<label>Gaji Pokok</label>
-<input id="baseSalary" type="number">
-</div>
-
-<div>
-<label>Operasional / Bulan</label>
-<input id="operationalAllowance" type="number">
-</div>
-
-<div>
-<label>Komisi / Pack</label>
-<input id="commissionPerPack" type="number">
-</div>
-
-<div>
-<label>Bonus Target</label>
-<input id="targetBonus" type="number">
-</div>
-
-</div>
-
-<div class="button-row">
-
-<button class="btn" onclick="saveSettings()">
-💾 SIMPAN PENGATURAN
-</button>
-
-</div>
-
-<div
-class="status"
-id="settingStatus">
-</div>
-
-</div>
-
-
-<!-- =========================
-MANAJEMEN SALES
-========================= -->
-
-<div class="card">
-
-<div class="section-title">
-👥 Manajemen Sales
-</div>
-
-<div class="button-row">
-
-<button
-class="btn"
-onclick="openSalesModal()">
-➕ TAMBAH SALES
-</button>
-
-<button
-class="btn-blue btn"
-onclick="printReport()">
-🖨️ CETAK LAPORAN
-</button>
-
-</div>
-
-<br>
-
-<div class="table-wrap">
-
-<table>
-
-<thead>
-
-<tr>
-<th>Sales</th>
-<th>Kontak</th>
-<th>Wilayah</th>
-<th>Status</th>
-<th>Target</th>
-<th>Akses</th>
-<th>Aksi</th>
-</tr>
-
-</thead>
-
-<tbody id="salesUsersTable">
-
-<tr>
-<td colspan="7">Memuat data...</td>
-</tr>
-
-</tbody>
-
-</table>
-
-</div>
-
-</div>
-
-
-<!-- =========================
-KINERJA SALES
-========================= -->
-
-<div class="card">
-
-<div class="section-title">
-🏆 Kinerja & Pendapatan Sales
-</div>
-
-<div class="table-wrap">
-
-<table>
-
-<thead>
-
-<tr>
-
-<th>Rank</th>
-<th>Sales</th>
-<th>Target</th>
-<th>Pack</th>
-<th>Achievement</th>
-<th>Omzet</th>
-<th>Komisi</th>
-<th>Bonus</th>
-<th>Pendapatan</th>
-
-</tr>
-
-</thead>
-
-<tbody id="performanceTable">
-
-<tr>
-<td colspan="9">Mengambil data...</td>
-</tr>
-
-</tbody>
-
-</table>
-
-</div>
-
-</div>
-
-
-<!-- =========================
-ALERT
-========================= -->
+<!-- ALERT -->
 
 <div class="card">
 
@@ -622,97 +354,54 @@ ALERT
 ⚠️ Alert Owner
 </div>
 
-<div
-class="alert-box"
-id="ownerAlerts">
-
+<div id="alertList">
 Menganalisis kondisi sales...
-
 </div>
 
 </div>
 
 
-<!-- =========================
-LEADERBOARD
-========================= -->
+<!-- MANAJEMEN SALES -->
 
 <div class="card">
 
 <div class="section-title">
-🥇 Leaderboard Sales
+👥 Manajemen Sales
 </div>
 
-<div class="form-grid">
+<button
+class="btn"
+onclick="openSalesModal()">
 
-<div>
+➕ TAMBAH SALES
 
-<label>Ranking berdasarkan</label>
-
-<select id="rankingMode"
-onchange="renderPerformance()">
-
-<option value="pack">
-Jumlah Pack
-</option>
-
-<option value="achievement">
-Achievement
-</option>
-
-<option value="omzet">
-Omzet
-</option>
-
-<option value="commission">
-Komisi
-</option>
-
-</select>
-
-</div>
-
-</div>
+</button>
 
 <div
-id="leaderboard"
+class="table-wrap"
 style="margin-top:15px;">
-</div>
-
-</div>
-
-
-<!-- =========================
-OUTLET
-========================= -->
-
-<div class="card">
-
-<div class="section-title">
-🏪 Database Outlet
-</div>
-
-<div class="table-wrap">
 
 <table>
 
 <thead>
 
 <tr>
-<th>Outlet</th>
-<th>Pemilik</th>
-<th>Sales</th>
-<th>Tipe</th>
-<th>WhatsApp</th>
-<th>Alamat</th>
+<th>Nama</th>
+<th>Kode</th>
+<th>Wilayah</th>
+<th>Target</th>
+<th>Status</th>
+<th>Aksi</th>
 </tr>
 
 </thead>
 
-<tbody id="outletTable">
+<tbody id="salesManagementTable">
 
 <tr>
-<td colspan="6">Mengambil data...</td>
+<td colspan="6">
+Belum ada sales.
+</td>
 </tr>
 
 </tbody>
@@ -724,9 +413,156 @@ OUTLET
 </div>
 
 
-<!-- =========================
-PENJUALAN
-========================= -->
+<!-- PENGATURAN -->
+
+<div class="card">
+
+<div class="section-title">
+⚙️ Target & Penggajian
+</div>
+
+<div class="form-grid">
+
+<div>
+<label>Target Bulanan</label>
+<input
+id="targetMonthly"
+type="number">
+</div>
+
+<div>
+<label>Hari Kerja</label>
+<input
+id="workingDays"
+type="number">
+</div>
+
+<div>
+<label>Harga Jual / Pack</label>
+<input
+id="productPrice"
+type="number">
+</div>
+
+<div>
+<label>HPP / Pack</label>
+<input
+id="productHpp"
+type="number">
+</div>
+
+<div>
+<label>Komisi / Pack</label>
+<input
+id="commissionPerPack"
+type="number">
+</div>
+
+<div>
+<label>Gaji Pokok</label>
+<input
+id="baseSalary"
+type="number">
+</div>
+
+<div>
+<label>Operasional</label>
+<input
+id="operationalAllowance"
+type="number">
+</div>
+
+<div>
+<label>Bonus Target</label>
+<input
+id="targetBonus"
+type="number">
+</div>
+
+<div>
+<label>Target Outlet / Hari</label>
+<input
+id="outletTarget"
+type="number">
+</div>
+
+</div>
+
+<button
+class="btn"
+onclick="saveSettings()">
+
+💾 SIMPAN PENGATURAN
+
+</button>
+
+<div
+id="settingStatus"
+class="status">
+</div>
+
+</div>
+
+
+<!-- KPI -->
+
+<div class="card">
+
+<div class="section-title">
+📊 KPI & Pendapatan Sales
+</div>
+
+<div class="table-wrap">
+
+<table>
+
+<thead>
+
+<tr>
+<th>Sales</th>
+<th>Target</th>
+<th>Pack</th>
+<th>Achievement</th>
+<th>Omzet</th>
+<th>Komisi</th>
+<th>Pendapatan</th>
+</tr>
+
+</thead>
+
+<tbody id="kpiTable">
+
+<tr>
+<td colspan="7">
+Mengambil data...
+</td>
+</tr>
+
+</tbody>
+
+</table>
+
+</div>
+
+</div>
+
+
+<!-- LEADERBOARD -->
+
+<div class="card">
+
+<div class="section-title">
+🏆 Leaderboard Sales
+</div>
+
+<div id="leaderboard">
+Belum ada data.
+</div>
+
+</div>
+
+
+<!-- PENJUALAN -->
 
 <div class="card">
 
@@ -754,7 +590,9 @@ PENJUALAN
 <tbody id="salesHistoryTable">
 
 <tr>
-<td colspan="6">Mengambil data...</td>
+<td colspan="6">
+Mengambil data...
+</td>
 </tr>
 
 </tbody>
@@ -766,14 +604,135 @@ PENJUALAN
 </div>
 
 
-<!-- =========================
-KUNJUNGAN
-========================= -->
+<!-- SETORAN -->
 
 <div class="card">
 
 <div class="section-title">
-📍 Rekap Kunjungan Sales
+💰 Rekap Setoran
+</div>
+
+<div class="table-wrap">
+
+<table>
+
+<thead>
+
+<tr>
+<th>Tanggal</th>
+<th>Sales</th>
+<th>Jumlah</th>
+<th>Keterangan</th>
+</tr>
+
+</thead>
+
+<tbody id="depositTable">
+
+<tr>
+<td colspan="4">
+Mengambil data...
+</td>
+</tr>
+
+</tbody>
+
+</table>
+
+</div>
+
+</div>
+
+
+<!-- STOK -->
+
+<div class="card">
+
+<div class="section-title">
+📦 Monitoring Stok Sales
+</div>
+
+<div class="table-wrap">
+
+<table>
+
+<thead>
+
+<tr>
+<th>Sales</th>
+<th>Stok Awal</th>
+<th>Diterima</th>
+<th>Terjual</th>
+<th>Retur</th>
+<th>Stok Akhir</th>
+</tr>
+
+</thead>
+
+<tbody id="stockTable">
+
+<tr>
+<td colspan="6">
+Mengambil data...
+</td>
+</tr>
+
+</tbody>
+
+</table>
+
+</div>
+
+</div>
+
+
+<!-- OUTLET -->
+
+<div class="card">
+
+<div class="section-title">
+🏪 Database Outlet
+</div>
+
+<div class="table-wrap">
+
+<table>
+
+<thead>
+
+<tr>
+<th>Outlet</th>
+<th>Sales</th>
+<th>Tipe</th>
+<th>WhatsApp</th>
+<th>Alamat</th>
+</tr>
+
+</thead>
+
+<tbody id="outletTable">
+
+<tr>
+<td colspan="5">
+Mengambil data...
+</td>
+</tr>
+
+</tbody>
+
+</table>
+
+</div>
+
+</div>
+
+
+<!-- KUNJUNGAN -->
+
+<div class="card">
+
+<div class="section-title">
+📍 Rekap Kunjungan
 </div>
 
 <div class="table-wrap">
@@ -795,51 +754,8 @@ KUNJUNGAN
 <tbody id="visitTable">
 
 <tr>
-<td colspan="5">Mengambil data...</td>
-</tr>
-
-</tbody>
-
-</table>
-
-</div>
-
-</div>
-
-
-<!-- =========================
-STOK
-========================= -->
-
-<div class="card">
-
-<div class="section-title">
-📦 Monitoring Stok
-</div>
-
-<div class="table-wrap">
-
-<table>
-
-<thead>
-
-<tr>
-<th>Sales</th>
-<th>Stok Awal</th>
-<th>Diterima</th>
-<th>Terjual</th>
-<th>Retur</th>
-<th>Stok Akhir</th>
-<th>Status</th>
-</tr>
-
-</thead>
-
-<tbody id="stockTable">
-
-<tr>
-<td colspan="7">
-Data stok akan muncul setelah modul stok digunakan.
+<td colspan="5">
+Mengambil data...
 </td>
 </tr>
 
@@ -852,68 +768,86 @@ Data stok akan muncul setelah modul stok digunakan.
 </div>
 
 
-<!-- =========================
-AI MANAGEMENT
-========================= -->
+<!-- LABA -->
 
 <div class="card">
 
 <div class="section-title">
-🤖 AI Management Insight
+💹 Analisis Kontribusi Sales
+</div>
+
+<div class="table-wrap">
+
+<table>
+
+<thead>
+
+<tr>
+<th>Sales</th>
+<th>Omzet</th>
+<th>HPP</th>
+<th>Margin Kotor</th>
+<th>Biaya Sales</th>
+<th>Kontribusi</th>
+</tr>
+
+</thead>
+
+<tbody id="profitTable">
+
+<tr>
+<td colspan="6">
+Mengambil data...
+</td>
+</tr>
+
+</tbody>
+
+</table>
+
+</div>
+
+</div>
+
+
+<!-- AI -->
+
+<div class="card">
+
+<div class="section-title">
+🤖 AI Sales Coach — Management Insight
 </div>
 
 <div
 class="ai-box"
 id="managementInsight">
 
-Menganalisis data...
+Menganalisis performa perusahaan...
 
 </div>
 
 </div>
 
 
-<!-- =========================
-RINGKASAN KEUANGAN
-========================= -->
+<!-- LAPORAN -->
 
 <div class="card">
 
 <div class="section-title">
-💰 Analisis Kontribusi Sales
+🖨️ Laporan
 </div>
 
-<div class="grid">
+<p style="font-size:13px;color:#666;margin-bottom:12px;">
+Gunakan tombol berikut untuk mencetak laporan dashboard.
+</p>
 
-<div class="card">
-<div class="stat-title">Margin Kotor</div>
-<div class="stat-value green" id="grossMargin">
-Rp 0
-</div>
-</div>
+<button
+class="btn btn-blue"
+onclick="printReport()">
 
-<div class="card">
-<div class="stat-title">Biaya Sales</div>
-<div class="stat-value orange" id="salesCost">
-Rp 0
-</div>
-</div>
+🖨️ CETAK / SIMPAN PDF
 
-<div class="card">
-<div class="stat-title">Kontribusi Sales</div>
-<div class="stat-value green" id="salesContribution">
-Rp 0
-</div>
-</div>
-
-<div class="card">
-<div class="stat-title">Target Perusahaan</div>
-<div class="stat-value blue" id="companyTarget">
-0 Pack
-</div>
-</div>
-
-</div>
+</button>
 
 </div>
 
@@ -922,9 +856,7 @@ Rp 0
 </div>
 
 
-<!-- =========================
-MODAL SALES
-========================= -->
+<!-- MODAL SALES -->
 
 <div
 class="modal"
@@ -932,68 +864,92 @@ id="salesModal">
 
 <div class="modal-box">
 
+<button
+class="close"
+onclick="closeSalesModal()">
+×
+</button>
+
 <div class="modal-title">
-👤 Tambah / Edit Sales
+👤 Data Sales
 </div>
 
-<input type="hidden" id="editingSalesId">
+<input
+type="hidden"
+id="editingSalesId">
 
 <label>Nama Sales</label>
-<input id="salesNameInput" type="text">
+<input
+id="salesNameInput"
+placeholder="Nama sales">
 
 <label>Nomor HP</label>
-<input id="salesPhoneInput" type="tel">
+<input
+id="salesPhoneInput"
+placeholder="08xxxxxxxxxx">
 
 <label>Wilayah Kerja</label>
-<input id="salesAreaInput" type="text">
+<input
+id="salesRegionInput"
+placeholder="Wilayah">
 
 <label>Kode Sales</label>
-<input id="salesCodeInput" type="text">
+<input
+id="salesCodeInput"
+placeholder="Contoh: S001">
 
 <label>Password / Kode Akses</label>
-<input id="salesPasswordInput" type="text">
+<input
+id="salesPasswordInput"
+type="text"
+placeholder="Kode login">
 
 <label>Tanggal Mulai Kerja</label>
-<input id="salesStartDateInput" type="date">
+<input
+id="salesStartDateInput"
+type="date">
 
-<label>Target Individual</label>
-<input id="salesTargetInput" type="number">
+<label>Target Sales</label>
+<input
+id="salesTargetInput"
+type="number"
+placeholder="Target pack">
 
 <label>Status</label>
 
 <select id="salesStatusInput">
 
 <option value="aktif">
-AKTIF
+Aktif
 </option>
 
 <option value="nonaktif">
-NONAKTIF
+Nonaktif
 </option>
 
 <option value="keluar">
-KELUAR KERJA
+Keluar Kerja
 </option>
 
 </select>
 
 <br>
 
-<div class="button-row">
-
 <button
 class="btn"
-onclick="saveSalesUser()">
-💾 SIMPAN
+onclick="saveSales()">
+
+💾 SIMPAN SALES
+
 </button>
 
 <button
-class="btn-gray btn"
-onclick="closeModal('salesModal')">
-BATAL
-</button>
+class="btn btn-dark"
+onclick="closeSalesModal()">
 
-</div>
+BATAL
+
+</button>
 
 </div>
 
@@ -1013,16 +969,12 @@ getDatabase,
 ref,
 set,
 push,
-onValue
+onValue,
+update
 }
 from
 "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
 
-
-/* =====================================
-FIREBASE LAMA
-TIDAK DIUBAH
-===================================== */
 
 const firebaseConfig={
 
@@ -1031,17 +983,16 @@ databaseURL:
 
 };
 
-const app=
-initializeApp(firebaseConfig);
+const app=initializeApp(firebaseConfig);
 
-const database=
-getDatabase(app);
+const database=getDatabase(app);
 
 
 document.getElementById(
 "firebaseStatus"
 ).innerText=
 "🟢 Firebase terhubung";
+
 
 document.getElementById(
 "firebaseStatus"
@@ -1050,304 +1001,186 @@ document.getElementById(
 );
 
 
-/* =====================================
-STATE
-===================================== */
-
-let settings={
-
-targetMonthly:1500,
-
-workingDays:26,
-
-targetOutletDaily:30,
-
-productPrice:34000,
-
-productHpp:22908,
-
-sachetPerPack:20,
-
-retailPrice:2000,
-
-outletProfit:6000,
-
-baseSalary:2000000,
-
-operationalAllowance:750000,
-
-commissionPerPack:1000,
-
-targetBonus:500000
-
-};
-
-let salesUsers={};
-let salesTransactions={};
-let outletsData={};
-let checkinsData={};
-let depositsData={};
-
-
-/* =====================================
-FORMAT
-===================================== */
-
-function rupiah(number){
-
-return "Rp "+
-Number(number||0).toLocaleString("id-ID");
-
-}
-
-
-/* =====================================
+/* =========================
 SETTINGS
-===================================== */
+========================= */
 
 const settingsRef=
 ref(database,"settings");
 
 
+const DEFAULT_SETTINGS={
+
+targetMonthly:1500,
+
+workingDays:26,
+
+productPrice:34000,
+
+productHpp:22908,
+
+commissionPerPack:1000,
+
+baseSalary:2000000,
+
+operationalAllowance:750000,
+
+targetBonus:500000,
+
+outletTarget:30
+
+};
+
+
+let settings=
+{...DEFAULT_SETTINGS};
+
+
 onValue(
-
 settingsRef,
-
 snapshot=>{
 
 const data=
 snapshot.val()||{};
 
 settings={
-
-...settings,
-
+...DEFAULT_SETTINGS,
 ...data
-
 };
 
-loadSettingsForm();
+document.getElementById(
+"targetMonthly"
+).value=settings.targetMonthly;
 
-renderPerformance();
+document.getElementById(
+"workingDays"
+).value=settings.workingDays;
 
-}
+document.getElementById(
+"productPrice"
+).value=settings.productPrice;
 
-);
+document.getElementById(
+"productHpp"
+).value=settings.productHpp;
 
+document.getElementById(
+"commissionPerPack"
+).value=settings.commissionPerPack;
 
-function loadSettingsForm(){
+document.getElementById(
+"baseSalary"
+).value=settings.baseSalary;
 
-document.getElementById("targetMonthly").value=
-settings.targetMonthly;
+document.getElementById(
+"operationalAllowance"
+).value=settings.operationalAllowance;
 
-document.getElementById("workingDays").value=
-settings.workingDays;
+document.getElementById(
+"targetBonus"
+).value=settings.targetBonus;
 
-document.getElementById("targetOutletDaily").value=
-settings.targetOutletDaily;
+document.getElementById(
+"outletTarget"
+).value=settings.outletTarget;
 
-document.getElementById("productPrice").value=
-settings.productPrice;
+renderAll();
 
-document.getElementById("productHpp").value=
-settings.productHpp;
-
-document.getElementById("sachetPerPack").value=
-settings.sachetPerPack;
-
-document.getElementById("retailPrice").value=
-settings.retailPrice;
-
-document.getElementById("outletProfit").value=
-settings.outletProfit;
-
-document.getElementById("baseSalary").value=
-settings.baseSalary;
-
-document.getElementById("operationalAllowance").value=
-settings.operationalAllowance;
-
-document.getElementById("commissionPerPack").value=
-settings.commissionPerPack;
-
-document.getElementById("targetBonus").value=
-settings.targetBonus;
-
-}
+});
 
 
-window.saveSettings=
-async function(){
+window.saveSettings=async function(){
 
-const newSettings={
+settings={
 
 targetMonthly:Number(
-document.getElementById("targetMonthly").value
+document.getElementById(
+"targetMonthly"
+).value
 ),
 
 workingDays:Number(
-document.getElementById("workingDays").value
-),
-
-targetOutletDaily:Number(
-document.getElementById("targetOutletDaily").value
+document.getElementById(
+"workingDays"
+).value
 ),
 
 productPrice:Number(
-document.getElementById("productPrice").value
+document.getElementById(
+"productPrice"
+).value
 ),
 
 productHpp:Number(
-document.getElementById("productHpp").value
-),
-
-sachetPerPack:Number(
-document.getElementById("sachetPerPack").value
-),
-
-retailPrice:Number(
-document.getElementById("retailPrice").value
-),
-
-outletProfit:Number(
-document.getElementById("outletProfit").value
-),
-
-baseSalary:Number(
-document.getElementById("baseSalary").value
-),
-
-operationalAllowance:Number(
-document.getElementById("operationalAllowance").value
+document.getElementById(
+"productHpp"
+).value
 ),
 
 commissionPerPack:Number(
-document.getElementById("commissionPerPack").value
+document.getElementById(
+"commissionPerPack"
+).value
+),
+
+baseSalary:Number(
+document.getElementById(
+"baseSalary"
+).value
+),
+
+operationalAllowance:Number(
+document.getElementById(
+"operationalAllowance"
+).value
 ),
 
 targetBonus:Number(
-document.getElementById("targetBonus").value
+document.getElementById(
+"targetBonus"
+).value
+),
+
+outletTarget:Number(
+document.getElementById(
+"outletTarget"
+).value
 ),
 
 updatedAt:Date.now()
 
 };
 
-
-const oldSettings={...settings};
-
-
-try{
-
 await set(
 settingsRef,
-newSettings
+settings
 );
-
-
-await addAuditLog(
-"PENGATURAN",
-oldSettings,
-newSettings
-);
-
 
 document.getElementById(
 "settingStatus"
 ).innerText=
 "✅ Pengaturan berhasil disimpan.";
 
-}
-
-catch(error){
-
-document.getElementById(
-"settingStatus"
-).innerText=
-"❌ "+
-error.message;
-
-}
+renderAll();
 
 };
 
 
-/* =====================================
-AUDIT LOG
-===================================== */
+/* =========================
+SALES MANAGEMENT
+========================= */
 
-async function addAuditLog(
-action,
-oldValue,
-newValue
-){
+window.openSalesModal=function(id=null){
 
-try{
-
-const logRef=
-push(
-ref(database,"auditLogs")
-);
-
-await set(
-logRef,
-{
-
-action:action,
-
-oldValue:oldValue,
-
-newValue:newValue,
-
-performedBy:"OWNER",
-
-createdAt:Date.now()
-
-}
-
-);
-
-}
-catch(error){
-
-console.error(
-"Audit log error",
-error
-);
-
-}
-
-}
-
-
-/* =====================================
-SALES USER
-===================================== */
-
-onValue(
-
-ref(database,"salesUsers"),
-
-snapshot=>{
-
-salesUsers=
-snapshot.val()||{};
-
-renderSalesUsers();
-
-renderPerformance();
-
-}
-
-);
-
-
-window.openSalesModal=
-function(){
+document.getElementById(
+"salesModal"
+).style.display="flex";
 
 document.getElementById(
 "editingSalesId"
-).value="";
+).value=id||"";
+
+if(!id){
 
 document.getElementById(
 "salesNameInput"
@@ -1358,7 +1191,7 @@ document.getElementById(
 ).value="";
 
 document.getElementById(
-"salesAreaInput"
+"salesRegionInput"
 ).value="";
 
 document.getElementById(
@@ -1375,87 +1208,76 @@ document.getElementById(
 
 document.getElementById(
 "salesTargetInput"
-).value=
-settings.targetMonthly;
+).value=settings.targetMonthly;
 
 document.getElementById(
 "salesStatusInput"
 ).value="aktif";
 
-document.getElementById(
-"salesModal"
-).style.display="flex";
+return;
 
-};
+}
 
+onValue(
+ref(database,"salesUsers/"+id),
+snapshot=>{
 
-window.editSales=
-function(id){
-
-const data=
-salesUsers[id];
-
-if(!data)return;
-
-document.getElementById(
-"editingSalesId"
-).value=id;
+const d=snapshot.val()||{};
 
 document.getElementById(
 "salesNameInput"
-).value=
-data.name||"";
+).value=d.name||"";
 
 document.getElementById(
 "salesPhoneInput"
-).value=
-data.phone||"";
+).value=d.phone||"";
 
 document.getElementById(
-"salesAreaInput"
-).value=
-data.area||"";
+"salesRegionInput"
+).value=d.region||"";
 
 document.getElementById(
 "salesCodeInput"
-).value=
-data.salesCode||id;
+).value=d.code||"";
 
 document.getElementById(
 "salesPasswordInput"
-).value=
-data.accessCode||"";
+).value=d.password||"";
 
 document.getElementById(
 "salesStartDateInput"
-).value=
-data.startDate||"";
+).value=d.startDate||"";
 
 document.getElementById(
 "salesTargetInput"
-).value=
-data.target||settings.targetMonthly;
+).value=d.target||settings.targetMonthly;
 
 document.getElementById(
 "salesStatusInput"
-).value=
-data.status||"aktif";
+).value=d.status||"aktif";
 
-document.getElementById(
-"salesModal"
-).style.display="flex";
+},
+{once:true}
+);
 
 };
 
 
-window.saveSalesUser=
-async function(){
+window.closeSalesModal=function(){
 
-const existingId=
+document.getElementById(
+"salesModal"
+).style.display="none";
+
+};
+
+
+window.saveSales=async function(){
+
+const id=
 document.getElementById(
 "editingSalesId"
 ).value;
-
 
 const name=
 document.getElementById(
@@ -1467,17 +1289,17 @@ document.getElementById(
 "salesPhoneInput"
 ).value.trim();
 
-const area=
+const region=
 document.getElementById(
-"salesAreaInput"
+"salesRegionInput"
 ).value.trim();
 
 const code=
 document.getElementById(
 "salesCodeInput"
-).value.trim().toLowerCase();
+).value.trim();
 
-const accessCode=
+const password=
 document.getElementById(
 "salesPasswordInput"
 ).value.trim();
@@ -1492,7 +1314,7 @@ Number(
 document.getElementById(
 "salesTargetInput"
 ).value
-);
+)||settings.targetMonthly;
 
 const status=
 document.getElementById(
@@ -1500,98 +1322,79 @@ document.getElementById(
 ).value;
 
 
-if(!name){
+if(!name||!code||!password){
 
-alert("Nama sales wajib diisi.");
-
-return;
-
-}
-
-if(!code){
-
-alert("Kode sales wajib diisi.");
-
-return;
-
-}
-
-if(!accessCode){
-
-alert("Kode akses wajib diisi.");
+alert(
+"Nama, kode sales dan password wajib diisi."
+);
 
 return;
 
 }
 
 
-const id=
-existingId||code;
-
-
-const oldData=
-salesUsers[id]||null;
-
-
-const data={
+const salesData={
 
 name:name,
 
 phone:phone,
 
-area:area,
+region:region,
 
-salesCode:code,
+code:code,
 
-accessCode:accessCode,
+password:password,
 
 startDate:startDate,
 
-target:
-target||settings.targetMonthly,
+target:target,
 
 status:status,
 
-updatedAt:Date.now(),
-
-createdAt:
-oldData?.createdAt||Date.now()
+updatedAt:Date.now()
 
 };
 
 
 try{
 
-await set(
+if(id){
+
+await update(
 ref(database,"salesUsers/"+id),
-data
+salesData
 );
 
+}else{
 
-await addAuditLog(
-existingId?
-"EDIT SALES":
-"TAMBAH SALES",
-oldData,
-data
+const newRef=
+push(
+ref(database,"salesUsers")
 );
 
+salesData.createdAt=Date.now();
+
+await set(
+newRef,
+salesData
+);
+
+}
 
 alert(
-existingId?
-"✅ Data sales berhasil diperbarui.":
-"✅ Sales berhasil ditambahkan."
+"✅ Data sales berhasil disimpan."
 );
 
+closeSalesModal();
 
-closeModal("salesModal");
+renderAll();
 
 }
 
 catch(error){
 
 alert(
-"❌ Gagal menyimpan sales\n\n"+
+"Gagal menyimpan sales:\n"+
 error.message
 );
 
@@ -1600,119 +1403,434 @@ error.message
 };
 
 
-/* =====================================
-RENDER SALES USERS
-===================================== */
+/* =========================
+LOAD SALES USERS
+========================= */
 
-function renderSalesUsers(){
+let salesUsers={};
+let salesData={};
+let outletData={};
+let checkinData={};
+let depositData={};
+
+
+onValue(
+ref(database,"salesUsers"),
+snapshot=>{
+
+salesUsers=
+snapshot.val()||{};
+
+renderAll();
+
+});
+
+
+onValue(
+ref(database,"sales"),
+snapshot=>{
+
+salesData=
+snapshot.val()||{};
+
+renderAll();
+
+});
+
+
+onValue(
+ref(database,"outlets"),
+snapshot=>{
+
+outletData=
+snapshot.val()||{};
+
+renderAll();
+
+});
+
+
+onValue(
+ref(database,"checkins"),
+snapshot=>{
+
+checkinData=
+snapshot.val()||{};
+
+renderAll();
+
+});
+
+
+onValue(
+ref(database,"deposits"),
+snapshot=>{
+
+depositData=
+snapshot.val()||{};
+
+renderAll();
+
+});
+
+
+/* =========================
+CALCULATION
+========================= */
+
+function getSalesStats(id){
+
+let pack=0;
+let transactions=0;
+let omzet=0;
+let paidPack=0;
+let returnedPack=0;
+let checkins=0;
+let deposit=0;
+
+Object.values(salesData).forEach(item=>{
+
+if(!item)return;
+
+if(
+item.salesId===id
+){
+
+const qty=
+Number(item.quantity||0);
+
+pack+=qty;
+
+transactions++;
+
+omzet+=
+Number(item.amount||0);
+
+const status=
+String(
+item.paymentStatus||
+item.status||
+"sudah dibayar"
+).toLowerCase();
+
+if(
+status.includes("bayar")||
+status==="paid"
+){
+
+paidPack+=qty;
+
+}
+
+if(
+status.includes("retur")||
+status==="returned"
+){
+
+returnedPack+=qty;
+
+}
+
+}
+
+});
+
+
+Object.values(checkinData).forEach(item=>{
+
+if(
+item &&
+item.salesId===id
+){
+
+checkins++;
+
+}
+
+});
+
+
+Object.values(depositData).forEach(item=>{
+
+if(
+item &&
+item.salesId===id
+){
+
+deposit+=
+Number(item.amount||0);
+
+}
+
+});
+
+
+const user=
+salesUsers[id]||{};
+
+const target=
+Number(
+user.target||
+settings.targetMonthly
+);
+
+
+const achievement=
+target>0
+?
+(pack/target)*100
+:
+0;
+
+
+const commission=
+paidPack*
+settings.commissionPerPack;
+
+
+const bonus=
+paidPack>=target
+?
+settings.targetBonus
+:
+0;
+
+
+const income=
+settings.baseSalary+
+settings.operationalAllowance+
+commission+
+bonus;
+
+
+const hpp=
+paidPack*
+settings.productHpp;
+
+
+const margin=
+(paidPack*
+settings.productPrice)-hpp;
+
+
+const salesCost=
+settings.baseSalary+
+settings.operationalAllowance+
+commission+
+bonus;
+
+
+const contribution=
+margin-salesCost;
+
+
+return{
+
+pack,
+transactions,
+omzet,
+paidPack,
+returnedPack,
+checkins,
+deposit,
+target,
+achievement,
+commission,
+bonus,
+income,
+hpp,
+margin,
+salesCost,
+contribution
+
+};
+
+}
+
+
+/* =========================
+RENDER ALL
+========================= */
+
+function renderAll(){
+
+renderSalesManagement();
+
+renderKPI();
+
+renderLeaderboard();
+
+renderHistory();
+
+renderDeposits();
+
+renderStock();
+
+renderOutlets();
+
+renderVisits();
+
+renderProfit();
+
+renderSummary();
+
+renderAlerts();
+
+renderAI();
+
+}
+
+
+/* =========================
+SALES MANAGEMENT
+========================= */
+
+function renderSalesManagement(){
 
 const tbody=
 document.getElementById(
-"salesUsersTable"
+"salesManagementTable"
 );
 
 tbody.innerHTML="";
 
-
 const ids=
 Object.keys(salesUsers);
 
-
-if(ids.length===0){
-
-tbody.innerHTML=
-"<tr><td colspan='7'>Belum ada sales. Silakan tambah sales.</td></tr>";
-
-return;
-
-}
-
+let active=0;
 
 ids.forEach(id=>{
 
-const data=
+const s=
 salesUsers[id];
 
-const status=
-data.status||"aktif";
-
-
-let badge="";
-
-if(status==="aktif"){
-
-badge=
-"<span class='badge'>AKTIF</span>";
-
-}
-else{
-
-badge=
-"<span class='badge badge-red'>"+
-status.toUpperCase()+
-"</span>";
-
-}
-
+if(
+s.status==="aktif"
+)active++;
 
 const row=
 document.createElement("tr");
 
+row.innerHTML=`
 
-row.innerHTML=
+<td>
+<b>${escapeHTML(s.name||"-")}</b>
+</td>
 
-"<td><b>"+
-(data.name||"-")+
-"</b><br><small>"+
-(data.salesCode||id)+
-"</small></td>"+
+<td>${escapeHTML(s.code||"-")}</td>
 
-"<td>"+
-(data.phone||"-")+
-"</td>"+
+<td>${escapeHTML(s.region||"-")}</td>
 
-"<td>"+
-(data.area||"-")+
-"</td>"+
+<td>
+${Number(s.target||settings.targetMonthly)
+.toLocaleString("id-ID")}
+</td>
 
-"<td>"+
-badge+
-"</td>"+
+<td>
+<span class="${
+s.status==="aktif"
+?"badge"
+:"badge badge-red"
+}">
+${escapeHTML(s.status||"-")}
+</span>
+</td>
 
-"<td>"+
-Number(
-data.target||settings.targetMonthly
-).toLocaleString("id-ID")+
-" pack</td>"+
+<td>
+<button
+class="btn btn-blue"
+onclick="openSalesModal('${id}')">
+EDIT
+</button>
+</td>
 
-"<td>"+
-(data.accessCode?
-"••••••":
-"-")+
-"</td>"+
+`;
 
-"<td>"+
+tbody.appendChild(row);
 
-"<button class='btn btn-blue' "+
-"onclick=\"editSales('"+
-id+
-"')\">EDIT</button> "+
+});
 
-"<button class='btn "+
-(status==="aktif"?
-"btn-red":
-"")+
-"' "+
-"onclick=\"toggleSales('"+
-id+
-"')\">"+
-(status==="aktif"?
-"NONAKTIFKAN":
-"AKTIFKAN")+
-"</button>"+
+document.getElementById(
+"totalSalesPerson"
+).innerText=active;
 
-"</td>";
+if(!ids.length){
 
+tbody.innerHTML=
+"<tr><td colspan='6'>Belum ada sales aktif. Silakan tambah sales.</td></tr>";
+
+}
+
+}
+
+
+/* =========================
+KPI
+========================= */
+
+function renderKPI(){
+
+const tbody=
+document.getElementById(
+"kpiTable"
+);
+
+tbody.innerHTML="";
+
+Object.keys(salesUsers).forEach(id=>{
+
+const s=
+salesUsers[id];
+
+if(s.status!=="aktif")return;
+
+const d=
+getSalesStats(id);
+
+let cls=
+"kpi-red";
+
+if(d.achievement>=100)
+cls="kpi-green";
+else if(d.achievement>=80)
+cls="kpi-yellow";
+
+const row=
+document.createElement("tr");
+
+row.innerHTML=`
+
+<td>
+<b>${escapeHTML(s.name||"-")}</b>
+</td>
+
+<td>
+${d.target.toLocaleString("id-ID")}
+</td>
+
+<td>
+${d.pack.toLocaleString("id-ID")}
+</td>
+
+<td class="${cls}">
+${d.achievement.toFixed(1)}%
+</td>
+
+<td>
+Rp ${d.omzet.toLocaleString("id-ID")}
+</td>
+
+<td>
+Rp ${d.commission.toLocaleString("id-ID")}
+</td>
+
+<td>
+<b>
+Rp ${d.income.toLocaleString("id-ID")}
+</b>
+</td>
+
+`;
 
 tbody.appendChild(row);
 
@@ -1721,90 +1839,272 @@ tbody.appendChild(row);
 }
 
 
-window.toggleSales=
-async function(id){
+/* =========================
+LEADERBOARD
+========================= */
 
-const data=
-salesUsers[id];
+function renderLeaderboard(){
 
-if(!data)return;
-
-
-const newStatus=
-data.status==="aktif"?
-"nonaktif":
-"aktif";
-
-
-const updated={
-...data,
-status:newStatus,
-updatedAt:Date.now()
-};
-
-
-try{
-
-await set(
-ref(database,"salesUsers/"+id),
-updated
+const box=
+document.getElementById(
+"leaderboard"
 );
 
-await addAuditLog(
-"UBAH STATUS SALES",
-data,
-updated
-);
+const ranking=
+Object.keys(salesUsers)
+.filter(id=>
+salesUsers[id].status==="aktif"
+)
+.map(id=>({
 
-}
-catch(error){
+id,
+name:salesUsers[id].name,
+stats:getSalesStats(id)
 
-alert(error.message);
-
-}
-
-};
-
-
-/* =====================================
-TRANSAKSI LAMA
-===================================== */
-
-onValue(
-
-ref(database,"sales"),
-
-snapshot=>{
-
-salesTransactions=
-snapshot.val()||{};
-
-renderPerformance();
-
-}
-
+}))
+.sort(
+(a,b)=>
+b.stats.pack-a.stats.pack
 );
 
 
-/* =====================================
+if(!ranking.length){
+
+box.innerText=
+"Belum ada sales aktif.";
+
+return;
+
+}
+
+box.innerHTML="";
+
+ranking.forEach((item,index)=>{
+
+const div=
+document.createElement("div");
+
+div.className="alert";
+
+div.innerHTML=
+
+`<b>${index+1}. ${escapeHTML(item.name)}</b>
+<br>
+${item.stats.pack.toLocaleString("id-ID")} pack
+•
+${item.stats.achievement.toFixed(1)}% achievement`;
+
+box.appendChild(div);
+
+});
+
+}
+
+
+/* =========================
+SUMMARY
+========================= */
+
+function renderSummary(){
+
+let pack=0;
+let omzet=0;
+let deposit=0;
+
+Object.keys(salesUsers).forEach(id=>{
+
+const d=getSalesStats(id);
+
+pack+=d.pack;
+omzet+=d.omzet;
+deposit+=d.deposit;
+
+});
+
+document.getElementById(
+"totalPack"
+).innerText=
+pack.toLocaleString("id-ID");
+
+document.getElementById(
+"totalOmzet"
+).innerText=
+"Rp "+omzet.toLocaleString("id-ID");
+
+document.getElementById(
+"totalDeposit"
+).innerText=
+"Rp "+deposit.toLocaleString("id-ID");
+
+}
+
+
+/* =========================
+HISTORY
+========================= */
+
+function renderHistory(){
+
+const tbody=
+document.getElementById(
+"salesHistoryTable"
+);
+
+tbody.innerHTML="";
+
+const items=
+Object.values(salesData)
+.reverse()
+.slice(0,100);
+
+items.forEach(item=>{
+
+const date=
+item.date
+?
+new Date(item.date)
+.toLocaleString("id-ID")
+:"-";
+
+const status=
+item.paymentStatus||
+item.status||
+"Sudah dibayar";
+
+const row=
+document.createElement("tr");
+
+row.innerHTML=`
+
+<td>${date}</td>
+<td>${escapeHTML(item.salesName||item.salesId||"-")}</td>
+<td>${escapeHTML(item.outlet||"-")}</td>
+<td>${Number(item.quantity||0)}</td>
+<td>
+Rp ${Number(item.amount||0).toLocaleString("id-ID")}
+</td>
+<td>${escapeHTML(status)}</td>
+
+`;
+
+tbody.appendChild(row);
+
+});
+
+}
+
+
+/* =========================
+DEPOSIT
+========================= */
+
+function renderDeposits(){
+
+const tbody=
+document.getElementById(
+"depositTable"
+);
+
+tbody.innerHTML="";
+
+Object.values(depositData)
+.reverse()
+.slice(0,100)
+.forEach(item=>{
+
+const row=
+document.createElement("tr");
+
+row.innerHTML=`
+
+<td>
+${item.date?
+new Date(item.date).toLocaleString("id-ID")
+:"-"}
+</td>
+
+<td>
+${escapeHTML(item.salesName||item.salesId||"-")}
+</td>
+
+<td>
+Rp ${Number(item.amount||0).toLocaleString("id-ID")}
+</td>
+
+<td>
+${escapeHTML(item.note||"-")}
+</td>
+
+`;
+
+tbody.appendChild(row);
+
+});
+
+}
+
+
+/* =========================
+STOCK
+========================= */
+
+function renderStock(){
+
+const tbody=
+document.getElementById(
+"stockTable"
+);
+
+tbody.innerHTML="";
+
+Object.keys(salesUsers).forEach(id=>{
+
+const s=salesUsers[id];
+
+const d=getSalesStats(id);
+
+const opening=
+Number(s.stockOpening||0);
+
+const received=
+Number(s.stockReceived||0);
+
+const ending=
+opening+
+received-
+d.paidPack-
+d.returnedPack;
+
+const row=
+document.createElement("tr");
+
+row.innerHTML=`
+
+<td>
+${escapeHTML(s.name||"-")}
+</td>
+
+<td>${opening}</td>
+<td>${received}</td>
+<td>${d.paidPack}</td>
+<td>${d.returnedPack}</td>
+
+<td>
+<b>${ending}</b>
+</td>
+
+`;
+
+tbody.appendChild(row);
+
+});
+
+}
+
+
+/* =========================
 OUTLET
-===================================== */
-
-onValue(
-
-ref(database,"outlets"),
-
-snapshot=>{
-
-outletsData=
-snapshot.val()||{};
-
-renderOutlets();
-
-}
-
-);
-
+========================= */
 
 function renderOutlets(){
 
@@ -1815,78 +2115,37 @@ document.getElementById(
 
 tbody.innerHTML="";
 
-let count=0;
-
-
-Object.values(outletsData)
+Object.values(outletData)
+.slice(0,100)
 .forEach(item=>{
-
-if(!item)return;
-
-count++;
 
 const row=
 document.createElement("tr");
 
-row.innerHTML=
+row.innerHTML=`
 
-"<td><b>"+
-(item.name||"-")+
-"</b></td>"+
+<td>${escapeHTML(item.name||"-")}</td>
 
-"<td>"+
-(item.owner||"-")+
-"</td>"+
+<td>${escapeHTML(item.salesName||item.salesId||"-")}</td>
 
-"<td>"+
-(item.salesName||
-item.salesId||
-"-")+
-"</td>"+
+<td>${escapeHTML(item.type||"-")}</td>
 
-"<td>"+
-(item.type||"-")+
-"</td>"+
+<td>${escapeHTML(item.phone||"-")}</td>
 
-"<td>"+
-(item.phone||"-")+
-"</td>"+
+<td>${escapeHTML(item.address||"-")}</td>
 
-"<td>"+
-(item.address||"-")+
-"</td>";
+`;
 
 tbody.appendChild(row);
 
 });
 
-
-document.getElementById(
-"totalOutlet"
-).innerText=count;
-
 }
 
 
-/* =====================================
-CHECKINS
-===================================== */
-
-onValue(
-
-ref(database,"checkins"),
-
-snapshot=>{
-
-checkinsData=
-snapshot.val()||{};
-
-renderVisits();
-
-}
-
-);
-
+/* =========================
+VISITS
+========================= */
 
 function renderVisits(){
 
@@ -1897,827 +2156,267 @@ document.getElementById(
 
 tbody.innerHTML="";
 
-let count=0;
-
-
-Object.values(checkinsData)
+Object.values(checkinData)
+.reverse()
+.slice(0,100)
 .forEach(item=>{
 
-if(!item)return;
-
-count++;
-
-const lat=
-Number(item.latitude||0);
-
-const lng=
-Number(item.longitude||0);
+const lat=Number(item.latitude||0);
+const lng=Number(item.longitude||0);
 
 const maps=
 "https://www.google.com/maps?q="+
 lat+","+lng;
 
-
 const row=
 document.createElement("tr");
 
-row.innerHTML=
+row.innerHTML=`
 
-"<td>"+
-(item.date?
-new Date(item.date)
-.toLocaleString("id-ID"):
-"-")+
-"</td>"+
+<td>
+${item.date?
+new Date(item.date).toLocaleString("id-ID")
+:"-"}
+</td>
 
-"<td>"+
-(item.salesName||
-item.salesId||
-"-")+
-"</td>"+
+<td>
+${escapeHTML(item.salesName||item.salesId||"-")}
+</td>
 
-"<td>"+
-(item.outlet||"-")+
-"</td>"+
+<td>
+${escapeHTML(item.outlet||"-")}
+</td>
 
-"<td>"+
-lat.toFixed(6)+
-", "+
-lng.toFixed(6)+
-"</td>"+
+<td>
+${lat.toFixed(6)},
+${lng.toFixed(6)}
+</td>
 
-"<td>"+
-"<a class='map-link' target='_blank' href='"+
-maps+
-"'>MAPS</a>"+
-"</td>";
+<td>
+<a
+href="${maps}"
+target="_blank">
+
+<button class="btn btn-blue">
+MAPS
+</button>
+
+</a>
+</td>
+
+`;
 
 tbody.appendChild(row);
 
 });
 
-
-document.getElementById(
-"totalCheckin"
-).innerText=count;
-
 }
 
 
-/* =====================================
-DEPOSIT
-===================================== */
-
-onValue(
-
-ref(database,"deposits"),
-
-snapshot=>{
-
-depositsData=
-snapshot.val()||{};
-
-let total=0;
-
-Object.values(depositsData)
-.forEach(item=>{
-
-if(item){
-
-total+=
-Number(item.amount||0);
-
-}
-
-});
-
-
-document.getElementById(
-"totalDeposit"
-).innerText=
-rupiah(total);
-
-
-renderPerformance();
-
-}
-
-);
-
-
-/* =====================================
-PERFORMANCE
-===================================== */
-
-window.renderPerformance=
-function(){
-
-const target=
-Number(
-settings.targetMonthly||1500
-);
-
-
-const map={};
-
-
-Object.keys(salesUsers)
-.forEach(id=>{
-
-const user=
-salesUsers[id];
-
-map[id]={
-
-id:id,
-
-name:user.name||id,
-
-target:
-Number(user.target||target),
-
-pack:0,
-
-transactions:0,
-
-omzet:0,
-
-commission:0,
-
-bonus:0,
-
-income:0
-
-};
-
-});
-
-
-Object.values(salesTransactions)
-.forEach(item=>{
-
-if(!item)return;
-
-const id=
-item.salesId;
-
-if(!id)return;
-
-
-if(!map[id]){
-
-map[id]={
-
-id:id,
-
-name:
-item.salesName||id,
-
-target:target,
-
-pack:0,
-
-transactions:0,
-
-omzet:0,
-
-commission:0,
-
-bonus:0,
-
-income:0
-
-};
-
-}
-
-
-const qty=
-Number(item.quantity||0);
-
-
-const amount=
-Number(
-item.amount||
-(qty*settings.productPrice)
-);
-
-
-map[id].pack+=qty;
-
-map[id].transactions++;
-
-map[id].omzet+=amount;
-
-});
-
-
-Object.keys(depositsData)
-.forEach(key=>{
-
-const item=
-depositsData[key];
-
-if(!item)return;
-
-});
-
-
-Object.values(map)
-.forEach(sales=>{
-
-sales.commission=
-sales.pack*
-Number(settings.commissionPerPack||0);
-
-
-sales.bonus=
-sales.pack>=sales.target?
-Number(settings.targetBonus||0):
-0;
-
-
-sales.income=
-Number(settings.baseSalary||0)+
-Number(settings.operationalAllowance||0)+
-sales.commission+
-sales.bonus;
-
-});
-
-
-const arr=
-Object.values(map);
-
-
-arr.sort(
-(a,b)=>b.pack-a.pack
-);
-
+/* =========================
+PROFIT
+========================= */
+
+function renderProfit(){
 
 const tbody=
 document.getElementById(
-"performanceTable"
+"profitTable"
 );
 
 tbody.innerHTML="";
 
+Object.keys(salesUsers).forEach(id=>{
 
-let totalPack=0;
-let totalOmzet=0;
-let totalCommission=0;
-let totalIncome=0;
+const s=
+salesUsers[id];
 
-
-arr.forEach((sales,index)=>{
-
-const achievement=
-sales.target>0?
-(sales.pack/sales.target)*100:
-0;
-
-
-totalPack+=sales.pack;
-totalOmzet+=sales.omzet;
-totalCommission+=sales.commission;
-totalIncome+=sales.income;
-
+const d=
+getSalesStats(id);
 
 const row=
 document.createElement("tr");
 
+row.innerHTML=`
 
-row.innerHTML=
+<td>
+<b>${escapeHTML(s.name||"-")}</b>
+</td>
 
-"<td><b>#"+
-(index+1)+
-"</b></td>"+
+<td>
+Rp ${(d.paidPack*settings.productPrice)
+.toLocaleString("id-ID")}
+</td>
 
-"<td><b>"+
-sales.name+
-"</b><br><small>"+
-sales.id+
-"</small></td>"+
+<td>
+Rp ${d.hpp.toLocaleString("id-ID")}
+</td>
 
-"<td>"+
-sales.target.toLocaleString("id-ID")+
-"</td>"+
+<td>
+Rp ${d.margin.toLocaleString("id-ID")}
+</td>
 
-"<td>"+
-sales.pack.toLocaleString("id-ID")+
-"</td>"+
+<td>
+Rp ${d.salesCost.toLocaleString("id-ID")}
+</td>
 
-"<td>"+
-achievement.toFixed(1)+
-"%<div class='progress'><div class='progress-bar' style='width:"+
-Math.min(100,achievement)+
-"%;'></div></div></td>"+
+<td>
+<b>
+Rp ${d.contribution.toLocaleString("id-ID")}
+</b>
+</td>
 
-"<td>"+
-rupiah(sales.omzet)+
-"</td>"+
-
-"<td>"+
-rupiah(sales.commission)+
-"</td>"+
-
-"<td>"+
-rupiah(sales.bonus)+
-"</td>"+
-
-"<td><b>"+
-rupiah(sales.income)+
-"</b></td>";
-
+`;
 
 tbody.appendChild(row);
 
 });
 
-
-document.getElementById(
-"totalSalesPerson"
-).innerText=
-Object.values(salesUsers)
-.filter(x=>x.status==="aktif")
-.length;
-
-
-document.getElementById(
-"totalPack"
-).innerText=
-totalPack.toLocaleString("id-ID");
-
-
-document.getElementById(
-"totalOmzet"
-).innerText=
-rupiah(totalOmzet);
-
-
-document.getElementById(
-"totalCommission"
-).innerText=
-rupiah(totalCommission);
-
-
-const grossMargin=
-totalPack*
-(
-Number(settings.productPrice||0)-
-Number(settings.productHpp||0)
-);
-
-
-const salesCost=
-totalIncome;
-
-
-const contribution=
-grossMargin-salesCost;
-
-
-document.getElementById(
-"grossMargin"
-).innerText=
-rupiah(grossMargin);
-
-
-document.getElementById(
-"salesCost"
-).innerText=
-rupiah(salesCost);
-
-
-document.getElementById(
-"salesContribution"
-).innerText=
-rupiah(contribution);
-
-
-document.getElementById(
-"companyTarget"
-).innerText=
-Number(settings.targetMonthly||0)
-.toLocaleString("id-ID")+
-" Pack";
-
-
-renderLeaderboard(arr);
-
-renderAlerts(arr,totalPack);
-
-};
-
-
-/* =====================================
-LEADERBOARD
-===================================== */
-
-function renderLeaderboard(arr){
-
-const mode=
-document.getElementById(
-"rankingMode"
-).value;
-
-
-const list=[...arr];
-
-
-list.sort((a,b)=>{
-
-if(mode==="achievement"){
-
-return (
-(b.pack/b.target)-
-(a.pack/a.target)
-);
-
 }
 
-if(mode==="omzet"){
 
-return b.omzet-a.omzet;
+/* =========================
+ALERT
+========================= */
 
-}
-
-if(mode==="commission"){
-
-return b.commission-a.commission;
-
-}
-
-return b.pack-a.pack;
-
-});
-
+function renderAlerts(){
 
 const box=
 document.getElementById(
-"leaderboard"
+"alertList"
 );
 
 box.innerHTML="";
 
+let alerts=0;
 
-list.slice(0,10)
-.forEach((sales,index)=>{
+Object.keys(salesUsers).forEach(id=>{
 
-const achievement=
-sales.target?
-(sales.pack/sales.target)*100:
-0;
+const s=salesUsers[id];
 
+if(s.status!=="aktif")return;
+
+const d=getSalesStats(id);
+
+if(
+d.achievement<80
+){
 
 const div=
 document.createElement("div");
 
-div.className="kpi-box";
-
+div.className="alert";
 
 div.innerHTML=
-
-"<b>"+
-(index+1)+
-". "+
-sales.name+
-"</b>"+
-
-"<br>"+
-sales.pack.toLocaleString("id-ID")+
-" pack • "+
-achievement.toFixed(1)+
-"% • "+
-rupiah(sales.omzet);
-
+`⚠️ <b>${escapeHTML(s.name)}</b>
+masih di ${d.achievement.toFixed(1)}%
+dari target.`;
 
 box.appendChild(div);
 
-});
-
-}
-
-
-/* =====================================
-ALERT OWNER
-===================================== */
-
-function renderAlerts(arr,totalPack){
-
-const target=
-Number(settings.targetMonthly||1500);
-
-const alerts=[];
-
-
-arr.forEach(sales=>{
-
-const achievement=
-sales.target?
-(sales.pack/sales.target)*100:
-0;
-
-
-if(achievement<70){
-
-alerts.push(
-"⚠️ "+
-sales.name+
-" berada di bawah 70% target."
-);
+alerts++;
 
 }
 
 });
 
+if(!alerts){
 
-if(totalPack<target){
-
-alerts.push(
-"⚠️ Penjualan perusahaan masih "+
-(
-target-totalPack
-).toLocaleString("id-ID")+
-" pack dari target."
-);
-
-}
-
-
-if(alerts.length===0){
-
-document.getElementById(
-"ownerAlerts"
-).innerHTML=
-"🟢 Tidak ada peringatan utama. Kinerja sales berada dalam kondisi baik.";
-
-}
-else{
-
-document.getElementById(
-"ownerAlerts"
-).innerHTML=
-alerts.join("<br><br>");
+box.innerHTML=
+"🟢 Tidak ada peringatan utama. Performa sales dalam kondisi baik.";
 
 }
 
 }
 
 
-/* =====================================
+/* =========================
 AI
-===================================== */
+========================= */
 
-function updateAI(){
+function renderAI(){
 
-const target=
-Number(settings.targetMonthly||1500);
-
-let total=0;
-
-Object.values(salesTransactions)
-.forEach(item=>{
-
-if(item){
-
-total+=
-Number(item.quantity||0);
-
-}
-
-});
-
-
-const remaining=
-Math.max(0,target-total);
-
-
-let text="";
-
-
-if(total===0){
-
-text=
-"Belum ada penjualan tercatat. Fokus hari ini: pastikan sales melakukan kunjungan, check-in, dan mendapatkan order pertama.";
-
-}
-else if(remaining>0){
-
-text=
-"Penjualan perusahaan saat ini "+
-total.toLocaleString("id-ID")+
-" pack. Masih kurang "+
-remaining.toLocaleString("id-ID")+
-" pack dari target. Prioritaskan outlet dengan potensi repeat order.";
-
-}
-else{
-
-text=
-"🎉 Target perusahaan sudah tercapai. Fokus berikutnya adalah menjaga repeat order, cash collection, dan ketersediaan stok.";
-
-}
-
-
+const box=
 document.getElementById(
 "managementInsight"
-).innerHTML=
-text;
-
-}
-
-updateAI();
-
-
-/* =====================================
-HISTORY PENJUALAN
-===================================== */
-
-onValue(
-
-ref(database,"sales"),
-
-snapshot=>{
-
-const data=
-snapshot.val()||{};
-
-const tbody=
-document.getElementById(
-"salesHistoryTable"
 );
 
-tbody.innerHTML="";
-
-
-const items=
-Object.values(data)
-.reverse()
-.slice(0,100);
-
-
-items.forEach(item=>{
-
-const qty=
-Number(item.quantity||0);
-
-const amount=
-Number(
-item.amount||
-qty*settings.productPrice
+const ranking=
+Object.keys(salesUsers)
+.filter(id=>
+salesUsers[id].status==="aktif"
+)
+.map(id=>({
+name:salesUsers[id].name,
+stats:getSalesStats(id)
+}))
+.sort(
+(a,b)=>b.stats.pack-a.stats.pack
 );
 
+if(!ranking.length){
 
-const status=
-item.paymentStatus||
-(item.paid===true?
-"sudah dibayar":
-"belum dibayar");
+box.innerText=
+"Belum ada sales aktif.";
 
-
-let badge=
-"<span class='badge badge-yellow'>"+
-status.toUpperCase()+
-"</span>";
-
-
-if(status==="sudah dibayar"){
-
-badge=
-"<span class='badge'>SUDAH DIBAYAR</span>";
+return;
 
 }
 
+const top=ranking[0];
 
-if(status==="retur"){
-
-badge=
-"<span class='badge badge-red'>RETUR</span>";
-
-}
-
-
-const row=
-document.createElement("tr");
-
-
-row.innerHTML=
-
-"<td>"+
-(item.date?
-new Date(item.date)
-.toLocaleString("id-ID"):
-"-")+
-"</td>"+
-
-"<td>"+
-(item.salesName||
-item.salesId||
-"-")+
-"</td>"+
-
-"<td>"+
-(item.outlet||"-")+
-"</td>"+
-
-"<td>"+
-qty+
-"</td>"+
-
-"<td>"+
-rupiah(amount)+
-"</td>"+
-
-"<td>"+
-badge+
-"</td>";
-
-
-tbody.appendChild(row);
-
-});
-
-
-renderPerformance();
-
-}
-
+const total=
+ranking.reduce(
+(sum,x)=>sum+x.stats.pack,
+0
 );
 
+box.innerHTML=
 
-/* =====================================
+`🏆 Sales terbaik saat ini:
+<b>${escapeHTML(top.name)}</b>
+dengan ${top.stats.pack.toLocaleString("id-ID")} pack.
+
+<br><br>
+
+Total penjualan seluruh sales:
+<b>${total.toLocaleString("id-ID")} pack</b>.
+
+<br><br>
+
+Fokus manajemen:
+sales dengan achievement rendah perlu mendapat pendampingan, peningkatan kunjungan outlet dan follow-up repeat order.`;
+
+}
+
+
+/* =========================
 PRINT
-===================================== */
+========================= */
 
-window.printReport=
-function(){
+window.printReport=function(){
 
 window.print();
 
 };
 
 
-/* =====================================
-MODAL
-===================================== */
+/* =========================
+SECURITY HTML
+========================= */
 
-window.closeModal=
-function(id){
+function escapeHTML(value){
 
-document.getElementById(id)
-.style.display="none";
+return String(value||"")
+.replaceAll("&","&amp;")
+.replaceAll("<","&lt;")
+.replaceAll(">","&gt;")
+.replaceAll('"',"&quot;")
+.replaceAll("'","&#039;");
 
-};
-
-
-/* =====================================
-AUTO REFRESH
-===================================== */
-
-setInterval(
-updateAI,
-3000
-);
+}
 
 </script>
-
-
-<!-- =========================
-PRINT STYLE
-========================= -->
-
-<style>
-
-@media print{
-
-body{
-background:white;
-}
-
-.header{
-background:#111827 !important;
--webkit-print-color-adjust:exact;
-}
-
-.btn,
-button{
-display:none !important;
-}
-
-.modal{
-display:none !important;
-}
-
-.card{
-box-shadow:none;
-border:1px solid #ddd;
-break-inside:avoid;
-}
-
-}
-
-</style>
 
 </body>
 </html>
