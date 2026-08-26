@@ -2,274 +2,53 @@
 <html lang="id">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
 <title>CRISPI SALES - Canvassing System</title>
 
 <style>
-*{
-  box-sizing:border-box;
-  margin:0;
-  padding:0;
-  font-family:Arial,sans-serif;
-}
-
-body{
-  background:#f4f6f8;
-  color:#17202a;
-}
-
-.app{
-  max-width:480px;
-  margin:auto;
-  min-height:100vh;
-  background:white;
-}
-
-.header{
-  background:#111827;
-  color:white;
-  padding:20px;
-  border-radius:0 0 22px 22px;
-}
-
-.logo{
-  font-size:25px;
-  font-weight:bold;
-}
-
-.subtitle{
-  margin-top:5px;
-  font-size:13px;
-  opacity:.8;
-}
-
-.container{
-  padding:18px;
-}
-
-.card{
-  background:white;
-  border-radius:16px;
-  padding:18px;
-  margin-bottom:15px;
-  box-shadow:0 3px 12px rgba(0,0,0,.08);
-}
-
-.welcome{
-  font-size:20px;
-  font-weight:bold;
-  margin-bottom:5px;
-}
-
-.grid{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:12px;
-}
-
-.menu{
-  border:0;
-  padding:18px 10px;
-  border-radius:15px;
-  background:#f3f4f6;
-  font-weight:bold;
-  font-size:14px;
-  cursor:pointer;
-}
-
-.menu span{
-  display:block;
-  font-size:27px;
-  margin-bottom:8px;
-}
-
-.target{
-  font-size:30px;
-  font-weight:bold;
-  margin:8px 0;
-}
-
-.progress{
-  height:12px;
-  background:#e5e7eb;
-  border-radius:10px;
-  overflow:hidden;
-}
-
-.progress-bar{
-  width:0%;
-  height:100%;
-  background:#16a34a;
-  transition:.4s;
-}
-
-.btn{
-  width:100%;
-  border:0;
-  padding:14px;
-  border-radius:12px;
-  background:#16a34a;
-  color:white;
-  font-size:16px;
-  font-weight:bold;
-  cursor:pointer;
-}
-
-.btn-secondary{
-  width:100%;
-  border:0;
-  padding:13px;
-  border-radius:10px;
-  background:#e5e7eb;
-  margin-top:8px;
-  font-weight:bold;
-}
-
-.outlet{
-  padding:14px 0;
-  border-bottom:1px solid #eee;
-}
-
-.badge{
-  display:inline-block;
-  padding:5px 9px;
-  border-radius:20px;
-  font-size:11px;
-  background:#dcfce7;
-  color:#166534;
-  margin-top:5px;
-}
-
-.kpi{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  margin:12px 0;
-}
-
-.kpi-score{
-  font-size:24px;
-  font-weight:bold;
-}
-
-.bottom{
-  position:sticky;
-  bottom:0;
-  background:white;
-  border-top:1px solid #ddd;
-  display:flex;
-  justify-content:space-around;
-  padding:12px 5px;
-  z-index:10;
-}
-
-.bottom button{
-  background:none;
-  border:0;
-  font-size:11px;
-  color:#555;
-}
-
-.bottom span{
-  display:block;
-  font-size:20px;
-  margin-bottom:3px;
-}
-
-input,select,textarea{
-  width:100%;
-  padding:13px;
-  border:1px solid #ddd;
-  border-radius:10px;
-  margin-top:6px;
-  margin-bottom:12px;
-  font-size:15px;
-}
-
-textarea{
-  min-height:80px;
-  resize:vertical;
-}
-
-label{
-  font-size:13px;
-  font-weight:bold;
-}
-
-.modal{
-  display:none;
-  position:fixed;
-  inset:0;
-  background:rgba(0,0,0,.55);
-  z-index:100;
-  padding:20px;
-  align-items:center;
-  justify-content:center;
-}
-
-.modal-box{
-  background:white;
-  width:100%;
-  max-width:460px;
-  max-height:90vh;
-  overflow:auto;
-  border-radius:18px;
-  padding:20px;
-}
-
-.modal-title{
-  font-size:20px;
-  font-weight:bold;
-  margin-bottom:15px;
-}
-
-.status{
-  font-size:12px;
-  margin-top:8px;
-}
-
-.success{
-  color:#15803d;
-}
-
-.error{
-  color:#b91c1c;
-}
-
-.profile-row{
-  display:flex;
-  justify-content:space-between;
-  padding:12px 0;
-  border-bottom:1px solid #eee;
-}
-
-.profile-row:last-child{
-  border-bottom:0;
-}
-
-.profile-label{
-  color:#666;
-  font-size:13px;
-}
-
-.profile-value{
-  font-weight:bold;
-  text-align:right;
-}
-
-.ai-box{
-  background:#f0fdf4;
-  border:1px solid #bbf7d0;
-  border-radius:14px;
-  padding:15px;
-  margin-top:15px;
-}
-
-.ai-title{
-  font-weight:bold;
-  margin-bottom:8px;
-}
-
+*{box-sizing:border-box;margin:0;padding:0;font-family:Arial,sans-serif}
+body{background:#f4f6f8;color:#17202a}
+.app{max-width:480px;margin:auto;min-height:100vh;background:#fff}
+.header{background:#111827;color:#fff;padding:20px;border-radius:0 0 22px 22px}
+.logo{font-size:25px;font-weight:bold}
+.subtitle{margin-top:5px;font-size:13px;opacity:.8}
+.container{padding:18px}
+.card{background:#fff;border-radius:16px;padding:18px;margin-bottom:15px;box-shadow:0 3px 12px rgba(0,0,0,.08)}
+.welcome{font-size:20px;font-weight:bold;margin-bottom:5px}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.menu{border:0;padding:18px 10px;border-radius:15px;background:#f3f4f6;font-weight:bold;font-size:14px;cursor:pointer}
+.menu span{display:block;font-size:27px;margin-bottom:8px}
+.target{font-size:30px;font-weight:bold;margin:8px 0}
+.progress{height:12px;background:#e5e7eb;border-radius:10px;overflow:hidden}
+.progress-bar{width:0%;height:100%;background:#16a34a;transition:.4s}
+.btn{width:100%;border:0;padding:14px;border-radius:12px;background:#16a34a;color:white;font-size:16px;font-weight:bold;cursor:pointer}
+.btn-secondary{width:100%;border:0;padding:13px;border-radius:10px;background:#e5e7eb;margin-top:8px;font-weight:bold}
+.btn-map{display:inline-block;border:0;padding:9px 12px;border-radius:9px;background:#2563eb;color:#fff;font-weight:bold;margin-top:8px;cursor:pointer}
+.btn-location{width:100%;border:0;padding:12px;border-radius:10px;background:#2563eb;color:#fff;font-weight:bold;margin-bottom:10px}
+.outlet{padding:14px 0;border-bottom:1px solid #eee}
+.outlet:last-child{border-bottom:0}
+.badge{display:inline-block;padding:5px 9px;border-radius:20px;font-size:11px;background:#dcfce7;color:#166534;margin-top:5px}
+.kpi{display:flex;justify-content:space-between;align-items:center;margin:12px 0}
+.kpi-score{font-size:24px;font-weight:bold}
+.bottom{position:sticky;bottom:0;background:white;border-top:1px solid #ddd;display:flex;justify-content:space-around;padding:12px 5px;z-index:10}
+.bottom button{background:none;border:0;font-size:11px;color:#555}
+.bottom span{display:block;font-size:20px;margin-bottom:3px}
+input,select,textarea{width:100%;padding:13px;border:1px solid #ddd;border-radius:10px;margin-top:6px;margin-bottom:12px;font-size:15px}
+textarea{min-height:80px;resize:vertical}
+label{font-size:13px;font-weight:bold}
+.modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:100;padding:20px;align-items:center;justify-content:center}
+.modal-box{background:white;width:100%;max-width:460px;max-height:90vh;overflow:auto;border-radius:18px;padding:20px}
+.modal-title{font-size:20px;font-weight:bold;margin-bottom:15px}
+.status{font-size:12px;margin-top:8px}
+.success{color:#15803d}
+.error{color:#b91c1c}
+.profile-row{display:flex;justify-content:space-between;padding:12px 0;border-bottom:1px solid #eee}
+.profile-label{color:#666;font-size:13px}
+.profile-value{font-weight:bold;text-align:right}
+.ai-box{background:#f0fdf4;border:1px solid #bbf7d0;border-radius:14px;padding:15px;margin-top:15px}
+.ai-title{font-weight:bold;margin-bottom:8px}
+.coordinates{font-size:11px;color:#666;margin-top:6px}
+.owner-box{background:#eff6ff;border:1px solid #bfdbfe;border-radius:14px;padding:15px;margin-top:15px}
 </style>
 </head>
 
@@ -278,208 +57,98 @@ label{
 <div class="app">
 
 <div class="header">
-
-<div class="logo">
-CRISPI SALES
+<div class="logo">CRISPI SALES</div>
+<div class="subtitle">PETEKRES • Sales Canvassing System</div>
 </div>
-
-<div class="subtitle">
-PETEKRES • Sales Canvassing System
-</div>
-
-</div>
-
 
 <div class="container">
 
-
-<!-- PROFIL SINGKAT -->
-
+<!-- PROFIL -->
 <div class="card">
-
-<div class="welcome">
-Halo, <span id="salesName">Andi</span> 👋
-</div>
-
-<div>
-Sales Motoris
-</div>
-
-<div
-class="status"
-id="firebaseStatus">
-
+<div class="welcome">Halo, <span id="salesName">Andi</span> 👋</div>
+<div>Sales Motoris</div>
+<div class="status success" id="firebaseStatus">
 Menghubungkan database...
-
+</div>
 </div>
 
-</div>
-
-
-<!-- TARGET -->
-
+<!-- TARGET DINAMIS -->
 <div class="card">
 
-<b>Target Penjualan Bulanan</b>
+<b>🎯 Target Penjualan Bulanan</b>
 
 <div class="target">
-
-<span id="totalSales">
-0
-</span>
-
-/ 1.500 Pack
-
+<span id="totalSales">0</span>
+/
+<span id="targetSales">1.500</span> Pack
 </div>
 
 <div class="progress">
-
-<div
-class="progress-bar"
-id="progressBar">
+<div class="progress-bar" id="progressBar"></div>
 </div>
 
-</div>
+<p style="margin-top:8px;font-size:13px;color:#666">
+<span id="progressText">0%</span> target tercapai
+</p>
 
-<p
-style="margin-top:8px;font-size:13px;color:#666;">
-
-<span id="progressText">
-0%
-</span>
-
-target tercapai
-
+<p style="margin-top:7px;font-size:12px;color:#888">
+Target dikelola oleh SPV/Owner
 </p>
 
 </div>
 
-
 <!-- MENU -->
-
 <div class="grid">
 
-
-<button
-class="menu"
-onclick="checkin()">
-
+<button class="menu" onclick="checkin()">
 <span>📍</span>
-
 CHECK-IN
-
 </button>
 
-
-<button
-class="menu"
-onclick="sale()">
-
+<button class="menu" onclick="sale()">
 <span>🛒</span>
-
 CATAT PENJUALAN
-
 </button>
 
-
-<button
-class="menu"
-onclick="outlet()">
-
+<button class="menu" onclick="outlet()">
 <span>🏪</span>
-
 OUTLET
-
 </button>
 
-
-<button
-class="menu"
-onclick="deposit()">
-
+<button class="menu" onclick="deposit()">
 <span>💰</span>
-
 SETOR KAS
-
 </button>
-
 
 </div>
-
 
 <!-- KPI -->
+<div class="card" style="margin-top:15px">
 
-<div
-class="card"
-style="margin-top:15px;">
-
-<b>KPI Saya</b>
-
+<b>📊 KPI Saya</b>
 
 <div class="kpi">
-
-<span>
-Pencapaian Sales
-</span>
-
-<span
-class="kpi-score"
-id="kpiSales">
-
-0
-
-</span>
-
+<span>Pencapaian Sales</span>
+<span class="kpi-score" id="kpiSales">0</span>
 </div>
-
 
 <div class="kpi">
-
-<span>
-Produktivitas
-</span>
-
-<span
-class="kpi-score"
-id="kpiProductivity">
-
-0
-
-</span>
-
+<span>Produktivitas</span>
+<span class="kpi-score" id="kpiProductivity">0</span>
 </div>
-
 
 <div class="kpi">
-
-<span>
-Disiplin & Reporting
-</span>
-
-<span
-class="kpi-score"
-id="kpiDiscipline">
-
-0
-
-</span>
-
+<span>Disiplin & Reporting</span>
+<span class="kpi-score" id="kpiDiscipline">0</span>
 </div>
 
-
-<button
-class="btn"
-onclick="showKPI()">
-
+<button class="btn" onclick="showKPI()">
 Lihat Detail KPI
-
 </button>
 
 </div>
 
-
 <!-- AI -->
-
 <div class="card">
 
 <b>🤖 AI Sales Coach</b>
@@ -491,528 +160,266 @@ Insight Hari Ini
 </div>
 
 <div id="aiInsight">
-
 Mengumpulkan data penjualan...
-
 </div>
 
 </div>
 
 </div>
-
 
 <!-- OUTLET -->
-
 <div class="card">
 
 <b>🏪 Outlet Saya</b>
 
-<div
-style="margin-top:12px;"
-id="outletList">
-
+<div style="margin-top:12px" id="outletList">
 Belum ada outlet.
-
 </div>
 
-<button
-class="btn"
-style="margin-top:15px;"
-onclick="addOutlet()">
-
+<button class="btn" style="margin-top:15px" onclick="addOutlet()">
 ➕ TAMBAH OUTLET
-
 </button>
 
 </div>
 
-
 </div>
-
 
 <!-- BOTTOM -->
-
 <div class="bottom">
 
-
 <button onclick="home()">
-
 <span>🏠</span>
-
 Home
-
 </button>
-
 
 <button onclick="outlet()">
-
 <span>🏪</span>
-
 Outlet
-
 </button>
-
 
 <button onclick="sale()">
-
 <span>🛒</span>
-
 Penjualan
-
 </button>
-
 
 <button onclick="showKPI()">
-
 <span>📊</span>
-
 KPI
-
 </button>
-
 
 <button onclick="profile()">
-
 <span>👤</span>
-
 Profil
-
 </button>
 
-
 </div>
 
 </div>
 
 
-<!-- MODAL PENJUALAN -->
+<!-- =========================
+MODAL PENJUALAN
+========================= -->
 
-<div
-class="modal"
-id="saleModal">
-
+<div class="modal" id="saleModal">
 <div class="modal-box">
 
-<div class="modal-title">
-🛒 Catat Penjualan
-</div>
+<div class="modal-title">🛒 Catat Penjualan</div>
 
-<label>
-Nama Outlet
-</label>
+<label>Nama Outlet</label>
+<input id="saleOutlet" type="text" placeholder="Contoh: Warung Barokah">
 
-<input
-id="saleOutlet"
-type="text"
-placeholder="Contoh: Warung Barokah">
+<label>Jumlah Pack</label>
+<input id="saleQty" type="number" min="1" placeholder="Contoh: 20">
 
-<label>
-Jumlah Pack
-</label>
+<label>Total Uang</label>
+<input id="saleAmount" type="number" min="0" placeholder="Contoh: 300000">
 
-<input
-id="saleQty"
-type="number"
-min="1"
-placeholder="Contoh: 20">
-
-<label>
-Total Uang
-</label>
-
-<input
-id="saleAmount"
-type="number"
-min="0"
-placeholder="Contoh: 300000">
-
-<button
-class="btn"
-onclick="saveSale()">
-
+<button class="btn" onclick="saveSale()">
 SIMPAN PENJUALAN
-
 </button>
 
-<button
-class="btn-secondary"
-onclick="closeModal('saleModal')">
-
+<button class="btn-secondary" onclick="closeModal('saleModal')">
 BATAL
-
 </button>
 
 </div>
-
 </div>
 
 
-<!-- MODAL CHECK-IN -->
+<!-- =========================
+MODAL CHECK-IN
+========================= -->
 
-<div
-class="modal"
-id="checkinModal">
-
+<div class="modal" id="checkinModal">
 <div class="modal-box">
 
-<div class="modal-title">
-📍 Check-in Outlet
-</div>
+<div class="modal-title">📍 Check-in Outlet</div>
 
-<label>
-Nama Outlet
-</label>
+<label>Nama Outlet</label>
+<input id="checkinOutlet" type="text" placeholder="Nama outlet">
 
-<input
-id="checkinOutlet"
-type="text"
-placeholder="Nama outlet">
-
-<button
-class="btn"
-onclick="saveCheckin()">
-
-AMBIL LOKASI & SIMPAN
-
+<button class="btn-location" onclick="getCurrentLocationForCheckin()">
+📍 AMBIL LOKASI SAYA
 </button>
 
-<button
-class="btn-secondary"
-onclick="closeModal('checkinModal')">
+<div id="checkinLocationStatus" style="font-size:12px;margin-bottom:10px;color:#666">
+Lokasi belum diambil.
+</div>
 
+<button class="btn" onclick="saveCheckin()">
+SIMPAN CHECK-IN
+</button>
+
+<button class="btn-secondary" onclick="closeModal('checkinModal')">
 BATAL
-
 </button>
 
 </div>
-
 </div>
 
 
-<!-- MODAL SETOR -->
+<!-- =========================
+MODAL SETOR
+========================= -->
 
-<div
-class="modal"
-id="depositModal">
-
+<div class="modal" id="depositModal">
 <div class="modal-box">
 
-<div class="modal-title">
-💰 Setor Kas
-</div>
+<div class="modal-title">💰 Setor Kas</div>
 
-<label>
-Jumlah Setoran
-</label>
+<label>Jumlah Setoran</label>
+<input id="depositAmount" type="number" min="0" placeholder="Contoh: 500000">
 
-<input
-id="depositAmount"
-type="number"
-min="0"
-placeholder="Contoh: 500000">
+<label>Keterangan</label>
+<input id="depositNote" type="text" placeholder="Setoran penjualan hari ini">
 
-<label>
-Keterangan
-</label>
-
-<input
-id="depositNote"
-type="text"
-placeholder="Setoran penjualan hari ini">
-
-<button
-class="btn"
-onclick="saveDeposit()">
-
+<button class="btn" onclick="saveDeposit()">
 SIMPAN SETORAN
-
 </button>
 
-<button
-class="btn-secondary"
-onclick="closeModal('depositModal')">
-
+<button class="btn-secondary" onclick="closeModal('depositModal')">
 BATAL
-
 </button>
 
 </div>
-
 </div>
 
 
-<!-- MODAL OUTLET -->
+<!-- =========================
+MODAL OUTLET
+========================= -->
 
-<div
-class="modal"
-id="outletModal">
-
+<div class="modal" id="outletModal">
 <div class="modal-box">
 
-<div class="modal-title">
-🏪 Tambah Outlet
-</div>
+<div class="modal-title">🏪 Tambah Outlet</div>
 
+<label>Nama Outlet</label>
+<input id="newOutletName" type="text" placeholder="Contoh: Warung Barokah">
 
-<label>
-Nama Outlet
-</label>
+<label>Nama Pemilik</label>
+<input id="newOwnerName" type="text" placeholder="Nama pemilik">
 
-<input
-id="newOutletName"
-type="text"
-placeholder="Contoh: Warung Barokah">
+<label>Nomor WhatsApp</label>
+<input id="newOutletPhone" type="tel" placeholder="08xxxxxxxxxx">
 
+<label>Alamat</label>
+<textarea id="newOutletAddress" placeholder="Alamat lengkap outlet"></textarea>
 
-<label>
-Nama Pemilik
-</label>
-
-<input
-id="newOwnerName"
-type="text"
-placeholder="Nama pemilik">
-
-
-<label>
-Nomor WhatsApp
-</label>
-
-<input
-id="newOutletPhone"
-type="tel"
-placeholder="08xxxxxxxxxx">
-
-
-<label>
-Alamat
-</label>
-
-<textarea
-id="newOutletAddress"
-placeholder="Alamat lengkap outlet"></textarea>
-
-
-<label>
-Tipe Outlet
-</label>
-
+<label>Tipe Outlet</label>
 <select id="newOutletType">
-
-<option value="Warung">
-Warung
-</option>
-
-<option value="Toko">
-Toko
-</option>
-
-<option value="Kantin">
-Kantin
-</option>
-
-<option value="Grosir">
-Grosir
-</option>
-
-<option value="Reseller">
-Reseller
-</option>
-
+<option value="Warung">Warung</option>
+<option value="Toko">Toko</option>
+<option value="Kantin">Kantin</option>
+<option value="Grosir">Grosir</option>
+<option value="Reseller">Reseller</option>
 </select>
 
+<label>Catatan</label>
+<textarea id="newOutletNote" placeholder="Catatan outlet"></textarea>
 
-<label>
-Catatan
-</label>
+<button class="btn-location" onclick="getOutletLocation()">
+📍 SIMPAN TITIK GPS OUTLET
+</button>
 
-<textarea
-id="newOutletNote"
-placeholder="Catatan outlet"></textarea>
+<div id="outletLocationStatus" style="font-size:12px;color:#666;margin-bottom:10px">
+Koordinat belum diambil.
+</div>
 
-
-<button
-class="btn"
-onclick="saveOutlet()">
-
+<button class="btn" onclick="saveOutlet()">
 SIMPAN OUTLET
-
 </button>
 
-
-<button
-class="btn-secondary"
-onclick="closeModal('outletModal')">
-
+<button class="btn-secondary" onclick="closeModal('outletModal')">
 BATAL
-
 </button>
 
 </div>
-
 </div>
 
 
-<!-- MODAL PROFIL -->
+<!-- =========================
+MODAL PROFIL
+========================= -->
 
-<div
-class="modal"
-id="profileModal">
-
+<div class="modal" id="profileModal">
 <div class="modal-box">
 
-<div class="modal-title">
-👤 Profil Sales
-</div>
-
+<div class="modal-title">👤 Profil Sales</div>
 
 <div class="profile-row">
-
-<span class="profile-label">
-Nama
-</span>
-
-<span
-class="profile-value"
-id="profileName">
-
-Andi
-
-</span>
-
+<span class="profile-label">Nama</span>
+<span class="profile-value" id="profileName">Andi</span>
 </div>
-
 
 <div class="profile-row">
-
-<span class="profile-label">
-ID Sales
-</span>
-
-<span
-class="profile-value"
-id="profileId">
-
-andi
-
-</span>
-
+<span class="profile-label">ID Sales</span>
+<span class="profile-value" id="profileId">andi</span>
 </div>
-
 
 <div class="profile-row">
-
-<span class="profile-label">
-Total Pack
-</span>
-
-<span
-class="profile-value"
-id="profilePack">
-
-0
-
-</span>
-
+<span class="profile-label">Target</span>
+<span class="profile-value" id="profileTarget">1.500 Pack</span>
 </div>
-
 
 <div class="profile-row">
-
-<span class="profile-label">
-Transaksi
-</span>
-
-<span
-class="profile-value"
-id="profileTransactions">
-
-0
-
-</span>
-
+<span class="profile-label">Total Pack</span>
+<span class="profile-value" id="profilePack">0</span>
 </div>
-
 
 <div class="profile-row">
-
-<span class="profile-label">
-Check-in
-</span>
-
-<span
-class="profile-value"
-id="profileCheckins">
-
-0
-
-</span>
-
+<span class="profile-label">Transaksi</span>
+<span class="profile-value" id="profileTransactions">0</span>
 </div>
-
 
 <div class="profile-row">
-
-<span class="profile-label">
-Total Setoran
-</span>
-
-<span
-class="profile-value"
-id="profileDeposit">
-
-Rp 0
-
-</span>
-
+<span class="profile-label">Check-in</span>
+<span class="profile-value" id="profileCheckins">0</span>
 </div>
-
 
 <div class="profile-row">
-
-<span class="profile-label">
-Total Outlet
-</span>
-
-<span
-class="profile-value"
-id="profileOutlets">
-
-0
-
-</span>
-
+<span class="profile-label">Total Setoran</span>
+<span class="profile-value" id="profileDeposit">Rp 0</span>
 </div>
 
+<div class="profile-row">
+<span class="profile-label">Total Outlet</span>
+<span class="profile-value" id="profileOutlets">0</span>
+</div>
 
-<button
-class="btn"
-style="margin-top:15px;"
-onclick="closeModal('profileModal')">
-
+<button class="btn" style="margin-top:15px" onclick="closeModal('profileModal')">
 TUTUP
-
 </button>
 
 </div>
-
 </div>
 
 
 <script type="module">
 
-
-/* =================================
-FIREBASE
-================================= */
-
-
-import {
-initializeApp
-}
-from
-"https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-
+import {initializeApp}
+from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
 
 import {
 getDatabase,
@@ -1021,42 +428,28 @@ push,
 set,
 onValue
 }
-from
-"https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
+from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
 
+
+/* =================================
+FIREBASE
+================================= */
 
 const firebaseConfig={
-
 databaseURL:
 "https://crisfish-sales-default-rtdb.asia-southeast1.firebasedatabase.app/"
-
 };
-
 
 let database=null;
 
-
 try{
 
-const app=
-initializeApp(firebaseConfig);
+const app=initializeApp(firebaseConfig);
 
-database=
-getDatabase(app);
+database=getDatabase(app);
 
-
-document.getElementById(
-"firebaseStatus"
-).innerText=
+document.getElementById("firebaseStatus").innerText=
 "🟢 Firebase terhubung";
-
-
-document.getElementById(
-"firebaseStatus"
-).classList.add(
-"success"
-);
-
 
 }
 
@@ -1064,11 +457,8 @@ catch(error){
 
 console.error(error);
 
-document.getElementById(
-"firebaseStatus"
-).innerText=
+document.getElementById("firebaseStatus").innerText=
 "🔴 Firebase gagal terhubung";
-
 
 }
 
@@ -1077,133 +467,135 @@ document.getElementById(
 SALES
 ================================= */
 
-
 const SALES_ID="andi";
-
 const SALES_NAME="Andi";
+
+let TARGET_BULANAN=1500;
+
+let checkinLatitude=null;
+let checkinLongitude=null;
+let checkinAccuracy=null;
+
+let outletLatitude=null;
+let outletLongitude=null;
+let outletAccuracy=null;
+
+
+/* =================================
+TARGET DARI FIREBASE
+================================= */
+
+function loadTarget(){
+
+if(!database)return;
+
+onValue(
+ref(database,"settings/targetBulanan"),
+function(snapshot){
+
+const value=Number(snapshot.val());
+
+if(value && value>0){
+
+TARGET_BULANAN=value;
+
+}
+
+else{
+
+TARGET_BULANAN=1500;
+
+}
+
+document.getElementById("targetSales").innerText=
+TARGET_BULANAN.toLocaleString("id-ID");
+
+document.getElementById("profileTarget").innerText=
+TARGET_BULANAN.toLocaleString("id-ID")+" Pack";
+
+updateDashboard();
+
+}
+);
+
+}
 
 
 /* =================================
 PENJUALAN
 ================================= */
 
-
 window.sale=function(){
 
-document.getElementById(
-"saleModal"
-).style.display="flex";
+document.getElementById("saleModal").style.display="flex";
 
 };
 
 
 window.saveSale=async function(){
 
-
 const outlet=
-document.getElementById(
-"saleOutlet"
-).value.trim();
-
+document.getElementById("saleOutlet").value.trim();
 
 const qty=
-Number(
-document.getElementById(
-"saleQty"
-).value
-);
-
+Number(document.getElementById("saleQty").value);
 
 const amount=
-Number(
-document.getElementById(
-"saleAmount"
-).value
-);
-
+Number(document.getElementById("saleAmount").value);
 
 if(!outlet){
 
-alert(
-"Nama outlet wajib diisi."
-);
+alert("Nama outlet wajib diisi.");
 
 return;
 
 }
 
+if(!qty || qty<=0){
 
-if(!qty||qty<=0){
-
-alert(
-"Jumlah pack harus diisi."
-);
+alert("Jumlah pack harus diisi.");
 
 return;
 
 }
 
+if(!database){
+
+alert("Firebase belum terhubung.");
+
+return;
+
+}
 
 try{
 
+const salesRef=push(ref(database,"sales"));
 
-const salesRef=
-push(
-ref(database,"sales")
-);
-
-
-await set(
-salesRef,{
+await set(salesRef,{
 
 salesId:SALES_ID,
-
 salesName:SALES_NAME,
-
 outlet:outlet,
-
 quantity:qty,
-
 amount:amount,
+date:new Date().toISOString(),
+createdAt:Date.now()
 
-date:
-new Date().toISOString(),
+});
 
-createdAt:
-Date.now()
+alert("✅ Penjualan berhasil disimpan.");
 
-}
-);
+document.getElementById("saleOutlet").value="";
+document.getElementById("saleQty").value="";
+document.getElementById("saleAmount").value="";
 
-
-alert(
-"✅ Penjualan berhasil disimpan."
-);
-
-
-document.getElementById(
-"saleOutlet"
-).value="";
-
-
-document.getElementById(
-"saleQty"
-).value="";
-
-
-document.getElementById(
-"saleAmount"
-).value="";
-
-
-closeModal(
-"saleModal"
-);
-
+closeModal("saleModal");
 
 }
 
 catch(error){
+
+console.error(error);
 
 alert(
 "❌ Gagal menyimpan penjualan\n\n"+
@@ -1219,102 +611,121 @@ error.message
 CHECK-IN
 ================================= */
 
-
 window.checkin=function(){
 
-document.getElementById(
-"checkinModal"
-).style.display="flex";
+checkinLatitude=null;
+checkinLongitude=null;
+checkinAccuracy=null;
+
+document.getElementById("checkinLocationStatus").innerText=
+"Lokasi belum diambil.";
+
+document.getElementById("checkinModal").style.display="flex";
 
 };
 
 
-window.saveCheckin=function(){
-
-
-const outlet=
-document.getElementById(
-"checkinOutlet"
-).value.trim();
-
-
-if(!outlet){
-
-alert(
-"Nama outlet wajib diisi."
-);
-
-return;
-
-}
-
+window.getCurrentLocationForCheckin=function(){
 
 if(!navigator.geolocation){
 
-alert(
-"GPS tidak tersedia."
-);
+alert("GPS tidak tersedia pada perangkat ini.");
 
 return;
 
 }
 
+document.getElementById("checkinLocationStatus").innerText=
+"📍 Mengambil lokasi...";
 
 navigator.geolocation.getCurrentPosition(
 
-async function(position){
+function(position){
+
+checkinLatitude=position.coords.latitude;
+checkinLongitude=position.coords.longitude;
+checkinAccuracy=position.coords.accuracy;
+
+document.getElementById("checkinLocationStatus").innerText=
+"✅ Lokasi berhasil diambil\n"+
+checkinLatitude.toFixed(6)+", "+
+checkinLongitude.toFixed(6);
+
+},
+
+function(error){
+
+console.error(error);
+
+document.getElementById("checkinLocationStatus").innerText=
+"❌ Lokasi gagal diambil. Pastikan GPS dan izin lokasi aktif.";
+
+},
+
+{
+enableHighAccuracy:true,
+timeout:15000,
+maximumAge:0
+
+}
+
+);
+
+};
+
+
+window.saveCheckin=async function(){
+
+const outlet=
+document.getElementById("checkinOutlet").value.trim();
+
+if(!outlet){
+
+alert("Nama outlet wajib diisi.");
+
+return;
+
+}
+
+if(checkinLatitude===null){
+
+alert("Ambil lokasi GPS terlebih dahulu.");
+
+return;
+
+}
 
 try{
 
-
 const checkinRef=
-push(
-ref(database,"checkins")
-);
+push(ref(database,"checkins"));
 
-
-await set(
-checkinRef,{
+await set(checkinRef,{
 
 salesId:SALES_ID,
-
 salesName:SALES_NAME,
-
 outlet:outlet,
 
-latitude:
-position.coords.latitude,
+latitude:checkinLatitude,
+longitude:checkinLongitude,
+accuracy:checkinAccuracy,
 
-longitude:
-position.coords.longitude,
+mapsUrl:
+"https://www.google.com/maps?q="+
+checkinLatitude+
+","+
+checkinLongitude,
 
-accuracy:
-position.coords.accuracy,
+date:new Date().toISOString(),
+createdAt:Date.now()
 
-date:
-new Date().toISOString(),
+});
 
-createdAt:
-Date.now()
+alert("✅ Check-in berhasil disimpan.");
 
-}
-);
+document.getElementById("checkinOutlet").value="";
 
-
-alert(
-"✅ Check-in berhasil disimpan."
-);
-
-
-document.getElementById(
-"checkinOutlet"
-).value="";
-
-
-closeModal(
-"checkinModal"
-);
-
+closeModal("checkinModal");
 
 }
 
@@ -1327,112 +738,58 @@ error.message
 
 }
 
-},
-
-function(){
-
-alert(
-"GPS tidak bisa digunakan. Izinkan lokasi browser."
-);
-
-}
-
-);
-
 };
 
 
 /* =================================
-SETOR
+SETOR KAS
 ================================= */
-
 
 window.deposit=function(){
 
-document.getElementById(
-"depositModal"
-).style.display="flex";
+document.getElementById("depositModal").style.display="flex";
 
 };
 
 
 window.saveDeposit=async function(){
 
-
 const amount=
-Number(
-document.getElementById(
-"depositAmount"
-).value
-);
-
+Number(document.getElementById("depositAmount").value);
 
 const note=
-document.getElementById(
-"depositNote"
-).value.trim();
+document.getElementById("depositNote").value.trim();
 
+if(!amount || amount<=0){
 
-if(!amount||amount<=0){
-
-alert(
-"Jumlah setoran harus diisi."
-);
+alert("Jumlah setoran harus diisi.");
 
 return;
 
 }
 
-
 try{
 
-
 const depositRef=
-push(
-ref(database,"deposits")
-);
+push(ref(database,"deposits"));
 
-
-await set(
-depositRef,{
+await set(depositRef,{
 
 salesId:SALES_ID,
-
 salesName:SALES_NAME,
-
 amount:amount,
-
 note:note,
+date:new Date().toISOString(),
+createdAt:Date.now()
 
-date:
-new Date().toISOString(),
+});
 
-createdAt:
-Date.now()
+alert("✅ Setoran berhasil disimpan.");
 
-}
-);
+document.getElementById("depositAmount").value="";
+document.getElementById("depositNote").value="";
 
-
-alert(
-"✅ Setoran berhasil disimpan."
-);
-
-
-document.getElementById(
-"depositAmount"
-).value="";
-
-
-document.getElementById(
-"depositNote"
-).value="";
-
-
-closeModal(
-"depositModal"
-);
-
+closeModal("depositModal");
 
 }
 
@@ -1452,154 +809,175 @@ error.message
 OUTLET
 ================================= */
 
-
 window.outlet=function(){
 
 loadOutlets();
 
-document.getElementById(
-"outletModal"
-).style.display="flex";
+document.getElementById("outletModal").style.display="flex";
 
 };
 
 
 window.addOutlet=function(){
 
-document.getElementById(
-"outletModal"
-).style.display="flex";
+outletLatitude=null;
+outletLongitude=null;
+outletAccuracy=null;
+
+document.getElementById("outletLocationStatus").innerText=
+"Koordinat belum diambil.";
+
+document.getElementById("outletModal").style.display="flex";
 
 };
 
 
-window.saveOutlet=async function(){
+/* AMBIL GPS OUTLET */
 
+window.getOutletLocation=function(){
 
-const name=
-document.getElementById(
-"newOutletName"
-).value.trim();
+if(!navigator.geolocation){
 
-
-const owner=
-document.getElementById(
-"newOwnerName"
-).value.trim();
-
-
-const phone=
-document.getElementById(
-"newOutletPhone"
-).value.trim();
-
-
-const address=
-document.getElementById(
-"newOutletAddress"
-).value.trim();
-
-
-const type=
-document.getElementById(
-"newOutletType"
-).value;
-
-
-const note=
-document.getElementById(
-"newOutletNote"
-).value.trim();
-
-
-if(!name){
-
-alert(
-"Nama outlet wajib diisi."
-);
+alert("GPS tidak tersedia.");
 
 return;
 
 }
 
+document.getElementById("outletLocationStatus").innerText=
+"📍 Mengambil titik lokasi outlet...";
+
+navigator.geolocation.getCurrentPosition(
+
+function(position){
+
+outletLatitude=position.coords.latitude;
+outletLongitude=position.coords.longitude;
+outletAccuracy=position.coords.accuracy;
+
+document.getElementById("outletLocationStatus").innerText=
+"✅ Titik outlet berhasil disimpan sementara\n"+
+outletLatitude.toFixed(6)+", "+
+outletLongitude.toFixed(6);
+
+},
+
+function(error){
+
+console.error(error);
+
+document.getElementById("outletLocationStatus").innerText=
+"❌ Gagal mengambil GPS. Aktifkan izin lokasi.";
+
+},
+
+{
+enableHighAccuracy:true,
+timeout:15000,
+maximumAge:0
+
+}
+
+);
+
+};
+
+
+/* SIMPAN OUTLET */
+
+window.saveOutlet=async function(){
+
+const name=
+document.getElementById("newOutletName").value.trim();
+
+const owner=
+document.getElementById("newOwnerName").value.trim();
+
+const phone=
+document.getElementById("newOutletPhone").value.trim();
+
+const address=
+document.getElementById("newOutletAddress").value.trim();
+
+const type=
+document.getElementById("newOutletType").value;
+
+const note=
+document.getElementById("newOutletNote").value.trim();
+
+if(!name){
+
+alert("Nama outlet wajib diisi.");
+
+return;
+
+}
+
+if(outletLatitude===null){
+
+alert("Ambil titik GPS outlet terlebih dahulu.");
+
+return;
+
+}
 
 try{
 
-
 const outletRef=
-push(
-ref(database,"outlets")
-);
+push(ref(database,"outlets"));
 
-
-await set(
-outletRef,{
+await set(outletRef,{
 
 salesId:SALES_ID,
-
 salesName:SALES_NAME,
 
 name:name,
-
 owner:owner,
-
 phone:phone,
-
 address:address,
-
 type:type,
-
 note:note,
+
+latitude:outletLatitude,
+longitude:outletLongitude,
+accuracy:outletAccuracy,
+
+mapsUrl:
+"https://www.google.com/maps?q="+
+outletLatitude+
+","+
+outletLongitude,
 
 status:"aktif",
 
-createdAt:
-Date.now()
+createdAt:Date.now()
 
-}
-);
+});
 
+alert("✅ Outlet dan titik Google Maps berhasil disimpan.");
 
-alert(
-"✅ Outlet berhasil disimpan."
-);
+document.getElementById("newOutletName").value="";
+document.getElementById("newOwnerName").value="";
+document.getElementById("newOutletPhone").value="";
+document.getElementById("newOutletAddress").value="";
+document.getElementById("newOutletNote").value="";
 
+outletLatitude=null;
+outletLongitude=null;
+outletAccuracy=null;
 
-document.getElementById(
-"newOutletName"
-).value="";
+document.getElementById("outletLocationStatus").innerText=
+"Koordinat belum diambil.";
 
-
-document.getElementById(
-"newOwnerName"
-).value="";
-
-
-document.getElementById(
-"newOutletPhone"
-).value="";
-
-
-document.getElementById(
-"newOutletAddress"
-).value="";
-
-
-document.getElementById(
-"newOutletNote"
-).value="";
-
-
-closeModal(
-"outletModal"
-);
-
+closeModal("outletModal");
 
 loadOutlets();
 
 }
 
 catch(error){
+
+console.error(error);
 
 alert(
 "❌ Gagal menyimpan outlet\n\n"+
@@ -1615,62 +993,54 @@ error.message
 LOAD OUTLET
 ================================= */
 
-
 function loadOutlets(){
-
 
 if(!database)return;
 
-
-const outletRef=
-ref(database,"outlets");
-
-
 onValue(
-
-outletRef,
-
+ref(database,"outlets"),
 function(snapshot){
 
-
 const list=
-document.getElementById(
-"outletList"
-);
-
+document.getElementById("outletList");
 
 list.innerHTML="";
 
-
 let count=0;
 
+snapshot.forEach(function(child){
 
-snapshot.forEach(
+const data=child.val();
 
-function(child){
-
-
-const data=
-child.val();
-
-
-if(
-data &&
-data.salesId===SALES_ID
-){
-
+if(data && data.salesId===SALES_ID){
 
 count++;
 
-
-const div=
-document.createElement(
-"div"
-);
-
+const div=document.createElement("div");
 
 div.className="outlet";
 
+let mapsButton="";
+
+if(
+data.latitude!==undefined &&
+data.longitude!==undefined
+){
+
+const mapsUrl=
+"https://www.google.com/maps?q="+
+data.latitude+
+","+
+data.longitude;
+
+mapsButton=
+"<button class='btn-map' onclick=\"openMaps('"+
+mapsUrl+
+"')\">"+
+"🗺️ BUKA GOOGLE MAPS"+
+"</button>";
+
+}
 
 div.innerHTML=
 
@@ -1684,153 +1054,119 @@ div.innerHTML=
 (data.status||"aktif")+
 "</span>"+
 
-"<div style='margin-top:7px;font-size:12px;color:#666;'>"+
+"<div style='margin-top:7px;font-size:12px;color:#666'>"+
 (data.owner||"")+
 "<br>"+
 (data.phone||"")+
 "<br>"+
 (data.address||"")+
-"</div>";
+"</div>"+
 
+(
+data.latitude!==undefined
+?
+"<div class='coordinates'>"+
+"📍 "+
+Number(data.latitude).toFixed(6)+
+", "+
+Number(data.longitude).toFixed(6)+
+"</div>"
+:""
+)+
+
+mapsButton;
 
 list.appendChild(div);
 
 }
 
-}
-
-);
-
+});
 
 if(count===0){
 
-list.innerHTML=
-"Belum ada outlet.";
+list.innerHTML="Belum ada outlet.";
 
 }
 
-
-document.getElementById(
-"profileOutlets"
-).innerText=count;
-
+document.getElementById("profileOutlets").innerText=count;
 
 }
-
 );
 
 }
+
+
+/* GOOGLE MAPS */
+
+window.openMaps=function(url){
+
+window.open(url,"_blank");
+
+};
 
 
 /* =================================
 DASHBOARD SALES
 ================================= */
 
+function updateDashboard(){
 
-if(database){
-
-
-const salesRef=
-ref(database,"sales");
-
+if(!database)return;
 
 onValue(
-
-salesRef,
-
+ref(database,"sales"),
 function(snapshot){
 
-
 let total=0;
-
 let transactions=0;
 
+snapshot.forEach(function(child){
 
-snapshot.forEach(
+const data=child.val();
 
-function(child){
+if(data && data.salesId===SALES_ID){
 
-
-const data=
-child.val();
-
-
-if(
-data &&
-data.salesId===SALES_ID
-){
-
-
-total+=
-Number(
-data.quantity||0
-);
-
+total+=Number(data.quantity||0);
 
 transactions++;
 
 }
 
+});
+
+document.getElementById("totalSales").innerText=
+total.toLocaleString("id-ID");
+
+let percent=0;
+
+if(TARGET_BULANAN>0){
+
+percent=Math.round(
+(total/TARGET_BULANAN)*100
+);
+
 }
 
-);
+if(percent>100)percent=100;
 
-
-document.getElementById(
-"totalSales"
-).innerText=
-total.toLocaleString(
-"id-ID"
-);
-
-
-const target=1500;
-
-
-let percent=
-Math.round(
-(total/target)*100
-);
-
-
-if(percent>100)
-percent=100;
-
-
-document.getElementById(
-"progressBar"
-).style.width=
+document.getElementById("progressBar").style.width=
 percent+"%";
 
-
-document.getElementById(
-"progressText"
-).innerText=
+document.getElementById("progressText").innerText=
 percent+"%";
 
+document.getElementById("profilePack").innerText=
+total.toLocaleString("id-ID");
 
-document.getElementById(
-"profilePack"
-).innerText=
-total.toLocaleString(
-"id-ID"
-);
-
-
-document.getElementById(
-"profileTransactions"
-).innerText=
+document.getElementById("profileTransactions").innerText=
 transactions;
 
-
-document.getElementById(
-"kpiSales"
-).innerText=
+document.getElementById("kpiSales").innerText=
 percent;
 
+updateAI(total);
 
 }
-
 );
 
 }
@@ -1840,127 +1176,73 @@ percent;
 CHECK-IN DATA
 ================================= */
 
+function loadCheckins(){
 
-if(database){
-
-
-const checkinsRef=
-ref(database,"checkins");
-
+if(!database)return;
 
 onValue(
-
-checkinsRef,
-
+ref(database,"checkins"),
 function(snapshot){
-
 
 let count=0;
 
+snapshot.forEach(function(child){
 
-snapshot.forEach(
+const data=child.val();
 
-function(child){
-
-
-const data=
-child.val();
-
-
-if(
-data &&
-data.salesId===SALES_ID
-){
+if(data && data.salesId===SALES_ID){
 
 count++;
 
 }
 
-}
+});
 
-);
+document.getElementById("profileCheckins").innerText=count;
 
-
-document.getElementById(
-"profileCheckins"
-).innerText=count;
-
-
-document.getElementById(
-"kpiProductivity"
-).innerText=
-count>0?Math.min(
-100,
-Math.round(count/10*100)
-):0;
-
+document.getElementById("kpiProductivity").innerText=
+count>0
+?
+Math.min(100,Math.round(count/10*100))
+:0;
 
 }
-
 );
 
 }
 
 
 /* =================================
-DEPOSIT DATA
+SETORAN
 ================================= */
 
+function loadDeposits(){
 
-if(database){
-
-
-const depositRef=
-ref(database,"deposits");
-
+if(!database)return;
 
 onValue(
-
-depositRef,
-
+ref(database,"deposits"),
 function(snapshot){
-
 
 let total=0;
 
+snapshot.forEach(function(child){
 
-snapshot.forEach(
+const data=child.val();
 
-function(child){
+if(data && data.salesId===SALES_ID){
 
-
-const data=
-child.val();
-
-
-if(
-data &&
-data.salesId===SALES_ID
-){
-
-total+=
-Number(
-data.amount||0
-);
+total+=Number(data.amount||0);
 
 }
 
-}
+});
 
-);
-
-
-document.getElementById(
-"profileDeposit"
-).innerText=
+document.getElementById("profileDeposit").innerText=
 "Rp "+
-total.toLocaleString(
-"id-ID"
-);
-
+total.toLocaleString("id-ID");
 
 }
-
 );
 
 }
@@ -1970,31 +1252,27 @@ total.toLocaleString(
 KPI
 ================================= */
 
-
 window.showKPI=function(){
-
 
 alert(
 
 "KPI CRISPI SALES\n\n"+
 
 "Sales Achievement : "+
-document.getElementById(
-"kpiSales"
-).innerText+
+document.getElementById("kpiSales").innerText+
 "%\n\n"+
 
 "Produktivitas : "+
-document.getElementById(
-"kpiProductivity"
-).innerText+
+document.getElementById("kpiProductivity").innerText+
 "%\n\n"+
 
 "Disiplin & Reporting : "+
-document.getElementById(
-"kpiDiscipline"
-).innerText+
-"%"
+document.getElementById("kpiDiscipline").innerText+
+"%\n\n"+
+
+"Target : "+
+TARGET_BULANAN.toLocaleString("id-ID")+
+" Pack"
 
 );
 
@@ -2005,107 +1283,49 @@ document.getElementById(
 PROFILE
 ================================= */
 
-
 window.profile=function(){
 
-document.getElementById(
-"profileModal"
-).style.display="flex";
+document.getElementById("profileModal").style.display="flex";
 
 };
 
 
 /* =================================
-AI
+AI SALES COACH
 ================================= */
-
 
 function updateAI(total){
 
+const target=TARGET_BULANAN;
 
-const target=1500;
+const remaining=Math.max(0,target-total);
 
-const remaining=
-Math.max(
-0,
-target-total
-);
-
+let text="";
 
 if(total===0){
 
-document.getElementById(
-"aiInsight"
-).innerText=
-"Mulai hari ini dengan target kunjungan dan penjualan yang jelas.";
-
-return;
+text=
+"Belum ada penjualan tercatat. Fokus hari ini: kunjungi outlet sebanyak mungkin, lakukan check-in, dan dapatkan order pertama.";
 
 }
 
+else if(remaining===0){
 
-if(remaining===0){
-
-document.getElementById(
-"aiInsight"
-).innerText=
-"🎉 Target 1.500 pack sudah tercapai. Pertahankan ritme penjualan.";
-
-return;
+text=
+"🎉 Target sudah tercapai. Pertahankan ritme kunjungan dan cari outlet baru untuk meningkatkan omzet.";
 
 }
 
+else{
 
-document.getElementById(
-"aiInsight"
-).innerText=
-
+text=
 "Target tersisa "+
-remaining+
-" pack. Fokus meningkatkan jumlah outlet yang melakukan order dan prioritaskan outlet dengan potensi pembelian terbesar.";
+remaining.toLocaleString("id-ID")+
+" pack. Prioritaskan outlet yang berpotensi repeat order dan lakukan follow-up terhadap outlet yang belum membeli.";
 
 }
 
-
-if(database){
-
-
-onValue(
-
-ref(database,"sales"),
-
-function(snapshot){
-
-let total=0;
-
-
-snapshot.forEach(
-
-function(child){
-
-const data=child.val();
-
-
-if(
-data &&
-data.salesId===SALES_ID
-){
-
-total+=
-Number(
-data.quantity||0
-);
-
-}
-
-});
-
-
-updateAI(total);
-
-}
-
-);
+document.getElementById("aiInsight").innerText=text;
 
 }
 
@@ -2114,15 +1334,11 @@ updateAI(total);
 HOME
 ================================= */
 
-
 window.home=function(){
 
 window.scrollTo({
-
 top:0,
-
 behavior:"smooth"
-
 });
 
 };
@@ -2132,14 +1348,28 @@ behavior:"smooth"
 CLOSE MODAL
 ================================= */
 
-
 window.closeModal=function(id){
 
-document.getElementById(id)
-.style.display="none";
+document.getElementById(id).style.display="none";
 
 };
 
+
+/* =================================
+START
+================================= */
+
+if(database){
+
+loadTarget();
+
+loadCheckins();
+
+loadDeposits();
+
+loadOutlets();
+
+}
 
 </script>
 
