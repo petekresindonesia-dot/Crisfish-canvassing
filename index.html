@@ -3,7 +3,6 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>CRISPI SALES - Canvassing System</title>
 
 <style>
@@ -116,11 +115,6 @@ body{
   cursor:pointer;
 }
 
-.btn:active,
-.menu:active{
-  transform:scale(.98);
-}
-
 .outlet{
   padding:14px 0;
   border-bottom:1px solid #eee;
@@ -176,7 +170,7 @@ body{
   margin-bottom:3px;
 }
 
-input,select{
+input{
   width:100%;
   padding:13px;
   border:1px solid #ddd;
@@ -231,7 +225,6 @@ label{
 .status{
   font-size:12px;
   margin-top:8px;
-  color:#666;
 }
 
 .success{
@@ -248,143 +241,149 @@ label{
 
 <div class="app">
 
-  <div class="header">
-    <div class="logo">CRISPI SALES</div>
-    <div class="subtitle">PETEKRES • Sales Canvassing System</div>
+<div class="header">
+  <div class="logo">CRISPI SALES</div>
+  <div class="subtitle">PETEKRES • Sales Canvassing System</div>
+</div>
+
+<div class="container">
+
+<div class="card">
+  <div class="welcome">Halo, <span id="salesName">Andi</span> 👋</div>
+  <div>Sales Motoris</div>
+
+  <div class="status" id="firebaseStatus">
+    Menghubungkan database...
+  </div>
+</div>
+
+
+<div class="card">
+
+  <b>Target Penjualan Bulanan</b>
+
+  <div class="target">
+    <span id="totalSales">0</span> / 1.500 Pack
   </div>
 
-  <div class="container">
-
-    <div class="card">
-      <div class="welcome">Halo, <span id="salesName">Andi</span> 👋</div>
-      <div>Sales Motoris</div>
-      <div class="status" id="firebaseStatus">
-        Menghubungkan database...
-      </div>
-    </div>
-
-    <div class="card">
-
-      <b>Target Penjualan Bulanan</b>
-
-      <div class="target">
-        <span id="totalSales">0</span> / 1.500 Pack
-      </div>
-
-      <div class="progress">
-        <div class="progress-bar" id="progressBar"></div>
-      </div>
-
-      <p style="margin-top:8px;font-size:13px;color:#666;">
-        <span id="progressText">0%</span> target tercapai
-      </p>
-
-    </div>
-
-    <div class="grid">
-
-      <button class="menu" onclick="checkin()">
-        <span>📍</span>
-        CHECK-IN
-      </button>
-
-      <button class="menu" onclick="sale()">
-        <span>🛒</span>
-        CATAT PENJUALAN
-      </button>
-
-      <button class="menu" onclick="outlet()">
-        <span>🏪</span>
-        OUTLET
-      </button>
-
-      <button class="menu" onclick="deposit()">
-        <span>💰</span>
-        SETOR KAS
-      </button>
-
-    </div>
-
-    <div class="card" style="margin-top:15px;">
-
-      <b>KPI Saya</b>
-
-      <div class="kpi">
-        <span>Pencapaian Sales</span>
-        <span class="kpi-score" id="kpiSales">0</span>
-      </div>
-
-      <div class="kpi">
-        <span>Produktivitas</span>
-        <span class="kpi-score" id="kpiProductivity">0</span>
-      </div>
-
-      <div class="kpi">
-        <span>Disiplin & Reporting</span>
-        <span class="kpi-score" id="kpiDiscipline">0</span>
-      </div>
-
-      <button class="btn" onclick="showKPI()">
-        Lihat Detail KPI
-      </button>
-
-    </div>
-
-    <div class="card">
-
-      <b>Outlet Hari Ini</b>
-
-      <div id="outletList">
-
-        <div class="outlet">
-          <b>Warung Barokah</b><br>
-          <span class="badge">Contoh outlet</span>
-        </div>
-
-        <div class="outlet">
-          <b>Warung Sari</b><br>
-          <span class="badge">Contoh outlet</span>
-        </div>
-
-        <div class="outlet">
-          <b>Toko Rizki</b><br>
-          <span class="badge">Contoh outlet</span>
-        </div>
-
-      </div>
-
-    </div>
-
+  <div class="progress">
+    <div class="progress-bar" id="progressBar"></div>
   </div>
 
-  <div class="bottom">
+  <p style="margin-top:8px;font-size:13px;color:#666;">
+    <span id="progressText">0%</span> target tercapai
+  </p>
 
-    <button onclick="home()">
-      <span>🏠</span>
-      Home
-    </button>
+</div>
 
-    <button onclick="outlet()">
-      <span>🏪</span>
-      Outlet
-    </button>
 
-    <button onclick="sale()">
-      <span>🛒</span>
-      Penjualan
-    </button>
+<div class="grid">
 
-    <button onclick="showKPI()">
-      <span>📊</span>
-      KPI
-    </button>
+<button class="menu" onclick="checkin()">
+  <span>📍</span>
+  CHECK-IN
+</button>
 
-    <button onclick="profile()">
-      <span>👤</span>
-      Profil
-    </button>
+<button class="menu" onclick="sale()">
+  <span>🛒</span>
+  CATAT PENJUALAN
+</button>
 
-  </div>
+<button class="menu" onclick="outlet()">
+  <span>🏪</span>
+  OUTLET
+</button>
+
+<button class="menu" onclick="deposit()">
+  <span>💰</span>
+  SETOR KAS
+</button>
+
+</div>
+
+
+<div class="card" style="margin-top:15px;">
+
+<b>KPI Saya</b>
+
+<div class="kpi">
+  <span>Pencapaian Sales</span>
+  <span class="kpi-score" id="kpiSales">0</span>
+</div>
+
+<div class="kpi">
+  <span>Produktivitas</span>
+  <span class="kpi-score" id="kpiProductivity">0</span>
+</div>
+
+<div class="kpi">
+  <span>Disiplin & Reporting</span>
+  <span class="kpi-score" id="kpiDiscipline">0</span>
+</div>
+
+<button class="btn" onclick="showKPI()">
+  Lihat Detail KPI
+</button>
+
+</div>
+
+
+<div class="card">
+
+<b>Outlet Hari Ini</b>
+
+<div id="outletList">
+
+<div class="outlet">
+  <b>Warung Barokah</b><br>
+  <span class="badge">Contoh outlet</span>
+</div>
+
+<div class="outlet">
+  <b>Warung Sari</b><br>
+  <span class="badge">Contoh outlet</span>
+</div>
+
+<div class="outlet">
+  <b>Toko Rizki</b><br>
+  <span class="badge">Contoh outlet</span>
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+
+<div class="bottom">
+
+<button onclick="home()">
+  <span>🏠</span>
+  Home
+</button>
+
+<button onclick="outlet()">
+  <span>🏪</span>
+  Outlet
+</button>
+
+<button onclick="sale()">
+  <span>🛒</span>
+  Penjualan
+</button>
+
+<button onclick="showKPI()">
+  <span>📊</span>
+  KPI
+</button>
+
+<button onclick="profile()">
+  <span>👤</span>
+  Profil
+</button>
+
+</div>
 
 </div>
 
@@ -395,45 +394,48 @@ label{
 
 <div class="modal" id="saleModal">
 
-  <div class="modal-box">
+<div class="modal-box">
 
-    <div class="modal-title">
-      🛒 Catat Penjualan
-    </div>
+<div class="modal-title">
+🛒 Catat Penjualan
+</div>
 
-    <label>Nama Outlet</label>
-    <input
-      id="saleOutlet"
-      type="text"
-      placeholder="Contoh: Warung Barokah"
-    >
+<label>Nama Outlet</label>
 
-    <label>Jumlah Pack</label>
-    <input
-      id="saleQty"
-      type="number"
-      min="1"
-      placeholder="Contoh: 20"
-    >
+<input
+id="saleOutlet"
+type="text"
+placeholder="Contoh: Warung Barokah"
+>
 
-    <label>Total Uang</label>
-    <input
-      id="saleAmount"
-      type="number"
-      min="0"
-      placeholder="Contoh: 300000"
-    >
+<label>Jumlah Pack</label>
 
-    <button class="btn" onclick="saveSale()">
-      SIMPAN PENJUALAN
-    </button>
+<input
+id="saleQty"
+type="number"
+min="1"
+placeholder="Contoh: 20"
+>
 
-    <button class="btn-secondary" onclick="closeModal('saleModal')">
-      BATAL
-    </button>
+<label>Total Uang</label>
 
-  </div>
+<input
+id="saleAmount"
+type="number"
+min="0"
+placeholder="Contoh: 300000"
+>
 
+<button class="btn" onclick="saveSale()">
+SIMPAN PENJUALAN
+</button>
+
+<button class="btn-secondary"
+onclick="closeModal('saleModal')">
+BATAL
+</button>
+
+</div>
 </div>
 
 
@@ -443,30 +445,30 @@ label{
 
 <div class="modal" id="checkinModal">
 
-  <div class="modal-box">
+<div class="modal-box">
 
-    <div class="modal-title">
-      📍 Check-in Outlet
-    </div>
+<div class="modal-title">
+📍 Check-in Outlet
+</div>
 
-    <label>Nama Outlet</label>
+<label>Nama Outlet</label>
 
-    <input
-      id="checkinOutlet"
-      type="text"
-      placeholder="Nama outlet"
-    >
+<input
+id="checkinOutlet"
+type="text"
+placeholder="Nama outlet"
+>
 
-    <button class="btn" onclick="saveCheckin()">
-      AMBIL LOKASI & SIMPAN
-    </button>
+<button class="btn" onclick="saveCheckin()">
+AMBIL LOKASI & SIMPAN
+</button>
 
-    <button class="btn-secondary" onclick="closeModal('checkinModal')">
-      BATAL
-    </button>
+<button class="btn-secondary"
+onclick="closeModal('checkinModal')">
+BATAL
+</button>
 
-  </div>
-
+</div>
 </div>
 
 
@@ -476,39 +478,39 @@ label{
 
 <div class="modal" id="depositModal">
 
-  <div class="modal-box">
+<div class="modal-box">
 
-    <div class="modal-title">
-      💰 Setor Kas
-    </div>
+<div class="modal-title">
+💰 Setor Kas
+</div>
 
-    <label>Jumlah Setoran</label>
+<label>Jumlah Setoran</label>
 
-    <input
-      id="depositAmount"
-      type="number"
-      min="0"
-      placeholder="Contoh: 500000"
-    >
+<input
+id="depositAmount"
+type="number"
+min="0"
+placeholder="Contoh: 500000"
+>
 
-    <label>Keterangan</label>
+<label>Keterangan</label>
 
-    <input
-      id="depositNote"
-      type="text"
-      placeholder="Contoh: Setoran penjualan hari ini"
-    >
+<input
+id="depositNote"
+type="text"
+placeholder="Contoh: Setoran penjualan hari ini"
+>
 
-    <button class="btn" onclick="saveDeposit()">
-      SIMPAN SETORAN
-    </button>
+<button class="btn" onclick="saveDeposit()">
+SIMPAN SETORAN
+</button>
 
-    <button class="btn-secondary" onclick="closeModal('depositModal')">
-      BATAL
-    </button>
+<button class="btn-secondary"
+onclick="closeModal('depositModal')">
+BATAL
+</button>
 
-  </div>
-
+</div>
 </div>
 
 
@@ -531,48 +533,56 @@ import {
 from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
 
 
-/*
-=================================================
-FIREBASE CONFIG
-GANTI BAGIAN INI DENGAN CONFIG MILIK KAMU
-=================================================
-*/
+/* =========================
+   FIREBASE CRISPI SALES
+========================= */
 
 const firebaseConfig = {
 
-  apiKey: "PASTE_API_KEY_DI_SINI",
-
-  authDomain: "PASTE_AUTH_DOMAIN_DI_SINI",
-
-  databaseURL: "PASTE_DATABASE_URL_DI_SINI",
-
-  projectId: "PASTE_PROJECT_ID_DI_SINI",
-
-  storageBucket: "PASTE_STORAGE_BUCKET_DI_SINI",
-
-  messagingSenderId: "PASTE_MESSAGING_SENDER_ID_DI_SINI",
-
-  appId: "PASTE_APP_ID_DI_SINI"
+  databaseURL:
+  "https://crisfish-sales-default-rtdb.asia-southeast1.firebasedatabase.app/"
 
 };
 
 
-/* INISIALISASI FIREBASE */
+/* =========================
+   CONNECT FIREBASE
+========================= */
 
-const app = initializeApp(firebaseConfig);
+let app;
 
-const database = getDatabase(app);
+let database;
+
+try{
+
+  app = initializeApp(firebaseConfig);
+
+  database = getDatabase(app);
+
+  document.getElementById("firebaseStatus").innerText =
+    "🟢 Firebase terhubung";
+
+  document.getElementById("firebaseStatus")
+    .classList.add("success");
+
+}
+
+catch(error){
+
+  console.error(error);
+
+  document.getElementById("firebaseStatus").innerText =
+    "🔴 Firebase gagal terhubung";
+
+  document.getElementById("firebaseStatus")
+    .classList.add("error");
+
+}
 
 
-/* STATUS KONEKSI */
-
-document.getElementById("firebaseStatus").innerText =
-  "🟢 Firebase siap digunakan";
-
-document.getElementById("firebaseStatus").classList.add("success");
-
-
-/* SALES AKTIF */
+/* =========================
+   SALES AKTIF
+========================= */
 
 const SALES_ID = "andi";
 
@@ -585,23 +595,27 @@ const SALES_NAME = "Andi";
 
 window.sale = function(){
 
-  document.getElementById("saleModal").style.display = "flex";
+  document.getElementById("saleModal").style.display =
+    "flex";
 
 };
 
 
-/* SIMPAN PENJUALAN */
-
 window.saveSale = async function(){
 
   const outlet =
-    document.getElementById("saleOutlet").value.trim();
+    document.getElementById("saleOutlet")
+    .value.trim();
 
   const qty =
-    Number(document.getElementById("saleQty").value);
+    Number(
+      document.getElementById("saleQty").value
+    );
 
   const amount =
-    Number(document.getElementById("saleAmount").value);
+    Number(
+      document.getElementById("saleAmount").value
+    );
 
 
   if(!outlet){
@@ -646,13 +660,20 @@ window.saveSale = async function(){
     });
 
 
-    alert("✅ Penjualan berhasil disimpan ke Firebase.");
+    alert(
+      "✅ PENJUALAN BERHASIL DISIMPAN"
+    );
 
-    document.getElementById("saleOutlet").value = "";
 
-    document.getElementById("saleQty").value = "";
+    document.getElementById("saleOutlet")
+      .value = "";
 
-    document.getElementById("saleAmount").value = "";
+    document.getElementById("saleQty")
+      .value = "";
+
+    document.getElementById("saleAmount")
+      .value = "";
+
 
     closeModal("saleModal");
 
@@ -662,7 +683,10 @@ window.saveSale = async function(){
 
     console.error(error);
 
-    alert("❌ Gagal menyimpan penjualan.\n\n" + error.message);
+    alert(
+      "❌ GAGAL MENYIMPAN\n\n" +
+      error.message
+    );
 
   }
 
@@ -675,7 +699,8 @@ window.saveSale = async function(){
 
 window.checkin = function(){
 
-  document.getElementById("checkinModal").style.display = "flex";
+  document.getElementById("checkinModal")
+    .style.display = "flex";
 
 };
 
@@ -683,7 +708,8 @@ window.checkin = function(){
 window.saveCheckin = function(){
 
   const outlet =
-    document.getElementById("checkinOutlet").value.trim();
+    document.getElementById("checkinOutlet")
+    .value.trim();
 
 
   if(!outlet){
@@ -697,7 +723,7 @@ window.saveCheckin = function(){
 
   if(!navigator.geolocation){
 
-    alert("GPS tidak tersedia di perangkat ini.");
+    alert("GPS tidak tersedia.");
 
     return;
 
@@ -713,6 +739,7 @@ window.saveCheckin = function(){
         const checkinRef =
           push(ref(database,"checkins"));
 
+
         await set(checkinRef,{
 
           salesId: SALES_ID,
@@ -721,22 +748,33 @@ window.saveCheckin = function(){
 
           outlet: outlet,
 
-          latitude: position.coords.latitude,
+          latitude:
+            position.coords.latitude,
 
-          longitude: position.coords.longitude,
+          longitude:
+            position.coords.longitude,
 
-          accuracy: position.coords.accuracy,
+          accuracy:
+            position.coords.accuracy,
 
-          date: new Date().toISOString(),
+          date:
+            new Date().toISOString(),
 
-          createdAt: Date.now()
+          createdAt:
+            Date.now()
 
         });
 
 
-        alert("✅ Check-in berhasil disimpan.");
+        alert(
+          "✅ CHECK-IN BERHASIL"
+        );
 
-        document.getElementById("checkinOutlet").value = "";
+
+        document.getElementById(
+          "checkinOutlet"
+        ).value = "";
+
 
         closeModal("checkinModal");
 
@@ -745,7 +783,7 @@ window.saveCheckin = function(){
       catch(error){
 
         alert(
-          "❌ Gagal menyimpan check-in.\n\n" +
+          "❌ GAGAL MENYIMPAN CHECK-IN\n\n" +
           error.message
         );
 
@@ -753,11 +791,11 @@ window.saveCheckin = function(){
 
     },
 
-    function(error){
+    function(){
 
       alert(
-        "GPS tidak bisa digunakan.\n\n" +
-        "Pastikan izin lokasi diberikan pada browser."
+        "❌ GPS tidak bisa digunakan.\n\n" +
+        "Izinkan lokasi pada browser."
       );
 
     }
@@ -773,7 +811,8 @@ window.saveCheckin = function(){
 
 window.deposit = function(){
 
-  document.getElementById("depositModal").style.display = "flex";
+  document.getElementById("depositModal")
+    .style.display = "flex";
 
 };
 
@@ -781,15 +820,21 @@ window.deposit = function(){
 window.saveDeposit = async function(){
 
   const amount =
-    Number(document.getElementById("depositAmount").value);
+    Number(
+      document.getElementById("depositAmount")
+      .value
+    );
 
   const note =
-    document.getElementById("depositNote").value.trim();
+    document.getElementById("depositNote")
+    .value.trim();
 
 
   if(!amount || amount <= 0){
 
-    alert("Jumlah setoran harus diisi.");
+    alert(
+      "Jumlah setoran harus diisi."
+    );
 
     return;
 
@@ -801,6 +846,7 @@ window.saveDeposit = async function(){
     const depositRef =
       push(ref(database,"deposits"));
 
+
     await set(depositRef,{
 
       salesId: SALES_ID,
@@ -811,18 +857,28 @@ window.saveDeposit = async function(){
 
       note: note,
 
-      date: new Date().toISOString(),
+      date:
+        new Date().toISOString(),
 
-      createdAt: Date.now()
+      createdAt:
+        Date.now()
 
     });
 
 
-    alert("✅ Setoran berhasil disimpan.");
+    alert(
+      "✅ SETORAN BERHASIL DISIMPAN"
+    );
 
-    document.getElementById("depositAmount").value = "";
 
-    document.getElementById("depositNote").value = "";
+    document.getElementById(
+      "depositAmount"
+    ).value = "";
+
+    document.getElementById(
+      "depositNote"
+    ).value = "";
+
 
     closeModal("depositModal");
 
@@ -831,7 +887,7 @@ window.saveDeposit = async function(){
   catch(error){
 
     alert(
-      "❌ Gagal menyimpan setoran.\n\n" +
+      "❌ GAGAL MENYIMPAN SETORAN\n\n" +
       error.message
     );
 
@@ -844,54 +900,82 @@ window.saveDeposit = async function(){
    DASHBOARD PENJUALAN
 ========================= */
 
-const salesDataRef =
-  ref(database,"sales");
+if(database){
+
+  const salesDataRef =
+    ref(database,"sales");
 
 
-onValue(
+  onValue(
 
-  salesDataRef,
+    salesDataRef,
 
-  function(snapshot){
+    function(snapshot){
 
-    let total = 0;
+      let total = 0;
 
-    snapshot.forEach(function(child){
 
-      const data = child.val();
+      snapshot.forEach(
 
-      if(data && data.salesId === SALES_ID){
+        function(child){
 
-        total += Number(data.quantity || 0);
+          const data =
+            child.val();
+
+
+          if(
+            data &&
+            data.salesId === SALES_ID
+          ){
+
+            total +=
+              Number(data.quantity || 0);
+
+          }
+
+        }
+
+      );
+
+
+      document.getElementById(
+        "totalSales"
+      ).innerText =
+        total.toLocaleString("id-ID");
+
+
+      const target = 1500;
+
+
+      let percent =
+        Math.round(
+          (total / target) * 100
+        );
+
+
+      if(percent > 100){
+
+        percent = 100;
 
       }
 
-    });
+
+      document.getElementById(
+        "progressBar"
+      ).style.width =
+        percent + "%";
 
 
-    document.getElementById("totalSales").innerText =
-      total.toLocaleString("id-ID");
+      document.getElementById(
+        "progressText"
+      ).innerText =
+        percent + "%";
 
+    }
 
-    const target = 1500;
+  );
 
-    let percent =
-      Math.round((total / target) * 100);
-
-
-    if(percent > 100) percent = 100;
-
-
-    document.getElementById("progressBar").style.width =
-      percent + "%";
-
-
-    document.getElementById("progressText").innerText =
-      percent + "%";
-
-  }
-
-);
+}
 
 
 /* =========================
@@ -904,15 +988,15 @@ window.showKPI = function(){
 
     "KPI CRISPI SALES\n\n" +
 
-    "Sales Achievement: 35%\n" +
+    "Sales Achievement : 35%\n" +
 
-    "Productivity: 20%\n" +
+    "Productivity : 20%\n" +
 
-    "Strike Rate: 15%\n" +
+    "Strike Rate : 15%\n" +
 
-    "Outlet Development: 15%\n" +
+    "Outlet Development : 15%\n" +
 
-    "Discipline & Reporting: 15%"
+    "Discipline & Reporting : 15%"
 
   );
 
@@ -939,8 +1023,13 @@ window.outlet = function(){
 window.profile = function(){
 
   alert(
-    "Sales: " + SALES_NAME +
-    "\nID: " + SALES_ID
+
+    "SALES : " +
+    SALES_NAME +
+
+    "\nID : " +
+    SALES_ID
+
   );
 
 };
@@ -964,12 +1053,13 @@ window.home = function(){
 
 
 /* =========================
-   MODAL
+   CLOSE MODAL
 ========================= */
 
 window.closeModal = function(id){
 
-  document.getElementById(id).style.display = "none";
+  document.getElementById(id)
+    .style.display = "none";
 
 };
 
