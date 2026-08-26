@@ -1,12 +1,14 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
 
 <title>CRISFISH SALES - Owner Dashboard</title>
 
 <style>
+
 *{
 box-sizing:border-box;
 margin:0;
@@ -29,7 +31,6 @@ min-height:100vh;
 background:#111827;
 color:white;
 padding:22px;
-border-radius:0 0 18px 18px;
 }
 
 .logo{
@@ -44,7 +45,7 @@ opacity:.8;
 }
 
 .container{
-padding:18px;
+padding:20px;
 }
 
 .status{
@@ -72,7 +73,6 @@ background:white;
 border-radius:16px;
 padding:18px;
 box-shadow:0 3px 12px rgba(0,0,0,.07);
-margin-bottom:18px;
 }
 
 .stat-title{
@@ -81,7 +81,7 @@ color:#666;
 }
 
 .stat-value{
-font-size:27px;
+font-size:28px;
 font-weight:bold;
 margin-top:7px;
 }
@@ -106,7 +106,6 @@ gap:12px;
 label{
 font-size:13px;
 font-weight:bold;
-display:block;
 }
 
 input,
@@ -115,7 +114,7 @@ textarea{
 width:100%;
 padding:12px;
 margin-top:6px;
-margin-bottom:12px;
+margin-bottom:10px;
 border:1px solid #ddd;
 border-radius:10px;
 font-size:15px;
@@ -123,17 +122,17 @@ font-size:15px;
 
 textarea{
 min-height:80px;
+resize:vertical;
 }
 
 .btn{
 border:0;
 border-radius:10px;
-padding:12px 16px;
+padding:13px 16px;
 background:#16a34a;
 color:white;
 font-weight:bold;
 cursor:pointer;
-margin:3px;
 }
 
 .btn-blue{
@@ -152,6 +151,11 @@ background:#dc2626;
 background:#ea580c;
 }
 
+.btn-gray{
+background:#e5e7eb;
+color:#17202a;
+}
+
 .table-wrap{
 overflow-x:auto;
 }
@@ -162,11 +166,10 @@ border-collapse:collapse;
 }
 
 th,td{
-padding:11px;
+padding:12px;
 border-bottom:1px solid #eee;
 text-align:left;
 font-size:13px;
-white-space:nowrap;
 }
 
 th{
@@ -182,9 +185,9 @@ background:#dcfce7;
 color:#166534;
 }
 
-.badge-red{
-background:#fee2e2;
-color:#991b1b;
+.badge-blue{
+background:#dbeafe;
+color:#1d4ed8;
 }
 
 .badge-orange{
@@ -192,12 +195,23 @@ background:#ffedd5;
 color:#c2410c;
 }
 
-.alert{
-padding:13px;
-border-radius:12px;
-margin-bottom:8px;
-background:#fff7ed;
-border:1px solid #fed7aa;
+.badge-red{
+background:#fee2e2;
+color:#b91c1c;
+}
+
+.map-box{
+width:100%;
+height:400px;
+border-radius:15px;
+background:#e5e7eb;
+overflow:hidden;
+}
+
+.map-box iframe{
+width:100%;
+height:100%;
+border:0;
 }
 
 .ai-box{
@@ -208,25 +222,33 @@ border-radius:14px;
 line-height:1.6;
 }
 
+.alert-box{
+background:#fff7ed;
+border:1px solid #fed7aa;
+padding:15px;
+border-radius:12px;
+margin-top:15px;
+}
+
 .modal{
 display:none;
 position:fixed;
 inset:0;
-background:rgba(0,0,0,.55);
-z-index:1000;
+background:rgba(0,0,0,.6);
+z-index:10000;
 align-items:center;
 justify-content:center;
-padding:15px;
+padding:20px;
 }
 
 .modal-box{
 background:white;
 width:100%;
-max-width:600px;
-max-height:92vh;
+max-width:650px;
+max-height:90vh;
 overflow:auto;
 border-radius:18px;
-padding:20px;
+padding:22px;
 }
 
 .modal-title{
@@ -235,28 +257,135 @@ font-weight:bold;
 margin-bottom:18px;
 }
 
-.close{
-float:right;
-border:0;
-background:#eee;
-border-radius:50%;
-width:32px;
-height:32px;
-cursor:pointer;
+.detail-grid{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:10px;
+}
+
+.detail-item{
+background:#f9fafb;
+padding:13px;
+border-radius:10px;
+}
+
+.detail-label{
+font-size:11px;
+color:#666;
+}
+
+.detail-value{
+font-size:17px;
+font-weight:bold;
+margin-top:4px;
+}
+
+.login-screen{
+position:fixed;
+inset:0;
+background:#111827;
+z-index:99999;
+display:flex;
+align-items:center;
+justify-content:center;
+padding:20px;
+}
+
+.login-box{
+background:white;
+width:100%;
+max-width:420px;
+border-radius:22px;
+padding:30px;
+box-shadow:0 20px 60px rgba(0,0,0,.4);
+}
+
+.login-logo{
+text-align:center;
+font-size:42px;
+margin-bottom:8px;
+}
+
+.login-title{
+text-align:center;
+font-size:24px;
 font-weight:bold;
 }
 
-.kpi-green{
+.login-subtitle{
+text-align:center;
+color:#666;
+font-size:13px;
+margin:6px 0 25px;
+}
+
+.password-wrap{
+position:relative;
+}
+
+.password-wrap input{
+padding-right:55px;
+}
+
+.password-toggle{
+position:absolute;
+right:8px;
+top:9px;
+border:0;
+background:none;
+font-size:20px;
+cursor:pointer;
+}
+
+.login-btn{
+width:100%;
+border:0;
+padding:14px;
+border-radius:12px;
+background:#16a34a;
+color:white;
+font-size:16px;
+font-weight:bold;
+cursor:pointer;
+}
+
+.login-link{
+width:100%;
+border:0;
+background:none;
+color:#2563eb;
+padding:14px;
+font-weight:bold;
+cursor:pointer;
+}
+
+.header-actions{
+display:flex;
+gap:8px;
+flex-wrap:wrap;
+margin-top:15px;
+}
+
+.header-btn{
+border:0;
+padding:9px 12px;
+border-radius:9px;
+font-size:12px;
+font-weight:bold;
+cursor:pointer;
+}
+
+.kpi-good{
 color:#16a34a;
 font-weight:bold;
 }
 
-.kpi-yellow{
+.kpi-warning{
 color:#ca8a04;
 font-weight:bold;
 }
 
-.kpi-red{
+.kpi-danger{
 color:#dc2626;
 font-weight:bold;
 }
@@ -276,28 +405,104 @@ grid-template-columns:1fr;
 @media(max-width:500px){
 
 .container{
-padding:10px;
+padding:12px;
 }
 
 .grid{
-gap:8px;
+grid-template-columns:1fr 1fr;
+gap:10px;
 }
 
 .stat-value{
 font-size:21px;
 }
 
-.card{
-padding:14px;
+.detail-grid{
+grid-template-columns:1fr 1fr;
 }
 
 }
+
 </style>
 </head>
 
 <body>
 
-<div class="app">
+
+<!-- =====================================================
+LOGIN OWNER
+===================================================== -->
+
+<div
+id="ownerLoginScreen"
+class="login-screen">
+
+<div class="login-box">
+
+<div class="login-logo">
+🔐
+</div>
+
+<div class="login-title">
+CRISFISH SALES
+</div>
+
+<div class="login-subtitle">
+OWNER / SPV DASHBOARD
+</div>
+
+<label>Password Owner</label>
+
+<div class="password-wrap">
+
+<input
+id="ownerPassword"
+type="password"
+placeholder="Masukkan password Owner"
+autocomplete="current-password"
+>
+
+<button
+class="password-toggle"
+onclick="togglePassword()">
+👁️
+</button>
+
+</div>
+
+<button
+class="login-btn"
+onclick="ownerLogin()">
+MASUK DASHBOARD
+</button>
+
+<button
+class="login-link"
+onclick="openForgot()">
+Lupa Password?
+</button>
+
+<div
+id="loginMessage"
+style="text-align:center;font-size:13px;">
+</div>
+
+</div>
+
+</div>
+
+
+<!-- =====================================================
+DASHBOARD
+===================================================== -->
+
+<div
+class="app"
+id="ownerApp"
+style="display:none;">
+
+
+<!-- HEADER -->
 
 <div class="header">
 
@@ -306,7 +511,7 @@ CRISFISH SALES
 </div>
 
 <div class="subtitle">
-OWNER / SPV DASHBOARD
+OWNER / SPV DASHBOARD • Sales Canvassing Management System
 </div>
 
 <div
@@ -315,92 +520,338 @@ id="firebaseStatus">
 Menghubungkan Firebase...
 </div>
 
+<div class="header-actions">
+
+<button
+class="header-btn"
+style="background:#2563eb;color:white;"
+onclick="openPasswordModal()">
+🔑 GANTI PASSWORD
+</button>
+
+<button
+class="header-btn"
+style="background:#dc2626;color:white;"
+onclick="ownerLogout()">
+🚪 LOGOUT
+</button>
+
 </div>
+
+</div>
+
 
 <div class="container">
 
-<!-- RINGKASAN -->
+
+<!-- =====================================================
+RINGKASAN UTAMA
+===================================================== -->
 
 <div class="grid">
 
 <div class="card">
-<div class="stat-title">Sales Aktif</div>
-<div class="stat-value blue" id="totalSalesPerson">0</div>
+
+<div class="stat-title">
+OMZET BULAN INI
 </div>
+
+<div
+class="stat-value green"
+id="totalRevenue">
+Rp 0
+</div>
+
+</div>
+
 
 <div class="card">
-<div class="stat-title">Pack Terjual</div>
-<div class="stat-value green" id="totalPack">0</div>
+
+<div class="stat-title">
+PACK TERJUAL
 </div>
+
+<div
+class="stat-value blue"
+id="totalPack">
+0
+</div>
+
+</div>
+
 
 <div class="card">
-<div class="stat-title">Omzet</div>
-<div class="stat-value orange" id="totalOmzet">Rp 0</div>
+
+<div class="stat-title">
+TARGET BULAN INI
 </div>
+
+<div
+class="stat-value"
+id="targetDisplay">
+0
+</div>
+
+</div>
+
 
 <div class="card">
-<div class="stat-title">Setoran</div>
-<div class="stat-value" id="totalDeposit">Rp 0</div>
+
+<div class="stat-title">
+ACHIEVEMENT
+</div>
+
+<div
+class="stat-value orange"
+id="achievementDisplay">
+0%
 </div>
 
 </div>
 
 
-<!-- ALERT -->
+<div class="card">
+
+<div class="stat-title">
+SALES AKTIF
+</div>
+
+<div
+class="stat-value blue"
+id="totalSalesPerson">
+0
+</div>
+
+</div>
+
+
+<div class="card">
+
+<div class="stat-title">
+OUTLET AKTIF
+</div>
+
+<div
+class="stat-value orange"
+id="totalOutlet">
+0
+</div>
+
+</div>
+
+
+<div class="card">
+
+<div class="stat-title">
+TOTAL SETORAN
+</div>
+
+<div
+class="stat-value green"
+id="totalDeposit">
+Rp 0
+</div>
+
+</div>
+
+
+<div class="card">
+
+<div class="stat-title">
+TOTAL KOMISI
+</div>
+
+<div
+class="stat-value"
+id="totalCommission">
+Rp 0
+</div>
+
+</div>
+
+</div>
+
+
+<!-- =====================================================
+PENGATURAN BISNIS
+===================================================== -->
 
 <div class="card">
 
 <div class="section-title">
-⚠️ Alert Owner
+⚙️ Pengaturan Target & Penggajian
 </div>
 
-<div id="alertList">
-Menganalisis kondisi sales...
+<div class="form-grid">
+
+<div>
+<label>Target Pack / Bulan</label>
+<input
+id="targetMonthly"
+type="number"
+min="1">
 </div>
 
+<div>
+<label>Hari Kerja</label>
+<input
+id="workingDays"
+type="number"
+min="1">
 </div>
 
+<div>
+<label>Target Outlet / Hari</label>
+<input
+id="targetOutlet"
+type="number"
+min="0">
+</div>
 
-<!-- MANAJEMEN SALES -->
+<div>
+<label>Harga Jual / Pack</label>
+<input
+id="productPrice"
+type="number"
+min="0">
+</div>
 
-<div class="card">
+<div>
+<label>HPP / Pack</label>
+<input
+id="productHpp"
+type="number"
+min="0">
+</div>
 
-<div class="section-title">
-👥 Manajemen Sales
+<div>
+<label>Isi Sachet / Pack</label>
+<input
+id="sachetPerPack"
+type="number"
+min="1">
+</div>
+
+<div>
+<label>Gaji Pokok</label>
+<input
+id="baseSalary"
+type="number"
+min="0">
+</div>
+
+<div>
+<label>Operasional / Bulan</label>
+<input
+id="operationalAllowance"
+type="number"
+min="0">
+</div>
+
+<div>
+<label>Komisi / Pack</label>
+<input
+id="commissionPerPack"
+type="number"
+min="0">
+</div>
+
+<div>
+<label>Bonus Target</label>
+<input
+id="targetBonus"
+type="number"
+min="0">
+</div>
+
+<div>
+<label>Bonus Target Pack</label>
+<input
+id="bonusTarget"
+type="number"
+min="1">
+</div>
+
+<div>
+<label>Stok Gudang</label>
+<input
+id="warehouseStock"
+type="number"
+min="0">
+</div>
+
 </div>
 
 <button
 class="btn"
-onclick="openSalesModal()">
-
-➕ TAMBAH SALES
-
+onclick="saveSettings()">
+💾 SIMPAN PENGATURAN
 </button>
 
 <div
-class="table-wrap"
-style="margin-top:15px;">
+id="settingStatus"
+class="status">
+</div>
+
+</div>
+
+
+<!-- =====================================================
+ALERT
+===================================================== -->
+
+<div class="card">
+
+<div class="section-title">
+🚨 Alert Owner
+</div>
+
+<div
+id="alertContainer">
+Belum ada peringatan.
+</div>
+
+</div>
+
+
+<!-- =====================================================
+KINERJA SALES
+===================================================== -->
+
+<div class="card">
+
+<div class="section-title">
+👥 Kinerja & Pendapatan Sales
+</div>
+
+<div class="table-wrap">
 
 <table>
 
 <thead>
 
 <tr>
-<th>Nama</th>
-<th>Kode</th>
-<th>Wilayah</th>
-<th>Target</th>
-<th>Status</th>
-<th>Aksi</th>
+
+<th>Rank</th>
+<th>Sales</th>
+<th>Pack</th>
+<th>Achievement</th>
+<th>Omzet</th>
+<th>Komisi</th>
+<th>Pendapatan</th>
+<th>KPI</th>
+<th>Detail</th>
+
 </tr>
 
 </thead>
 
-<tbody id="salesManagementTable">
+<tbody
+id="salesTable">
 
 <tr>
-<td colspan="6">
-Belum ada sales.
+<td colspan="9">
+Mengambil data...
 </td>
 </tr>
 
@@ -413,103 +864,32 @@ Belum ada sales.
 </div>
 
 
-<!-- PENGATURAN -->
+<!-- =====================================================
+LEADERBOARD
+===================================================== -->
 
-<div class="card">
+<div class="card" style="margin-top:20px;">
 
 <div class="section-title">
-⚙️ Target & Penggajian
+🏆 Leaderboard Sales Bulan Ini
 </div>
-
-<div class="form-grid">
-
-<div>
-<label>Target Bulanan</label>
-<input
-id="targetMonthly"
-type="number">
-</div>
-
-<div>
-<label>Hari Kerja</label>
-<input
-id="workingDays"
-type="number">
-</div>
-
-<div>
-<label>Harga Jual / Pack</label>
-<input
-id="productPrice"
-type="number">
-</div>
-
-<div>
-<label>HPP / Pack</label>
-<input
-id="productHpp"
-type="number">
-</div>
-
-<div>
-<label>Komisi / Pack</label>
-<input
-id="commissionPerPack"
-type="number">
-</div>
-
-<div>
-<label>Gaji Pokok</label>
-<input
-id="baseSalary"
-type="number">
-</div>
-
-<div>
-<label>Operasional</label>
-<input
-id="operationalAllowance"
-type="number">
-</div>
-
-<div>
-<label>Bonus Target</label>
-<input
-id="targetBonus"
-type="number">
-</div>
-
-<div>
-<label>Target Outlet / Hari</label>
-<input
-id="outletTarget"
-type="number">
-</div>
-
-</div>
-
-<button
-class="btn"
-onclick="saveSettings()">
-
-💾 SIMPAN PENGATURAN
-
-</button>
 
 <div
-id="settingStatus"
-class="status">
+id="leaderboard">
+Belum ada data sales.
 </div>
 
 </div>
 
 
-<!-- KPI -->
+<!-- =====================================================
+OUTLET
+===================================================== -->
 
-<div class="card">
+<div class="card" style="margin-top:20px;">
 
 <div class="section-title">
-📊 KPI & Pendapatan Sales
+🏪 Database Outlet
 </div>
 
 <div class="table-wrap">
@@ -519,18 +899,185 @@ class="status">
 <thead>
 
 <tr>
+
+<th>Outlet</th>
+<th>Pemilik</th>
 <th>Sales</th>
-<th>Target</th>
-<th>Pack</th>
-<th>Achievement</th>
-<th>Omzet</th>
-<th>Komisi</th>
-<th>Pendapatan</th>
+<th>Tipe</th>
+<th>WhatsApp</th>
+<th>Alamat</th>
+
 </tr>
 
 </thead>
 
-<tbody id="kpiTable">
+<tbody
+id="outletTable">
+
+<tr>
+<td colspan="6">
+Mengambil data...
+</td>
+</tr>
+
+</tbody>
+
+</table>
+
+</div>
+
+</div>
+
+
+<!-- =====================================================
+PENJUALAN
+===================================================== -->
+
+<div class="card" style="margin-top:20px;">
+
+<div class="section-title">
+🛒 Rekap Penjualan
+</div>
+
+<div class="table-wrap">
+
+<table>
+
+<thead>
+
+<tr>
+
+<th>Tanggal</th>
+<th>Sales</th>
+<th>Outlet</th>
+<th>Pack</th>
+<th>Nilai</th>
+<th>Status</th>
+
+</tr>
+
+</thead>
+
+<tbody
+id="salesHistoryTable">
+
+<tr>
+<td colspan="6">
+Mengambil data...
+</td>
+</tr>
+
+</tbody>
+
+</table>
+
+</div>
+
+</div>
+
+
+<!-- =====================================================
+KUNJUNGAN
+===================================================== -->
+
+<div class="card" style="margin-top:20px;">
+
+<div class="section-title">
+📍 Rekap Kunjungan Sales
+</div>
+
+<div class="table-wrap">
+
+<table>
+
+<thead>
+
+<tr>
+
+<th>Tanggal</th>
+<th>Sales</th>
+<th>Outlet</th>
+<th>Koordinat</th>
+<th>Maps</th>
+
+</tr>
+
+</thead>
+
+<tbody
+id="visitTable">
+
+<tr>
+<td colspan="5">
+Mengambil data...
+</td>
+</tr>
+
+</tbody>
+
+</table>
+
+</div>
+
+</div>
+
+
+<!-- =====================================================
+PETA
+===================================================== -->
+
+<div class="card" style="margin-top:20px;">
+
+<div class="section-title">
+🗺️ Peta Aktivitas Sales
+</div>
+
+<div
+class="map-box"
+id="mapBox">
+
+<div style="padding:30px;text-align:center;">
+Peta aktivitas akan muncul setelah
+data check-in memiliki koordinat GPS.
+</div>
+
+</div>
+
+</div>
+
+
+<!-- =====================================================
+STOK
+===================================================== -->
+
+<div class="card" style="margin-top:20px;">
+
+<div class="section-title">
+📦 Monitoring Stok
+</div>
+
+<div class="table-wrap">
+
+<table>
+
+<thead>
+
+<tr>
+
+<th>Sales</th>
+<th>Stok Awal</th>
+<th>Diterima</th>
+<th>Terjual</th>
+<th>Retur</th>
+<th>Stok Akhir</th>
+<th>Status</th>
+
+</tr>
+
+</thead>
+
+<tbody
+id="stockTable">
 
 <tr>
 <td colspan="7">
@@ -547,27 +1094,14 @@ Mengambil data...
 </div>
 
 
-<!-- LEADERBOARD -->
+<!-- =====================================================
+PENGGAJIAN
+===================================================== -->
 
-<div class="card">
-
-<div class="section-title">
-🏆 Leaderboard Sales
-</div>
-
-<div id="leaderboard">
-Belum ada data.
-</div>
-
-</div>
-
-
-<!-- PENJUALAN -->
-
-<div class="card">
+<div class="card" style="margin-top:20px;">
 
 <div class="section-title">
-🛒 Rekap Penjualan
+💰 Penggajian Sales Motoris
 </div>
 
 <div class="table-wrap">
@@ -577,17 +1111,20 @@ Belum ada data.
 <thead>
 
 <tr>
-<th>Tanggal</th>
+
 <th>Sales</th>
-<th>Outlet</th>
-<th>Pack</th>
-<th>Omzet</th>
-<th>Status</th>
+<th>Gapok</th>
+<th>Operasional</th>
+<th>Komisi</th>
+<th>Bonus</th>
+<th>Total</th>
+
 </tr>
 
 </thead>
 
-<tbody id="salesHistoryTable">
+<tbody
+id="payrollTable">
 
 <tr>
 <td colspan="6">
@@ -604,12 +1141,14 @@ Mengambil data...
 </div>
 
 
-<!-- SETORAN -->
+<!-- =====================================================
+ANALISIS LABA
+===================================================== -->
 
-<div class="card">
+<div class="card" style="margin-top:20px;">
 
 <div class="section-title">
-💰 Rekap Setoran
+📈 Kontribusi Sales
 </div>
 
 <div class="table-wrap">
@@ -619,181 +1158,20 @@ Mengambil data...
 <thead>
 
 <tr>
-<th>Tanggal</th>
-<th>Sales</th>
-<th>Jumlah</th>
-<th>Keterangan</th>
-</tr>
 
-</thead>
-
-<tbody id="depositTable">
-
-<tr>
-<td colspan="4">
-Mengambil data...
-</td>
-</tr>
-
-</tbody>
-
-</table>
-
-</div>
-
-</div>
-
-
-<!-- STOK -->
-
-<div class="card">
-
-<div class="section-title">
-📦 Monitoring Stok Sales
-</div>
-
-<div class="table-wrap">
-
-<table>
-
-<thead>
-
-<tr>
-<th>Sales</th>
-<th>Stok Awal</th>
-<th>Diterima</th>
-<th>Terjual</th>
-<th>Retur</th>
-<th>Stok Akhir</th>
-</tr>
-
-</thead>
-
-<tbody id="stockTable">
-
-<tr>
-<td colspan="6">
-Mengambil data...
-</td>
-</tr>
-
-</tbody>
-
-</table>
-
-</div>
-
-</div>
-
-
-<!-- OUTLET -->
-
-<div class="card">
-
-<div class="section-title">
-🏪 Database Outlet
-</div>
-
-<div class="table-wrap">
-
-<table>
-
-<thead>
-
-<tr>
-<th>Outlet</th>
-<th>Sales</th>
-<th>Tipe</th>
-<th>WhatsApp</th>
-<th>Alamat</th>
-</tr>
-
-</thead>
-
-<tbody id="outletTable">
-
-<tr>
-<td colspan="5">
-Mengambil data...
-</td>
-</tr>
-
-</tbody>
-
-</table>
-
-</div>
-
-</div>
-
-
-<!-- KUNJUNGAN -->
-
-<div class="card">
-
-<div class="section-title">
-📍 Rekap Kunjungan
-</div>
-
-<div class="table-wrap">
-
-<table>
-
-<thead>
-
-<tr>
-<th>Tanggal</th>
-<th>Sales</th>
-<th>Outlet</th>
-<th>Koordinat</th>
-<th>Maps</th>
-</tr>
-
-</thead>
-
-<tbody id="visitTable">
-
-<tr>
-<td colspan="5">
-Mengambil data...
-</td>
-</tr>
-
-</tbody>
-
-</table>
-
-</div>
-
-</div>
-
-
-<!-- LABA -->
-
-<div class="card">
-
-<div class="section-title">
-💹 Analisis Kontribusi Sales
-</div>
-
-<div class="table-wrap">
-
-<table>
-
-<thead>
-
-<tr>
 <th>Sales</th>
 <th>Omzet</th>
 <th>HPP</th>
 <th>Margin Kotor</th>
 <th>Biaya Sales</th>
 <th>Kontribusi</th>
+
 </tr>
 
 </thead>
 
-<tbody id="profitTable">
+<tbody
+id="profitTable">
 
 <tr>
 <td colspan="6">
@@ -810,9 +1188,11 @@ Mengambil data...
 </div>
 
 
-<!-- AI -->
+<!-- =====================================================
+AI
+===================================================== -->
 
-<div class="card">
+<div class="card" style="margin-top:20px;">
 
 <div class="section-title">
 🤖 AI Sales Coach — Management Insight
@@ -822,31 +1202,101 @@ Mengambil data...
 class="ai-box"
 id="managementInsight">
 
-Menganalisis performa perusahaan...
+Menganalisis data penjualan...
 
 </div>
 
 </div>
 
 
-<!-- LAPORAN -->
+<!-- =====================================================
+REKAP
+===================================================== -->
 
-<div class="card">
+<div class="card" style="margin-top:20px;">
 
 <div class="section-title">
-🖨️ Laporan
+📊 Ringkasan Aktivitas
 </div>
 
-<p style="font-size:13px;color:#666;margin-bottom:12px;">
-Gunakan tombol berikut untuk mencetak laporan dashboard.
+<div class="grid">
+
+<div class="card">
+<div class="stat-title">
+Transaksi Penjualan
+</div>
+<div
+class="stat-value"
+id="transactionCount">
+0
+</div>
+</div>
+
+<div class="card">
+<div class="stat-title">
+Total Check-in
+</div>
+<div
+class="stat-value"
+id="checkinCount">
+0
+</div>
+</div>
+
+<div class="card">
+<div class="stat-title">
+Outlet Baru
+</div>
+<div
+class="stat-value"
+id="newOutletCount">
+0
+</div>
+</div>
+
+<div class="card">
+<div class="stat-title">
+Repeat Order
+</div>
+<div
+class="stat-value"
+id="repeatOrderCount">
+0
+</div>
+</div>
+
+</div>
+
+</div>
+
+
+<!-- =====================================================
+LAPORAN
+===================================================== -->
+
+<div class="card" style="margin-top:20px;">
+
+<div class="section-title">
+🖨️ Laporan Owner
+</div>
+
+<p style="
+font-size:13px;
+color:#666;
+line-height:1.6;
+margin-bottom:15px;
+">
+
+Gunakan tombol di bawah untuk mencetak
+rekap dashboard. Pada perangkat Android,
+pilih opsi <b>Save as PDF</b> pada dialog cetak.
+
 </p>
 
 <button
-class="btn btn-blue"
+class="btn btn-dark"
 onclick="printReport()">
-
 🖨️ CETAK / SIMPAN PDF
-
 </button>
 
 </div>
@@ -856,100 +1306,154 @@ onclick="printReport()">
 </div>
 
 
-<!-- MODAL SALES -->
+<!-- =====================================================
+MODAL DETAIL SALES
+===================================================== -->
 
 <div
 class="modal"
-id="salesModal">
+id="salesDetailModal">
 
 <div class="modal-box">
 
-<button
-class="close"
-onclick="closeSalesModal()">
-×
-</button>
-
 <div class="modal-title">
-👤 Data Sales
+📊 Detail Sales
 </div>
 
+<div
+id="salesDetail">
+</div>
+
+<button
+class="btn btn-gray"
+style="width:100%;margin-top:15px;"
+onclick="closeModal('salesDetailModal')">
+TUTUP
+</button>
+
+</div>
+
+</div>
+
+
+<!-- =====================================================
+MODAL GANTI PASSWORD
+===================================================== -->
+
+<div
+class="modal"
+id="passwordModal">
+
+<div class="modal-box">
+
+<div class="modal-title">
+🔑 Ganti Password Owner
+</div>
+
+<label>Password Lama</label>
+
 <input
-type="hidden"
-id="editingSalesId">
+id="oldPassword"
+type="password"
+placeholder="Password lama">
 
-<label>Nama Sales</label>
+<label>Password Baru</label>
+
 <input
-id="salesNameInput"
-placeholder="Nama sales">
+id="newPassword"
+type="password"
+placeholder="Minimal 6 karakter">
 
-<label>Nomor HP</label>
+<label>Ulangi Password Baru</label>
+
 <input
-id="salesPhoneInput"
-placeholder="08xxxxxxxxxx">
-
-<label>Wilayah Kerja</label>
-<input
-id="salesRegionInput"
-placeholder="Wilayah">
-
-<label>Kode Sales</label>
-<input
-id="salesCodeInput"
-placeholder="Contoh: S001">
-
-<label>Password / Kode Akses</label>
-<input
-id="salesPasswordInput"
-type="text"
-placeholder="Kode login">
-
-<label>Tanggal Mulai Kerja</label>
-<input
-id="salesStartDateInput"
-type="date">
-
-<label>Target Sales</label>
-<input
-id="salesTargetInput"
-type="number"
-placeholder="Target pack">
-
-<label>Status</label>
-
-<select id="salesStatusInput">
-
-<option value="aktif">
-Aktif
-</option>
-
-<option value="nonaktif">
-Nonaktif
-</option>
-
-<option value="keluar">
-Keluar Kerja
-</option>
-
-</select>
-
-<br>
+id="confirmPassword"
+type="password"
+placeholder="Ulangi password baru">
 
 <button
 class="btn"
-onclick="saveSales()">
-
-💾 SIMPAN SALES
-
+style="width:100%;"
+onclick="changePassword()">
+SIMPAN PASSWORD BARU
 </button>
 
 <button
-class="btn btn-dark"
-onclick="closeSalesModal()">
-
+class="btn btn-gray"
+style="width:100%;margin-top:8px;"
+onclick="closeModal('passwordModal')">
 BATAL
-
 </button>
+
+<div
+id="passwordMessage"
+style="font-size:13px;margin-top:10px;text-align:center;">
+</div>
+
+</div>
+
+</div>
+
+
+<!-- =====================================================
+MODAL LUPA PASSWORD
+===================================================== -->
+
+<div
+class="modal"
+id="forgotModal">
+
+<div class="modal-box">
+
+<div class="modal-title">
+🆘 Lupa Password Owner
+</div>
+
+<p style="
+font-size:14px;
+line-height:1.7;
+color:#555;
+">
+
+Untuk keamanan, reset password harus
+diverifikasi oleh Owner.
+
+</p>
+
+<div
+style="
+background:#f3f4f6;
+padding:15px;
+border-radius:12px;
+margin-top:15px;
+line-height:1.8;
+font-size:14px;">
+
+<b>Kontak verifikasi:</b><br>
+
+📱 WhatsApp: 087739259944<br>
+📧 Email: petekresindonesia@gmail.com
+
+</div>
+
+<button
+class="btn btn-blue"
+style="width:100%;margin-top:15px;"
+onclick="requestReset()">
+KIRIM PERMINTAAN RESET
+</button>
+
+<button
+class="btn btn-gray"
+style="width:100%;margin-top:8px;"
+onclick="closeModal('forgotModal')">
+TUTUP
+</button>
+
+<div
+id="forgotMessage"
+style="font-size:13px;margin-top:10px;text-align:center;">
+</div>
 
 </div>
 
@@ -957,6 +1461,11 @@ BATAL
 
 
 <script type="module">
+
+
+/* =====================================================
+FIREBASE
+===================================================== */
 
 import {
 initializeApp
@@ -969,8 +1478,7 @@ getDatabase,
 ref,
 set,
 push,
-onValue,
-update
+onValue
 }
 from
 "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
@@ -983,70 +1491,539 @@ databaseURL:
 
 };
 
-const app=initializeApp(firebaseConfig);
 
-const database=getDatabase(app);
+const app=
+initializeApp(firebaseConfig);
 
-
-document.getElementById(
-"firebaseStatus"
-).innerText=
-"🟢 Firebase terhubung";
+const database=
+getDatabase(app);
 
 
-document.getElementById(
-"firebaseStatus"
-).classList.add(
-"success"
-);
-
-
-/* =========================
-SETTINGS
-========================= */
+/* =====================================================
+REF DATABASE
+===================================================== */
 
 const settingsRef=
 ref(database,"settings");
 
+const salesRef=
+ref(database,"sales");
 
-const DEFAULT_SETTINGS={
+const outletsRef=
+ref(database,"outlets");
+
+const checkinsRef=
+ref(database,"checkins");
+
+const depositsRef=
+ref(database,"deposits");
+
+const ownerSecurityRef=
+ref(database,"ownerSecurity");
+
+const resetRequestRef=
+ref(database,"ownerPasswordResetRequests");
+
+
+/* =====================================================
+DEFAULT SETTINGS
+===================================================== */
+
+let settings={
 
 targetMonthly:1500,
 
 workingDays:26,
 
+targetOutlet:30,
+
 productPrice:34000,
 
 productHpp:22908,
 
-commissionPerPack:1000,
+sachetPerPack:20,
 
 baseSalary:2000000,
 
 operationalAllowance:750000,
 
+commissionPerPack:1000,
+
 targetBonus:500000,
 
-outletTarget:30
+bonusTarget:1500,
+
+warehouseStock:0
 
 };
 
 
-let settings=
-{...DEFAULT_SETTINGS};
+/* =====================================================
+STATE
+===================================================== */
 
+let allSales=[];
+let allOutlets=[];
+let allCheckins=[];
+let allDeposits=[];
+
+const SESSION_KEY=
+"crisfish_owner_logged_in";
+
+
+/* =====================================================
+LOGIN
+===================================================== */
+
+async function initializeOwnerSecurity(){
+
+try{
+
+const snapshot=
+await new Promise(
+(resolve,reject)=>{
 
 onValue(
+ownerSecurityRef,
+resolve,
+{
+onlyOnce:true
+}
+);
+
+});
+
+const data=snapshot.val();
+
+if(!data){
+
+await set(
+ownerSecurityRef,
+{
+password:"991994",
+updatedAt:Date.now(),
+createdBy:"SYSTEM"
+}
+);
+
+}
+
+}catch(error){
+
+console.error(error);
+
+}
+
+checkSession();
+
+}
+
+
+function checkSession(){
+
+if(
+sessionStorage.getItem(SESSION_KEY)
+==="true"
+){
+
+showDashboard();
+
+}else{
+
+showLogin();
+
+}
+
+}
+
+
+function showLogin(){
+
+document.getElementById(
+"ownerLoginScreen"
+).style.display="flex";
+
+document.getElementById(
+"ownerApp"
+).style.display="none";
+
+}
+
+
+function showDashboard(){
+
+document.getElementById(
+"ownerLoginScreen"
+).style.display="none";
+
+document.getElementById(
+"ownerApp"
+).style.display="block";
+
+}
+
+
+window.ownerLogin=
+async function(){
+
+const password=
+document.getElementById(
+"ownerPassword"
+).value.trim();
+
+const message=
+document.getElementById(
+"loginMessage"
+);
+
+if(!password){
+
+message.innerText=
+"⚠️ Masukkan password.";
+
+message.style.color="#dc2626";
+
+return;
+
+}
+
+try{
+
+const snapshot=
+await new Promise(
+(resolve,reject)=>{
+
+onValue(
+ownerSecurityRef,
+resolve,
+{
+onlyOnce:true
+}
+);
+
+});
+
+const data=snapshot.val();
+
+if(
+data &&
+password===data.password
+){
+
+sessionStorage.setItem(
+SESSION_KEY,
+"true"
+);
+
+message.innerText=
+"✅ Login berhasil.";
+
+message.style.color="#16a34a";
+
+setTimeout(
+showDashboard,
+300
+);
+
+}else{
+
+message.innerText=
+"❌ Password Owner salah.";
+
+message.style.color="#dc2626";
+
+}
+
+}catch(error){
+
+message.innerText=
+"❌ Gagal menghubungkan Firebase.";
+
+message.style.color="#dc2626";
+
+}
+
+};
+
+
+window.ownerLogout=
+function(){
+
+sessionStorage.removeItem(
+SESSION_KEY
+);
+
+location.reload();
+
+};
+
+
+window.togglePassword=
+function(){
+
+const input=
+document.getElementById(
+"ownerPassword"
+);
+
+input.type=
+input.type==="password"
+?"text"
+:"password";
+
+};
+
+
+window.openForgot=
+function(){
+
+document.getElementById(
+"forgotModal"
+).style.display="flex";
+
+};
+
+
+/* =====================================================
+GANTI PASSWORD
+===================================================== */
+
+window.openPasswordModal=
+function(){
+
+document.getElementById(
+"passwordModal"
+).style.display="flex";
+
+};
+
+
+window.changePassword=
+async function(){
+
+const oldPassword=
+document.getElementById(
+"oldPassword"
+).value.trim();
+
+const newPassword=
+document.getElementById(
+"newPassword"
+).value.trim();
+
+const confirmPassword=
+document.getElementById(
+"confirmPassword"
+).value.trim();
+
+const message=
+document.getElementById(
+"passwordMessage"
+);
+
+if(
+!oldPassword||
+!newPassword||
+!confirmPassword
+){
+
+message.innerText=
+"⚠️ Semua kolom wajib diisi.";
+
+message.style.color="#dc2626";
+
+return;
+
+}
+
+if(newPassword.length<6){
+
+message.innerText=
+"⚠️ Password baru minimal 6 karakter.";
+
+message.style.color="#dc2626";
+
+return;
+
+}
+
+if(newPassword!==confirmPassword){
+
+message.innerText=
+"⚠️ Konfirmasi password tidak sama.";
+
+message.style.color="#dc2626";
+
+return;
+
+}
+
+try{
+
+const snapshot=
+await new Promise(
+(resolve,reject)=>{
+
+onValue(
+ownerSecurityRef,
+resolve,
+{
+onlyOnce:true
+}
+);
+
+});
+
+const data=snapshot.val();
+
+if(
+!data||
+oldPassword!==data.password
+){
+
+message.innerText=
+"❌ Password lama salah.";
+
+message.style.color="#dc2626";
+
+return;
+
+}
+
+await set(
+ownerSecurityRef,
+{
+
+password:newPassword,
+
+updatedAt:Date.now(),
+
+changedBy:"OWNER"
+
+}
+);
+
+message.innerText=
+"✅ Password berhasil diganti.";
+
+message.style.color="#16a34a";
+
+document.getElementById(
+"oldPassword"
+).value="";
+
+document.getElementById(
+"newPassword"
+).value="";
+
+document.getElementById(
+"confirmPassword"
+).value="";
+
+setTimeout(
+function(){
+
+closeModal("passwordModal");
+
+},
+1000
+);
+
+}catch(error){
+
+message.innerText=
+"❌ Gagal mengganti password.";
+
+message.style.color="#dc2626";
+
+}
+
+};
+
+
+/* =====================================================
+RESET PASSWORD REQUEST
+===================================================== */
+
+window.requestReset=
+async function(){
+
+const message=
+document.getElementById(
+"forgotMessage"
+);
+
+try{
+
+const request=
+push(
+resetRequestRef
+);
+
+await set(
+request,
+{
+
+status:"MENUNGGU_VERIFIKASI",
+
+requestedAt:Date.now(),
+
+whatsapp:"087739259944",
+
+email:
+"petekresindonesia@gmail.com"
+
+}
+);
+
+message.innerText=
+"✅ Permintaan reset tersimpan. Hubungi Owner melalui WhatsApp/email untuk verifikasi.";
+
+message.style.color="#16a34a";
+
+}catch(error){
+
+message.innerText=
+"❌ Gagal membuat permintaan reset.";
+
+message.style.color="#dc2626";
+
+}
+
+};
+
+
+/* =====================================================
+SETTINGS
+===================================================== */
+
+onValue(
+
 settingsRef,
+
 snapshot=>{
 
-const data=
-snapshot.val()||{};
+const data=snapshot.val();
+
+if(data){
 
 settings={
-...DEFAULT_SETTINGS,
+...settings,
 ...data
 };
+
+}
+
+loadSettingsForm();
+
+renderAll();
+
+}
+
+);
+
+
+function loadSettingsForm(){
 
 document.getElementById(
 "targetMonthly"
@@ -1057,6 +2034,10 @@ document.getElementById(
 ).value=settings.workingDays;
 
 document.getElementById(
+"targetOutlet"
+).value=settings.targetOutlet;
+
+document.getElementById(
 "productPrice"
 ).value=settings.productPrice;
 
@@ -1065,8 +2046,8 @@ document.getElementById(
 ).value=settings.productHpp;
 
 document.getElementById(
-"commissionPerPack"
-).value=settings.commissionPerPack;
+"sachetPerPack"
+).value=settings.sachetPerPack;
 
 document.getElementById(
 "baseSalary"
@@ -1077,19 +2058,26 @@ document.getElementById(
 ).value=settings.operationalAllowance;
 
 document.getElementById(
+"commissionPerPack"
+).value=settings.commissionPerPack;
+
+document.getElementById(
 "targetBonus"
 ).value=settings.targetBonus;
 
 document.getElementById(
-"outletTarget"
-).value=settings.outletTarget;
+"bonusTarget"
+).value=settings.bonusTarget;
 
-renderAll();
+document.getElementById(
+"warehouseStock"
+).value=settings.warehouseStock;
 
-});
+}
 
 
-window.saveSettings=async function(){
+window.saveSettings=
+async function(){
 
 settings={
 
@@ -1105,6 +2093,12 @@ document.getElementById(
 ).value
 ),
 
+targetOutlet:Number(
+document.getElementById(
+"targetOutlet"
+).value
+),
+
 productPrice:Number(
 document.getElementById(
 "productPrice"
@@ -1117,9 +2111,9 @@ document.getElementById(
 ).value
 ),
 
-commissionPerPack:Number(
+sachetPerPack:Number(
 document.getElementById(
-"commissionPerPack"
+"sachetPerPack"
 ).value
 ),
 
@@ -1135,21 +2129,35 @@ document.getElementById(
 ).value
 ),
 
+commissionPerPack:Number(
+document.getElementById(
+"commissionPerPack"
+).value
+),
+
 targetBonus:Number(
 document.getElementById(
 "targetBonus"
 ).value
 ),
 
-outletTarget:Number(
+bonusTarget:Number(
 document.getElementById(
-"outletTarget"
+"bonusTarget"
+).value
+),
+
+warehouseStock:Number(
+document.getElementById(
+"warehouseStock"
 ).value
 ),
 
 updatedAt:Date.now()
 
 };
+
+try{
 
 await set(
 settingsRef,
@@ -1163,371 +2171,287 @@ document.getElementById(
 
 renderAll();
 
-};
-
-
-/* =========================
-SALES MANAGEMENT
-========================= */
-
-window.openSalesModal=function(id=null){
+}catch(error){
 
 document.getElementById(
-"salesModal"
-).style.display="flex";
-
-document.getElementById(
-"editingSalesId"
-).value=id||"";
-
-if(!id){
-
-document.getElementById(
-"salesNameInput"
-).value="";
-
-document.getElementById(
-"salesPhoneInput"
-).value="";
-
-document.getElementById(
-"salesRegionInput"
-).value="";
-
-document.getElementById(
-"salesCodeInput"
-).value="";
-
-document.getElementById(
-"salesPasswordInput"
-).value="";
-
-document.getElementById(
-"salesStartDateInput"
-).value="";
-
-document.getElementById(
-"salesTargetInput"
-).value=settings.targetMonthly;
-
-document.getElementById(
-"salesStatusInput"
-).value="aktif";
-
-return;
+"settingStatus"
+).innerText=
+"❌ Gagal menyimpan: "+
+error.message;
 
 }
 
+};
+
+
+/* =====================================================
+SALES DATA
+===================================================== */
+
 onValue(
-ref(database,"salesUsers/"+id),
+
+salesRef,
+
 snapshot=>{
 
-const d=snapshot.val()||{};
+allSales=[];
 
-document.getElementById(
-"salesNameInput"
-).value=d.name||"";
+snapshot.forEach(
+child=>{
 
-document.getElementById(
-"salesPhoneInput"
-).value=d.phone||"";
+const data=child.val();
 
-document.getElementById(
-"salesRegionInput"
-).value=d.region||"";
+if(data){
 
-document.getElementById(
-"salesCodeInput"
-).value=d.code||"";
+allSales.push({
+...data,
+_id:child.key
+});
 
-document.getElementById(
-"salesPasswordInput"
-).value=d.password||"";
+}
 
-document.getElementById(
-"salesStartDateInput"
-).value=d.startDate||"";
+});
 
-document.getElementById(
-"salesTargetInput"
-).value=d.target||settings.targetMonthly;
+renderAll();
 
-document.getElementById(
-"salesStatusInput"
-).value=d.status||"aktif";
+}
 
-},
-{once:true}
 );
 
-};
+
+/* =====================================================
+OUTLET DATA
+===================================================== */
+
+onValue(
+
+outletsRef,
+
+snapshot=>{
+
+allOutlets=[];
+
+snapshot.forEach(
+child=>{
+
+const data=child.val();
+
+if(data){
+
+allOutlets.push({
+...data,
+_id:child.key
+});
+
+}
+
+});
+
+renderAll();
+
+}
+
+);
 
 
-window.closeSalesModal=function(){
+/* =====================================================
+CHECKIN DATA
+===================================================== */
 
-document.getElementById(
-"salesModal"
-).style.display="none";
+onValue(
 
-};
+checkinsRef,
+
+snapshot=>{
+
+allCheckins=[];
+
+snapshot.forEach(
+child=>{
+
+const data=child.val();
+
+if(data){
+
+allCheckins.push({
+...data,
+_id:child.key
+});
+
+}
+
+});
+
+renderAll();
+
+}
+
+);
 
 
-window.saveSales=async function(){
+/* =====================================================
+DEPOSIT DATA
+===================================================== */
+
+onValue(
+
+depositsRef,
+
+snapshot=>{
+
+allDeposits=[];
+
+snapshot.forEach(
+child=>{
+
+const data=child.val();
+
+if(data){
+
+allDeposits.push({
+...data,
+_id:child.key
+});
+
+}
+
+});
+
+renderAll();
+
+}
+
+);
+
+
+/* =====================================================
+BUILD SALES MAP
+===================================================== */
+
+function buildSalesMap(){
+
+const map={};
+
+allSales.forEach(
+item=>{
 
 const id=
-document.getElementById(
-"editingSalesId"
-).value;
+item.salesId||
+"unknown";
 
-const name=
-document.getElementById(
-"salesNameInput"
-).value.trim();
+if(!map[id]){
 
-const phone=
-document.getElementById(
-"salesPhoneInput"
-).value.trim();
+map[id]={
 
-const region=
-document.getElementById(
-"salesRegionInput"
-).value.trim();
+id:id,
 
-const code=
-document.getElementById(
-"salesCodeInput"
-).value.trim();
+name:
+item.salesName||
+id,
 
-const password=
-document.getElementById(
-"salesPasswordInput"
-).value.trim();
+pack:0,
 
-const startDate=
-document.getElementById(
-"salesStartDateInput"
-).value;
+transactions:0,
 
-const target=
-Number(
-document.getElementById(
-"salesTargetInput"
-).value
-)||settings.targetMonthly;
+revenue:0,
 
-const status=
-document.getElementById(
-"salesStatusInput"
-).value;
+paidRevenue:0,
 
+unpaidRevenue:0,
 
-if(!name||!code||!password){
+returnPack:0,
 
-alert(
-"Nama, kode sales dan password wajib diisi."
-);
+commission:0,
 
-return;
+checkins:0,
 
-}
+outlets:0,
 
+newOutlets:0,
 
-const salesData={
-
-name:name,
-
-phone:phone,
-
-region:region,
-
-code:code,
-
-password:password,
-
-startDate:startDate,
-
-target:target,
-
-status:status,
-
-updatedAt:Date.now()
+repeatOrders:0
 
 };
 
-
-try{
-
-if(id){
-
-await update(
-ref(database,"salesUsers/"+id),
-salesData
-);
-
-}else{
-
-const newRef=
-push(
-ref(database,"salesUsers")
-);
-
-salesData.createdAt=Date.now();
-
-await set(
-newRef,
-salesData
-);
-
 }
-
-alert(
-"✅ Data sales berhasil disimpan."
-);
-
-closeSalesModal();
-
-renderAll();
-
-}
-
-catch(error){
-
-alert(
-"Gagal menyimpan sales:\n"+
-error.message
-);
-
-}
-
-};
-
-
-/* =========================
-LOAD SALES USERS
-========================= */
-
-let salesUsers={};
-let salesData={};
-let outletData={};
-let checkinData={};
-let depositData={};
-
-
-onValue(
-ref(database,"salesUsers"),
-snapshot=>{
-
-salesUsers=
-snapshot.val()||{};
-
-renderAll();
-
-});
-
-
-onValue(
-ref(database,"sales"),
-snapshot=>{
-
-salesData=
-snapshot.val()||{};
-
-renderAll();
-
-});
-
-
-onValue(
-ref(database,"outlets"),
-snapshot=>{
-
-outletData=
-snapshot.val()||{};
-
-renderAll();
-
-});
-
-
-onValue(
-ref(database,"checkins"),
-snapshot=>{
-
-checkinData=
-snapshot.val()||{};
-
-renderAll();
-
-});
-
-
-onValue(
-ref(database,"deposits"),
-snapshot=>{
-
-depositData=
-snapshot.val()||{};
-
-renderAll();
-
-});
-
-
-/* =========================
-CALCULATION
-========================= */
-
-function getSalesStats(id){
-
-let pack=0;
-let transactions=0;
-let omzet=0;
-let paidPack=0;
-let returnedPack=0;
-let checkins=0;
-let deposit=0;
-
-Object.values(salesData).forEach(item=>{
-
-if(!item)return;
-
-if(
-item.salesId===id
-){
 
 const qty=
 Number(item.quantity||0);
 
-pack+=qty;
-
-transactions++;
-
-omzet+=
-Number(item.amount||0);
+const amount=
+Number(
+item.amount||
+qty*settings.productPrice
+);
 
 const status=
 String(
 item.paymentStatus||
 item.status||
-"sudah dibayar"
+"Sudah dibayar"
 ).toLowerCase();
 
+map[id].pack+=qty;
+
+map[id].transactions++;
+
+map[id].revenue+=amount;
+
 if(
-status.includes("bayar")||
-status==="paid"
+status.includes("belum")||
+status.includes("unpaid")
 ){
 
-paidPack+=qty;
+map[id].unpaidRevenue+=amount;
+
+}else if(
+status.includes("retur")
+){
+
+map[id].returnPack+=qty;
+
+}else{
+
+map[id].paidRevenue+=amount;
 
 }
 
+});
+
+allCheckins.forEach(
+item=>{
+
+const id=item.salesId;
+
 if(
-status.includes("retur")||
-status==="returned"
+map[id]
 ){
 
-returnedPack+=qty;
+map[id].checkins++;
+
+}
+
+});
+
+
+allOutlets.forEach(
+item=>{
+
+const id=item.salesId;
+
+if(
+map[id]
+){
+
+map[id].outlets++;
+
+if(
+item.createdAt &&
+Date.now()-item.createdAt<
+31*24*60*60*1000
+){
+
+map[id].newOutlets++;
 
 }
 
@@ -1536,177 +2460,226 @@ returnedPack+=qty;
 });
 
 
-Object.values(checkinData).forEach(item=>{
+allSales.forEach(
+item=>{
+
+const id=item.salesId;
 
 if(
-item &&
-item.salesId===id
+map[id] &&
+(
+item.repeatOrder===true||
+item.orderType==="repeat"
+)
 ){
 
-checkins++;
+map[id].repeatOrders++;
 
 }
 
 });
 
 
-Object.values(depositData).forEach(item=>{
-
-if(
-item &&
-item.salesId===id
-){
-
-deposit+=
-Number(item.amount||0);
-
-}
-
-});
-
-
-const user=
-salesUsers[id]||{};
-
-const target=
-Number(
-user.target||
-settings.targetMonthly
-);
-
-
-const achievement=
-target>0
-?
-(pack/target)*100
-:
-0;
-
-
-const commission=
-paidPack*
-settings.commissionPerPack;
-
-
-const bonus=
-paidPack>=target
-?
-settings.targetBonus
-:
-0;
-
-
-const income=
-settings.baseSalary+
-settings.operationalAllowance+
-commission+
-bonus;
-
-
-const hpp=
-paidPack*
-settings.productHpp;
-
-
-const margin=
-(paidPack*
-settings.productPrice)-hpp;
-
-
-const salesCost=
-settings.baseSalary+
-settings.operationalAllowance+
-commission+
-bonus;
-
-
-const contribution=
-margin-salesCost;
-
-
-return{
-
-pack,
-transactions,
-omzet,
-paidPack,
-returnedPack,
-checkins,
-deposit,
-target,
-achievement,
-commission,
-bonus,
-income,
-hpp,
-margin,
-salesCost,
-contribution
-
-};
+return map;
 
 }
 
 
-/* =========================
+/* =====================================================
 RENDER ALL
-========================= */
+===================================================== */
 
 function renderAll(){
 
-renderSalesManagement();
+const map=buildSalesMap();
 
-renderKPI();
+const list=
+Object.values(map)
+.sort(
+(a,b)=>b.pack-a.pack
+);
 
-renderLeaderboard();
+let totalPack=0;
+let totalRevenue=0;
+let totalPaid=0;
+let totalUnpaid=0;
+let totalCommission=0;
 
-renderHistory();
+list.forEach(
+s=>{
 
-renderDeposits();
+totalPack+=s.pack;
 
-renderStock();
+totalRevenue+=s.revenue;
+
+totalPaid+=s.paidRevenue;
+
+totalUnpaid+=s.unpaidRevenue;
+
+s.commission=
+s.pack*
+settings.commissionPerPack;
+
+totalCommission+=
+s.commission;
+
+});
+
+document.getElementById(
+"totalPack"
+).innerText=
+totalPack.toLocaleString("id-ID");
+
+document.getElementById(
+"totalRevenue"
+).innerText=
+"Rp "+
+totalRevenue.toLocaleString("id-ID");
+
+document.getElementById(
+"totalDeposit"
+).innerText=
+"Rp "+
+totalPaid.toLocaleString("id-ID");
+
+document.getElementById(
+"totalCommission"
+).innerText=
+"Rp "+
+totalCommission.toLocaleString("id-ID");
+
+document.getElementById(
+"targetDisplay"
+).innerText=
+settings.targetMonthly.toLocaleString("id-ID");
+
+const achievement=
+settings.targetMonthly>0
+?
+Math.min(
+100,
+(totalPack/settings.targetMonthly)*100
+)
+:0;
+
+document.getElementById(
+"achievementDisplay"
+).innerText=
+achievement.toFixed(1)+"%";
+
+document.getElementById(
+"totalSalesPerson"
+).innerText=
+list.length;
+
+document.getElementById(
+"totalOutlet"
+).innerText=
+allOutlets.length;
+
+document.getElementById(
+"transactionCount"
+).innerText=
+allSales.length;
+
+document.getElementById(
+"checkinCount"
+).innerText=
+allCheckins.length;
+
+document.getElementById(
+"newOutletCount"
+).innerText=
+allOutlets.filter(
+o=>
+o.createdAt &&
+Date.now()-o.createdAt<
+31*24*60*60*1000
+).length;
+
+document.getElementById(
+"repeatOrderCount"
+).innerText=
+list.reduce(
+(sum,s)=>sum+s.repeatOrders,
+0
+);
+
+renderSalesTable(list);
+
+renderLeaderboard(list);
 
 renderOutlets();
 
+renderSalesHistory();
+
 renderVisits();
 
-renderProfit();
+renderStock(list);
 
-renderSummary();
+renderPayroll(list);
 
-renderAlerts();
+renderProfit(list);
 
-renderAI();
+renderMap();
+
+renderAlerts(list,totalPack);
+
+renderAI(list,totalPack,totalUnpaid);
 
 }
 
 
-/* =========================
-SALES MANAGEMENT
-========================= */
+/* =====================================================
+SALES TABLE
+===================================================== */
 
-function renderSalesManagement(){
+function renderSalesTable(list){
 
 const tbody=
 document.getElementById(
-"salesManagementTable"
+"salesTable"
 );
 
 tbody.innerHTML="";
 
-const ids=
-Object.keys(salesUsers);
+if(!list.length){
 
-let active=0;
+tbody.innerHTML=
+"<tr><td colspan='9'>Belum ada transaksi sales.</td></tr>";
 
-ids.forEach(id=>{
+return;
 
-const s=
-salesUsers[id];
+}
 
-if(
-s.status==="aktif"
-)active++;
+list.forEach(
+(s,index)=>{
+
+const achievement=
+settings.targetMonthly>0
+?
+(s.pack/settings.targetMonthly)*100
+:0;
+
+const bonus=
+s.pack>=settings.bonusTarget
+?
+settings.targetBonus
+:0;
+
+const income=
+settings.baseSalary+
+settings.operationalAllowance+
+s.commission+
+bonus;
+
+let kpiClass=
+"kpi-danger";
+
+if(achievement>=100)
+kpiClass="kpi-good";
+else if(achievement>=80)
+kpiClass="kpi-warning";
 
 const row=
 document.createElement("tr");
@@ -1714,33 +2687,44 @@ document.createElement("tr");
 row.innerHTML=`
 
 <td>
-<b>${escapeHTML(s.name||"-")}</b>
-</td>
-
-<td>${escapeHTML(s.code||"-")}</td>
-
-<td>${escapeHTML(s.region||"-")}</td>
-
-<td>
-${Number(s.target||settings.targetMonthly)
-.toLocaleString("id-ID")}
+<b>${index+1}</b>
 </td>
 
 <td>
-<span class="${
-s.status==="aktif"
-?"badge"
-:"badge badge-red"
-}">
-${escapeHTML(s.status||"-")}
-</span>
+<b>${escapeHTML(s.name)}</b>
+<br>
+<small>${escapeHTML(s.id)}</small>
+</td>
+
+<td>
+${s.pack.toLocaleString("id-ID")}
+</td>
+
+<td>
+${achievement.toFixed(1)}%
+</td>
+
+<td>
+Rp ${s.revenue.toLocaleString("id-ID")}
+</td>
+
+<td>
+Rp ${s.commission.toLocaleString("id-ID")}
+</td>
+
+<td>
+Rp ${income.toLocaleString("id-ID")}
+</td>
+
+<td class="${kpiClass}">
+${achievement>=100?"HIJAU":achievement>=80?"KUNING":"MERAH"}
 </td>
 
 <td>
 <button
 class="btn btn-blue"
-onclick="openSalesModal('${id}')">
-EDIT
+onclick="showSalesDetail('${escapeAttr(s.id)}')">
+DETAIL
 </button>
 </td>
 
@@ -1750,361 +2734,83 @@ tbody.appendChild(row);
 
 });
 
-document.getElementById(
-"totalSalesPerson"
-).innerText=active;
-
-if(!ids.length){
-
-tbody.innerHTML=
-"<tr><td colspan='6'>Belum ada sales aktif. Silakan tambah sales.</td></tr>";
-
-}
-
 }
 
 
-/* =========================
-KPI
-========================= */
-
-function renderKPI(){
-
-const tbody=
-document.getElementById(
-"kpiTable"
-);
-
-tbody.innerHTML="";
-
-Object.keys(salesUsers).forEach(id=>{
-
-const s=
-salesUsers[id];
-
-if(s.status!=="aktif")return;
-
-const d=
-getSalesStats(id);
-
-let cls=
-"kpi-red";
-
-if(d.achievement>=100)
-cls="kpi-green";
-else if(d.achievement>=80)
-cls="kpi-yellow";
-
-const row=
-document.createElement("tr");
-
-row.innerHTML=`
-
-<td>
-<b>${escapeHTML(s.name||"-")}</b>
-</td>
-
-<td>
-${d.target.toLocaleString("id-ID")}
-</td>
-
-<td>
-${d.pack.toLocaleString("id-ID")}
-</td>
-
-<td class="${cls}">
-${d.achievement.toFixed(1)}%
-</td>
-
-<td>
-Rp ${d.omzet.toLocaleString("id-ID")}
-</td>
-
-<td>
-Rp ${d.commission.toLocaleString("id-ID")}
-</td>
-
-<td>
-<b>
-Rp ${d.income.toLocaleString("id-ID")}
-</b>
-</td>
-
-`;
-
-tbody.appendChild(row);
-
-});
-
-}
-
-
-/* =========================
+/* =====================================================
 LEADERBOARD
-========================= */
+===================================================== */
 
-function renderLeaderboard(){
+function renderLeaderboard(list){
 
 const box=
 document.getElementById(
 "leaderboard"
 );
 
-const ranking=
-Object.keys(salesUsers)
-.filter(id=>
-salesUsers[id].status==="aktif"
-)
-.map(id=>({
+if(!list.length){
 
-id,
-name:salesUsers[id].name,
-stats:getSalesStats(id)
-
-}))
-.sort(
-(a,b)=>
-b.stats.pack-a.stats.pack
-);
-
-
-if(!ranking.length){
-
-box.innerText=
-"Belum ada sales aktif.";
+box.innerHTML=
+"Belum ada data.";
 
 return;
 
 }
 
-box.innerHTML="";
+box.innerHTML=
+list.slice(0,10)
+.map(
+(s,i)=>{
 
-ranking.forEach((item,index)=>{
-
-const div=
-document.createElement("div");
-
-div.className="alert";
-
-div.innerHTML=
-
-`<b>${index+1}. ${escapeHTML(item.name)}</b>
-<br>
-${item.stats.pack.toLocaleString("id-ID")} pack
-•
-${item.stats.achievement.toFixed(1)}% achievement`;
-
-box.appendChild(div);
-
-});
-
-}
-
-
-/* =========================
-SUMMARY
-========================= */
-
-function renderSummary(){
-
-let pack=0;
-let omzet=0;
-let deposit=0;
-
-Object.keys(salesUsers).forEach(id=>{
-
-const d=getSalesStats(id);
-
-pack+=d.pack;
-omzet+=d.omzet;
-deposit+=d.deposit;
-
-});
-
-document.getElementById(
-"totalPack"
-).innerText=
-pack.toLocaleString("id-ID");
-
-document.getElementById(
-"totalOmzet"
-).innerText=
-"Rp "+omzet.toLocaleString("id-ID");
-
-document.getElementById(
-"totalDeposit"
-).innerText=
-"Rp "+deposit.toLocaleString("id-ID");
-
-}
-
-
-/* =========================
-HISTORY
-========================= */
-
-function renderHistory(){
-
-const tbody=
-document.getElementById(
-"salesHistoryTable"
-);
-
-tbody.innerHTML="";
-
-const items=
-Object.values(salesData)
-.reverse()
-.slice(0,100);
-
-items.forEach(item=>{
-
-const date=
-item.date
+const achievement=
+settings.targetMonthly>0
 ?
-new Date(item.date)
-.toLocaleString("id-ID")
-:"-";
+(s.pack/settings.targetMonthly)*100
+:0;
 
-const status=
-item.paymentStatus||
-item.status||
-"Sudah dibayar";
+return `
 
-const row=
-document.createElement("tr");
+<div style="
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:13px;
+border-bottom:1px solid #eee;
+">
 
-row.innerHTML=`
+<div>
 
-<td>${date}</td>
-<td>${escapeHTML(item.salesName||item.salesId||"-")}</td>
-<td>${escapeHTML(item.outlet||"-")}</td>
-<td>${Number(item.quantity||0)}</td>
-<td>
-Rp ${Number(item.amount||0).toLocaleString("id-ID")}
-</td>
-<td>${escapeHTML(status)}</td>
+<b>
+${i===0?"🥇":i===1?"🥈":i===2?"🥉":(i+1)+". "}
+${escapeHTML(s.name)}
+</b>
+
+<br>
+
+<small style="color:#666;">
+${s.pack.toLocaleString("id-ID")} Pack
+</small>
+
+</div>
+
+<div style="font-weight:bold;">
+${achievement.toFixed(1)}%
+</div>
+
+</div>
 
 `;
 
-tbody.appendChild(row);
-
-});
+}
+)
+.join("");
 
 }
 
 
-/* =========================
-DEPOSIT
-========================= */
-
-function renderDeposits(){
-
-const tbody=
-document.getElementById(
-"depositTable"
-);
-
-tbody.innerHTML="";
-
-Object.values(depositData)
-.reverse()
-.slice(0,100)
-.forEach(item=>{
-
-const row=
-document.createElement("tr");
-
-row.innerHTML=`
-
-<td>
-${item.date?
-new Date(item.date).toLocaleString("id-ID")
-:"-"}
-</td>
-
-<td>
-${escapeHTML(item.salesName||item.salesId||"-")}
-</td>
-
-<td>
-Rp ${Number(item.amount||0).toLocaleString("id-ID")}
-</td>
-
-<td>
-${escapeHTML(item.note||"-")}
-</td>
-
-`;
-
-tbody.appendChild(row);
-
-});
-
-}
-
-
-/* =========================
-STOCK
-========================= */
-
-function renderStock(){
-
-const tbody=
-document.getElementById(
-"stockTable"
-);
-
-tbody.innerHTML="";
-
-Object.keys(salesUsers).forEach(id=>{
-
-const s=salesUsers[id];
-
-const d=getSalesStats(id);
-
-const opening=
-Number(s.stockOpening||0);
-
-const received=
-Number(s.stockReceived||0);
-
-const ending=
-opening+
-received-
-d.paidPack-
-d.returnedPack;
-
-const row=
-document.createElement("tr");
-
-row.innerHTML=`
-
-<td>
-${escapeHTML(s.name||"-")}
-</td>
-
-<td>${opening}</td>
-<td>${received}</td>
-<td>${d.paidPack}</td>
-<td>${d.returnedPack}</td>
-
-<td>
-<b>${ending}</b>
-</td>
-
-`;
-
-tbody.appendChild(row);
-
-});
-
-}
-
-
-/* =========================
+/* =====================================================
 OUTLET
-========================= */
+===================================================== */
 
 function renderOutlets(){
 
@@ -2115,24 +2821,52 @@ document.getElementById(
 
 tbody.innerHTML="";
 
-Object.values(outletData)
-.slice(0,100)
-.forEach(item=>{
+if(!allOutlets.length){
+
+tbody.innerHTML=
+"<tr><td colspan='6'>Belum ada outlet.</td></tr>";
+
+return;
+
+}
+
+allOutlets.forEach(
+item=>{
 
 const row=
 document.createElement("tr");
 
 row.innerHTML=`
 
-<td>${escapeHTML(item.name||"-")}</td>
+<td>
+<b>${escapeHTML(item.name||"-")}</b>
+</td>
 
-<td>${escapeHTML(item.salesName||item.salesId||"-")}</td>
+<td>
+${escapeHTML(item.owner||"-")}
+</td>
 
-<td>${escapeHTML(item.type||"-")}</td>
+<td>
+${escapeHTML(
+item.salesName||
+item.salesId||
+"-"
+)}
+</td>
 
-<td>${escapeHTML(item.phone||"-")}</td>
+<td>
+<span class="badge">
+${escapeHTML(item.type||"-")}
+</span>
+</td>
 
-<td>${escapeHTML(item.address||"-")}</td>
+<td>
+${escapeHTML(item.phone||"-")}
+</td>
+
+<td>
+${escapeHTML(item.address||"-")}
+</td>
 
 `;
 
@@ -2143,9 +2877,91 @@ tbody.appendChild(row);
 }
 
 
-/* =========================
+/* =====================================================
+SALES HISTORY
+===================================================== */
+
+function renderSalesHistory(){
+
+const tbody=
+document.getElementById(
+"salesHistoryTable"
+);
+
+tbody.innerHTML="";
+
+const items=
+[...allSales]
+.sort(
+(a,b)=>
+Number(b.createdAt||0)-
+Number(a.createdAt||0)
+)
+.slice(0,100);
+
+if(!items.length){
+
+tbody.innerHTML=
+"<tr><td colspan='6'>Belum ada transaksi.</td></tr>";
+
+return;
+
+}
+
+items.forEach(
+item=>{
+
+const status=
+item.paymentStatus||
+item.status||
+"Sudah dibayar";
+
+const date=
+item.date
+?
+new Date(item.date)
+.toLocaleString("id-ID")
+:"-";
+
+const row=
+document.createElement("tr");
+
+row.innerHTML=`
+
+<td>${date}</td>
+
+<td>${escapeHTML(item.salesName||item.salesId||"-")}</td>
+
+<td>${escapeHTML(item.outlet||"-")}</td>
+
+<td>${Number(item.quantity||0)}</td>
+
+<td>
+Rp ${Number(
+item.amount||
+(Number(item.quantity||0)*
+settings.productPrice)
+).toLocaleString("id-ID")}
+</td>
+
+<td>
+<span class="badge">
+${escapeHTML(status)}
+</span>
+</td>
+
+`;
+
+tbody.appendChild(row);
+
+});
+
+}
+
+
+/* =====================================================
 VISITS
-========================= */
+===================================================== */
 
 function renderVisits(){
 
@@ -2156,31 +2972,57 @@ document.getElementById(
 
 tbody.innerHTML="";
 
-Object.values(checkinData)
-.reverse()
-.slice(0,100)
-.forEach(item=>{
+const items=
+[...allCheckins]
+.sort(
+(a,b)=>
+Number(b.createdAt||0)-
+Number(a.createdAt||0)
+)
+.slice(0,100);
 
-const lat=Number(item.latitude||0);
-const lng=Number(item.longitude||0);
+if(!items.length){
+
+tbody.innerHTML=
+"<tr><td colspan='5'>Belum ada check-in.</td></tr>";
+
+return;
+
+}
+
+items.forEach(
+item=>{
+
+const lat=
+Number(item.latitude||0);
+
+const lng=
+Number(item.longitude||0);
 
 const maps=
 "https://www.google.com/maps?q="+
 lat+","+lng;
+
+const date=
+item.date
+?
+new Date(item.date)
+.toLocaleString("id-ID")
+:"-";
 
 const row=
 document.createElement("tr");
 
 row.innerHTML=`
 
-<td>
-${item.date?
-new Date(item.date).toLocaleString("id-ID")
-:"-"}
-</td>
+<td>${date}</td>
 
 <td>
-${escapeHTML(item.salesName||item.salesId||"-")}
+${escapeHTML(
+item.salesName||
+item.salesId||
+"-"
+)}
 </td>
 
 <td>
@@ -2188,11 +3030,11 @@ ${escapeHTML(item.outlet||"-")}
 </td>
 
 <td>
-${lat.toFixed(6)},
-${lng.toFixed(6)}
+${lat.toFixed(6)}, ${lng.toFixed(6)}
 </td>
 
 <td>
+
 <a
 href="${maps}"
 target="_blank">
@@ -2202,6 +3044,7 @@ MAPS
 </button>
 
 </a>
+
 </td>
 
 `;
@@ -2213,26 +3056,108 @@ tbody.appendChild(row);
 }
 
 
-/* =========================
-PROFIT
-========================= */
+/* =====================================================
+MAP
+===================================================== */
 
-function renderProfit(){
+function renderMap(){
+
+const box=
+document.getElementById(
+"mapBox"
+);
+
+if(!allCheckins.length){
+
+box.innerHTML=
+"<div style='padding:30px;text-align:center;'>Belum ada titik GPS.</div>";
+
+return;
+
+}
+
+const valid=
+allCheckins.filter(
+x=>
+x.latitude &&
+x.longitude
+);
+
+if(!valid.length){
+
+box.innerHTML=
+"<div style='padding:30px;text-align:center;'>Belum ada koordinat GPS.</div>";
+
+return;
+
+}
+
+const center=
+valid[valid.length-1];
+
+const url=
+"https://www.google.com/maps?q="+
+center.latitude+
+","+
+center.longitude+
+"&z=13";
+
+box.innerHTML=`
+
+<iframe
+src="${url.replace(
+"google.com/maps?q=",
+"google.com/maps/embed/v1/view?key=YOUR_GOOGLE_MAPS_API_KEY&center="
+)}">
+</iframe>
+
+`;
+
+}
+
+
+/* =====================================================
+STOCK
+===================================================== */
+
+function renderStock(list){
 
 const tbody=
 document.getElementById(
-"profitTable"
+"stockTable"
 );
 
 tbody.innerHTML="";
 
-Object.keys(salesUsers).forEach(id=>{
+if(!list.length){
 
-const s=
-salesUsers[id];
+tbody.innerHTML=
+"<tr><td colspan='7'>Belum ada data sales.</td></tr>";
 
-const d=
-getSalesStats(id);
+return;
+
+}
+
+list.forEach(
+s=>{
+
+const stockAwal=
+Number(s.stockAwal||0);
+
+const diterima=
+Number(s.stockReceived||0);
+
+const retur=
+Number(s.returnPack||0);
+
+const akhir=
+stockAwal+
+diterima-
+s.pack-
+retur;
+
+const warning=
+akhir<0;
 
 const row=
 document.createElement("tr");
@@ -2240,29 +3165,111 @@ document.createElement("tr");
 row.innerHTML=`
 
 <td>
-<b>${escapeHTML(s.name||"-")}</b>
+<b>${escapeHTML(s.name)}</b>
+</td>
+
+<td>${stockAwal}</td>
+
+<td>${diterima}</td>
+
+<td>${s.pack}</td>
+
+<td>${retur}</td>
+
+<td>
+<b>${akhir}</b>
+</td>
+
+<td class="${
+warning?
+"kpi-danger":
+"kpi-good"
+}">
+${
+warning?
+"⚠️ SELISIH":
+"OK"
+}
+</td>
+
+`;
+
+tbody.appendChild(row);
+
+});
+
+}
+
+
+/* =====================================================
+PAYROLL
+===================================================== */
+
+function renderPayroll(list){
+
+const tbody=
+document.getElementById(
+"payrollTable"
+);
+
+tbody.innerHTML="";
+
+if(!list.length){
+
+tbody.innerHTML=
+"<tr><td colspan='6'>Belum ada data.</td></tr>";
+
+return;
+
+}
+
+list.forEach(
+s=>{
+
+s.commission=
+s.pack*
+settings.commissionPerPack;
+
+const bonus=
+s.pack>=settings.bonusTarget
+?
+settings.targetBonus
+:0;
+
+const total=
+settings.baseSalary+
+settings.operationalAllowance+
+s.commission+
+bonus;
+
+const row=
+document.createElement("tr");
+
+row.innerHTML=`
+
+<td>
+<b>${escapeHTML(s.name)}</b>
 </td>
 
 <td>
-Rp ${(d.paidPack*settings.productPrice)
-.toLocaleString("id-ID")}
+Rp ${settings.baseSalary.toLocaleString("id-ID")}
 </td>
 
 <td>
-Rp ${d.hpp.toLocaleString("id-ID")}
+Rp ${settings.operationalAllowance.toLocaleString("id-ID")}
 </td>
 
 <td>
-Rp ${d.margin.toLocaleString("id-ID")}
+Rp ${s.commission.toLocaleString("id-ID")}
 </td>
 
 <td>
-Rp ${d.salesCost.toLocaleString("id-ID")}
+Rp ${bonus.toLocaleString("id-ID")}
 </td>
 
 <td>
 <b>
-Rp ${d.contribution.toLocaleString("id-ID")}
+Rp ${total.toLocaleString("id-ID")}
 </b>
 </td>
 
@@ -2275,146 +3282,482 @@ tbody.appendChild(row);
 }
 
 
-/* =========================
-ALERT
-========================= */
+/* =====================================================
+PROFIT
+===================================================== */
 
-function renderAlerts(){
+function renderProfit(list){
+
+const tbody=
+document.getElementById(
+"profitTable"
+);
+
+tbody.innerHTML="";
+
+list.forEach(
+s=>{
+
+const omzet=
+s.pack*
+settings.productPrice;
+
+const hpp=
+s.pack*
+settings.productHpp;
+
+const margin=
+omzet-hpp;
+
+const bonus=
+s.pack>=settings.bonusTarget
+?
+settings.targetBonus
+:0;
+
+const biaya=
+settings.baseSalary+
+settings.operationalAllowance+
+s.commission+
+bonus;
+
+const contribution=
+margin-biaya;
+
+const row=
+document.createElement("tr");
+
+row.innerHTML=`
+
+<td>
+<b>${escapeHTML(s.name)}</b>
+</td>
+
+<td>
+Rp ${omzet.toLocaleString("id-ID")}
+</td>
+
+<td>
+Rp ${hpp.toLocaleString("id-ID")}
+</td>
+
+<td>
+Rp ${margin.toLocaleString("id-ID")}
+</td>
+
+<td>
+Rp ${biaya.toLocaleString("id-ID")}
+</td>
+
+<td class="${
+contribution>=0?
+"kpi-good":
+"kpi-danger"
+}">
+
+Rp ${contribution.toLocaleString("id-ID")}
+
+</td>
+
+`;
+
+tbody.appendChild(row);
+
+});
+
+}
+
+
+/* =====================================================
+ALERT
+===================================================== */
+
+function renderAlerts(
+list,
+totalPack,
+totalUnpaid
+){
 
 const box=
 document.getElementById(
-"alertList"
+"alertContainer"
 );
 
-box.innerHTML="";
+const alerts=[];
 
-let alerts=0;
+const dailyTarget=
+settings.workingDays>0
+?
+settings.targetMonthly/
+settings.workingDays
+:0;
 
-Object.keys(salesUsers).forEach(id=>{
-
-const s=salesUsers[id];
-
-if(s.status!=="aktif")return;
-
-const d=getSalesStats(id);
+list.forEach(
+s=>{
 
 if(
-d.achievement<80
+s.pack<
+dailyTarget*10
 ){
 
-const div=
-document.createElement("div");
-
-div.className="alert";
-
-div.innerHTML=
-`⚠️ <b>${escapeHTML(s.name)}</b>
-masih di ${d.achievement.toFixed(1)}%
-dari target.`;
-
-box.appendChild(div);
-
-alerts++;
+alerts.push(
+`⚠️ <b>${escapeHTML(s.name)}</b> masih tertinggal dari target berjalan.`
+);
 
 }
 
 });
 
-if(!alerts){
+if(totalUnpaid>0){
+
+alerts.push(
+`⚠️ Terdapat transaksi belum dibayar senilai <b>Rp ${totalUnpaid.toLocaleString("id-ID")}</b>.`
+);
+
+}
+
+if(totalPack===0){
+
+alerts.push(
+"⚠️ Belum ada penjualan tercatat."
+);
+
+}
+
+if(!alerts.length){
 
 box.innerHTML=
-"🟢 Tidak ada peringatan utama. Performa sales dalam kondisi baik.";
+`<div class="badge">
+🟢 Tidak ada alert kritis.
+</div>`;
+
+}else{
+
+box.innerHTML=
+alerts.map(
+x=>`
+<div class="alert-box">
+${x}
+</div>
+`
+).join("");
 
 }
 
 }
 
 
-/* =========================
-AI
-========================= */
+/* =====================================================
+AI MANAGEMENT
+===================================================== */
 
-function renderAI(){
+function renderAI(
+list,
+totalPack,
+totalUnpaid
+){
 
-const box=
+const target=
+settings.targetMonthly;
+
+const remaining=
+Math.max(
+0,
+target-totalPack
+);
+
+let text="";
+
+if(totalPack===0){
+
+text=
+"Belum ada penjualan. Prioritas Owner: pastikan setiap sales melakukan kunjungan dan mendapatkan order pertama.";
+
+}else if(remaining>0){
+
+text=
+`Penjualan saat ini <b>${totalPack.toLocaleString("id-ID")} pack</b>.
+Masih diperlukan <b>${remaining.toLocaleString("id-ID")} pack</b>
+untuk mencapai target bulanan. Fokuskan sales dengan achievement rendah dan dorong repeat order.`;
+
+}else{
+
+text=
+"🎉 Target bulanan sudah tercapai. Pertahankan outlet aktif dan tingkatkan repeat order.";
+
+}
+
+if(totalUnpaid>0){
+
+text+=
+`<br><br>⚠️ Perhatian: terdapat transaksi belum dibayar sebesar <b>Rp ${totalUnpaid.toLocaleString("id-ID")}</b>.`;
+
+}
+
+if(list.length){
+
+const best=list[0];
+
+text+=
+`<br><br>🏆 Sales sementara terbaik: <b>${escapeHTML(best.name)}</b>
+dengan ${best.pack.toLocaleString("id-ID")} pack.`;
+
+}
+
 document.getElementById(
 "managementInsight"
-);
-
-const ranking=
-Object.keys(salesUsers)
-.filter(id=>
-salesUsers[id].status==="aktif"
-)
-.map(id=>({
-name:salesUsers[id].name,
-stats:getSalesStats(id)
-}))
-.sort(
-(a,b)=>b.stats.pack-a.stats.pack
-);
-
-if(!ranking.length){
-
-box.innerText=
-"Belum ada sales aktif.";
-
-return;
-
-}
-
-const top=ranking[0];
-
-const total=
-ranking.reduce(
-(sum,x)=>sum+x.stats.pack,
-0
-);
-
-box.innerHTML=
-
-`🏆 Sales terbaik saat ini:
-<b>${escapeHTML(top.name)}</b>
-dengan ${top.stats.pack.toLocaleString("id-ID")} pack.
-
-<br><br>
-
-Total penjualan seluruh sales:
-<b>${total.toLocaleString("id-ID")} pack</b>.
-
-<br><br>
-
-Fokus manajemen:
-sales dengan achievement rendah perlu mendapat pendampingan, peningkatan kunjungan outlet dan follow-up repeat order.`;
+).innerHTML=text;
 
 }
 
 
-/* =========================
-PRINT
-========================= */
+/* =====================================================
+DETAIL SALES
+===================================================== */
 
-window.printReport=function(){
+window.showSalesDetail=
+function(id){
+
+const map=
+buildSalesMap();
+
+const s=map[id];
+
+if(!s)return;
+
+const achievement=
+settings.targetMonthly>0
+?
+(s.pack/settings.targetMonthly)*100
+:0;
+
+const bonus=
+s.pack>=settings.bonusTarget
+?
+settings.targetBonus
+:0;
+
+const income=
+settings.baseSalary+
+settings.operationalAllowance+
+s.commission+
+bonus;
+
+const omzet=
+s.pack*
+settings.productPrice;
+
+const hpp=
+s.pack*
+settings.productHpp;
+
+const margin=
+omzet-hpp;
+
+const biaya=
+income;
+
+const contribution=
+margin-biaya;
+
+document.getElementById(
+"salesDetail"
+).innerHTML=`
+
+<h3>${escapeHTML(s.name)}</h3>
+
+<p style="color:#666;margin:5px 0 18px;">
+ID Sales: ${escapeHTML(s.id)}
+</p>
+
+<div class="detail-grid">
+
+<div class="detail-item">
+<div class="detail-label">TARGET</div>
+<div class="detail-value">
+${settings.targetMonthly.toLocaleString("id-ID")}
+</div>
+</div>
+
+<div class="detail-item">
+<div class="detail-label">PENJUALAN</div>
+<div class="detail-value">
+${s.pack.toLocaleString("id-ID")} Pack
+</div>
+</div>
+
+<div class="detail-item">
+<div class="detail-label">ACHIEVEMENT</div>
+<div class="detail-value">
+${achievement.toFixed(1)}%
+</div>
+</div>
+
+<div class="detail-item">
+<div class="detail-label">OMZET</div>
+<div class="detail-value">
+Rp ${omzet.toLocaleString("id-ID")}
+</div>
+</div>
+
+<div class="detail-item">
+<div class="detail-label">TRANSAKSI</div>
+<div class="detail-value">
+${s.transactions}
+</div>
+</div>
+
+<div class="detail-item">
+<div class="detail-label">CHECK-IN</div>
+<div class="detail-value">
+${s.checkins}
+</div>
+</div>
+
+<div class="detail-item">
+<div class="detail-label">OUTLET</div>
+<div class="detail-value">
+${s.outlets}
+</div>
+</div>
+
+<div class="detail-item">
+<div class="detail-label">OUTLET BARU</div>
+<div class="detail-value">
+${s.newOutlets}
+</div>
+</div>
+
+<div class="detail-item">
+<div class="detail-label">REPEAT ORDER</div>
+<div class="detail-value">
+${s.repeatOrders}
+</div>
+</div>
+
+<div class="detail-item">
+<div class="detail-label">KOMISI</div>
+<div class="detail-value">
+Rp ${s.commission.toLocaleString("id-ID")}
+</div>
+</div>
+
+<div class="detail-item">
+<div class="detail-label">BONUS</div>
+<div class="detail-value">
+Rp ${bonus.toLocaleString("id-ID")}
+</div>
+</div>
+
+<div class="detail-item">
+<div class="detail-label">TOTAL PENDAPATAN</div>
+<div class="detail-value">
+Rp ${income.toLocaleString("id-ID")}
+</div>
+</div>
+
+<div class="detail-item">
+<div class="detail-label">HPP</div>
+<div class="detail-value">
+Rp ${hpp.toLocaleString("id-ID")}
+</div>
+</div>
+
+<div class="detail-item">
+<div class="detail-label">MARGIN KOTOR</div>
+<div class="detail-value">
+Rp ${margin.toLocaleString("id-ID")}
+</div>
+</div>
+
+<div class="detail-item">
+<div class="detail-label">KONTRIBUSI</div>
+<div class="detail-value">
+Rp ${contribution.toLocaleString("id-ID")}
+</div>
+</div>
+
+</div>
+`;
+
+document.getElementById(
+"salesDetailModal"
+).style.display="flex";
+
+};
+
+
+/* =====================================================
+MODAL
+===================================================== */
+
+window.closeModal=
+function(id){
+
+document.getElementById(id)
+.style.display="none";
+
+};
+
+
+/* =====================================================
+PRINT / PDF
+===================================================== */
+
+window.printReport=
+function(){
 
 window.print();
 
 };
 
 
-/* =========================
-SECURITY HTML
-========================= */
+/* =====================================================
+ESCAPE HTML
+===================================================== */
 
 function escapeHTML(value){
 
-return String(value||"")
-.replaceAll("&","&amp;")
-.replaceAll("<","&lt;")
-.replaceAll(">","&gt;")
-.replaceAll('"',"&quot;")
-.replaceAll("'","&#039;");
+return String(value)
+.replace(/&/g,"&amp;")
+.replace(/</g,"&lt;")
+.replace(/>/g,"&gt;")
+.replace(/"/g,"&quot;")
+.replace(/'/g,"&#039;");
 
 }
+
+
+function escapeAttr(value){
+
+return String(value)
+.replace(/'/g,"&#039;")
+.replace(/"/g,"&quot;");
+
+}
+
+
+/* =====================================================
+FIREBASE STATUS
+===================================================== */
+
+document.getElementById(
+"firebaseStatus"
+).innerText=
+"🟢 Firebase terhubung";
+
+document.getElementById(
+"firebaseStatus"
+).classList.add(
+"success"
+);
+
+
+/* =====================================================
+START
+===================================================== */
+
+initializeOwnerSecurity();
 
 </script>
 
