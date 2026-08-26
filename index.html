@@ -5,9 +5,9 @@
 <meta charset="UTF-8">
 
 <meta name="viewport"
-content="width=device-width, initial-scale=1.0">
+content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no">
 
-<title>CRISFISH SALES - Canvassing System</title>
+<title>CRISFISH SALES</title>
 
 <style>
 
@@ -19,105 +19,141 @@ font-family:Arial,sans-serif;
 }
 
 body{
-background:#f4f6f8;
+background:#f3f4f6;
 color:#17202a;
+padding-bottom:80px;
+}
+
+button,
+input,
+select,
+textarea{
+font-family:Arial,sans-serif;
+}
+
+button{
+cursor:pointer;
 }
 
 .app{
-max-width:480px;
+max-width:600px;
 margin:auto;
 min-height:100vh;
-background:white;
 }
 
 .header{
 background:#111827;
 color:white;
-padding:20px;
-border-radius:0 0 22px 22px;
+padding:18px;
+position:sticky;
+top:0;
+z-index:20;
+}
+
+.header-top{
+display:flex;
+justify-content:space-between;
+align-items:center;
 }
 
 .logo{
-font-size:25px;
+font-size:23px;
 font-weight:bold;
 }
 
+.online{
+font-size:11px;
+padding:6px 9px;
+border-radius:20px;
+background:#16a34a;
+}
+
+.offline{
+background:#dc2626;
+}
+
 .subtitle{
-margin-top:5px;
-font-size:13px;
-opacity:.8;
+font-size:12px;
+opacity:.75;
+margin-top:4px;
 }
 
 .container{
-padding:18px;
+padding:14px;
 }
 
 .card{
 background:white;
-border-radius:16px;
-padding:18px;
-margin-bottom:15px;
-box-shadow:0 3px 12px rgba(0,0,0,.08);
+border-radius:17px;
+padding:16px;
+margin-bottom:14px;
+box-shadow:0 3px 12px rgba(0,0,0,.07);
 }
 
-.welcome{
-font-size:20px;
+.login{
+min-height:100vh;
+display:flex;
+align-items:center;
+justify-content:center;
+padding:20px;
+background:#111827;
+}
+
+.login-box{
+background:white;
+border-radius:22px;
+padding:25px;
+width:100%;
+max-width:400px;
+}
+
+.login-logo{
+text-align:center;
+font-size:28px;
 font-weight:bold;
 margin-bottom:5px;
 }
 
-.grid{
-display:grid;
-grid-template-columns:1fr 1fr;
-gap:12px;
+.login-sub{
+text-align:center;
+color:#777;
+font-size:13px;
+margin-bottom:25px;
 }
 
-.menu{
-border:0;
-padding:18px 10px;
-border-radius:15px;
-background:#f3f4f6;
+input,
+select,
+textarea{
+width:100%;
+padding:13px;
+border:1px solid #ddd;
+border-radius:11px;
+margin-top:6px;
+margin-bottom:13px;
+font-size:15px;
+background:white;
+}
+
+textarea{
+min-height:90px;
+resize:vertical;
+}
+
+label{
+font-size:13px;
 font-weight:bold;
-font-size:14px;
-cursor:pointer;
-}
-
-.menu span{
-display:block;
-font-size:27px;
-margin-bottom:8px;
-}
-
-.target{
-font-size:30px;
-font-weight:bold;
-margin:8px 0;
-}
-
-.progress{
-height:12px;
-background:#e5e7eb;
-border-radius:10px;
-overflow:hidden;
-}
-
-.progress-bar{
-width:0%;
-height:100%;
-background:#16a34a;
-transition:.4s;
 }
 
 .btn{
 width:100%;
 border:0;
-padding:14px;
 border-radius:12px;
+padding:14px;
+font-size:15px;
+font-weight:bold;
 background:#16a34a;
 color:white;
-font-size:16px;
-font-weight:bold;
-cursor:pointer;
+margin-top:5px;
 }
 
 .btn-blue{
@@ -128,225 +164,265 @@ background:#2563eb;
 background:#111827;
 }
 
-.btn-secondary{
-width:100%;
-border:0;
-padding:13px;
-border-radius:10px;
+.btn-orange{
+background:#ea580c;
+}
+
+.btn-red{
+background:#dc2626;
+}
+
+.btn-light{
 background:#e5e7eb;
-margin-top:8px;
+color:#111827;
+}
+
+.hidden{
+display:none!important;
+}
+
+.dashboard-grid{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:10px;
+margin-bottom:14px;
+}
+
+.stat{
+background:white;
+padding:15px;
+border-radius:16px;
+box-shadow:0 3px 10px rgba(0,0,0,.06);
+}
+
+.stat-title{
+font-size:11px;
+color:#777;
+}
+
+.stat-value{
+font-size:22px;
+font-weight:bold;
+margin-top:6px;
+}
+
+.green{
+color:#16a34a;
+}
+
+.blue{
+color:#2563eb;
+}
+
+.orange{
+color:#ea580c;
+}
+
+.red{
+color:#dc2626;
+}
+
+.progress{
+height:10px;
+background:#e5e7eb;
+border-radius:20px;
+overflow:hidden;
+margin-top:10px;
+}
+
+.progress-bar{
+height:100%;
+background:#16a34a;
+width:0%;
+transition:.3s;
+}
+
+.menu-grid{
+display:grid;
+grid-template-columns:repeat(4,1fr);
+gap:8px;
+}
+
+.menu-btn{
+background:#f9fafb;
+border:1px solid #eee;
+border-radius:13px;
+padding:13px 5px;
+text-align:center;
+font-size:11px;
 font-weight:bold;
 }
 
-.outlet{
-padding:14px 0;
-border-bottom:1px solid #eee;
+.menu-icon{
+font-size:23px;
+display:block;
+margin-bottom:5px;
 }
 
-.badge{
-display:inline-block;
-padding:5px 9px;
-border-radius:20px;
-font-size:11px;
-background:#dcfce7;
-color:#166534;
-margin-top:5px;
+.section-title{
+font-size:18px;
+font-weight:bold;
+margin-bottom:13px;
 }
 
-.kpi{
+.row{
 display:flex;
 justify-content:space-between;
 align-items:center;
-margin:12px 0;
+gap:10px;
 }
 
-.kpi-score{
-font-size:24px;
+.badge{
+padding:5px 9px;
+border-radius:20px;
+font-size:11px;
+font-weight:bold;
+background:#dcfce7;
+color:#166534;
+}
+
+.badge-yellow{
+background:#fef3c7;
+color:#92400e;
+}
+
+.badge-red{
+background:#fee2e2;
+color:#991b1b;
+}
+
+.list{
+border-top:1px solid #eee;
+}
+
+.list-item{
+padding:12px 0;
+border-bottom:1px solid #eee;
+}
+
+.small{
+font-size:12px;
+color:#777;
+}
+
+.big-money{
+font-size:26px;
 font-weight:bold;
 }
 
-.bottom{
-position:sticky;
-bottom:0;
-background:white;
-border-top:1px solid #ddd;
+.action{
 display:flex;
-justify-content:space-around;
-padding:12px 5px;
-z-index:10;
+gap:8px;
 }
 
-.bottom button{
-background:none;
+.action button{
+flex:1;
+}
+
+.bottom-nav{
+position:fixed;
+bottom:0;
+left:0;
+right:0;
+background:white;
+border-top:1px solid #ddd;
+padding:9px;
+display:flex;
+justify-content:center;
+z-index:30;
+}
+
+.bottom-inner{
+width:100%;
+max-width:600px;
+display:grid;
+grid-template-columns:repeat(4,1fr);
+}
+
+.bottom-btn{
 border:0;
-font-size:11px;
+background:white;
+font-size:10px;
 color:#555;
 }
 
-.bottom span{
+.bottom-icon{
+font-size:21px;
 display:block;
-font-size:20px;
-margin-bottom:3px;
+margin-bottom:2px;
 }
 
-input,
-select,
-textarea{
+.photo-preview{
 width:100%;
-padding:13px;
-border:1px solid #ddd;
-border-radius:10px;
-margin-top:6px;
-margin-bottom:12px;
-font-size:15px;
-}
-
-textarea{
-min-height:80px;
-resize:vertical;
-}
-
-label{
-font-size:13px;
-font-weight:bold;
+max-height:260px;
+object-fit:cover;
+border-radius:12px;
+margin-top:8px;
 }
 
 .modal{
-display:none;
 position:fixed;
 inset:0;
-background:rgba(0,0,0,.55);
-z-index:100;
-padding:20px;
-align-items:center;
+background:rgba(0,0,0,.6);
+display:flex;
+align-items:flex-end;
 justify-content:center;
+z-index:100;
 }
 
 .modal-box{
 background:white;
 width:100%;
-max-width:460px;
-max-height:92vh;
+max-width:600px;
+max-height:90vh;
 overflow:auto;
-border-radius:18px;
+border-radius:22px 22px 0 0;
 padding:20px;
 }
 
-.modal-title{
-font-size:20px;
-font-weight:bold;
-margin-bottom:15px;
-}
-
-.status{
+.map-link{
+display:inline-block;
+padding:9px 12px;
+background:#2563eb;
+color:white;
+border-radius:9px;
+text-decoration:none;
 font-size:12px;
-margin-top:8px;
+font-weight:bold;
 }
 
-.success{
-color:#15803d;
+.loading{
+text-align:center;
+padding:20px;
+color:#777;
 }
 
-.error{
-color:#b91c1c;
-}
-
-.profile-row{
-display:flex;
-justify-content:space-between;
-padding:12px 0;
-border-bottom:1px solid #eee;
-}
-
-.profile-label{
-color:#666;
+.alert{
+padding:12px;
+border-radius:11px;
+margin-bottom:12px;
+background:#fff7ed;
+border:1px solid #fed7aa;
 font-size:13px;
 }
 
-.profile-value{
-font-weight:bold;
-text-align:right;
-}
-
-.ai-box{
+.success-box{
 background:#f0fdf4;
 border:1px solid #bbf7d0;
-border-radius:14px;
-padding:15px;
-margin-top:12px;
-}
-
-.ai-title{
-font-weight:bold;
-margin-bottom:8px;
-}
-
-.stat-grid{
-display:grid;
-grid-template-columns:1fr 1fr;
-gap:10px;
-margin-top:12px;
-}
-
-.stat{
-background:#f3f4f6;
-padding:15px;
-border-radius:12px;
-text-align:center;
-}
-
-.stat-number{
-font-size:24px;
-font-weight:bold;
-}
-
-.stat-label{
-font-size:11px;
-color:#666;
-margin-top:4px;
-}
-
-.map{
-width:100%;
-height:260px;
-border:0;
-border-radius:14px;
-margin-top:12px;
-}
-
-.photo-preview{
-width:100%;
-max-height:300px;
-object-fit:cover;
-border-radius:14px;
-margin-top:10px;
-display:none;
-}
-
-.location-box{
-background:#eff6ff;
 padding:12px;
-border-radius:12px;
-font-size:12px;
-margin-top:10px;
+border-radius:11px;
 }
 
-.search-result{
-padding:12px;
-border:1px solid #eee;
-border-radius:10px;
-margin-bottom:8px;
-cursor:pointer;
-background:#fafafa;
+@media(max-width:400px){
+
+.menu-grid{
+grid-template-columns:repeat(2,1fr);
 }
 
-.search-result:hover{
-background:#f0fdf4;
+.stat-value{
+font-size:19px;
 }
 
-.small{
-font-size:12px;
-color:#666;
 }
 
 </style>
@@ -356,17 +432,87 @@ color:#666;
 <body>
 
 
-<div class="app">
+<!-- =====================================================
+LOGIN SALES
+===================================================== -->
+
+<div id="loginPage" class="login">
+
+<div class="login-box">
+
+<div class="login-logo">
+CRISFISH SALES
+</div>
+
+<div class="login-sub">
+PETEKRES CRISFISH<br>
+Sales Canvassing System
+</div>
+
+<label>Kode Sales</label>
+
+<input
+id="loginSalesCode"
+placeholder="Contoh: S001"
+autocomplete="username">
+
+<label>PIN / Kode Akses</label>
+
+<input
+id="loginPin"
+type="password"
+placeholder="Masukkan kode akses"
+autocomplete="current-password">
+
+<button
+class="btn"
+onclick="loginSales()">
+
+MASUK
+
+</button>
+
+<div
+id="loginMessage"
+style="margin-top:12px;text-align:center;font-size:12px;">
+</div>
+
+</div>
+
+</div>
+
+
+<!-- =====================================================
+MAIN APP
+===================================================== -->
+
+<div id="mainApp" class="app hidden">
 
 
 <div class="header">
+
+<div class="header-top">
+
+<div>
 
 <div class="logo">
 CRISFISH SALES
 </div>
 
 <div class="subtitle">
-PETEKRES • Sales Canvassing System
+Dashboard Sales
+</div>
+
+</div>
+
+<div
+id="connectionStatus"
+class="online">
+
+ONLINE
+
+</div>
+
 </div>
 
 </div>
@@ -375,420 +521,419 @@ PETEKRES • Sales Canvassing System
 <div class="container">
 
 
-<!-- PROFIL -->
+<!-- =====================================================
+PROFILE
+===================================================== -->
 
 <div class="card">
 
-<div class="welcome">
-Halo, <span id="salesName">Andi</span> 👋
-</div>
+<div class="row">
 
 <div>
-Sales Motoris
+
+<div class="small">
+Sales
 </div>
 
 <div
-class="status"
-id="firebaseStatus">
+id="salesName"
+style="font-size:20px;font-weight:bold;">
+-
+</div>
 
-Menghubungkan database...
+<div
+id="salesArea"
+class="small">
+-
+</div>
+
+</div>
+
+<span
+id="salesStatus"
+class="badge">
+AKTIF
+</span>
 
 </div>
 
 </div>
 
 
-<!-- TARGET -->
+<!-- =====================================================
+ALERT
+===================================================== -->
+
+<div
+id="alertArea">
+</div>
+
+
+<!-- =====================================================
+STAT
+===================================================== -->
+
+<div class="dashboard-grid">
+
+<div class="stat">
+
+<div class="stat-title">
+TARGET HARI INI
+</div>
+
+<div
+class="stat-value blue"
+id="todayTarget">
+0 Pack
+</div>
+
+</div>
+
+
+<div class="stat">
+
+<div class="stat-title">
+TERJUAL HARI INI
+</div>
+
+<div
+class="stat-value green"
+id="todayPack">
+0 Pack
+</div>
+
+</div>
+
+
+<div class="stat">
+
+<div class="stat-title">
+OMZET HARI INI
+</div>
+
+<div
+class="stat-value"
+id="todayOmzet">
+Rp 0
+</div>
+
+</div>
+
+
+<div class="stat">
+
+<div class="stat-title">
+STOK
+</div>
+
+<div
+class="stat-value orange"
+id="stockValue">
+0 Pack
+</div>
+
+</div>
+
+</div>
+
+
+<!-- =====================================================
+TARGET
+===================================================== -->
 
 <div class="card">
 
-<b>🎯 Target Penjualan Bulanan</b>
+<div class="row">
 
-<div class="target">
+<div>
 
-<span id="totalSales">0</span>
+<div class="small">
+Achievement Hari Ini
+</div>
 
-/
+<div
+class="big-money"
+id="achievementText">
+0%
+</div>
 
-<span id="targetMonthly">1500</span>
+</div>
 
-Pack
+<div
+id="kpiBadge"
+class="badge">
+KPI 0
+</div>
 
 </div>
 
 <div class="progress">
 
 <div
-class="progress-bar"
-id="progressBar">
+id="progressBar"
+class="progress-bar">
 </div>
 
 </div>
 
-<p
-style="margin-top:8px;font-size:13px;color:#666;">
-
-<span id="progressText">0%</span>
-
-target tercapai
-
-</p>
-
 </div>
 
 
-<!-- MENU -->
+<!-- =====================================================
+MENU
+===================================================== -->
 
-<div class="grid">
+<div class="card">
+
+<div class="menu-grid">
+
+<button
+class="menu-btn"
+onclick="openSale()">
+
+<span class="menu-icon">🛒</span>
+JUAL
+
+</button>
 
 
 <button
-class="menu"
-onclick="checkin()">
+class="menu-btn"
+onclick="openCheckin()">
 
-<span>📍</span>
-
+<span class="menu-icon">📍</span>
 CHECK-IN
 
 </button>
 
 
 <button
-class="menu"
-onclick="sale()">
+class="menu-btn"
+onclick="openDeposit()">
 
-<span>🛒</span>
-
-PENJUALAN
-
-</button>
-
-
-<button
-class="menu"
-onclick="outlet()">
-
-<span>🏪</span>
-
-OUTLET
+<span class="menu-icon">💰</span>
+SETORAN
 
 </button>
 
 
 <button
-class="menu"
-onclick="deposit()">
+class="menu-btn"
+onclick="openOutlets()">
 
-<span>💰</span>
-
-SETOR KAS
+<span class="menu-icon">🏪</span>
+TOKO
 
 </button>
 
 
-</div>
+<button
+class="menu-btn"
+onclick="showStock()">
 
+<span class="menu-icon">📦</span>
+STOK
 
-<!-- REKAP -->
-
-<div class="card">
-
-<b>📊 Rekap Kinerja</b>
-
-<div class="stat-grid">
-
-
-<div class="stat">
-
-<div
-class="stat-number"
-id="statVisits">
-
-0
-
-</div>
-
-<div class="stat-label">
-Total Kunjungan
-</div>
-
-</div>
-
-
-<div class="stat">
-
-<div
-class="stat-number"
-id="statNewOutlet">
-
-0
-
-</div>
-
-<div class="stat-label">
-Outlet Baru
-</div>
-
-</div>
-
-
-<div class="stat">
-
-<div
-class="stat-number"
-id="statNewOrder">
-
-0
-
-</div>
-
-<div class="stat-label">
-Baru Order
-</div>
-
-</div>
-
-
-<div class="stat">
-
-<div
-class="stat-number"
-id="statRepeat">
-
-0
-
-</div>
-
-<div class="stat-label">
-Repeat Order
-</div>
-
-</div>
-
-
-</div>
-
-</div>
-
-
-<!-- KPI -->
-
-<div class="card">
-
-<b>📈 KPI Saya</b>
-
-
-<div class="kpi">
-
-<span>
-Pencapaian Sales
-</span>
-
-<span
-class="kpi-score"
-id="kpiSales">
-
-0
-
-</span>
-
-</div>
-
-
-<div class="kpi">
-
-<span>
-Produktivitas
-</span>
-
-<span
-class="kpi-score"
-id="kpiProductivity">
-
-0
-
-</span>
-
-</div>
-
-
-<div class="kpi">
-
-<span>
-Disiplin & Reporting
-</span>
-
-<span
-class="kpi-score"
-id="kpiDiscipline">
-
-0
-
-</span>
-
-</div>
+</button>
 
 
 <button
-class="btn"
+class="menu-btn"
+onclick="showTarget()">
+
+<span class="menu-icon">🎯</span>
+TARGET
+
+</button>
+
+
+<button
+class="menu-btn"
 onclick="showKPI()">
 
-Lihat Detail KPI
+<span class="menu-icon">📊</span>
+KPI
 
 </button>
-
-</div>
-
-
-<!-- AI -->
-
-<div class="card">
-
-<b>🤖 AI Sales Coach</b>
-
-<div class="ai-box">
-
-<div class="ai-title">
-Insight Hari Ini
-</div>
-
-<div id="aiInsight">
-
-Mengumpulkan data penjualan...
-
-</div>
-
-</div>
-
-</div>
-
-
-<!-- OUTLET -->
-
-<div class="card">
-
-<b>🏪 Outlet Saya</b>
-
-<div
-id="outletList"
-style="margin-top:12px;">
-
-Belum ada outlet.
-
-</div>
 
 
 <button
-class="btn"
-style="margin-top:15px;"
-onclick="addOutlet()">
+class="menu-btn"
+onclick="showHistory()">
 
-➕ TAMBAH OUTLET
+<span class="menu-icon">📋</span>
+RIWAYAT
 
 </button>
-
-</div>
-
-
-</div>
-
-
-<!-- BOTTOM -->
-
-<div class="bottom">
-
-
-<button onclick="home()">
-<span>🏠</span>
-Home
-</button>
-
-
-<button onclick="outlet()">
-<span>🏪</span>
-Outlet
-</button>
-
-
-<button onclick="sale()">
-<span>🛒</span>
-Penjualan
-</button>
-
-
-<button onclick="showKPI()">
-<span>📊</span>
-KPI
-</button>
-
-
-<button onclick="profile()">
-<span>👤</span>
-Profil
-</button>
-
 
 </div>
 
 </div>
 
 
+<!-- =====================================================
+AKTIVITAS HARI INI
+===================================================== -->
 
-<!-- ========================= -->
-<!-- MODAL PENJUALAN -->
-<!-- ========================= -->
+<div class="card">
+
+<div class="section-title">
+Aktivitas Hari Ini
+</div>
+
+<div class="list">
+
+<div class="list-item row">
+
+<span>
+Toko dikunjungi
+</span>
+
+<b id="todayVisits">
+0
+</b>
+
+</div>
+
+
+<div class="list-item row">
+
+<span>
+Toko order
+</span>
+
+<b id="todayOrders">
+0
+</b>
+
+</div>
+
+
+<div class="list-item row">
+
+<span>
+Toko baru
+</span>
+
+<b id="todayNewOutlets">
+0
+</b>
+
+</div>
+
+
+<div class="list-item row">
+
+<span>
+Setoran
+</span>
+
+<b id="todayDeposit">
+Rp 0
+</b>
+
+</div>
+
+</div>
+
+</div>
+
+
+<!-- =====================================================
+QUICK SELL
+===================================================== -->
 
 <div
-class="modal"
-id="saleModal">
+id="quickSaleSection"
+class="card">
 
-<div class="modal-box">
-
-<div class="modal-title">
-🛒 Catat Penjualan
+<div class="section-title">
+🛒 Jual Cepat
 </div>
 
+<label>Pilih Toko</label>
 
-<label>
-Pilih / Cari Outlet
-</label>
+<select id="saleOutlet">
 
-<input
-id="saleOutletSearch"
-type="text"
-placeholder="Ketik nama outlet..."
-oninput="searchOutlet('sale')">
+<option value="">
+-- Pilih Toko --
+</option>
 
+</select>
 
-<div id="saleOutletResults"></div>
+<label>Jumlah Pack</label>
 
+<div class="action">
 
-<input
-id="saleOutlet"
-type="hidden">
-
-
-<label>
-Jumlah Pack
-</label>
+<button
+class="btn btn-light"
+onclick="changeQty(-1)">
+−
+</button>
 
 <input
 id="saleQty"
 type="number"
 min="1"
-placeholder="Contoh: 20">
+value="1"
+style="text-align:center;">
 
+<button
+class="btn"
+onclick="changeQty(1)">
++
+</button>
 
-<label>
-Total Uang
+</div>
+
+<div
+class="success-box"
+style="margin-top:10px;">
+
+<div class="small">
+Harga / Pack
+</div>
+
+<div
+id="salePrice"
+class="big-money">
+Rp 0
+</div>
+
+<div class="small">
+Total
+</div>
+
+<div
+id="saleTotal"
+class="big-money">
+Rp 0
+</div>
+
+</div>
+
+<label style="display:block;margin-top:12px;">
+Pembayaran
 </label>
 
-<input
-id="saleAmount"
-type="number"
-min="0"
-placeholder="Contoh: 300000">
+<select id="paymentStatus">
 
+<option value="PAID">
+CASH - SUDAH DIBAYAR
+</option>
+
+<option value="UNPAID">
+BELUM DIBAYAR
+</option>
+
+</select>
+
+<label>Catatan</label>
+
+<textarea
+id="saleNote"
+placeholder="Catatan jika ada...">
+</textarea>
 
 <button
 class="btn"
@@ -798,384 +943,87 @@ SIMPAN PENJUALAN
 
 </button>
 
-
-<button
-class="btn-secondary"
-onclick="closeModal('saleModal')">
-
-BATAL
-
-</button>
-
-</div>
-
 </div>
 
 
-
-<!-- ========================= -->
-<!-- CHECK-IN -->
-<!-- ========================= -->
+<!-- =====================================================
+OUTLET LIST
+===================================================== -->
 
 <div
-class="modal"
-id="checkinModal">
+id="outletSection"
+class="card">
 
-<div class="modal-box">
-
-<div class="modal-title">
-📍 Check-in Outlet
+<div class="section-title">
+🏪 Toko Saya
 </div>
-
-
-<label>
-Pilih / Cari Outlet
-</label>
 
 <input
-id="checkinSearch"
-type="text"
-placeholder="Ketik nama toko..."
-oninput="searchOutlet('checkin')">
+id="outletSearch"
+placeholder="🔎 Cari nama toko..."
+oninput="renderOutletList()">
 
-
-<div id="checkinResults"></div>
-
-
-<input
-id="checkinOutlet"
-type="hidden">
-
-
-<div
-id="selectedOutletInfo"
-class="location-box"
-style="display:none;">
+<div id="outletList">
+<div class="loading">
+Memuat toko...
 </div>
-
-
-<label>
-🤳 Foto Selfie Sales
-</label>
-
-<input
-id="selfieInput"
-type="file"
-accept="image/*"
-capture="user"
-onchange="previewSelfie(event)">
-
-
-<img
-id="selfiePreview"
-class="photo-preview">
-
-
-<button
-class="btn"
-onclick="saveCheckin()">
-
-📍 AMBIL LOKASI + FOTO + SIMPAN
-
-</button>
-
-
-<button
-class="btn-secondary"
-onclick="closeModal('checkinModal')">
-
-BATAL
-
-</button>
-
-
 </div>
-
-</div>
-
-
-
-<!-- ========================= -->
-<!-- SETOR KAS -->
-<!-- ========================= -->
-
-<div
-class="modal"
-id="depositModal">
-
-<div class="modal-box">
-
-<div class="modal-title">
-💰 Setor Kas
-</div>
-
-
-<label>
-Jumlah Setoran
-</label>
-
-<input
-id="depositAmount"
-type="number"
-min="0"
-placeholder="Contoh: 500000">
-
-
-<label>
-Keterangan
-</label>
-
-<input
-id="depositNote"
-type="text"
-placeholder="Setoran penjualan hari ini">
-
-
-<button
-class="btn"
-onclick="saveDeposit()">
-
-SIMPAN SETORAN
-
-</button>
-
-
-<button
-class="btn-secondary"
-onclick="closeModal('depositModal')">
-
-BATAL
-
-</button>
-
-</div>
-
-</div>
-
-
-
-<!-- ========================= -->
-<!-- TAMBAH OUTLET -->
-<!-- ========================= -->
-
-<div
-class="modal"
-id="outletModal">
-
-<div class="modal-box">
-
-<div class="modal-title">
-🏪 Tambah Outlet
-</div>
-
-
-<label>
-Nama Outlet
-</label>
-
-<input
-id="newOutletName"
-type="text"
-placeholder="Contoh: Warung Barokah">
-
-
-<label>
-Nama Pemilik
-</label>
-
-<input
-id="newOwnerName"
-type="text"
-placeholder="Nama pemilik">
-
-
-<label>
-Nomor WhatsApp
-</label>
-
-<input
-id="newOutletPhone"
-type="tel"
-placeholder="08xxxxxxxxxx">
-
-
-<label>
-Alamat
-</label>
-
-<textarea
-id="newOutletAddress"
-placeholder="Alamat lengkap outlet"></textarea>
-
-
-<label>
-Tipe Outlet
-</label>
-
-<select id="newOutletType">
-
-<option>Warung</option>
-<option>Toko</option>
-<option>Kantin</option>
-<option>Grosir</option>
-<option>Reseller</option>
-
-</select>
-
-
-<label>
-Catatan
-</label>
-
-<textarea
-id="newOutletNote"
-placeholder="Catatan outlet"></textarea>
-
-
-<button
-class="btn"
-onclick="saveOutlet()">
-
-SIMPAN OUTLET
-
-</button>
-
-
-<button
-class="btn-secondary"
-onclick="closeModal('outletModal')">
-
-BATAL
-
-</button>
-
-</div>
-
-</div>
-
-
-
-<!-- ========================= -->
-<!-- PROFIL -->
-<!-- ========================= -->
-
-<div
-class="modal"
-id="profileModal">
-
-<div class="modal-box">
-
-<div class="modal-title">
-👤 Profil Sales
-</div>
-
-
-<div class="profile-row">
-<span class="profile-label">Nama</span>
-<span class="profile-value" id="profileName">Andi</span>
-</div>
-
-
-<div class="profile-row">
-<span class="profile-label">ID Sales</span>
-<span class="profile-value" id="profileId">andi</span>
-</div>
-
-
-<div class="profile-row">
-<span class="profile-label">Target</span>
-<span class="profile-value" id="profileTarget">0</span>
-</div>
-
-
-<div class="profile-row">
-<span class="profile-label">Total Pack</span>
-<span class="profile-value" id="profilePack">0</span>
-</div>
-
-
-<div class="profile-row">
-<span class="profile-label">Transaksi</span>
-<span class="profile-value" id="profileTransactions">0</span>
-</div>
-
-
-<div class="profile-row">
-<span class="profile-label">Check-in</span>
-<span class="profile-value" id="profileCheckins">0</span>
-</div>
-
-
-<div class="profile-row">
-<span class="profile-label">Total Setoran</span>
-<span class="profile-value" id="profileDeposit">Rp 0</span>
-</div>
-
-
-<div class="profile-row">
-<span class="profile-label">Total Outlet</span>
-<span class="profile-value" id="profileOutlets">0</span>
-</div>
-
-
-<button
-class="btn"
-style="margin-top:15px;"
-onclick="closeModal('profileModal')">
-
-TUTUP
-
-</button>
-
-</div>
-
-</div>
-
-
-
-<!-- ========================= -->
-<!-- MODAL PETA -->
-<!-- ========================= -->
-
-<div
-class="modal"
-id="mapModal">
-
-<div class="modal-box">
-
-<div class="modal-title">
-🗺️ Lokasi Check-in
-</div>
-
-
-<div id="mapInfo"
-class="small">
-Lokasi sales
-</div>
-
-
-<iframe
-id="mapFrame"
-class="map"
-loading="lazy">
-</iframe>
-
 
 <button
 class="btn btn-blue"
-style="margin-top:12px;"
-onclick="openGoogleMaps()">
+onclick="openAddOutlet()">
 
-🌎 BUKA GOOGLE MAPS
++ TAMBAH TOKO BARU
 
 </button>
 
+</div>
+
+
+</div>
+
+
+<!-- =====================================================
+BOTTOM NAV
+===================================================== -->
+
+<div class="bottom-nav">
+
+<div class="bottom-inner">
 
 <button
-class="btn-secondary"
-onclick="closeModal('mapModal')">
+class="bottom-btn"
+onclick="scrollTopPage()">
 
-TUTUP
+<span class="bottom-icon">🏠</span>
+Beranda
+
+</button>
+
+<button
+class="bottom-btn"
+onclick="openSale()">
+
+<span class="bottom-icon">🛒</span>
+Jual
+
+</button>
+
+<button
+class="bottom-btn"
+onclick="openCheckin()">
+
+<span class="bottom-icon">📍</span>
+Kunjungan
+
+</button>
+
+<button
+class="bottom-btn"
+onclick="logoutSales()">
+
+<span class="bottom-icon">🚪</span>
+Keluar
 
 </button>
 
@@ -1183,13 +1031,52 @@ TUTUP
 
 </div>
 
+
+</div>
+
+
+<!-- =====================================================
+MODAL
+===================================================== -->
+
+<div
+id="modal"
+class="modal hidden">
+
+<div class="modal-box">
+
+<div
+class="row"
+style="margin-bottom:15px;">
+
+<div
+id="modalTitle"
+class="section-title">
+-
+</div>
+
+<button
+class="btn btn-light"
+style="width:auto;"
+onclick="closeModal()">
+
+✕
+</button>
+
+</div>
+
+<div id="modalContent"></div>
+
+</div>
+
+</div>
 
 
 <script type="module">
 
 
 /* =====================================================
-   FIREBASE
+FIREBASE
 ===================================================== */
 
 import {
@@ -1198,13 +1085,14 @@ initializeApp
 from
 "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
 
-
 import {
 getDatabase,
 ref,
-push,
 set,
-onValue
+push,
+get,
+onValue,
+update
 }
 from
 "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
@@ -1218,29 +1106,372 @@ databaseURL:
 };
 
 
-let database=null;
+const app=
+initializeApp(firebaseConfig);
+
+const db=
+getDatabase(app);
+
+
+/* =====================================================
+GLOBAL
+===================================================== */
+
+let currentSales=null;
+
+let settings={};
+
+let outlets={};
+
+let salesData={};
+
+let checkins={};
+
+let deposits={};
+
+let salesAccounts={};
+
+let selectedPhoto=null;
+
+let currentLocation=null;
+
+
+/* =====================================================
+HELPERS
+===================================================== */
+
+function rupiah(value){
+
+return "Rp "+
+Number(value||0)
+.toLocaleString("id-ID");
+
+}
+
+
+function todayKey(){
+
+const d=new Date();
+
+return d.getFullYear()+"-"+
+
+String(d.getMonth()+1).padStart(2,"0")+"-"+
+
+String(d.getDate()).padStart(2,"0");
+
+}
+
+
+function dateValue(value){
+
+if(!value)return "";
+
+const d=new Date(value);
+
+if(isNaN(d.getTime()))return "";
+
+return d.toISOString().slice(0,10);
+
+}
+
+
+function esc(value){
+
+return String(value??"")
+.replace(/&/g,"&amp;")
+.replace(/</g,"&lt;")
+.replace(/>/g,"&gt;")
+.replace(/"/g,"&quot;")
+.replace(/'/g,"&#039;");
+
+}
+
+
+/* =====================================================
+ONLINE / OFFLINE
+===================================================== */
+
+window.addEventListener(
+"online",
+()=>{
+
+const el=document.getElementById(
+"connectionStatus"
+);
+
+el.innerText="ONLINE";
+
+el.classList.remove("offline");
+
+});
+
+
+window.addEventListener(
+"offline",
+()=>{
+
+const el=document.getElementById(
+"connectionStatus"
+);
+
+el.innerText="OFFLINE";
+
+el.classList.add("offline");
+
+});
+
+
+/* =====================================================
+LOAD SETTINGS
+===================================================== */
+
+onValue(
+
+ref(db,"settings"),
+
+snapshot=>{
+
+settings=snapshot.val()||{};
+
+if(currentSales){
+
+refreshDashboard();
+
+}
+
+}
+
+);
+
+
+/* =====================================================
+LOAD OUTLETS
+===================================================== */
+
+onValue(
+
+ref(db,"outlets"),
+
+snapshot=>{
+
+outlets=snapshot.val()||{};
+
+if(currentSales){
+
+populateOutletSelect();
+
+renderOutletList();
+
+}
+
+}
+
+);
+
+
+/* =====================================================
+LOAD SALES TRANSACTIONS
+===================================================== */
+
+onValue(
+
+ref(db,"sales"),
+
+snapshot=>{
+
+salesData=snapshot.val()||{};
+
+if(currentSales){
+
+refreshDashboard();
+
+}
+
+}
+
+);
+
+
+/* =====================================================
+LOAD CHECKINS
+===================================================== */
+
+onValue(
+
+ref(db,"checkins"),
+
+snapshot=>{
+
+checkins=snapshot.val()||{};
+
+if(currentSales){
+
+refreshDashboard();
+
+}
+
+}
+
+);
+
+
+/* =====================================================
+LOAD DEPOSITS
+===================================================== */
+
+onValue(
+
+ref(db,"deposits"),
+
+snapshot=>{
+
+deposits=snapshot.val()||{};
+
+if(currentSales){
+
+refreshDashboard();
+
+}
+
+}
+
+);
+
+
+/* =====================================================
+LOGIN
+===================================================== */
+
+window.loginSales=async function(){
+
+const code=
+document.getElementById(
+"loginSalesCode"
+).value.trim();
+
+const pin=
+document.getElementById(
+"loginPin"
+).value.trim();
+
+const msg=
+document.getElementById(
+"loginMessage"
+);
+
+
+if(!code||!pin){
+
+msg.innerText=
+"Masukkan kode sales dan kode akses.";
+
+msg.style.color="#dc2626";
+
+return;
+
+}
 
 
 try{
 
-const app=
-initializeApp(firebaseConfig);
+/*
+Format akun yang digunakan:
 
-database=
-getDatabase(app);
+salesAccounts/S001
+{
+salesId:"S001",
+name:"Nama Sales",
+pin:"1234",
+active:true
+}
 
+Owner dapat membuat/mengubah akun
+tersebut dari Dashboard Owner.
+*/
 
-document.getElementById(
-"firebaseStatus"
-).innerText=
-"🟢 Firebase terhubung";
-
-
-document.getElementById(
-"firebaseStatus"
-).classList.add(
-"success"
+const snap=
+await get(
+ref(db,"salesAccounts/"+code)
 );
+
+
+if(!snap.exists()){
+
+msg.innerText=
+"Kode sales tidak ditemukan.";
+
+msg.style.color="#dc2626";
+
+return;
+
+}
+
+
+const account=
+snap.val();
+
+
+if(account.active===false){
+
+msg.innerText=
+"Akun sales sudah tidak aktif.";
+
+msg.style.color="#dc2626";
+
+return;
+
+}
+
+
+/*
+Untuk sistem produksi penuh,
+gunakan Firebase Authentication.
+Bagian ini tetap dibuat kompatibel
+dengan database aplikasi yang sudah ada.
+*/
+
+if(String(account.pin)!==String(pin)){
+
+msg.innerText=
+"Kode akses salah.";
+
+msg.style.color="#dc2626";
+
+return;
+
+}
+
+
+currentSales={
+
+id:account.salesId||code,
+
+name:account.name||code,
+
+phone:account.phone||"",
+
+area:account.area||"",
+
+supervisor:account.supervisor||"",
+
+targetDaily:Number(account.targetDaily||0),
+
+targetWeekly:Number(account.targetWeekly||0),
+
+targetMonthly:Number(account.targetMonthly||0),
+
+active:account.active!==false
+
+};
+
+
+localStorage.setItem(
+"crisfishSalesLogin",
+JSON.stringify(currentSales)
+);
+
+
+startApplication();
 
 }
 
@@ -1248,258 +1479,1221 @@ catch(error){
 
 console.error(error);
 
-document.getElementById(
-"firebaseStatus"
-).innerText=
-"🔴 Firebase gagal terhubung";
+msg.innerText=
+"Gagal login: "+
+error.message;
+
+msg.style.color="#dc2626";
 
 }
-
-
-
-/* =====================================================
-   SALES
-===================================================== */
-
-const SALES_ID="andi";
-
-const SALES_NAME="Andi";
-
-
-/* =====================================================
-   TARGET
-===================================================== */
-
-let targetMonthly=1500;
-
-
-if(database){
-
-onValue(
-
-ref(database,"settings/targetMonthly"),
-
-function(snapshot){
-
-const value=
-Number(snapshot.val());
-
-
-if(value>0){
-
-targetMonthly=value;
-
-}
-
-
-document.getElementById(
-"targetMonthly"
-).innerText=
-targetMonthly;
-
-
-document.getElementById(
-"profileTarget"
-).innerText=
-targetMonthly.toLocaleString("id-ID");
-
-
-updateDashboard();
-
-}
-
-);
-
-}
-
-
-
-/* =====================================================
-   OUTLET DATA
-===================================================== */
-
-let outlets=[];
-
-
-if(database){
-
-onValue(
-
-ref(database,"outlets"),
-
-function(snapshot){
-
-outlets=[];
-
-
-snapshot.forEach(
-
-function(child){
-
-const data=child.val();
-
-
-if(
-data &&
-data.salesId===SALES_ID
-){
-
-outlets.push({
-
-id:child.key,
-
-...data
-
-});
-
-}
-
-});
-
-
-renderOutlets();
-
-}
-
-);
-
-}
-
-
-
-/* =====================================================
-   PENJUALAN
-===================================================== */
-
-window.sale=function(){
-
-document.getElementById(
-"saleModal"
-).style.display="flex";
-
-
-searchOutlet("sale");
 
 };
 
 
-window.saveSale=async function(){
+/* =====================================================
+AUTO LOGIN
+===================================================== */
 
+const saved=
+localStorage.getItem(
+"crisfishSalesLogin"
+);
+
+if(saved){
+
+try{
+
+currentSales=
+JSON.parse(saved);
+
+startApplication();
+
+}
+catch(e){
+
+localStorage.removeItem(
+"crisfishSalesLogin"
+);
+
+}
+
+}
+
+
+/* =====================================================
+START APP
+===================================================== */
+
+function startApplication(){
+
+document.getElementById(
+"loginPage"
+).classList.add("hidden");
+
+document.getElementById(
+"mainApp"
+).classList.remove("hidden");
+
+
+document.getElementById(
+"salesName"
+).innerText=
+currentSales.name;
+
+
+document.getElementById(
+"salesArea"
+).innerText=
+(currentSales.area||"Wilayah belum diatur")+
+" • "+
+currentSales.id;
+
+
+document.getElementById(
+"salesStatus"
+).innerText=
+currentSales.active?
+"AKTIF":
+"NONAKTIF";
+
+
+populateOutletSelect();
+
+renderOutletList();
+
+refreshDashboard();
+
+}
+
+
+/* =====================================================
+LOGOUT
+===================================================== */
+
+window.logoutSales=function(){
+
+localStorage.removeItem(
+"crisfishSalesLogin"
+);
+
+location.reload();
+
+};
+
+
+/* =====================================================
+TARGET
+===================================================== */
+
+function getTargetMonthly(){
+
+return Number(
+
+currentSales?.targetMonthly ||
+
+settings.targetMonthly ||
+
+0
+
+);
+
+}
+
+
+function getTargetDaily(){
+
+if(currentSales?.targetDaily){
+
+return Number(
+currentSales.targetDaily
+);
+
+}
+
+const monthly=
+getTargetMonthly();
+
+const workDays=
+Number(
+settings.workDays||26
+);
+
+return monthly>0
+?
+Math.ceil(monthly/workDays)
+:
+0;
+
+}
+
+
+/* =====================================================
+DASHBOARD
+===================================================== */
+
+function refreshDashboard(){
+
+if(!currentSales)return;
+
+
+const id=
+currentSales.id;
+
+const today=
+todayKey();
+
+
+let todayPack=0;
+
+let todayOmzet=0;
+
+let todayVisits=0;
+
+let todayOrders=0;
+
+let todayNew=0;
+
+let todayDeposit=0;
+
+let monthPack=0;
+
+let monthPaidPack=0;
+
+
+/* SALES */
+
+Object.values(salesData||{})
+.forEach(item=>{
+
+if(!item)return;
+
+if(
+String(item.salesId||"")!==String(id)
+){
+
+return;
+
+}
+
+
+const d=
+dateValue(
+item.date||
+item.createdAt
+);
+
+
+const qty=
+Number(item.quantity||0);
+
+
+const amount=
+Number(
+item.amount||
+qty*Number(
+settings.productPrice||0
+)
+);
+
+
+if(d===today){
+
+todayPack+=qty;
+
+todayOmzet+=amount;
+
+}
+
+
+if(d.startsWith(
+today.slice(0,7)
+)){
+
+monthPack+=qty;
+
+if(
+String(item.paymentStatus||"PAID")
+==="PAID"
+){
+
+monthPaidPack+=qty;
+
+}
+
+}
+
+});
+
+
+/* CHECKINS */
+
+Object.values(checkins||{})
+.forEach(item=>{
+
+if(!item)return;
+
+if(
+String(item.salesId||"")!==String(id)
+)return;
+
+if(
+dateValue(
+item.date||
+item.createdAt
+)===today
+){
+
+todayVisits++;
+
+}
+
+});
+
+
+/* ORDER TOKO */
+
+const orderedToday={};
+
+Object.values(salesData||{})
+.forEach(item=>{
+
+if(!item)return;
+
+if(
+String(item.salesId||"")!==String(id)
+)return;
+
+if(
+dateValue(item.date||item.createdAt)
+!==today
+)return;
 
 const outlet=
+item.outletId||
+item.outlet;
+
+if(outlet){
+
+orderedToday[outlet]=true;
+
+}
+
+});
+
+todayOrders=
+Object.keys(orderedToday).length;
+
+
+/* NEW OUTLET */
+
+Object.values(outlets||{})
+.forEach(item=>{
+
+if(!item)return;
+
+if(
+String(item.salesId||"")
+!==String(id)
+)return;
+
+if(
+dateValue(item.createdAt||
+item.date||
+item.joinDate)
+===today
+){
+
+todayNew++;
+
+}
+
+});
+
+
+/* DEPOSIT */
+
+Object.values(deposits||{})
+.forEach(item=>{
+
+if(!item)return;
+
+if(
+String(item.salesId||"")
+!==String(id)
+)return;
+
+if(
+dateValue(item.date||
+item.createdAt)
+===today
+){
+
+todayDeposit+=
+Number(item.amount||0);
+
+}
+
+});
+
+
+/* STOCK */
+
+let stock=0;
+
+Object.values(
+window.__stocks||{}
+).forEach(()=>{});
+
+
+/*
+Cari stok berdasarkan:
+
+stocks/S001
+atau
+
+stocks/{pushId}
+salesId=S001
+*/
+
+get(
+ref(db,"stocks")
+).then(snapshot=>{
+
+const data=
+snapshot.val()||{};
+
+let found=0;
+
+Object.entries(data)
+.forEach(([key,item])=>{
+
+if(!item)return;
+
+if(
+key===id
+){
+
+found+=
+Number(
+item.currentStock||
+item.stock||
+item.balance||
+0
+);
+
+}
+
+else if(
+String(item.salesId||"")
+===String(id)
+){
+
+found+=
+Number(
+item.currentStock||
+item.stock||
+item.balance||
+0
+);
+
+}
+
+});
+
+document.getElementById(
+"stockValue"
+).innerText=
+found.toLocaleString("id-ID")+
+" Pack";
+
+});
+
+
+/* UI */
+
+const targetDaily=
+getTargetDaily();
+
+const achievement=
+targetDaily>0
+?
+Math.round(
+(todayPack/targetDaily)*100
+)
+:
+0;
+
+
+document.getElementById(
+"todayTarget"
+).innerText=
+targetDaily.toLocaleString("id-ID")+
+" Pack";
+
+
+document.getElementById(
+"todayPack"
+).innerText=
+todayPack.toLocaleString("id-ID")+
+" Pack";
+
+
+document.getElementById(
+"todayOmzet"
+).innerText=
+rupiah(todayOmzet);
+
+
+document.getElementById(
+"achievementText"
+).innerText=
+achievement+"%";
+
+
+document.getElementById(
+"progressBar"
+).style.width=
+Math.min(100,achievement)+"%";
+
+
+document.getElementById(
+"todayVisits"
+).innerText=
+todayVisits;
+
+
+document.getElementById(
+"todayOrders"
+).innerText=
+todayOrders;
+
+
+document.getElementById(
+"todayNewOutlets"
+).innerText=
+todayNew;
+
+
+document.getElementById(
+"todayDeposit"
+).innerText=
+rupiah(todayDeposit);
+
+
+/* KPI sederhana */
+
+const kpi=
+calculateKPI(
+monthPack,
+monthPaidPack,
+id
+);
+
+
+document.getElementById(
+"kpiBadge"
+).innerText=
+"KPI "+
+kpi;
+
+
+/* ALERT */
+
+let alerts="";
+
+if(
+targetDaily>0 &&
+todayPack<targetDaily
+){
+
+const kurang=
+targetDaily-todayPack;
+
+alerts+=
+`<div class="alert">
+⚠️ Target hari ini masih kurang
+<b>${kurang} Pack</b>.
+</div>`;
+
+}
+
+if(todayVisits===0){
+
+alerts+=
+`<div class="alert">
+📍 Belum ada check-in hari ini.
+</div>`;
+
+}
+
+if(stock<=10){
+
+alerts+=
+`<div class="alert">
+📦 Stok hampir habis. Segera hubungi Owner.
+</div>`;
+
+}
+
+document.getElementById(
+"alertArea"
+).innerHTML=alerts;
+
+}
+
+
+/* =====================================================
+KPI
+===================================================== */
+
+function calculateKPI(
+monthPack,
+paidPack,
+id
+){
+
+const target=
+getTargetMonthly();
+
+const achievement=
+target>0
+?
+Math.min(100,
+monthPack/target*100)
+:
+0;
+
+
+/*
+KPI sederhana yang kompatibel
+dengan sistem lama.
+
+Dapat dikembangkan menjadi bobot
+FMCG penuh di Dashboard Owner.
+*/
+
+let activity=0;
+
+let orders=0;
+
+Object.values(checkins||{})
+.forEach(item=>{
+
+if(
+item &&
+String(item.salesId||"")
+===String(id)
+){
+
+activity++;
+
+}
+
+});
+
+
+Object.values(salesData||{})
+.forEach(item=>{
+
+if(
+item &&
+String(item.salesId||"")
+===String(id)
+){
+
+orders++;
+
+}
+
+});
+
+
+const salesScore=
+achievement*0.60;
+
+const activityScore=
+Math.min(100,
+activity/(
+Number(settings.targetVisitsMonthly||600)
+||600
+)*100
+)*0.20;
+
+const transactionScore=
+Math.min(100,
+orders/100*100
+)*0.20;
+
+
+return Math.round(
+Math.min(
+100,
+salesScore+
+activityScore+
+transactionScore
+)
+);
+
+}
+
+
+/* =====================================================
+POPULATE OUTLET
+===================================================== */
+
+function populateOutletSelect(){
+
+const select=
 document.getElementById(
 "saleOutlet"
-).value.trim();
+);
 
+if(!select)return;
+
+select.innerHTML=
+`<option value="">
+-- Pilih Toko --
+</option>`;
+
+
+Object.entries(outlets||{})
+.forEach(([key,item])=>{
+
+if(!item)return;
+
+
+/*
+Sales hanya melihat outlet miliknya.
+Outlet tanpa salesId tetap ditampilkan
+agar kompatibel dengan database lama.
+*/
+
+if(
+item.salesId &&
+String(item.salesId)
+!==String(currentSales.id)
+){
+
+return;
+
+}
+
+
+const option=
+document.createElement("option");
+
+option.value=key;
+
+option.textContent=
+item.name||
+item.outletName||
+key;
+
+select.appendChild(option);
+
+});
+
+}
+
+
+/* =====================================================
+OUTLET LIST
+===================================================== */
+
+window.renderOutletList=function(){
+
+const container=
+document.getElementById(
+"outletList"
+);
+
+if(!container)return;
+
+const search=
+(
+document.getElementById(
+"outletSearch"
+)?.value||""
+).toLowerCase();
+
+
+container.innerHTML="";
+
+let count=0;
+
+
+Object.entries(outlets||{})
+.forEach(([key,item])=>{
+
+if(!item)return;
+
+
+if(
+item.salesId &&
+String(item.salesId)
+!==String(currentSales.id)
+){
+
+return;
+
+}
+
+
+const name=
+item.name||
+item.outletName||
+key;
+
+
+if(
+search &&
+!name.toLowerCase()
+.includes(search)
+){
+
+return;
+
+}
+
+
+count++;
+
+
+let lastOrder=
+null;
+
+
+Object.values(salesData||{})
+.forEach(sale=>{
+
+if(!sale)return;
+
+if(
+String(sale.salesId||"")
+!==String(currentSales.id)
+)return;
+
+if(
+String(sale.outletId||sale.outlet||"")
+!==String(key) &&
+String(sale.outlet||"")
+!==String(name)
+)return;
+
+const d=
+sale.date||
+sale.createdAt;
+
+if(
+!lastOrder ||
+new Date(d)>new Date(lastOrder)
+){
+
+lastOrder=d;
+
+}
+
+});
+
+
+let status=
+"AKTIF";
+
+if(lastOrder){
+
+const diff=
+Math.floor(
+(
+Date.now()-
+new Date(lastOrder).getTime()
+)/
+86400000
+);
+
+if(diff>14){
+
+status="TIDAK AKTIF";
+
+}
+else if(diff>7){
+
+status="PERLU FOLLOW UP";
+
+}
+
+}
+
+
+const statusClass=
+status==="AKTIF"
+?
+"badge"
+:
+status==="PERLU FOLLOW UP"
+?
+"badge badge-yellow"
+:
+"badge badge-red";
+
+
+const maps=
+item.latitude &&
+item.longitude
+?
+`<a class="map-link"
+target="_blank"
+href="https://www.google.com/maps?q=${item.latitude},${item.longitude}">
+MAPS
+</a>`
+:
+"";
+
+
+const div=
+document.createElement("div");
+
+div.className=
+"list-item";
+
+
+div.innerHTML=`
+
+<div class="row">
+
+<div>
+
+<b>${esc(name)}</b>
+
+<div class="small">
+${esc(item.owner||"")}
+</div>
+
+<div class="small">
+${esc(item.phone||item.whatsapp||"")}
+</div>
+
+</div>
+
+<span class="${statusClass}">
+${status}
+</span>
+
+</div>
+
+<div
+style="margin-top:8px;"
+class="action">
+
+<button
+class="btn btn-blue"
+onclick="selectOutletForSale('${esc(key)}')">
+JUAL
+</button>
+
+<button
+class="btn btn-orange"
+onclick="checkinSpecificOutlet('${esc(key)}')">
+CHECK-IN
+</button>
+
+${maps}
+
+</div>
+
+`;
+
+
+container.appendChild(div);
+
+});
+
+
+if(count===0){
+
+container.innerHTML=
+`<div class="loading">
+Belum ada toko.
+</div>`;
+
+}
+
+};
+
+
+/* =====================================================
+SELECT OUTLET
+===================================================== */
+
+window.selectOutletForSale=function(id){
+
+openSale();
+
+setTimeout(()=>{
+
+const select=
+document.getElementById(
+"saleOutlet"
+);
+
+select.value=id;
+
+updateSaleTotal();
+
+},100);
+
+};
+
+
+/* =====================================================
+SALE
+===================================================== */
+
+window.openSale=function(){
+
+document.getElementById(
+"quickSaleSection"
+).scrollIntoView({
+behavior:"smooth"
+});
+
+};
+
+
+window.changeQty=function(delta){
+
+const input=
+document.getElementById(
+"saleQty"
+);
+
+let value=
+Number(input.value||1)+delta;
+
+if(value<1)value=1;
+
+input.value=value;
+
+updateSaleTotal();
+
+};
+
+
+document.getElementById(
+"saleQty"
+).addEventListener(
+"input",
+updateSaleTotal
+);
+
+
+document.getElementById(
+"saleOutlet"
+).addEventListener(
+"change",
+updateSaleTotal
+);
+
+
+function updateSaleTotal(){
 
 const qty=
 Number(
 document.getElementById(
 "saleQty"
-).value
+).value||0
 );
+
+const price=
+Number(
+settings.productPrice||0
+);
+
+document.getElementById(
+"salePrice"
+).innerText=
+rupiah(price);
+
+
+document.getElementById(
+"saleTotal"
+).innerText=
+rupiah(
+qty*price
+);
+
+}
+
+
+/* =====================================================
+SAVE SALE
+===================================================== */
+
+window.saveSale=async function(){
+
+if(!currentSales)return;
+
+
+const outletId=
+document.getElementById(
+"saleOutlet"
+).value;
+
+const qty=
+Number(
+document.getElementById(
+"saleQty"
+).value||0
+);
+
+const price=
+Number(
+settings.productPrice||0
+);
+
+const paymentStatus=
+document.getElementById(
+"paymentStatus"
+).value;
+
+const note=
+document.getElementById(
+"saleNote"
+).value;
+
+
+if(!outletId){
+
+alert("Pilih toko terlebih dahulu.");
+
+return;
+
+}
+
+
+if(qty<=0){
+
+alert("Jumlah pack tidak valid.");
+
+return;
+
+}
+
+
+if(price<=0){
+
+alert(
+"Harga produk belum diatur Owner."
+);
+
+return;
+
+}
+
+
+const outlet=
+outlets[outletId]||{};
 
 
 const amount=
-Number(
-document.getElementById(
-"saleAmount"
-).value
+qty*price;
+
+const now=
+Date.now();
+
+const saleRef=
+push(
+ref(db,"sales")
 );
 
 
-if(!outlet){
+const saleData={
 
-alert("Pilih outlet terlebih dahulu.");
+salesId:currentSales.id,
 
-return;
+salesName:currentSales.name,
 
-}
+outletId:outletId,
 
+outlet:
+outlet.name||
+outlet.outletName||
+"-",
 
-if(!qty||qty<=0){
+productId:"PETEKRES_CRISFISH",
 
-alert("Jumlah pack harus diisi.");
+productName:"PETEKRES CRISFISH",
 
-return;
+quantity:qty,
 
-}
+price:price,
 
+amount:amount,
 
-if(!database){
+paymentStatus:paymentStatus,
 
-alert("Firebase belum terhubung.");
+status:
+paymentStatus==="PAID"
+?
+"PAID"
+:
+"UNPAID",
 
-return;
+date:new Date(now)
+.toISOString(),
 
-}
+createdAt:now,
+
+note:note,
+
+source:"SALES_APP"
+
+};
 
 
 try{
 
-
-const salesRef=
-push(
-ref(database,"sales")
+await set(
+saleRef,
+saleData
 );
 
 
-await set(
-salesRef,{
+/*
+Update stok sales secara otomatis
+menggunakan stok yang sudah tersedia.
+*/
 
-salesId:SALES_ID,
-
-salesName:SALES_NAME,
-
-outlet:outlet,
-
-quantity:qty,
-
-amount:amount,
-
-date:new Date().toISOString(),
-
-createdAt:Date.now()
-
-}
+await processStockAfterSale(
+currentSales.id,
+qty,
+saleRef.key
 );
 
 
 alert(
-"✅ Penjualan berhasil disimpan."
+"✅ PENJUALAN BERHASIL\n\n"+
+qty+
+" Pack\n"+
+rupiah(amount)
 );
-
-
-document.getElementById(
-"saleOutletSearch"
-).value="";
-
-
-document.getElementById(
-"saleOutlet"
-).value="";
 
 
 document.getElementById(
 "saleQty"
-).value="";
-
+).value=1;
 
 document.getElementById(
-"saleAmount"
+"saleNote"
 ).value="";
 
 
-closeModal("saleModal");
+refreshDashboard();
 
 }
-
 catch(error){
 
-console.error(error);
-
 alert(
-"❌ Gagal menyimpan penjualan\n\n"+
+"Gagal menyimpan penjualan:\n"+
 error.message
 );
 
@@ -1508,92 +2702,276 @@ error.message
 };
 
 
-
 /* =====================================================
-   CHECK-IN
+STOCK PROCESS
 ===================================================== */
 
-window.checkin=function(){
+async function processStockAfterSale(
+salesId,
+qty,
+transactionId
+){
 
-document.getElementById(
-"checkinModal"
-).style.display="flex";
+const snap=
+await get(
+ref(db,"stocks")
+);
+
+const data=
+snap.val()||{};
 
 
-searchOutlet("checkin");
+let stockKey=null;
+
+let stockItem=null;
+
+
+Object.entries(data)
+.forEach(([key,item])=>{
+
+if(
+key===salesId
+){
+
+stockKey=key;
+
+stockItem=item;
+
+}
+
+else if(
+item &&
+String(item.salesId||"")
+===String(salesId)
+){
+
+stockKey=key;
+
+stockItem=item;
+
+}
+
+});
+
+
+if(!stockKey){
+
+return;
+
+}
+
+
+const current=
+Number(
+stockItem.currentStock||
+stockItem.stock||
+stockItem.balance||
+0
+);
+
+
+const newStock=
+Math.max(
+0,
+current-qty
+);
+
+
+await update(
+ref(db,"stocks/"+stockKey),
+
+{
+
+currentStock:newStock,
+
+lastSaleId:transactionId,
+
+updatedAt:Date.now()
+
+}
+
+);
+
+}
+
+
+/* =====================================================
+CHECK-IN
+===================================================== */
+
+window.openCheckin=function(){
+
+openCheckinModal();
 
 };
 
 
-window.saveCheckin=function(){
+window.checkinSpecificOutlet=function(id){
+
+openCheckinModal(id);
+
+};
 
 
-const outletName=
-document.getElementById(
-"checkinOutlet"
-).value.trim();
+function openCheckinModal(preselected=null){
+
+let options=
+`<option value="">
+-- Pilih Toko --
+</option>`;
 
 
-if(!outletName){
+Object.entries(outlets||{})
+.forEach(([key,item])=>{
 
-alert(
-"Pilih outlet terlebih dahulu."
-);
+if(!item)return;
+
+if(
+item.salesId &&
+String(item.salesId)
+!==String(currentSales.id)
+){
 
 return;
 
 }
 
+options+=
+`<option value="${esc(key)}"
+${preselected===key?"selected":""}>
+${esc(item.name||key)}
+</option>`;
+
+});
+
+
+document.getElementById(
+"modalTitle"
+).innerText=
+"📍 Check-in Toko";
+
+
+document.getElementById(
+"modalContent"
+).innerHTML=`
+
+<label>Pilih Toko</label>
+
+<select id="checkinOutlet">
+${options}
+</select>
+
+<label>Foto Selfie Sales</label>
+
+<input
+type="file"
+id="selfiePhoto"
+accept="image/*"
+capture="user">
+
+<img
+id="selfiePreview"
+class="photo-preview hidden">
+
+<label>Foto Toko</label>
+
+<input
+type="file"
+id="storePhoto"
+accept="image/*"
+capture="environment">
+
+<img
+id="storePreview"
+class="photo-preview hidden">
+
+<label>Catatan</label>
+
+<textarea
+id="checkinNote"
+placeholder="Catatan kunjungan...">
+</textarea>
+
+<div
+id="gpsStatus"
+class="alert">
+Tekan tombol GPS untuk mengambil lokasi.
+</div>
+
+<button
+class="btn btn-blue"
+onclick="getGPS()">
+
+📍 AMBIL LOKASI GPS
+
+</button>
+
+<button
+class="btn"
+onclick="saveCheckin()">
+
+SIMPAN CHECK-IN
+
+</button>
+
+`;
+
+
+document.getElementById(
+"selfiePhoto"
+).onchange=
+e=>previewImage(
+e.target,
+"selfiePreview"
+);
+
+
+document.getElementById(
+"storePhoto"
+).onchange=
+e=>previewImage(
+e.target,
+"storePreview"
+);
+
+
+openModal();
+
+getGPS();
+
+}
+
+
+/* =====================================================
+GPS
+===================================================== */
+
+window.getGPS=function(){
+
+const status=
+document.getElementById(
+"gpsStatus"
+);
 
 if(!navigator.geolocation){
 
-alert(
-"GPS tidak tersedia."
-);
+status.innerText=
+"GPS tidak tersedia di perangkat.";
 
 return;
 
 }
+
+
+status.innerText=
+"📡 Mengambil lokasi GPS...";
 
 
 navigator.geolocation.getCurrentPosition(
 
-async function(position){
+position=>{
 
-try{
-
-
-let photoData="";
-
-
-const file=
-document.getElementById(
-"selfieInput"
-).files[0];
-
-
-if(file){
-
-photoData=
-await compressImage(file);
-
-}
-
-
-const checkinRef=
-push(
-ref(database,"checkins")
-);
-
-
-await set(
-checkinRef,{
-
-salesId:SALES_ID,
-
-salesName:SALES_NAME,
-
-outlet:outletName,
+currentLocation={
 
 latitude:
 position.coords.latitude,
@@ -1602,76 +2980,40 @@ longitude:
 position.coords.longitude,
 
 accuracy:
-position.coords.accuracy,
+position.coords.accuracy
 
-selfie:photoData,
-
-date:
-new Date().toISOString(),
-
-createdAt:
-Date.now()
-
-}
-);
+};
 
 
-alert(
-"✅ Check-in berhasil.\n\nLokasi dan selfie sudah tersimpan."
-);
-
-
-document.getElementById(
-"checkinSearch"
-).value="";
-
-
-document.getElementById(
-"checkinOutlet"
-).value="";
-
-
-document.getElementById(
-"selfieInput"
-).value="";
-
-
-document.getElementById(
-"selfiePreview"
-).style.display="none";
-
-
-closeModal("checkinModal");
-
-
-}
-
-catch(error){
-
-console.error(error);
-
-alert(
-"❌ Gagal menyimpan check-in\n\n"+
-error.message
-);
-
-}
+status.innerHTML=
+`
+🟢 GPS BERHASIL<br>
+Latitude:
+${currentLocation.latitude.toFixed(6)}<br>
+Longitude:
+${currentLocation.longitude.toFixed(6)}<br>
+Akurasi:
+${Math.round(currentLocation.accuracy)} meter
+`;
 
 },
 
-function(error){
+error=>{
 
-alert(
-"GPS tidak bisa digunakan.\n\n"+
-"Pastikan izin lokasi browser diberikan."
-);
+status.innerText=
+"❌ GPS gagal: "+
+error.message;
 
 },
 
 {
+
 enableHighAccuracy:true,
+
 timeout:15000,
+
 maximumAge:0
+
 }
 
 );
@@ -1679,147 +3021,124 @@ maximumAge:0
 };
 
 
-
 /* =====================================================
-   FOTO SELFIE
+DISTANCE
 ===================================================== */
 
-window.previewSelfie=function(event){
+function distanceMeter(
+lat1,
+lon1,
+lat2,
+lon2
+){
+
+const R=6371000;
+
+const p1=
+lat1*Math.PI/180;
+
+const p2=
+lat2*Math.PI/180;
+
+const dp=
+(lat2-lat1)*
+Math.PI/180;
+
+const dl=
+(lon2-lon1)*
+Math.PI/180;
+
+
+const a=
+Math.sin(dp/2)*
+Math.sin(dp/2)+
+
+Math.cos(p1)*
+Math.cos(p2)*
+Math.sin(dl/2)*
+Math.sin(dl/2);
+
+
+const c=
+2*Math.atan2(
+Math.sqrt(a),
+Math.sqrt(1-a)
+);
+
+
+return R*c;
+
+}
+
+
+/* =====================================================
+IMAGE
+===================================================== */
+
+function previewImage(
+input,
+target
+){
 
 const file=
-event.target.files[0];
-
+input.files?.[0];
 
 if(!file)return;
 
-
-const preview=
-document.getElementById(
-"selfiePreview"
-);
-
-
-preview.src=
-URL.createObjectURL(file);
-
-
-preview.style.display="block";
-
-};
-
-
-function compressImage(file){
-
-return new Promise(
-
-function(resolve){
-
-const reader=
-new FileReader();
-
-
-reader.onload=function(event){
-
 const img=
-new Image();
-
-
-img.onload=function(){
-
-const canvas=
-document.createElement("canvas");
-
-
-const maxWidth=700;
-
-const scale=
-Math.min(
-1,
-maxWidth/img.width
-);
-
-
-canvas.width=
-img.width*scale;
-
-
-canvas.height=
-img.height*scale;
-
-
-const ctx=
-canvas.getContext("2d");
-
-
-ctx.drawImage(
-img,
-0,
-0,
-canvas.width,
-canvas.height
-);
-
-
-resolve(
-canvas.toDataURL(
-"image/jpeg",
-0.65
-)
-);
-
-};
-
+document.getElementById(target);
 
 img.src=
-event.target.result;
+URL.createObjectURL(file);
 
-};
-
-
-reader.readAsDataURL(file);
+img.classList.remove("hidden");
 
 }
 
-);
 
-}
+/*
+Catatan:
 
+Foto di browser dapat dikompres
+dan diintegrasikan ke Firebase Storage
+pada tahap deployment produksi.
+
+Untuk menjaga database Realtime Database
+tetap ringan, jangan menyimpan foto
+base64 berukuran besar di RTDB.
+*/
 
 
 /* =====================================================
-   SETOR KAS
+SAVE CHECKIN
 ===================================================== */
 
-window.deposit=function(){
+window.saveCheckin=async function(){
 
+const outletId=
 document.getElementById(
-"depositModal"
-).style.display="flex";
-
-};
-
-
-window.saveDeposit=async function(){
-
-
-const amount=
-Number(
-document.getElementById(
-"depositAmount"
-).value
-);
-
+"checkinOutlet"
+).value;
 
 const note=
 document.getElementById(
-"depositNote"
-).value.trim();
+"checkinNote"
+).value;
 
 
-if(!amount||amount<=0){
+if(!outletId){
+
+alert("Pilih toko.");
+
+return;
+
+}
+
+
+if(!currentLocation){
 
 alert(
-"Jumlah setoran harus diisi."
+"Ambil lokasi GPS terlebih dahulu."
 );
 
 return;
@@ -1827,57 +3146,123 @@ return;
 }
 
 
-try{
+const outlet=
+outlets[outletId]||{};
 
 
-const depositRef=
+let distance=null;
+
+
+if(
+outlet.latitude &&
+outlet.longitude
+){
+
+distance=
+distanceMeter(
+
+currentLocation.latitude,
+
+currentLocation.longitude,
+
+Number(outlet.latitude),
+
+Number(outlet.longitude)
+
+);
+
+}
+
+
+const now=Date.now();
+
+const newRef=
 push(
-ref(database,"deposits")
+ref(db,"checkins")
 );
 
 
-await set(
-depositRef,{
+const checkin={
 
-salesId:SALES_ID,
+salesId:currentSales.id,
 
-salesName:SALES_NAME,
+salesName:currentSales.name,
 
-amount:amount,
+outletId:outletId,
+
+outlet:
+outlet.name||
+outlet.outletName||
+"-",
+
+latitude:
+currentLocation.latitude,
+
+longitude:
+currentLocation.longitude,
+
+accuracy:
+currentLocation.accuracy,
+
+distance:
+distance,
+
+date:
+new Date(now).toISOString(),
+
+createdAt:now,
 
 note:note,
 
-date:new Date().toISOString(),
+hasSelfie:
+Boolean(
+document.getElementById(
+"selfiePhoto"
+).files?.length
+),
 
-createdAt:Date.now()
+hasStorePhoto:
+Boolean(
+document.getElementById(
+"storePhoto"
+).files?.length
+),
 
-}
+source:"SALES_APP"
+
+};
+
+
+try{
+
+await set(
+newRef,
+checkin
 );
 
 
 alert(
-"✅ Setoran berhasil disimpan."
+"🟢 CHECK-IN BERHASIL\n\n"+
+"Lokasi tersimpan.\n"+
+(distance!==null
+?
+"Jarak dari toko: "+
+Math.round(distance)+
+" meter."
+:
+"")
 );
 
 
-document.getElementById(
-"depositAmount"
-).value="";
+closeModal();
 
-
-document.getElementById(
-"depositNote"
-).value="";
-
-
-closeModal("depositModal");
+refreshDashboard();
 
 }
-
 catch(error){
 
 alert(
-"❌ Gagal menyimpan setoran\n\n"+
+"Gagal menyimpan check-in:\n"+
 error.message
 );
 
@@ -1886,51 +3271,155 @@ error.message
 };
 
 
-
 /* =====================================================
-   OUTLET
+ADD OUTLET
 ===================================================== */
 
-window.outlet=function(){
-
-renderOutlets();
+window.openAddOutlet=function(){
 
 document.getElementById(
-"outletModal"
-).style.display="flex";
+"modalTitle"
+).innerText=
+"🏪 Tambah Toko";
+
+
+document.getElementById(
+"modalContent"
+).innerHTML=`
+
+<label>Nama Toko</label>
+
+<input
+id="newOutletName"
+placeholder="Contoh: Warung Barokah">
+
+<label>Nama Pemilik</label>
+
+<input
+id="newOutletOwner"
+placeholder="Nama pemilik">
+
+<label>WhatsApp</label>
+
+<input
+id="newOutletPhone"
+type="tel"
+placeholder="08xxxxxxxxxx">
+
+<label>Alamat</label>
+
+<textarea
+id="newOutletAddress"
+placeholder="Alamat toko">
+</textarea>
+
+<label>Foto Toko</label>
+
+<input
+id="newOutletPhoto"
+type="file"
+accept="image/*"
+capture="environment">
+
+<button
+class="btn btn-blue"
+onclick="getOutletGPS()">
+
+📍 AMBIL GPS TOKO
+
+</button>
+
+<div
+id="newOutletGPS"
+class="alert">
+GPS belum diambil.
+</div>
+
+<button
+class="btn"
+onclick="saveOutlet()">
+
+SIMPAN TOKO
+
+</button>
+
+`;
+
+openModal();
 
 };
 
 
-window.addOutlet=function(){
+let newOutletLocation=null;
 
-document.getElementById(
-"outletModal"
-).style.display="flex";
+
+window.getOutletGPS=function(){
+
+navigator.geolocation.getCurrentPosition(
+
+position=>{
+
+newOutletLocation={
+
+latitude:
+position.coords.latitude,
+
+longitude:
+position.coords.longitude
 
 };
 
+
+document.getElementById(
+"newOutletGPS"
+).innerHTML=
+`
+🟢 GPS toko berhasil<br>
+${newOutletLocation.latitude.toFixed(6)},
+${newOutletLocation.longitude.toFixed(6)}
+`;
+
+},
+
+error=>{
+
+alert(
+"GPS gagal: "+
+error.message
+);
+
+},
+
+{
+enableHighAccuracy:true,
+timeout:15000
+}
+
+);
+
+};
+
+
+/* =====================================================
+SAVE OUTLET
+===================================================== */
 
 window.saveOutlet=async function(){
-
 
 const name=
 document.getElementById(
 "newOutletName"
 ).value.trim();
 
-
 const owner=
 document.getElementById(
-"newOwnerName"
+"newOutletOwner"
 ).value.trim();
-
 
 const phone=
 document.getElementById(
 "newOutletPhone"
 ).value.trim();
-
 
 const address=
 document.getElementById(
@@ -1938,44 +3427,20 @@ document.getElementById(
 ).value.trim();
 
 
-const type=
-document.getElementById(
-"newOutletType"
-).value;
-
-
-const note=
-document.getElementById(
-"newOutletNote"
-).value.trim();
-
-
 if(!name){
 
-alert(
-"Nama outlet wajib diisi."
-);
+alert("Nama toko wajib diisi.");
 
 return;
 
 }
 
 
-try{
+const id=
+push(ref(db,"outlets")).key;
 
 
-const outletRef=
-push(
-ref(database,"outlets")
-);
-
-
-await set(
-outletRef,{
-
-salesId:SALES_ID,
-
-salesName:SALES_NAME,
+const data={
 
 name:name,
 
@@ -1985,56 +3450,53 @@ phone:phone,
 
 address:address,
 
-type:type,
+salesId:currentSales.id,
 
-note:note,
+salesName:currentSales.name,
 
-status:"aktif",
+area:currentSales.area||"",
 
-createdAt:Date.now()
+latitude:
+newOutletLocation?.latitude||null,
 
-}
+longitude:
+newOutletLocation?.longitude||null,
+
+createdAt:Date.now(),
+
+joinDate:
+new Date().toISOString(),
+
+status:"ACTIVE",
+
+source:"SALES_APP"
+
+};
+
+
+try{
+
+await set(
+ref(db,"outlets/"+id),
+data
 );
 
 
 alert(
-"✅ Outlet berhasil disimpan."
+"✅ Toko berhasil ditambahkan."
 );
 
+closeModal();
 
-document.getElementById(
-"newOutletName"
-).value="";
+renderOutletList();
 
-
-document.getElementById(
-"newOwnerName"
-).value="";
-
-
-document.getElementById(
-"newOutletPhone"
-).value="";
-
-
-document.getElementById(
-"newOutletAddress"
-).value="";
-
-
-document.getElementById(
-"newOutletNote"
-).value="";
-
-
-closeModal("outletModal");
+populateOutletSelect();
 
 }
-
 catch(error){
 
 alert(
-"❌ Gagal menyimpan outlet\n\n"+
+"Gagal menyimpan toko:\n"+
 error.message
 );
 
@@ -2043,371 +3505,299 @@ error.message
 };
 
 
-
 /* =====================================================
-   CARI OUTLET
+SETORAN
 ===================================================== */
 
-window.searchOutlet=function(type){
+window.openDeposit=function(){
 
-let inputId=
-type==="checkin"
-?"checkinSearch"
-:"saleOutletSearch";
+let cashSales=0;
 
-
-let resultId=
-type==="checkin"
-?"checkinResults"
-:"saleOutletResults";
+let alreadyDeposit=0;
 
 
-const keyword=
-document.getElementById(inputId)
-.value
-.toLowerCase()
-.trim();
+const today=
+todayKey();
 
 
-const result=
-document.getElementById(resultId);
+Object.values(salesData||{})
+.forEach(item=>{
 
+if(!item)return;
 
-result.innerHTML="";
+if(
+String(item.salesId||"")
+!==String(currentSales.id)
+)return;
 
+if(
+dateValue(item.date||item.createdAt)
+!==today
+)return;
 
-const filtered=
-outlets.filter(
+if(
+String(item.paymentStatus||"PAID")
+==="PAID"
+){
 
-function(o){
-
-return (
-o.name||""
-)
-.toLowerCase()
-.includes(keyword);
+cashSales+=
+Number(item.amount||0);
 
 }
 
+});
+
+
+Object.values(deposits||{})
+.forEach(item=>{
+
+if(!item)return;
+
+if(
+String(item.salesId||"")
+!==String(currentSales.id)
+)return;
+
+if(
+dateValue(item.date||item.createdAt)
+===today
+){
+
+alreadyDeposit+=
+Number(item.amount||0);
+
+}
+
+});
+
+
+const difference=
+cashSales-alreadyDeposit;
+
+
+document.getElementById(
+"modalTitle"
+).innerText=
+"💰 Setoran Sales";
+
+
+document.getElementById(
+"modalContent"
+).innerHTML=`
+
+<div class="success-box">
+
+<div class="small">
+Penjualan Cash
+</div>
+
+<div class="big-money">
+${rupiah(cashSales)}
+</div>
+
+<div class="small">
+Sudah Disetor
+</div>
+
+<div class="big-money">
+${rupiah(alreadyDeposit)}
+</div>
+
+<div class="small">
+Wajib Disetor
+</div>
+
+<div class="big-money">
+${rupiah(Math.max(0,difference))}
+</div>
+
+</div>
+
+<label>Jumlah Setoran</label>
+
+<input
+id="depositAmount"
+type="number"
+value="${Math.max(0,difference)}">
+
+<label>Catatan</label>
+
+<textarea
+id="depositNote"
+placeholder="Catatan setoran">
+</textarea>
+
+<label>Foto Bukti Setoran</label>
+
+<input
+id="depositPhoto"
+type="file"
+accept="image/*"
+capture="environment">
+
+<button
+class="btn"
+onclick="saveDeposit()">
+
+KIRIM SETORAN
+
+</button>
+
+`;
+
+
+openModal();
+
+};
+
+
+/* =====================================================
+SAVE DEPOSIT
+===================================================== */
+
+window.saveDeposit=async function(){
+
+const amount=
+Number(
+document.getElementById(
+"depositAmount"
+).value||0
 );
 
+const note=
+document.getElementById(
+"depositNote"
+).value;
 
-if(filtered.length===0){
 
-result.innerHTML=
-"<div class='small'>Outlet tidak ditemukan.</div>";
+if(amount<=0){
+
+alert(
+"Jumlah setoran harus lebih dari 0."
+);
 
 return;
 
 }
 
 
-filtered.forEach(
+const now=Date.now();
 
-function(o){
-
-const div=
-document.createElement("div");
+const newRef=
+push(ref(db,"deposits"));
 
 
-div.className=
-"search-result";
+const data={
 
+salesId:currentSales.id,
 
-div.innerHTML=
-"<b>🏪 "+
-o.name+
-"</b><br>"+
-"<span class='small'>"+
-(o.type||"Outlet")+
-" • "+
-(o.address||"Alamat belum ada")+
-"</span>";
+salesName:currentSales.name,
 
+amount:amount,
 
-div.onclick=function(){
+date:
+new Date(now).toISOString(),
 
-if(type==="checkin"){
+createdAt:now,
 
+status:"PENDING",
+
+note:note,
+
+hasProof:
+Boolean(
 document.getElementById(
-"checkinOutlet"
-).value=o.name;
+"depositPhoto"
+).files?.length
+),
 
-
-document.getElementById(
-"checkinSearch"
-).value=o.name;
-
-
-document.getElementById(
-"selectedOutletInfo"
-).style.display="block";
-
-
-document.getElementById(
-"selectedOutletInfo"
-).innerHTML=
-"🏪 <b>"+
-o.name+
-"</b><br>"+
-(o.address||"Alamat belum tersedia");
-
-}
-else{
-
-document.getElementById(
-"saleOutlet"
-).value=o.name;
-
-
-document.getElementById(
-"saleOutletSearch"
-).value=o.name;
-
-}
-
-
-result.innerHTML="";
+source:"SALES_APP"
 
 };
 
 
-result.appendChild(div);
+try{
+
+await set(
+newRef,
+data
+);
+
+
+alert(
+"✅ Setoran berhasil dikirim.\nMenunggu verifikasi Owner."
+);
+
+closeModal();
 
 }
+catch(error){
 
+alert(
+"Gagal menyimpan setoran:\n"+
+error.message
 );
+
+}
 
 };
 
 
-
 /* =====================================================
-   TAMPILKAN OUTLET
+STOCK
 ===================================================== */
 
-function renderOutlets(){
+window.showStock=async function(){
 
-const list=
-document.getElementById(
-"outletList"
+const snap=
+await get(
+ref(db,"stocks")
 );
-
-
-if(!list)return;
-
-
-list.innerHTML="";
-
-
-if(outlets.length===0){
-
-list.innerHTML=
-"Belum ada outlet.";
-
-return;
-
-}
-
-
-outlets.forEach(
-
-function(o){
-
-const div=
-document.createElement("div");
-
-
-div.className="outlet";
-
-
-div.innerHTML=
-
-"<b>🏪 "+
-o.name+
-"</b><br>"+
-
-"<span class='badge'>"+
-(o.type||"Outlet")+
-"</span>"+
-
-"<div style='margin-top:7px;font-size:12px;color:#666;'>"+
-(o.owner||"")+
-"<br>"+
-(o.phone||"")+
-"<br>"+
-(o.address||"")+
-"</div>";
-
-
-list.appendChild(div);
-
-});
-
-
-document.getElementById(
-"profileOutlets"
-).innerText=
-outlets.length;
-
-}
-
-
-
-/* =====================================================
-   DASHBOARD PENJUALAN
-===================================================== */
-
-let totalSales=0;
-
-let transactions=0;
-
-
-function updateDashboard(){
-
-const target=
-targetMonthly||1500;
-
-
-document.getElementById(
-"totalSales"
-).innerText=
-totalSales.toLocaleString("id-ID");
-
-
-document.getElementById(
-"targetMonthly"
-).innerText=
-target.toLocaleString("id-ID");
-
-
-let percent=
-Math.round(
-(totalSales/target)*100
-);
-
-
-if(percent>100)
-percent=100;
-
-
-document.getElementById(
-"progressBar"
-).style.width=
-percent+"%";
-
-
-document.getElementById(
-"progressText"
-).innerText=
-percent+"%";
-
-
-document.getElementById(
-"profilePack"
-).innerText=
-totalSales.toLocaleString("id-ID");
-
-
-document.getElementById(
-"profileTransactions"
-).innerText=
-transactions;
-
-
-document.getElementById(
-"kpiSales"
-).innerText=
-percent;
-
-
-updateAI();
-
-}
-
-
-
-/* =====================================================
-   SALES DATA
-===================================================== */
-
-if(database){
-
-onValue(
-
-ref(database,"sales"),
-
-function(snapshot){
-
-totalSales=0;
-
-transactions=0;
-
-
-let outletOrders={};
-
-
-snapshot.forEach(
-
-function(child){
 
 const data=
-child.val();
+snap.val()||{};
 
+let current=0;
+
+let opening=0;
+
+let received=0;
+
+let sold=0;
+
+let returned=0;
+
+
+Object.entries(data)
+.forEach(([key,item])=>{
+
+if(!item)return;
 
 if(
-data &&
-data.salesId===SALES_ID
+key===currentSales.id ||
+String(item.salesId||"")
+===String(currentSales.id)
 ){
 
-totalSales+=
-Number(data.quantity||0);
+opening+=
+Number(item.openingStock||0);
 
+received+=
+Number(item.receivedStock||0);
 
-transactions++;
+sold+=
+Number(item.soldStock||0);
 
+returned+=
+Number(item.returnedStock||0);
 
-const outlet=
-data.outlet;
-
-
-if(outlet){
-
-if(!outletOrders[outlet]){
-
-outletOrders[outlet]=0;
-
-}
-
-outletOrders[outlet]+=1;
-
-}
-
-}
-
-}
-
+current+=
+Number(
+item.currentStock||
+item.stock||
+item.balance||
+0
 );
-
-
-let repeat=0;
-
-let newOrder=0;
-
-
-Object.values(outletOrders)
-.forEach(
-
-function(n){
-
-if(n>1){
-
-repeat++;
-
-}
-else{
-
-newOrder++;
 
 }
 
@@ -2415,422 +3805,374 @@ newOrder++;
 
 
 document.getElementById(
-"statNewOrder"
+"modalTitle"
 ).innerText=
-newOrder;
+"📦 Stok Saya";
 
 
 document.getElementById(
-"statRepeat"
-).innerText=
-repeat;
+"modalContent"
+).innerHTML=`
 
+<div class="dashboard-grid">
 
-updateDashboard();
+<div class="stat">
+<div class="stat-title">STOK AWAL</div>
+<div class="stat-value">${opening}</div>
+</div>
 
-}
+<div class="stat">
+<div class="stat-title">DITERIMA</div>
+<div class="stat-value">${received}</div>
+</div>
 
-);
+<div class="stat">
+<div class="stat-title">TERJUAL</div>
+<div class="stat-value">${sold}</div>
+</div>
 
-}
+<div class="stat">
+<div class="stat-title">RETUR</div>
+<div class="stat-value">${returned}</div>
+</div>
 
+</div>
+
+<div class="success-box">
+
+<div class="small">
+STOK AKHIR
+</div>
+
+<div class="big-money">
+${current.toLocaleString("id-ID")} PACK
+</div>
+
+</div>
+
+`;
+
+openModal();
+
+};
 
 
 /* =====================================================
-   CHECK-IN DATA
+TARGET
 ===================================================== */
 
-if(database){
+window.showTarget=function(){
 
-onValue(
+const monthly=
+getTargetMonthly();
 
-ref(database,"checkins"),
+const daily=
+getTargetDaily();
 
-function(snapshot){
-
-let count=0;
-
-
-snapshot.forEach(
-
-function(child){
-
-const data=
-child.val();
-
-
-if(
-data &&
-data.salesId===SALES_ID
-){
-
-count++;
-
-}
-
-});
+const weekly=
+currentSales.targetWeekly||
+Math.ceil(monthly/4);
 
 
 document.getElementById(
-"profileCheckins"
-).innerText=count;
-
-
-document.getElementById(
-"statVisits"
-).innerText=count;
-
-
-document.getElementById(
-"kpiProductivity"
+"modalTitle"
 ).innerText=
-Math.min(
-100,
-count*10
-);
-
-
-}
-
-);
-
-}
-
-
-
-/* =====================================================
-   OUTLET BARU
-===================================================== */
-
-if(database){
-
-onValue(
-
-ref(database,"outlets"),
-
-function(snapshot){
-
-let count=0;
-
-
-snapshot.forEach(
-
-function(child){
-
-const data=
-child.val();
-
-
-if(
-data &&
-data.salesId===SALES_ID
-){
-
-count++;
-
-}
-
-});
+"🎯 Target Saya";
 
 
 document.getElementById(
-"statNewOutlet"
-).innerText=count;
+"modalContent"
+).innerHTML=`
 
-}
+<div class="dashboard-grid">
 
-);
+<div class="stat">
 
-}
+<div class="stat-title">
+HARIAN
+</div>
 
+<div class="stat-value">
+${Number(daily).toLocaleString("id-ID")}
+</div>
 
+</div>
 
-/* =====================================================
-   SETORAN
-===================================================== */
+<div class="stat">
 
-if(database){
+<div class="stat-title">
+MINGGUAN
+</div>
 
-onValue(
+<div class="stat-value">
+${Number(weekly).toLocaleString("id-ID")}
+</div>
 
-ref(database,"deposits"),
+</div>
 
-function(snapshot){
+<div class="stat">
 
-let total=0;
+<div class="stat-title">
+BULANAN
+</div>
 
+<div class="stat-value">
+${Number(monthly).toLocaleString("id-ID")}
+</div>
 
-snapshot.forEach(
+</div>
 
-function(child){
+</div>
 
-const data=
-child.val();
+<div class="alert">
+Target ditentukan Owner dan dapat berubah sewaktu-waktu.
+</div>
 
+`;
 
-if(
-data &&
-data.salesId===SALES_ID
-){
+openModal();
 
-total+=
-Number(data.amount||0);
-
-}
-
-});
-
-
-document.getElementById(
-"profileDeposit"
-).innerText=
-"Rp "+
-total.toLocaleString("id-ID");
-
-}
-
-);
-
-}
-
+};
 
 
 /* =====================================================
-   AI SALES COACH
-===================================================== */
-
-function updateAI(){
-
-const target=
-targetMonthly||1500;
-
-
-const remaining=
-Math.max(
-0,
-target-totalSales
-);
-
-
-const percent=
-Math.round(
-(totalSales/target)*100
-);
-
-
-let message="";
-
-
-if(totalSales===0){
-
-message=
-"Belum ada penjualan tercatat. Fokus pertama hari ini: kunjungi minimal 10 outlet dan cari outlet yang berpotensi repeat order.";
-
-}
-
-else if(percent<30){
-
-message=
-"🚀 Pencapaian masih "+
-percent+
-"%. Tingkatkan jumlah kunjungan dan prioritaskan outlet dengan potensi pembelian tinggi. Sisa target: "+
-remaining+
-" pack.";
-
-}
-
-else if(percent<70){
-
-message=
-"💪 Performa mulai bagus. Fokuskan kunjungan pada outlet yang sudah pernah order agar repeat order meningkat. Sisa target: "+
-remaining+
-" pack.";
-
-}
-
-else if(percent<100){
-
-message=
-"🔥 Target sudah "+
-percent+
-"%. Pertahankan ritme dan kejar outlet yang paling dekat menghasilkan order. Sisa "+
-remaining+
-" pack.";
-
-}
-
-else{
-
-message=
-"🏆 Target bulanan tercapai. Fokus sekarang: repeat order, outlet baru, dan memperbesar nilai order.";
-
-}
-
-
-document.getElementById(
-"aiInsight"
-).innerText=
-message;
-
-}
-
-
-
-/* =====================================================
-   KPI
+KPI
 ===================================================== */
 
 window.showKPI=function(){
 
-alert(
+const month=
+new Date().toISOString().slice(0,7);
 
-"📊 KPI CRISFISH SALES\n\n"+
+let pack=0;
 
-"Sales Achievement : "+
-document.getElementById("kpiSales").innerText+
-"%\n\n"+
+Object.values(salesData||{})
+.forEach(item=>{
 
-"Produktivitas : "+
-document.getElementById("kpiProductivity").innerText+
-"%\n\n"+
-
-"Disiplin & Reporting : "+
-document.getElementById("kpiDiscipline").innerText+
-"%\n\n"+
-
-"Bobot KPI:\n"+
-"Sales Achievement 35%\n"+
-"Productivity 20%\n"+
-"Strike Rate 15%\n"+
-"Outlet Development 15%\n"+
-"Discipline & Reporting 15%"
-
-);
-
-};
-
-
-
-/* =====================================================
-   PROFILE
-===================================================== */
-
-window.profile=function(){
-
-document.getElementById(
-"profileModal"
-).style.display="flex";
-
-};
-
-
-
-/* =====================================================
-   PETA
-===================================================== */
-
-let currentLatitude=null;
-
-let currentLongitude=null;
-
-
-window.showMap=function(lat,lng,name){
-
-currentLatitude=lat;
-
-currentLongitude=lng;
-
-
-document.getElementById(
-"mapInfo"
-).innerText=
-name+
-"\n"+
-"Koordinat: "+
-lat+
-", "+
-lng;
-
-
-document.getElementById(
-"mapFrame"
-).src=
-"https://www.google.com/maps?q="+
-lat+
-","+
-lng+
-"&output=embed";
-
-
-document.getElementById(
-"mapModal"
-).style.display="flex";
-
-};
-
-
-window.openGoogleMaps=function(){
+if(!item)return;
 
 if(
-currentLatitude===null ||
-currentLongitude===null
+String(item.salesId||"")
+!==String(currentSales.id)
+)return;
+
+if(
+dateValue(item.date||item.createdAt)
+.startsWith(month)
 ){
 
-alert("Lokasi belum tersedia.");
+pack+=
+Number(item.quantity||0);
 
-return;
+}
+
+});
+
+
+const target=
+getTargetMonthly();
+
+const achievement=
+target
+?
+Math.round(pack/target*100)
+:
+0;
+
+const kpi=
+calculateKPI(
+pack,
+pack,
+currentSales.id
+);
+
+
+let category=
+"CRITICAL";
+
+if(kpi>=90)category="EXCELLENT";
+else if(kpi>=80)category="GOOD";
+else if(kpi>=70)category="NEED IMPROVEMENT";
+
+
+document.getElementById(
+"modalTitle"
+).innerText=
+"📊 KPI Saya";
+
+
+document.getElementById(
+"modalContent"
+).innerHTML=`
+
+<div class="stat">
+
+<div class="stat-title">
+KPI
+</div>
+
+<div class="stat-value green">
+${kpi}
+</div>
+
+<div class="small">
+${category}
+</div>
+
+</div>
+
+<div class="list">
+
+<div class="list-item row">
+<span>Target</span>
+<b>${target.toLocaleString("id-ID")} Pack</b>
+</div>
+
+<div class="list-item row">
+<span>Aktual</span>
+<b>${pack.toLocaleString("id-ID")} Pack</b>
+</div>
+
+<div class="list-item row">
+<span>Achievement</span>
+<b>${achievement}%</b>
+</div>
+
+</div>
+
+`;
+
+openModal();
+
+};
+
+
+/* =====================================================
+HISTORY
+===================================================== */
+
+window.showHistory=function(){
+
+let html="";
+
+const items=
+Object.values(salesData||{})
+.filter(item=>
+item &&
+String(item.salesId||"")
+===String(currentSales.id)
+)
+.sort(
+(a,b)=>
+new Date(b.date||b.createdAt)
+-
+new Date(a.date||a.createdAt)
+)
+.slice(0,50);
+
+
+items.forEach(item=>{
+
+html+=`
+
+<div class="list-item">
+
+<div class="row">
+
+<b>
+${esc(item.outlet||"-")}
+</b>
+
+<span class="badge">
+${item.paymentStatus==="PAID"
+?
+"PAID"
+:
+"BELUM BAYAR"}
+</span>
+
+</div>
+
+<div class="small">
+${new Date(
+item.date||item.createdAt
+).toLocaleString("id-ID")}
+</div>
+
+<div style="margin-top:5px;">
+
+${Number(item.quantity||0)}
+Pack •
+${rupiah(item.amount||0)}
+
+</div>
+
+</div>
+
+`;
+
+});
+
+
+if(!html){
+
+html=
+`<div class="loading">
+Belum ada riwayat penjualan.
+</div>`;
 
 }
 
 
-window.open(
+document.getElementById(
+"modalTitle"
+).innerText=
+"📋 Riwayat Penjualan";
 
-"https://www.google.com/maps?q="+
-currentLatitude+
-","+
-currentLongitude,
 
-"_blank"
+document.getElementById(
+"modalContent"
+).innerHTML=html;
 
-);
+
+openModal();
 
 };
 
 
-
 /* =====================================================
-   HOME
+MODAL
 ===================================================== */
 
-window.home=function(){
+function openModal(){
+
+document.getElementById(
+"modal"
+).classList.remove("hidden");
+
+}
+
+
+window.closeModal=function(){
+
+document.getElementById(
+"modal"
+).classList.add("hidden");
+
+};
+
+
+window.scrollTopPage=function(){
 
 window.scrollTo({
-
 top:0,
-
 behavior:"smooth"
-
 });
 
 };
-
-
-
-/* =====================================================
-   MODAL
-===================================================== */
-
-window.closeModal=function(id){
-
-document.getElementById(id)
-.style.display="none";
-
-};
-
 
 
 </script>
 
 </body>
-
 </html>
