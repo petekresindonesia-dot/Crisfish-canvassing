@@ -3,465 +3,144 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
-
-<title>CRISFISH SALES - Owner Dashboard</title>
-
-<!-- Leaflet untuk peta tanpa membutuhkan Google Maps API Key -->
-<link
-rel="stylesheet"
-href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
-/>
+<title>CRISFISH SALES - Owner</title>
 
 <style>
-
-*{
-box-sizing:border-box;
-margin:0;
-padding:0;
-font-family:Arial,sans-serif;
+*{box-sizing:border-box;margin:0;padding:0;font-family:Arial,sans-serif}
+body{background:#f3f4f6;color:#17202a}
+.app{max-width:1250px;margin:auto;min-height:100vh}
+.header{background:#111827;color:white;padding:20px;position:sticky;top:0;z-index:20}
+.logo{font-size:25px;font-weight:bold}
+.subtitle{font-size:12px;opacity:.8;margin-top:5px}
+.container{padding:16px}
+.card{background:white;border-radius:16px;padding:18px;margin-bottom:16px;box-shadow:0 3px 12px rgba(0,0,0,.07)}
+.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.stat-title{font-size:12px;color:#666}
+.stat-value{font-size:25px;font-weight:bold;margin-top:7px}
+.section-title{font-size:19px;font-weight:bold;margin-bottom:15px}
+.form-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+label{font-size:12px;font-weight:bold}
+input,select,textarea{
+width:100%;padding:12px;margin-top:5px;margin-bottom:10px;
+border:1px solid #ddd;border-radius:10px;font-size:14px
 }
-
-body{
-background:#f3f4f6;
-color:#17202a;
-}
-
+textarea{min-height:70px}
 button{
-cursor:pointer;
+border:0;border-radius:10px;padding:11px 14px;
+font-weight:bold;cursor:pointer
 }
-
-.app{
-max-width:1200px;
-margin:auto;
-min-height:100vh;
+.btn{background:#16a34a;color:white}
+.btn-blue{background:#2563eb;color:white}
+.btn-dark{background:#111827;color:white}
+.btn-red{background:#dc2626;color:white}
+.btn-orange{background:#ea580c;color:white}
+.btn-gray{background:#e5e7eb;color:#111}
+.btn-small{padding:7px 9px;font-size:11px}
+.tabs{display:flex;gap:7px;overflow:auto;margin-bottom:15px}
+.tabs button{white-space:nowrap;background:#e5e7eb}
+.tabs button.active{background:#111827;color:white}
+.page{display:none}
+.page.active{display:block}
+.table-wrap{overflow-x:auto}
+table{width:100%;border-collapse:collapse}
+th,td{padding:10px;border-bottom:1px solid #eee;text-align:left;font-size:12px}
+th{background:#f9fafb}
+.badge{display:inline-block;padding:5px 8px;border-radius:20px;font-size:10px}
+.green{background:#dcfce7;color:#166534}
+.yellow{background:#fef9c3;color:#854d0e}
+.red{background:#fee2e2;color:#991b1b}
+.blue{background:#dbeafe;color:#1d4ed8}
+.map{width:100%;height:420px;border:0;border-radius:14px}
+.alert{padding:12px;border-radius:10px;background:#fff7ed;border:1px solid #fed7aa;margin-bottom:8px}
+.login{
+position:fixed;inset:0;background:#111827;display:flex;
+align-items:center;justify-content:center;padding:20px;z-index:1000
 }
-
-.header{
-background:#111827;
-color:white;
-padding:20px;
-position:sticky;
-top:0;
-z-index:50;
-}
-
-.logo{
-font-size:25px;
-font-weight:bold;
-}
-
-.subtitle{
-font-size:13px;
-opacity:.8;
-margin-top:5px;
-}
-
-.container{
-padding:18px;
-}
-
-.status{
-font-size:12px;
-margin-top:8px;
-}
-
-.success{
-color:#22c55e;
-}
-
-.error{
-color:#ef4444;
-}
-
-.grid{
-display:grid;
-grid-template-columns:repeat(4,1fr);
-gap:14px;
-margin-bottom:18px;
-}
-
-.card{
-background:white;
-border-radius:16px;
-padding:18px;
-box-shadow:0 3px 12px rgba(0,0,0,.07);
-margin-bottom:18px;
-}
-
-.stat-title{
-font-size:13px;
-color:#666;
-}
-
-.stat-value{
-font-size:26px;
-font-weight:bold;
-margin-top:7px;
-}
-
-.green{
-color:#16a34a;
-}
-
-.blue{
-color:#2563eb;
-}
-
-.orange{
-color:#ea580c;
-}
-
-.red{
-color:#dc2626;
-}
-
-.section-title{
-font-size:20px;
-font-weight:bold;
-margin-bottom:15px;
-}
-
-.form-grid{
-display:grid;
-grid-template-columns:repeat(3,1fr);
-gap:12px;
-}
-
-label{
-font-size:13px;
-font-weight:bold;
-display:block;
-}
-
-input,
-select,
-textarea{
-width:100%;
-padding:12px;
-margin-top:6px;
-margin-bottom:10px;
-border:1px solid #ddd;
-border-radius:10px;
-font-size:15px;
-}
-
-textarea{
-min-height:80px;
-}
-
-.btn{
-border:0;
-border-radius:10px;
-padding:12px 15px;
-background:#16a34a;
-color:white;
-font-weight:bold;
-}
-
-.btn-blue{
-background:#2563eb;
-}
-
-.btn-dark{
-background:#111827;
-}
-
-.btn-red{
-background:#dc2626;
-}
-
-.btn-orange{
-background:#ea580c;
-}
-
-.btn-gray{
-background:#e5e7eb;
-color:#111827;
-}
-
-.small-btn{
-padding:7px 10px;
-font-size:11px;
-border:0;
-border-radius:7px;
-margin:2px;
-}
-
-.table-wrap{
-overflow-x:auto;
-}
-
-table{
-width:100%;
-border-collapse:collapse;
-}
-
-th,
-td{
-padding:11px;
-border-bottom:1px solid #eee;
-text-align:left;
-font-size:13px;
-vertical-align:middle;
-}
-
-th{
-background:#f9fafb;
-}
-
-.badge{
-display:inline-block;
-padding:5px 9px;
-border-radius:20px;
-font-size:11px;
-background:#dcfce7;
-color:#166534;
-}
-
-.badge-red{
-background:#fee2e2;
-color:#991b1b;
-}
-
-.badge-orange{
-background:#ffedd5;
-color:#9a3412;
-}
-
-.badge-blue{
-background:#dbeafe;
-color:#1d4ed8;
-}
-
-.kpi-row{
-display:flex;
-justify-content:space-between;
-padding:12px 0;
-border-bottom:1px solid #eee;
-}
-
-.alert{
-padding:13px;
-border-radius:10px;
-background:#fff7ed;
-border:1px solid #fed7aa;
-margin-bottom:8px;
-}
-
-.ai-box{
-background:#f0fdf4;
-border:1px solid #bbf7d0;
-padding:18px;
-border-radius:14px;
-line-height:1.6;
-}
-
-#map{
-width:100%;
-height:450px;
-border-radius:15px;
-overflow:hidden;
-}
-
+.login-box{background:white;width:100%;max-width:420px;padding:25px;border-radius:20px}
+.login-logo{text-align:center;font-size:27px;font-weight:bold;margin-bottom:5px}
+.login-sub{text-align:center;color:#666;font-size:12px;margin-bottom:20px}
+.status{font-size:12px;margin-top:8px}
 .modal{
-display:none;
-position:fixed;
-inset:0;
-background:rgba(0,0,0,.6);
-z-index:200;
-align-items:center;
-justify-content:center;
-padding:15px;
+display:none;position:fixed;inset:0;background:rgba(0,0,0,.55);
+z-index:500;align-items:center;justify-content:center;padding:15px
 }
-
 .modal-box{
-background:white;
-width:100%;
-max-width:600px;
-max-height:92vh;
-overflow:auto;
-border-radius:18px;
-padding:20px;
+background:white;width:100%;max-width:600px;max-height:92vh;
+overflow:auto;border-radius:18px;padding:20px
 }
-
-.modal-title{
-font-size:21px;
-font-weight:bold;
-margin-bottom:15px;
-}
-
-.login-screen{
-position:fixed;
-inset:0;
-background:#111827;
-display:flex;
-align-items:center;
-justify-content:center;
-padding:20px;
-z-index:9999;
-}
-
-.login-box{
-background:white;
-width:100%;
-max-width:400px;
-padding:25px;
-border-radius:20px;
-box-shadow:0 10px 40px rgba(0,0,0,.3);
-}
-
-.login-logo{
-font-size:27px;
-font-weight:bold;
-margin-bottom:5px;
-}
-
-.login-sub{
-font-size:13px;
-color:#666;
-margin-bottom:20px;
-}
-
-.hidden{
-display:none!important;
-}
-
-.rank{
-font-size:18px;
-font-weight:bold;
-}
-
+.modal-title{font-size:20px;font-weight:bold;margin-bottom:15px}
+.kpi{font-size:22px;font-weight:bold}
+.progress{height:10px;background:#e5e7eb;border-radius:10px;overflow:hidden}
+.progress-bar{height:100%;background:#16a34a}
+.actions{display:flex;gap:5px;flex-wrap:wrap}
 @media(max-width:850px){
-
-.grid{
-grid-template-columns:repeat(2,1fr);
+.grid{grid-template-columns:repeat(2,1fr)}
+.form-grid{grid-template-columns:1fr 1fr}
 }
-
-.form-grid{
-grid-template-columns:1fr;
+@media(max-width:550px){
+.container{padding:10px}
+.grid{grid-template-columns:1fr 1fr}
+.form-grid{grid-template-columns:1fr}
+.stat-value{font-size:20px}
 }
-
+@media print{
+.no-print,.tabs,.header button{display:none!important}
+body{background:white}
+.card{box-shadow:none;border:1px solid #ddd}
 }
-
-@media(max-width:500px){
-
-.container{
-padding:10px;
-}
-
-.grid{
-grid-template-columns:1fr 1fr;
-gap:9px;
-}
-
-.card{
-padding:14px;
-}
-
-.stat-value{
-font-size:21px;
-}
-
-#map{
-height:380px;
-}
-
-}
-
 </style>
 </head>
 
 <body>
 
-<!-- ================================================= -->
 <!-- LOGIN OWNER -->
-<!-- ================================================= -->
-
-<div
-id="loginScreen"
-class="login-screen">
+<div class="login" id="loginScreen">
 
 <div class="login-box">
 
-<div class="login-logo">
-CRISFISH SALES
-</div>
+<div class="login-logo">CRISFISH SALES</div>
+<div class="login-sub">OWNER / SPV MANAGEMENT SYSTEM</div>
 
-<div class="login-sub">
-OWNER / SPV DASHBOARD
-</div>
+<label>Email Owner</label>
+<input id="loginEmail" type="email" placeholder="email owner">
 
-<label>
-Password Owner
-</label>
+<label>Password</label>
+<input id="loginPassword" type="password" placeholder="password">
 
-<input
-id="ownerPassword"
-type="password"
-placeholder="Masukkan password owner">
-
-<button
-class="btn btn-dark"
-style="width:100%;"
-onclick="ownerLogin()">
-
-MASUK DASHBOARD
-
+<button class="btn" style="width:100%" onclick="ownerLogin()">
+MASUK SEBAGAI OWNER
 </button>
 
-<div
-id="loginMessage"
-style="margin-top:10px;font-size:13px;color:#dc2626;">
-</div>
-
-<hr style="margin:20px 0;">
-
-<button
-class="btn btn-gray"
-style="width:100%;"
-onclick="showChangePassword()">
-
-GANTI PASSWORD OWNER
-
+<button class="btn-gray" style="width:100%;margin-top:8px"
+onclick="forgotPassword()">
+LUPA PASSWORD?
 </button>
 
-<button
-class="btn btn-orange"
-style="width:100%;margin-top:8px;"
-onclick="showRecovery()">
-
-LUPA PASSWORD
-
-</button>
+<div id="loginStatus" class="status"></div>
 
 </div>
 </div>
 
 
-<!-- ================================================= -->
-<!-- APP -->
-<!-- ================================================= -->
-
-<div
-id="ownerApp"
-class="app hidden">
+<div class="app" id="app" style="display:none">
 
 <div class="header">
 
-<div class="logo">
-CRISFISH SALES
-</div>
+<div style="display:flex;justify-content:space-between;gap:10px;align-items:center">
 
+<div>
+<div class="logo">CRISFISH SALES</div>
 <div class="subtitle">
-OWNER / SPV DASHBOARD • MANAGEMENT SYSTEM
+OWNER / SPV DASHBOARD • PETEKRES CRISFISH
+</div>
 </div>
 
-<div
-id="firebaseStatus"
-class="status">
+<button class="btn-red" onclick="logout()">KELUAR</button>
 
+</div>
+
+<div id="firebaseStatus" class="status">
 Menghubungkan Firebase...
-
 </div>
 
 </div>
@@ -469,25 +148,65 @@ Menghubungkan Firebase...
 
 <div class="container">
 
+<div class="tabs no-print">
 
-<!-- ================================================= -->
-<!-- RINGKASAN -->
-<!-- ================================================= -->
+<button class="active" onclick="showPage('dashboard',this)">📊 Dashboard</button>
+<button onclick="showPage('sales',this)">👥 Sales</button>
+<button onclick="showPage('outlets',this)">🏪 Outlet</button>
+<button onclick="showPage('salesHistory',this)">🛒 Penjualan</button>
+<button onclick="showPage('deposits',this)">💰 Setoran</button>
+<button onclick="showPage('stock',this)">📦 Stok</button>
+<button onclick="showPage('map',this)">🗺️ Peta</button>
+<button onclick="showPage('payroll',this)">💼 Penggajian</button>
+<button onclick="showPage('reports',this)">🖨️ Laporan</button>
+<button onclick="showPage('settings',this)">⚙️ Pengaturan</button>
+
+</div>
+
+
+<!-- DASHBOARD -->
+<div id="dashboard" class="page active">
 
 <div class="grid">
 
 <div class="card">
-
-<div class="stat-title">
-OMZET BULAN INI
+<div class="stat-title">Omzet Hari Ini</div>
+<div class="stat-value" id="todayRevenue">Rp 0</div>
 </div>
 
-<div
-class="stat-value green"
-id="totalOmzet">
+<div class="card">
+<div class="stat-title">Pack Bulan Ini</div>
+<div class="stat-value" id="monthPack">0</div>
+</div>
 
-Rp 0
+<div class="card">
+<div class="stat-title">Sales Aktif</div>
+<div class="stat-value" id="activeSales">0</div>
+</div>
 
+<div class="card">
+<div class="stat-title">Outlet</div>
+<div class="stat-value" id="outletTotal">0</div>
+</div>
+
+<div class="card">
+<div class="stat-title">Setoran</div>
+<div class="stat-value" id="depositTotal">Rp 0</div>
+</div>
+
+<div class="card">
+<div class="stat-title">Achievement</div>
+<div class="stat-value" id="companyAchievement">0%</div>
+</div>
+
+<div class="card">
+<div class="stat-title">Komisi Sales</div>
+<div class="stat-value" id="commissionTotal">Rp 0</div>
+</div>
+
+<div class="card">
+<div class="stat-title">Rata-rata KPI</div>
+<div class="stat-value" id="avgKpi">0</div>
 </div>
 
 </div>
@@ -495,16 +214,10 @@ Rp 0
 
 <div class="card">
 
-<div class="stat-title">
-PACK TERJUAL
-</div>
+<div class="section-title">🚨 Alert Owner</div>
 
-<div
-class="stat-value blue"
-id="totalPack">
-
-0
-
+<div id="alerts">
+Tidak ada peringatan.
 </div>
 
 </div>
@@ -512,302 +225,145 @@ id="totalPack">
 
 <div class="card">
 
-<div class="stat-title">
-SALES AKTIF
+<div class="section-title">🏆 Ranking Sales</div>
+
+<div class="table-wrap">
+
+<table>
+
+<thead>
+<tr>
+<th>Rank</th>
+<th>Sales</th>
+<th>Pack</th>
+<th>Target</th>
+<th>Achievement</th>
+<th>KPI</th>
+<th>Pendapatan</th>
+</tr>
+</thead>
+
+<tbody id="leaderboard"></tbody>
+
+</table>
+
 </div>
 
-<div
-class="stat-value"
-id="totalSales">
-
-0
-
 </div>
 
 </div>
 
+
+<!-- SALES -->
+<div id="sales" class="page">
 
 <div class="card">
 
-<div class="stat-title">
-OUTLET
-</div>
+<div class="section-title">👥 Manajemen Sales</div>
 
-<div
-class="stat-value orange"
-id="totalOutlet">
-
-0
+<button class="btn" onclick="openSalesModal()">
++ TAMBAH SALES
+</button>
 
 </div>
-
-</div>
-
-</div>
-
-
-<!-- ================================================= -->
-<!-- PENGATURAN -->
-<!-- ================================================= -->
 
 <div class="card">
 
-<div class="section-title">
-⚙️ Pengaturan Target & Penggajian
+<div class="table-wrap">
+
+<table>
+
+<thead>
+<tr>
+<th>Sales</th>
+<th>Area</th>
+<th>Target</th>
+<th>Pack</th>
+<th>Achievement</th>
+<th>Status</th>
+<th>Aksi</th>
+</tr>
+</thead>
+
+<tbody id="salesTable"></tbody>
+
+</table>
+
 </div>
+
+</div>
+
+</div>
+
+
+<!-- OUTLET -->
+<div id="outlets" class="page">
+
+<div class="card">
+
+<div class="section-title">🏪 Database Outlet</div>
+
+<div class="table-wrap">
+
+<table>
+
+<thead>
+<tr>
+<th>Outlet</th>
+<th>Pemilik</th>
+<th>Sales</th>
+<th>Tipe</th>
+<th>HP</th>
+<th>Alamat</th>
+<th>GPS</th>
+</tr>
+</thead>
+
+<tbody id="outletTable"></tbody>
+
+</table>
+
+</div>
+
+</div>
+
+</div>
+
+
+<!-- SALES HISTORY -->
+<div id="salesHistory" class="page">
+
+<div class="card">
+
+<div class="section-title">🛒 Rekap Penjualan</div>
 
 <div class="form-grid">
 
 <div>
-<label>Target Bulanan / Sales</label>
-<input
-id="targetMonthly"
-type="number"
-value="1500">
+<label>Sales</label>
+<select id="filterSales" onchange="renderAll()">
+<option value="">Semua Sales</option>
+</select>
 </div>
 
 <div>
-<label>Hari Kerja</label>
-<input
-id="workDays"
-type="number"
-value="26">
+<label>Status Pembayaran</label>
+<select id="filterPayment" onchange="renderAll()">
+<option value="">Semua</option>
+<option value="paid">Sudah Dibayar</option>
+<option value="unpaid">Belum Dibayar</option>
+<option value="return">Retur</option>
+</select>
 </div>
 
 <div>
-<label>Target Outlet / Hari</label>
-<input
-id="targetOutlet"
-type="number"
-value="30">
+<label>Periode</label>
+<select id="filterPeriod" onchange="renderAll()">
+<option value="month">Bulan Ini</option>
+<option value="all">Semua</option>
+</select>
 </div>
 
-<div>
-<label>Harga Jual / Pack</label>
-<input
-id="productPrice"
-type="number"
-value="34000">
-</div>
-
-<div>
-<label>HPP / Pack</label>
-<input
-id="productHpp"
-type="number"
-value="22908">
-</div>
-
-<div>
-<label>Komisi / Pack</label>
-<input
-id="commission"
-type="number"
-value="1000">
-</div>
-
-<div>
-<label>Gaji Pokok</label>
-<input
-id="baseSalary"
-type="number"
-value="2000000">
-</div>
-
-<div>
-<label>Operasional</label>
-<input
-id="operational"
-type="number"
-value="750000">
-</div>
-
-<div>
-<label>Bonus Target</label>
-<input
-id="targetBonus"
-type="number"
-value="500000">
-</div>
-
-</div>
-
-<button
-class="btn"
-onclick="saveSettings()">
-
-💾 SIMPAN PENGATURAN
-
-</button>
-
-<span
-id="settingStatus"
-class="status">
-</span>
-
-</div>
-
-
-<!-- ================================================= -->
-<!-- SALES -->
-<!-- ================================================= -->
-
-<div class="card">
-
-<div class="section-title">
-👥 Manajemen Sales
-</div>
-
-<button
-class="btn"
-onclick="openSalesModal()">
-
-➕ TAMBAH SALES
-
-</button>
-
-<div
-class="table-wrap"
-style="margin-top:15px;">
-
-<table>
-
-<thead>
-
-<tr>
-
-<th>Sales</th>
-<th>Kode</th>
-<th>Wilayah</th>
-<th>Target</th>
-<th>Status</th>
-<th>Aksi</th>
-
-</tr>
-
-</thead>
-
-<tbody
-id="salesManagementTable">
-
-</tbody>
-
-</table>
-
-</div>
-
-</div>
-
-
-<!-- ================================================= -->
-<!-- KINERJA SALES -->
-<!-- ================================================= -->
-
-<div class="card">
-
-<div class="section-title">
-📊 Kinerja Sales
-</div>
-
-<div
-class="table-wrap">
-
-<table>
-
-<thead>
-
-<tr>
-
-<th>Rank</th>
-<th>Sales</th>
-<th>Pack</th>
-<th>Achievement</th>
-<th>Omzet</th>
-<th>Komisi</th>
-<th>Pendapatan</th>
-
-</tr>
-
-</thead>
-
-<tbody
-id="performanceTable">
-
-</tbody>
-
-</table>
-
-</div>
-
-</div>
-
-
-<!-- ================================================= -->
-<!-- LEADERBOARD -->
-<!-- ================================================= -->
-
-<div class="card">
-
-<div class="section-title">
-🏆 Leaderboard Sales
-</div>
-
-<div
-id="leaderboard">
-Belum ada data.
-</div>
-
-</div>
-
-
-<!-- ================================================= -->
-<!-- ALERT -->
-<!-- ================================================= -->
-
-<div class="card">
-
-<div class="section-title">
-⚠️ Alert Owner
-</div>
-
-<div id="alerts">
-Menganalisis data...
-</div>
-
-</div>
-
-
-<!-- ================================================= -->
-<!-- MAP -->
-<!-- ================================================= -->
-
-<div class="card">
-
-<div class="section-title">
-🗺️ Peta Kunjungan Sales
-</div>
-
-<div id="map"></div>
-
-<div
-style="margin-top:10px;font-size:12px;color:#666;">
-
-Titik pada peta menunjukkan lokasi check-in sales.
-Klik titik untuk melihat nama sales dan outlet.
-
-</div>
-
-</div>
-
-
-<!-- ================================================= -->
-<!-- KUNJUNGAN -->
-<!-- ================================================= -->
-
-<div class="card">
-
-<div class="section-title">
-📍 Rekap Kunjungan
 </div>
 
 <div class="table-wrap">
@@ -815,7 +371,116 @@ Klik titik untuk melihat nama sales dan outlet.
 <table>
 
 <thead>
+<tr>
+<th>Tanggal</th>
+<th>Sales</th>
+<th>Outlet</th>
+<th>Pack</th>
+<th>Omzet</th>
+<th>Status</th>
+</tr>
+</thead>
 
+<tbody id="historyTable"></tbody>
+
+</table>
+
+</div>
+
+</div>
+
+</div>
+
+
+<!-- DEPOSITS -->
+<div id="deposits" class="page">
+
+<div class="card">
+
+<div class="section-title">💰 Rekap Setoran</div>
+
+<div class="table-wrap">
+
+<table>
+
+<thead>
+<tr>
+<th>Tanggal</th>
+<th>Sales</th>
+<th>Jumlah</th>
+<th>Keterangan</th>
+<th>Status</th>
+</tr>
+</thead>
+
+<tbody id="depositTable"></tbody>
+
+</table>
+
+</div>
+
+</div>
+
+</div>
+
+
+<!-- STOCK -->
+<div id="stock" class="page">
+
+<div class="card">
+
+<div class="section-title">📦 Stok Sales</div>
+
+<div class="table-wrap">
+
+<table>
+
+<thead>
+<tr>
+<th>Sales</th>
+<th>Stok Awal</th>
+<th>Diterima</th>
+<th>Terjual</th>
+<th>Retur</th>
+<th>Stok Akhir</th>
+</tr>
+</thead>
+
+<tbody id="stockTable"></tbody>
+
+</table>
+
+</div>
+
+</div>
+
+</div>
+
+
+<!-- MAP -->
+<div id="map" class="page">
+
+<div class="card">
+
+<div class="section-title">🗺️ Peta Aktivitas Sales</div>
+
+<iframe
+id="mapFrame"
+class="map"
+src="https://www.google.com/maps?q=Indonesia&output=embed">
+</iframe>
+
+</div>
+
+<div class="card">
+
+<div class="section-title">📍 Riwayat Check-in</div>
+
+<div class="table-wrap">
+
+<table>
+
+<thead>
 <tr>
 <th>Tanggal</th>
 <th>Sales</th>
@@ -823,12 +488,9 @@ Klik titik untuk melihat nama sales dan outlet.
 <th>Koordinat</th>
 <th>Maps</th>
 </tr>
-
 </thead>
 
-<tbody
-id="visitTable">
-</tbody>
+<tbody id="visitTable"></tbody>
 
 </table>
 
@@ -836,120 +498,32 @@ id="visitTable">
 
 </div>
 
+</div>
 
-<!-- ================================================= -->
-<!-- PENJUALAN -->
-<!-- ================================================= -->
+
+<!-- PAYROLL -->
+<div id="payroll" class="page">
 
 <div class="card">
 
-<div class="section-title">
-🛒 Rekap Penjualan
-</div>
+<div class="section-title">💼 Penggajian Sales</div>
 
 <div class="table-wrap">
 
 <table>
 
 <thead>
-
-<tr>
-<th>Tanggal</th>
-<th>Sales</th>
-<th>Outlet</th>
-<th>Pack</th>
-<th>Nilai</th>
-<th>Status</th>
-</tr>
-
-</thead>
-
-<tbody
-id="salesHistoryTable">
-</tbody>
-
-</table>
-
-</div>
-
-</div>
-
-
-<!-- ================================================= -->
-<!-- SETORAN -->
-<!-- ================================================= -->
-
-<div class="card">
-
-<div class="section-title">
-💰 Rekap Setoran
-</div>
-
-<div class="table-wrap">
-
-<table>
-
-<thead>
-
-<tr>
-<th>Tanggal</th>
-<th>Sales</th>
-<th>Jumlah</th>
-<th>Keterangan</th>
-</tr>
-
-</thead>
-
-<tbody
-id="depositTable">
-</tbody>
-
-</table>
-
-</div>
-
-<div
-style="font-size:18px;font-weight:bold;margin-top:15px;"
-id="totalDeposit">
-
-Total Setoran: Rp 0
-
-</div>
-
-</div>
-
-
-<!-- ================================================= -->
-<!-- PENGGAJIAN -->
-<!-- ================================================= -->
-
-<div class="card">
-
-<div class="section-title">
-💵 Penggajian Sales
-</div>
-
-<div class="table-wrap">
-
-<table>
-
-<thead>
-
 <tr>
 <th>Sales</th>
-<th>Pack</th>
 <th>Gapok</th>
 <th>Operasional</th>
 <th>Komisi</th>
 <th>Bonus</th>
 <th>Total</th>
 </tr>
-
 </thead>
 
-<tbody
-id="payrollTable">
-</tbody>
+<tbody id="payrollTable"></tbody>
 
 </table>
 
@@ -957,219 +531,233 @@ id="payrollTable">
 
 </div>
 
+</div>
 
-<!-- ================================================= -->
-<!-- AI -->
-<!-- ================================================= -->
+
+<!-- REPORT -->
+<div id="reports" class="page">
 
 <div class="card">
 
-<div class="section-title">
-🤖 AI Sales Coach — Management Insight
+<div class="section-title">🖨️ Laporan Owner</div>
+
+<div class="form-grid">
+
+<div>
+<label>Sales</label>
+<select id="reportSales">
+<option value="">Semua Sales</option>
+</select>
 </div>
 
-<div
-class="ai-box"
-id="managementInsight">
-
-Menganalisis data...
-
+<div>
+<label>Periode</label>
+<select id="reportPeriod">
+<option value="month">Bulan Ini</option>
+<option value="all">Semua Data</option>
+</select>
 </div>
 
 </div>
 
-
-<!-- ================================================= -->
-<!-- LOGOUT -->
-<!-- ================================================= -->
-
-<button
-class="btn btn-red"
-style="width:100%;margin-bottom:30px;"
-onclick="logoutOwner()">
-
-🔒 KELUAR DASHBOARD OWNER
-
+<button class="btn" onclick="printReport()">
+🖨️ CETAK / SIMPAN PDF
 </button>
 
 </div>
+
+<div id="printReportArea" class="card">
+
+<h2>CRISFISH SALES</h2>
+<p>Laporan Penjualan & Kinerja Sales</p>
+
+<hr style="margin:12px 0">
+
+<div id="reportContent"></div>
+
+</div>
+
 </div>
 
 
-<!-- ================================================= -->
-<!-- MODAL SALES -->
-<!-- ================================================= -->
+<!-- SETTINGS -->
+<div id="settings" class="page">
 
-<div
-id="salesModal"
-class="modal">
+<div class="card">
+
+<div class="section-title">⚙️ Target & Penggajian</div>
+
+<div class="form-grid">
+
+<div>
+<label>Target Bulanan / Sales</label>
+<input id="settingTarget" type="number">
+</div>
+
+<div>
+<label>Hari Kerja</label>
+<input id="settingWorkdays" type="number">
+</div>
+
+<div>
+<label>Harga Jual / Pack</label>
+<input id="settingPrice" type="number">
+</div>
+
+<div>
+<label>HPP / Pack</label>
+<input id="settingHpp" type="number">
+</div>
+
+<div>
+<label>Gapok</label>
+<input id="settingSalary" type="number">
+</div>
+
+<div>
+<label>Operasional</label>
+<input id="settingOperational" type="number">
+</div>
+
+<div>
+<label>Komisi / Pack</label>
+<input id="settingCommission" type="number">
+</div>
+
+<div>
+<label>Bonus Target</label>
+<input id="settingBonus" type="number">
+</div>
+
+<div>
+<label>Target Outlet / Hari</label>
+<input id="settingOutletTarget" type="number">
+</div>
+
+</div>
+
+<button class="btn" onclick="saveSettings()">
+💾 SIMPAN PENGATURAN
+</button>
+
+<div id="settingStatus" class="status"></div>
+
+</div>
+
+
+<div class="card">
+
+<div class="section-title">🔐 Keamanan Owner</div>
+
+<label>Password Lama</label>
+<input id="oldPassword" type="password">
+
+<label>Password Baru</label>
+<input id="newPassword" type="password">
+
+<label>Konfirmasi Password</label>
+<input id="confirmPassword" type="password">
+
+<button class="btn-blue" onclick="changePassword()">
+UBAH PASSWORD
+</button>
+
+<div id="passwordStatus" class="status"></div>
+
+</div>
+
+
+<div class="card">
+
+<div class="section-title">📝 Audit Log</div>
+
+<div class="table-wrap">
+
+<table>
+
+<thead>
+<tr>
+<th>Waktu</th>
+<th>User</th>
+<th>Aksi</th>
+<th>Keterangan</th>
+</tr>
+</thead>
+
+<tbody id="auditTable"></tbody>
+
+</table>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+
+<!-- MODAL SALES -->
+<div class="modal" id="salesModal">
 
 <div class="modal-box">
 
-<div class="modal-title">
-👤 Data Sales
-</div>
+<div class="modal-title">👤 Data Sales</div>
 
-<label>Nama Sales</label>
+<input id="salesKey" type="hidden">
+
+<label>Nama Lengkap</label>
 <input id="salesName">
+
+<label>Nama Panggilan</label>
+<input id="salesNick">
 
 <label>Nomor HP</label>
 <input id="salesPhone">
 
-<label>Wilayah Kerja</label>
-<input id="salesArea">
+<label>Email</label>
+<input id="salesEmail" type="email">
 
-<label>Kode Sales</label>
+<label>Kode Sales / Username</label>
 <input id="salesCode">
 
-<label>Password / PIN Sales</label>
-<input id="salesPin" type="text">
+<label>Area</label>
+<input id="salesArea">
 
-<label>Tanggal Mulai</label>
-<input id="salesStart" type="date">
+<label>Wilayah</label>
+<input id="salesRegion">
 
 <label>Target Bulanan</label>
 <input id="salesTarget" type="number">
 
+<label>Tanggal Mulai</label>
+<input id="salesStart" type="date">
+
 <label>Status</label>
-
 <select id="salesStatus">
-
-<option value="aktif">
-Aktif
-</option>
-
-<option value="nonaktif">
-Nonaktif
-</option>
-
-<option value="keluar">
-Keluar Kerja
-</option>
-
+<option value="ACTIVE">AKTIF</option>
+<option value="INACTIVE">NONAKTIF</option>
 </select>
 
-<input
-id="editingSalesId"
-type="hidden">
+<label>Password Awal</label>
+<input id="salesPassword" type="password"
+placeholder="Isi jika membuat akun login">
 
-<button
-class="btn"
-onclick="saveSalesUser()">
+<div class="actions">
 
-💾 SIMPAN SALES
-
+<button class="btn" onclick="saveSales()">
+SIMPAN
 </button>
 
-<button
-class="btn btn-gray"
-style="margin-top:8px;"
-onclick="closeSalesModal()">
-
+<button class="btn-gray"
+onclick="closeModal('salesModal')">
 BATAL
-
 </button>
 
 </div>
-</div>
 
-
-<!-- ================================================= -->
-<!-- CHANGE PASSWORD -->
-<!-- ================================================= -->
-
-<div
-id="passwordModal"
-class="modal">
-
-<div class="modal-box">
-
-<div class="modal-title">
-🔐 Ganti Password Owner
-</div>
-
-<label>Password Lama</label>
-
-<input
-id="oldPassword"
-type="password">
-
-<label>Password Baru</label>
-
-<input
-id="newPassword"
-type="password">
-
-<label>Konfirmasi Password Baru</label>
-
-<input
-id="confirmPassword"
-type="password">
-
-<button
-class="btn"
-onclick="changePassword()">
-
-SIMPAN PASSWORD
-
-</button>
-
-<button
-class="btn btn-gray"
-style="margin-top:8px;"
-onclick="closePasswordModal()">
-
-BATAL
-
-</button>
-
-</div>
-</div>
-
-
-<!-- ================================================= -->
-<!-- RECOVERY -->
-<!-- ================================================= -->
-
-<div
-id="recoveryModal"
-class="modal">
-
-<div class="modal-box">
-
-<div class="modal-title">
-🔑 Pemulihan Password
-</div>
-
-<p style="font-size:14px;line-height:1.6;">
-
-Jika lupa password Owner, gunakan kontak pemulihan resmi:
-
-<br><br>
-
-📱 WhatsApp:
-<b>087739259944</b>
-
-<br>
-
-📧 Email:
-<b>petekresindonesia@gmail.com</b>
-
-<br><br>
-
-Untuk keamanan, kode verifikasi sebaiknya dikirim melalui
-WhatsApp/email oleh sistem backend pada tahap keamanan berikutnya.
-
-</p>
-
-<button
-class="btn btn-gray"
-style="margin-top:15px;"
-onclick="closeRecovery()">
-
-TUTUP
-
-</button>
+<div id="salesStatusText" class="status"></div>
 
 </div>
 </div>
@@ -1177,15 +765,12 @@ TUTUP
 
 <script type="module">
 
-/* =================================================
-FIREBASE
-================================================= */
-
 import {
-initializeApp
+initializeApp,
+getApps,
+getApp
 }
-from
-"https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
 
 import {
 getDatabase,
@@ -1194,1451 +779,1231 @@ set,
 push,
 onValue
 }
-from
-"https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
+from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
+
+import {
+getAuth,
+signInWithEmailAndPassword,
+signOut,
+sendPasswordResetEmail,
+updatePassword,
+EmailAuthProvider,
+reauthenticateWithCredential
+}
+from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 
 
 const firebaseConfig={
-
 databaseURL:
 "https://crisfish-sales-default-rtdb.asia-southeast1.firebasedatabase.app/"
-
 };
 
+
 const app=
-initializeApp(firebaseConfig);
-
-const database=
-getDatabase(app);
-
-
-/* =================================================
-OWNER PASSWORD
-================================================= */
-
-const DEFAULT_OWNER_PASSWORD="991994";
-
-let ownerPassword=
-localStorage.getItem("crisfishOwnerPassword")
-||
-DEFAULT_OWNER_PASSWORD;
+getApps().length
+?getApp()
+:initializeApp(firebaseConfig);
 
 
-/* =================================================
-LOGIN
-================================================= */
+const database=getDatabase(app);
+const auth=getAuth(app);
 
-window.ownerLogin=function(){
+
+let salesData={};
+let ordersData={};
+let outletsData={};
+let depositsData={};
+let checkinsData={};
+let settingsData={};
+let stocksData={};
+
+
+const defaultSettings={
+targetMonthly:1500,
+workdays:26,
+productPrice:34000,
+productHpp:22908,
+salary:2000000,
+operational:750000,
+commission:1000,
+bonus:500000,
+outletTarget:30
+};
+
+
+/* =========================
+AUTH
+========================= */
+
+auth.onAuthStateChanged=function(){};
+
+
+window.ownerLogin=async function(){
+
+const email=
+document.getElementById("loginEmail").value.trim();
 
 const password=
-document.getElementById(
-"ownerPassword"
-).value;
+document.getElementById("loginPassword").value;
 
-if(password===ownerPassword){
+if(!email||!password){
+
+setLoginStatus("Email dan password wajib diisi.");
+
+return;
+
+}
+
+try{
+
+await signInWithEmailAndPassword(
+auth,
+email,
+password
+);
 
 document.getElementById(
 "loginScreen"
-).classList.add("hidden");
+).style.display="none";
 
 document.getElementById(
-"ownerApp"
-).classList.remove("hidden");
+"app"
+).style.display="block";
 
-localStorage.setItem(
-"crisfishOwnerLogin",
-"true"
+loadEverything();
+
+}
+
+catch(error){
+
+setLoginStatus(
+"Gagal login: "+
+error.message
 );
-
-setTimeout(initMap,500);
-
-}else{
-
-document.getElementById(
-"loginMessage"
-).innerText=
-"❌ Password Owner salah.";
 
 }
 
 };
 
 
-window.logoutOwner=function(){
+window.logout=async function(){
 
-localStorage.removeItem(
-"crisfishOwnerLogin"
-);
+await signOut(auth);
 
 location.reload();
 
 };
 
 
-/* =================================================
-AUTO LOGIN
-================================================= */
+window.forgotPassword=async function(){
 
-if(
-localStorage.getItem("crisfishOwnerLogin")
-==="true"
-){
+const email=
+document.getElementById("loginEmail").value.trim();
 
-document.getElementById(
-"loginScreen"
-).classList.add("hidden");
+if(!email){
 
-document.getElementById(
-"ownerApp"
-).classList.remove("hidden");
-
-}
-
-
-/* =================================================
-PASSWORD MODAL
-================================================= */
-
-window.showChangePassword=function(){
-
-document.getElementById(
-"passwordModal"
-).style.display="flex";
-
-};
-
-window.closePasswordModal=function(){
-
-document.getElementById(
-"passwordModal"
-).style.display="none";
-
-};
-
-
-window.changePassword=function(){
-
-const oldPass=
-document.getElementById("oldPassword").value;
-
-const newPass=
-document.getElementById("newPassword").value;
-
-const confirm=
-document.getElementById("confirmPassword").value;
-
-if(oldPass!==ownerPassword){
-
-alert("Password lama salah.");
-
-return;
-
-}
-
-if(newPass.length<6){
-
-alert("Password baru minimal 6 karakter.");
-
-return;
-
-}
-
-if(newPass!==confirm){
-
-alert("Konfirmasi password tidak sama.");
-
-return;
-
-}
-
-ownerPassword=newPass;
-
-localStorage.setItem(
-"crisfishOwnerPassword",
-newPass
+setLoginStatus(
+"Masukkan email Owner terlebih dahulu."
 );
 
-alert(
-"✅ Password Owner berhasil diganti."
+return;
+
+}
+
+try{
+
+await sendPasswordResetEmail(
+auth,
+email
 );
 
-closePasswordModal();
+setLoginStatus(
+"✅ Link reset password dikirim ke email."
+);
+
+}
+catch(error){
+
+setLoginStatus(
+"Gagal mengirim reset password: "+
+error.message
+);
+
+}
 
 };
 
 
-/* =================================================
-RECOVERY
-================================================= */
-
-window.showRecovery=function(){
+function setLoginStatus(text){
 
 document.getElementById(
-"recoveryModal"
-).style.display="flex";
+"loginStatus"
+).innerText=text;
 
-};
-
-window.closeRecovery=function(){
-
-document.getElementById(
-"recoveryModal"
-).style.display="none";
-
-};
+}
 
 
-/* =================================================
-FIREBASE STATUS
-================================================= */
+/* =========================
+LOAD DATA
+========================= */
+
+function loadEverything(){
 
 document.getElementById(
 "firebaseStatus"
-).innerText=
-"🟢 Firebase terhubung";
-
-document.getElementById(
-"firebaseStatus"
-).classList.add("success");
-
-
-/* =================================================
-SETTINGS
-================================================= */
-
-const settingsRef=
-ref(database,"settings");
-
-let settings={
-targetMonthly:1500,
-workDays:26,
-targetOutlet:30,
-productPrice:34000,
-productHpp:22908,
-commission:1000,
-baseSalary:2000000,
-operational:750000,
-targetBonus:500000
-};
-
+).innerText="🟢 Firebase terhubung";
 
 onValue(
-settingsRef,
-snapshot=>{
+ref(database,"settings"),
+s=>{
+settingsData=s.val()||{};
+applySettings();
+renderAll();
+}
+);
 
-const data=
-snapshot.val()||{};
+onValue(
+ref(database,"sales"),
+s=>{
+salesData=s.val()||{};
+renderAll();
+}
+);
 
-settings={
-...settings,
-...data
+onValue(
+ref(database,"sales_orders"),
+s=>{
+ordersData=s.val()||{};
+renderAll();
+}
+);
+
+onValue(
+ref(database,"sales"),
+s=>{
+ordersData=s.val()||{};
+renderAll();
+}
+);
+
+onValue(
+ref(database,"outlets"),
+s=>{
+outletsData=s.val()||{};
+renderAll();
+}
+);
+
+onValue(
+ref(database,"deposits"),
+s=>{
+depositsData=s.val()||{};
+renderAll();
+}
+);
+
+onValue(
+ref(database,"checkins"),
+s=>{
+checkinsData=s.val()||{};
+renderAll();
+}
+);
+
+onValue(
+ref(database,"stocks"),
+s=>{
+stocksData=s.val()||{};
+renderAll();
+}
+);
+
+onValue(
+ref(database,"audit_logs"),
+s=>{
+renderAudit(s.val()||{});
+}
+);
+
+}
+
+
+/* =========================
+SETTINGS
+========================= */
+
+function applySettings(){
+
+const d={
+...defaultSettings,
+...settingsData
 };
 
-document.getElementById("targetMonthly").value=
-settings.targetMonthly;
+document.getElementById("settingTarget").value=d.targetMonthly;
+document.getElementById("settingWorkdays").value=d.workdays;
+document.getElementById("settingPrice").value=d.productPrice;
+document.getElementById("settingHpp").value=d.productHpp;
+document.getElementById("settingSalary").value=d.salary;
+document.getElementById("settingOperational").value=d.operational;
+document.getElementById("settingCommission").value=d.commission;
+document.getElementById("settingBonus").value=d.bonus;
+document.getElementById("settingOutletTarget").value=d.outletTarget;
 
-document.getElementById("workDays").value=
-settings.workDays;
-
-document.getElementById("targetOutlet").value=
-settings.targetOutlet;
-
-document.getElementById("productPrice").value=
-settings.productPrice;
-
-document.getElementById("productHpp").value=
-settings.productHpp;
-
-document.getElementById("commission").value=
-settings.commission;
-
-document.getElementById("baseSalary").value=
-settings.baseSalary;
-
-document.getElementById("operational").value=
-settings.operational;
-
-document.getElementById("targetBonus").value=
-settings.targetBonus;
-
-renderAll();
-
-});
+}
 
 
 window.saveSettings=async function(){
 
-settings={
+const old={
+...defaultSettings,
+...settingsData
+};
+
+const data={
+targetMonthly:Number(document.getElementById("settingTarget").value),
+workdays:Number(document.getElementById("settingWorkdays").value),
+productPrice:Number(document.getElementById("settingPrice").value),
+productHpp:Number(document.getElementById("settingHpp").value),
+salary:Number(document.getElementById("settingSalary").value),
+operational:Number(document.getElementById("settingOperational").value),
+commission:Number(document.getElementById("settingCommission").value),
+bonus:Number(document.getElementById("settingBonus").value),
+outletTarget:Number(document.getElementById("settingOutletTarget").value),
+updatedAt:Date.now()
+};
+
+await set(ref(database,"settings"),data);
+
+await audit(
+"UBAH PENGATURAN",
+JSON.stringify({
+lama:old,
+baru:data
+})
+);
+
+document.getElementById(
+"settingStatus"
+).innerText="✅ Pengaturan berhasil disimpan.";
+
+};
+
+
+/* =========================
+SALES
+========================= */
+
+window.openSalesModal=function(key=""){
+
+document.getElementById("salesKey").value=key;
+
+if(key&&salesData[key]){
+
+const s=salesData[key];
+
+document.getElementById("salesName").value=s.name||"";
+document.getElementById("salesNick").value=s.nick||"";
+document.getElementById("salesPhone").value=s.phone||"";
+document.getElementById("salesEmail").value=s.email||"";
+document.getElementById("salesCode").value=s.salesId||key;
+document.getElementById("salesArea").value=s.area||"";
+document.getElementById("salesRegion").value=s.region||"";
+document.getElementById("salesTarget").value=
+s.targetMonthly||settingsData.targetMonthly||1500;
+document.getElementById("salesStart").value=s.startDate||"";
+document.getElementById("salesStatus").value=
+s.status||"ACTIVE";
+
+}else{
+
+document.querySelectorAll("#salesModal input").forEach(
+x=>x.value=""
+);
+
+document.getElementById("salesTarget").value=
+settingsData.targetMonthly||1500;
+
+document.getElementById("salesStatus").value="ACTIVE";
+
+}
+
+document.getElementById(
+"salesModal"
+).style.display="flex";
+
+};
+
+
+window.saveSales=async function(){
+
+const key=
+document.getElementById("salesKey").value;
+
+const name=
+document.getElementById("salesName").value.trim();
+
+const salesId=
+document.getElementById("salesCode").value.trim();
+
+if(!name||!salesId){
+
+alert("Nama dan kode sales wajib diisi.");
+
+return;
+
+}
+
+const data={
+
+name:name,
+
+nick:
+document.getElementById("salesNick").value.trim(),
+
+phone:
+document.getElementById("salesPhone").value.trim(),
+
+email:
+document.getElementById("salesEmail").value.trim(),
+
+salesId:salesId,
+
+area:
+document.getElementById("salesArea").value.trim(),
+
+region:
+document.getElementById("salesRegion").value.trim(),
 
 targetMonthly:
-Number(document.getElementById("targetMonthly").value),
+Number(document.getElementById("salesTarget").value),
 
-workDays:
-Number(document.getElementById("workDays").value),
+startDate:
+document.getElementById("salesStart").value,
 
-targetOutlet:
-Number(document.getElementById("targetOutlet").value),
-
-productPrice:
-Number(document.getElementById("productPrice").value),
-
-productHpp:
-Number(document.getElementById("productHpp").value),
-
-commission:
-Number(document.getElementById("commission").value),
-
-baseSalary:
-Number(document.getElementById("baseSalary").value),
-
-operational:
-Number(document.getElementById("operational").value),
-
-targetBonus:
-Number(document.getElementById("targetBonus").value),
+status:
+document.getElementById("salesStatus").value,
 
 updatedAt:Date.now()
 
 };
 
-await set(
-settingsRef,
-settings
-);
 
-await writeAudit(
-"Pengaturan bisnis",
-"settings",
-settings
-);
+try{
 
-document.getElementById(
-"settingStatus"
-).innerText=
-"✅ Pengaturan berhasil disimpan.";
+let targetRef;
 
-renderAll();
+if(key){
 
-};
-
-
-/* =================================================
-DATA CACHE
-================================================= */
-
-let salesUsers={};
-let salesData={};
-let checkinData={};
-let outletData={};
-let depositData={};
-
-
-/* =================================================
-SALES USERS
-================================================= */
-
-onValue(
-ref(database,"salesUsers"),
-snapshot=>{
-
-salesUsers=
-snapshot.val()||{};
-
-renderSalesManagement();
-renderAll();
-
-});
-
-
-/* =================================================
-SALES LAMA
-================================================= */
-
-onValue(
-ref(database,"sales"),
-snapshot=>{
-
-salesData=
-snapshot.val()||{};
-
-renderAll();
-
-});
-
-
-/* =================================================
-CHECKINS
-================================================= */
-
-onValue(
-ref(database,"checkins"),
-snapshot=>{
-
-checkinData=
-snapshot.val()||{};
-
-renderVisits();
-renderMap();
-renderAll();
-
-});
-
-
-/* =================================================
-OUTLETS
-================================================= */
-
-onValue(
-ref(database,"outlets"),
-snapshot=>{
-
-outletData=
-snapshot.val()||{};
-
-renderAll();
-
-});
-
-
-/* =================================================
-DEPOSITS
-================================================= */
-
-onValue(
-ref(database,"deposits"),
-snapshot=>{
-
-depositData=
-snapshot.val()||{};
-
-renderDeposits();
-renderAll();
-
-});
-
-
-/* =================================================
-SALES MODAL
-================================================= */
-
-window.openSalesModal=function(id=""){
-
-document.getElementById(
-"salesModal"
-).style.display="flex";
-
-document.getElementById(
-"editingSalesId"
-).value=id;
-
-if(id && salesUsers[id]){
-
-const s=salesUsers[id];
-
-document.getElementById("salesName").value=
-s.name||"";
-
-document.getElementById("salesPhone").value=
-s.phone||"";
-
-document.getElementById("salesArea").value=
-s.area||"";
-
-document.getElementById("salesCode").value=
-s.code||id;
-
-document.getElementById("salesPin").value=
-s.pin||"";
-
-document.getElementById("salesStart").value=
-s.startDate||"";
-
-document.getElementById("salesTarget").value=
-s.target||settings.targetMonthly;
-
-document.getElementById("salesStatus").value=
-s.status||"aktif";
+targetRef=ref(database,"sales/"+key);
 
 }else{
 
-document.getElementById("salesName").value="";
-document.getElementById("salesPhone").value="";
-document.getElementById("salesArea").value="";
-document.getElementById("salesCode").value="";
-document.getElementById("salesPin").value="";
-document.getElementById("salesStart").value="";
-document.getElementById("salesTarget").value=
-settings.targetMonthly;
+targetRef=push(ref(database,"sales"));
 
-document.getElementById("salesStatus").value="aktif";
+}
+
+await set(targetRef,data);
+
+await audit(
+key?"EDIT SALES":"TAMBAH SALES",
+JSON.stringify(data)
+);
+
+alert("✅ Data sales berhasil disimpan.");
+
+closeModal("salesModal");
+
+}
+
+catch(error){
+
+document.getElementById(
+"salesStatusText"
+).innerText=
+"❌ "+error.message;
 
 }
 
 };
 
 
-window.closeSalesModal=function(){
+window.toggleSales=async function(key){
 
-document.getElementById(
-"salesModal"
-).style.display="none";
+if(!salesData[key])return;
 
-};
-
-
-/* =================================================
-SAVE SALES
-================================================= */
-
-window.saveSalesUser=async function(){
-
-const editId=
-document.getElementById(
-"editingSalesId"
-).value;
-
-const name=
-document.getElementById(
-"salesName"
-).value.trim();
-
-const phone=
-document.getElementById(
-"salesPhone"
-).value.trim();
-
-const area=
-document.getElementById(
-"salesArea"
-).value.trim();
-
-const code=
-document.getElementById(
-"salesCode"
-).value.trim();
-
-const pin=
-document.getElementById(
-"salesPin"
-).value.trim();
-
-const startDate=
-document.getElementById(
-"salesStart"
-).value;
-
-const target=
-Number(
-document.getElementById(
-"salesTarget"
-).value
-)||settings.targetMonthly;
-
-const status=
-document.getElementById(
-"salesStatus"
-).value;
-
-
-if(!name||!code||!pin){
-
-alert(
-"Nama, kode sales dan PIN wajib diisi."
-);
-
-return;
-
-}
-
-
-/*
-Kode sales menjadi ID database.
-*/
-
-const id=
-editId||code.toLowerCase().replace(
-/[^a-z0-9_-]/g,""
-);
-
-
-const old=
-salesUsers[id]||null;
-
-
-const salesUser={
-
-name:name,
-
-phone:phone,
-
-area:area,
-
-code:code,
-
-pin:pin,
-
-startDate:startDate,
-
-target:target,
-
-status:status,
-
-updatedAt:Date.now(),
-
-createdAt:
-old?.createdAt||Date.now()
-
-};
-
-
-await set(
-ref(database,"salesUsers/"+id),
-salesUser
-);
-
-
-await writeAudit(
-editId?
-"Edit sales":
-"Tambah sales",
-id,
-salesUser
-);
-
-
-alert(
-"✅ Data sales berhasil disimpan."
-);
-
-closeSalesModal();
-
-renderSalesManagement();
-
-};
-
-
-/* =================================================
-SALES MANAGEMENT TABLE
-================================================= */
-
-function renderSalesManagement(){
-
-const tbody=
-document.getElementById(
-"salesManagementTable"
-);
-
-tbody.innerHTML="";
-
-const users=
-Object.entries(salesUsers);
-
-if(users.length===0){
-
-tbody.innerHTML=
-"<tr><td colspan='6'>Belum ada sales.</td></tr>";
-
-return;
-
-}
-
-users.forEach(([id,s])=>{
-
-const status=
-s.status||"aktif";
-
-const badge=
-status==="aktif"
-?
-"<span class='badge'>AKTIF</span>"
-:
-"<span class='badge badge-red'>"+
-status.toUpperCase()+
-"</span>";
-
-const row=
-document.createElement("tr");
-
-row.innerHTML=
-
-"<td><b>"+
-(s.name||"-")+
-"</b><br><small>"+
-(s.phone||"")+
-"</small></td>"+
-
-"<td>"+
-(s.code||id)+
-"</td>"+
-
-"<td>"+
-(s.area||"-")+
-"</td>"+
-
-"<td>"+
-Number(
-s.target||settings.targetMonthly
-).toLocaleString("id-ID")+
-"</td>"+
-
-"<td>"+
-badge+
-"</td>"+
-
-"<td>"+
-"<button class='small-btn btn-blue' onclick=\"openSalesModal('"+
-id+
-"')\">EDIT</button>"+
-
-"<button class='small-btn btn-orange' onclick=\"toggleSalesStatus('"+
-id+
-"')\">STATUS</button>"+
-
-"</td>";
-
-tbody.appendChild(row);
-
-});
-
-}
-
-
-/* =================================================
-TOGGLE STATUS
-================================================= */
-
-window.toggleSalesStatus=async function(id){
-
-if(!salesUsers[id])return;
-
-const current=
-salesUsers[id].status||"aktif";
+const old=salesData[key].status||"ACTIVE";
 
 const next=
-current==="aktif"
-?
-"nonaktif"
-:
-"aktif";
+old==="ACTIVE"
+?"INACTIVE"
+:"ACTIVE";
 
 await set(
-ref(database,"salesUsers/"+id+"/status"),
+ref(database,"sales/"+key+"/status"),
 next
 );
 
-await writeAudit(
-"Ubah status sales",
-id,
-{
-oldStatus:current,
-newStatus:next
-}
+await audit(
+"UBAH STATUS SALES",
+salesData[key].name+
+": "+
+old+
+" → "+
+next
 );
 
 };
 
 
-/* =================================================
-PERFORMANCE
-================================================= */
+function renderSales(){
 
-function calculatePerformance(){
+const tbody=
+document.getElementById("salesTable");
 
-const result={};
+tbody.innerHTML="";
 
-Object.entries(salesUsers).forEach(
-([id,s])=>{
+let active=0;
 
-result[id]={
-name:s.name||id,
-target:Number(
-s.target||settings.targetMonthly
-),
-pack:0,
-transactions:0,
-outletNew:0,
-repeat:0,
-deposit:0,
-paidPack:0
-};
+Object.entries(salesData).forEach(
+([key,s])=>{
+
+if(!s)return;
+
+if(s.status==="ACTIVE")active++;
+
+const stats=
+getSalesStats(s);
+
+const target=
+Number(s.targetMonthly||
+settingsData.targetMonthly||
+1500);
+
+const ach=
+target
+?Math.round(stats.pack/target*100)
+:0;
+
+const row=document.createElement("tr");
+
+row.innerHTML=`
+
+<td>
+<b>${esc(s.name||"-")}</b><br>
+<small>${esc(s.salesId||key)}</small>
+</td>
+
+<td>${esc(s.area||"-")}</td>
+
+<td>${target.toLocaleString("id-ID")}</td>
+
+<td>${stats.pack.toLocaleString("id-ID")}</td>
+
+<td>${ach}%</td>
+
+<td>
+<span class="badge ${s.status==="ACTIVE"?"green":"red"}">
+${s.status==="ACTIVE"?"AKTIF":"NONAKTIF"}
+</span>
+</td>
+
+<td>
+<div class="actions">
+<button class="btn-blue btn-small"
+onclick="openSalesModal('${key}')">
+EDIT
+</button>
+
+<button class="${s.status==="ACTIVE"?"btn-red":"btn"} btn-small"
+onclick="toggleSales('${key}')">
+${s.status==="ACTIVE"?"NONAKTIFKAN":"AKTIFKAN"}
+</button>
+</div>
+</td>
+`;
+
+tbody.appendChild(row);
 
 });
 
-
-Object.values(salesData).forEach(item=>{
-
-if(!item)return;
-
-const id=
-item.salesId;
-
-if(!result[id]){
-
-result[id]={
-name:item.salesName||id,
-target:settings.targetMonthly,
-pack:0,
-transactions:0,
-outletNew:0,
-repeat:0,
-deposit:0,
-paidPack:0
-};
+document.getElementById("activeSales").innerText=active;
 
 }
 
-result[id].pack +=
-Number(item.quantity||0);
 
-result[id].transactions++;
+/* =========================
+SALES STATS
+========================= */
 
-const status=
-(
-item.paymentStatus||
-item.status||
-"sudah dibayar"
+function getSalesStats(s){
+
+const id=s.salesId;
+
+let pack=0;
+let revenue=0;
+let transactions=0;
+let paidPack=0;
+let paidRevenue=0;
+
+Object.values(ordersData||{}).forEach(o=>{
+
+if(!o||o.salesId!==id)return;
+
+const qty=Number(o.quantity||0);
+const amount=Number(
+o.amount||
+qty*(settingsData.productPrice||34000)
+);
+
+pack+=qty;
+revenue+=amount;
+transactions++;
+
+const status=String(
+o.paymentStatus||
+o.status||
+"paid"
 ).toLowerCase();
 
 if(
-status==="sudah dibayar"||
 status==="paid"||
-status==="lunas"
+status==="sudah dibayar"||
+status==="cash"
 ){
 
-result[id].paidPack +=
-Number(item.quantity||0);
+paidPack+=qty;
+paidRevenue+=amount;
 
 }
 
 });
 
-
-Object.values(depositData).forEach(item=>{
-
-if(!item)return;
-
-const id=item.salesId;
-
-if(result[id]){
-
-result[id].deposit +=
-Number(item.amount||0);
-
-}
-
-});
-
-
-Object.values(outletData).forEach(item=>{
-
-if(!item)return;
-
-const id=item.salesId;
-
-if(result[id]){
-
-/*
-Outlet baru berdasarkan createdAt.
-*/
-
-result[id].outletNew++;
-
-}
-
-});
-
-
-return result;
-
-}
-
-
-/* =================================================
-RENDER PERFORMANCE
-================================================= */
-
-function renderPerformance(){
-
-const tbody=
-document.getElementById(
-"performanceTable"
-);
-
-tbody.innerHTML="";
-
-const data=
-calculatePerformance();
-
-const rows=
-Object.entries(data)
-.sort((a,b)=>b[1].pack-a[1].pack);
-
-rows.forEach(([id,s],index)=>{
-
-const achievement=
-s.target>0
-?
-Math.round(
-s.pack/s.target*100
-)
-:
-0;
-
-const omzet=
-s.pack*settings.productPrice;
-
-const commission=
-s.paidPack*settings.commission;
-
-const bonus=
-s.paidPack>=s.target
-?
-settings.targetBonus
-:
-0;
-
-const income=
-settings.baseSalary+
-settings.operational+
-commission+
-bonus;
-
-const row=
-document.createElement("tr");
-
-row.innerHTML=
-
-"<td>"+(index+1)+"</td>"+
-
-"<td><b>"+
-s.name+
-"</b><br><small>"+
-id+
-"</small></td>"+
-
-"<td>"+
-s.pack.toLocaleString("id-ID")+
-"</td>"+
-
-"<td>"+
-achievement+
-"%"+
-"</td>"+
-
-"<td>Rp "+
-omzet.toLocaleString("id-ID")+
-"</td>"+
-
-"<td>Rp "+
-commission.toLocaleString("id-ID")+
-"</td>"+
-
-"<td><b>Rp "+
-income.toLocaleString("id-ID")+
-"</b></td>";
-
-tbody.appendChild(row);
-
-});
-
+return{
+pack,
+revenue,
+transactions,
+paidPack,
+paidRevenue
 };
 
-
-/* =================================================
-PAYROLL
-================================================= */
-
-function renderPayroll(){
-
-const tbody=
-document.getElementById(
-"payrollTable"
-);
-
-tbody.innerHTML="";
-
-const data=
-calculatePerformance();
-
-Object.entries(data).forEach(
-([id,s])=>{
-
-const commission=
-s.paidPack*
-settings.commission;
-
-const bonus=
-s.paidPack>=s.target
-?
-settings.targetBonus
-:
-0;
-
-const total=
-settings.baseSalary+
-settings.operational+
-commission+
-bonus;
-
-const row=
-document.createElement("tr");
-
-row.innerHTML=
-
-"<td><b>"+
-s.name+
-"</b></td>"+
-
-"<td>"+
-s.paidPack+
-"</td>"+
-
-"<td>Rp "+
-settings.baseSalary.toLocaleString("id-ID")+
-"</td>"+
-
-"<td>Rp "+
-settings.operational.toLocaleString("id-ID")+
-"</td>"+
-
-"<td>Rp "+
-commission.toLocaleString("id-ID")+
-"</td>"+
-
-"<td>Rp "+
-bonus.toLocaleString("id-ID")+
-"</td>"+
-
-"<td><b>Rp "+
-total.toLocaleString("id-ID")+
-"</b></td>";
-
-tbody.appendChild(row);
-
-});
-
 }
 
 
-/* =================================================
-VISITS
-================================================= */
+/* =========================
+OUTLET
+========================= */
 
-function renderVisits(){
+function renderOutlets(){
 
 const tbody=
-document.getElementById(
-"visitTable"
-);
+document.getElementById("outletTable");
 
 tbody.innerHTML="";
 
-Object.values(checkinData)
-.reverse()
-.slice(0,100)
-.forEach(item=>{
+let count=0;
 
-if(!item)return;
+Object.entries(outletsData).forEach(
+([key,o])=>{
 
-const lat=
-Number(item.latitude);
+if(!o)return;
 
-const lng=
-Number(item.longitude);
+count++;
 
-const maps=
+let maps="";
+
+if(o.latitude&&o.longitude){
+
+const url=
 "https://www.google.com/maps?q="+
-lat+","+lng;
+o.latitude+","+o.longitude;
 
-const row=
-document.createElement("tr");
+maps=
+`<a href="${url}" target="_blank">
+<button class="btn-blue btn-small">MAPS</button>
+</a>`;
 
-row.innerHTML=
+}
 
-"<td>"+
-(
-item.date
-?
-new Date(item.date)
-.toLocaleString("id-ID")
-:
-"-"
-)+
-"</td>"+
+const row=document.createElement("tr");
 
-"<td>"+
-(item.salesName||item.salesId||"-")+
-"</td>"+
+row.innerHTML=`
 
-"<td>"+
-(item.outlet||"-")+
-"</td>"+
-
-"<td>"+
-lat.toFixed(6)+
-", "+
-lng.toFixed(6)+
-"</td>"+
-
-"<td>"+
-"<a href='"+maps+"' target='_blank'>"+
-"<button class='small-btn btn-blue'>MAPS</button>"+
-"</a>"+
-"</td>";
+<td><b>${esc(o.name||"-")}</b></td>
+<td>${esc(o.owner||"-")}</td>
+<td>${esc(o.salesName||o.salesId||"-")}</td>
+<td>${esc(o.type||"-")}</td>
+<td>${esc(o.phone||"-")}</td>
+<td>${esc(o.address||"-")}</td>
+<td>${maps}</td>
+`;
 
 tbody.appendChild(row);
 
 });
 
+document.getElementById(
+"outletTotal"
+).innerText=count;
+
 }
 
 
-/* =================================================
+/* =========================
+ORDERS
+========================= */
+
+function renderOrders(){
+
+const tbody=
+document.getElementById("historyTable");
+
+tbody.innerHTML="";
+
+const filterSales=
+document.getElementById("filterSales").value;
+
+const payment=
+document.getElementById("filterPayment").value;
+
+const period=
+document.getElementById("filterPeriod").value;
+
+let monthPack=0;
+let monthRevenue=0;
+let todayRevenue=0;
+let totalCommission=0;
+
+const now=new Date();
+
+Object.values(ordersData||{})
+.reverse()
+.forEach(o=>{
+
+if(!o)return;
+
+if(
+filterSales &&
+o.salesId!==filterSales
+)return;
+
+const date=
+o.date?new Date(o.date):new Date();
+
+if(
+period==="month" &&
+(date.getMonth()!==now.getMonth()||
+date.getFullYear()!==now.getFullYear())
+)return;
+
+const status=
+String(
+o.paymentStatus||
+o.status||
+"paid"
+).toLowerCase();
+
+if(payment==="paid"&&
+!["paid","sudah dibayar","cash"].includes(status))
+return;
+
+if(payment==="unpaid"&&
+!["unpaid","belum dibayar"].includes(status))
+return;
+
+if(payment==="return"&&
+!["return","retur"].includes(status))
+return;
+
+const qty=Number(o.quantity||0);
+const amount=Number(
+o.amount||
+qty*(settingsData.productPrice||34000)
+);
+
+monthPack+=qty;
+monthRevenue+=amount;
+
+if(
+date.toDateString()===now.toDateString()
+){
+
+todayRevenue+=amount;
+
+}
+
+if(
+["paid","sudah dibayar","cash"].includes(status)
+){
+
+totalCommission+=
+qty*(settingsData.commission||1000);
+
+}
+
+const row=document.createElement("tr");
+
+row.innerHTML=`
+
+<td>${date.toLocaleString("id-ID")}</td>
+<td>${esc(o.salesName||o.salesId||"-")}</td>
+<td>${esc(o.outlet||"-")}</td>
+<td>${qty}</td>
+<td>Rp ${amount.toLocaleString("id-ID")}</td>
+<td>
+<span class="badge ${
+status==="paid"||
+status==="sudah dibayar"||
+status==="cash"
+?"green":
+status==="retur"||
+status==="return"
+?"red":"yellow"
+}">
+${esc(o.paymentStatus||o.status||"Sudah Dibayar")}
+</span>
+</td>
+`;
+
+tbody.appendChild(row);
+
+});
+
+document.getElementById(
+"monthPack"
+).innerText=monthPack.toLocaleString("id-ID");
+
+document.getElementById(
+"todayRevenue"
+).innerText=
+"Rp "+todayRevenue.toLocaleString("id-ID");
+
+document.getElementById(
+"commissionTotal"
+).innerText=
+"Rp "+totalCommission.toLocaleString("id-ID");
+
+}
+
+
+/* =========================
 DEPOSITS
-================================================= */
+========================= */
 
 function renderDeposits(){
 
 const tbody=
-document.getElementById(
-"depositTable"
-);
+document.getElementById("depositTable");
 
 tbody.innerHTML="";
 
 let total=0;
 
-Object.values(depositData)
+Object.values(depositsData||{})
 .reverse()
-.slice(0,100)
-.forEach(item=>{
+.forEach(d=>{
 
-if(!item)return;
+if(!d)return;
 
-const amount=
-Number(item.amount||0);
+const amount=Number(d.amount||0);
 
 total+=amount;
 
-const row=
-document.createElement("tr");
+const row=document.createElement("tr");
 
-row.innerHTML=
+row.innerHTML=`
 
-"<td>"+
-(
-item.date
-?
-new Date(item.date)
-.toLocaleString("id-ID")
-:
-"-"
-)+
-"</td>"+
+<td>${d.date?
+new Date(d.date).toLocaleString("id-ID"):"-"}</td>
 
-"<td>"+
-(item.salesName||item.salesId||"-")+
-"</td>"+
+<td>${esc(d.salesName||d.salesId||"-")}</td>
 
-"<td>Rp "+
-amount.toLocaleString("id-ID")+
-"</td>"+
+<td>Rp ${amount.toLocaleString("id-ID")}</td>
 
-"<td>"+
-(item.note||"-")+
-"</td>";
+<td>${esc(d.note||"-")}</td>
+
+<td>
+<span class="badge yellow">
+${esc(d.status||"MENUNGGU VERIFIKASI")}
+</span>
+</td>
+`;
 
 tbody.appendChild(row);
 
 });
 
 document.getElementById(
-"totalDeposit"
+"depositTotal"
 ).innerText=
-"Total Setoran: Rp "+
-total.toLocaleString("id-ID");
+"Rp "+total.toLocaleString("id-ID");
 
 }
 
 
-/* =================================================
-MAP
-================================================= */
+/* =========================
+CHECKINS / MAPS
+========================= */
 
-let map=null;
+function renderCheckins(){
 
-let markerLayer=null;
+const tbody=
+document.getElementById("visitTable");
 
+tbody.innerHTML="";
 
-function initMap(){
+Object.values(checkinsData||{})
+.reverse()
+.forEach(c=>{
 
-if(map)return;
+if(!c)return;
 
-map=
-L.map("map")
-.setView(
-[-6.9,107.6],
-10
-);
+const lat=Number(c.latitude||0);
+const lng=Number(c.longitude||0);
 
-L.tileLayer(
-"https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
-{
-maxZoom:19,
-attribution:
-"© OpenStreetMap"
-}
-).addTo(map);
+if(!lat&&!lng)return;
 
-markerLayer=
-L.layerGroup().addTo(map);
+const url=
+"https://www.google.com/maps?q="+
+lat+","+lng;
 
-renderMap();
+const row=document.createElement("tr");
 
-}
+row.innerHTML=`
 
+<td>${c.date?
+new Date(c.date).toLocaleString("id-ID"):"-"}</td>
 
-/* =================================================
-RENDER MAP
-================================================= */
+<td>${esc(c.salesName||c.salesId||"-")}</td>
 
-function renderMap(){
+<td>${esc(c.outlet||"-")}</td>
 
-if(!map||!markerLayer)return;
+<td>${lat.toFixed(6)}, ${lng.toFixed(6)}</td>
 
-markerLayer.clearLayers();
+<td>
+<button class="btn-blue btn-small"
+onclick="showMap(${lat},${lng})">
+PETA
+</button>
 
-let first=null;
+<a href="${url}" target="_blank">
+<button class="btn-dark btn-small">
+GOOGLE MAPS
+</button>
+</a>
+</td>
+`;
 
-Object.values(checkinData)
-.forEach(item=>{
+tbody.appendChild(row);
 
-if(!item)return;
-
-const lat=
-Number(item.latitude);
-
-const lng=
-Number(item.longitude);
-
-if(
-!lat||
-!lng||
-isNaN(lat)||
-isNaN(lng)
-)return;
-
-if(!first){
-
-first=[lat,lng];
+});
 
 }
 
-const marker=
-L.marker([lat,lng])
-.addTo(markerLayer);
 
-marker.bindPopup(
+window.showMap=function(lat,lng){
 
-"<b>"+
-(item.salesName||item.salesId||"Sales")+
-"</b><br>"+
-"Outlet: "+
-(item.outlet||"-")+
-"<br><br>"+
-
-"<a href='https://www.google.com/maps?q="+
+document.getElementById(
+"mapFrame"
+).src=
+"https://www.google.com/maps?q="+
 lat+","+lng+
-"' target='_blank'>"+
-"Buka Google Maps"+
-"</a>"
+"&output=embed";
 
+showPage(
+"map",
+document.querySelector(".tabs button:nth-child(7)")
 );
 
+};
+
+
+/* =========================
+STOCK
+========================= */
+
+function renderStock(){
+
+const tbody=
+document.getElementById("stockTable");
+
+tbody.innerHTML="";
+
+Object.entries(salesData).forEach(
+([key,s])=>{
+
+if(!s)return;
+
+const stock=
+stocksData[s.salesId]||
+stocksData[key]||
+{};
+
+const awal=Number(stock.opening||0);
+const masuk=Number(stock.received||0);
+const retur=Number(stock.returned||0);
+
+const stats=getSalesStats(s);
+
+const akhir=
+awal+
+masuk-
+stats.pack-
+retur;
+
+const row=document.createElement("tr");
+
+row.innerHTML=`
+
+<td>${esc(s.name||s.salesId)}</td>
+<td>${awal}</td>
+<td>${masuk}</td>
+<td>${stats.pack}</td>
+<td>${retur}</td>
+<td>
+<b>${akhir}</b>
+${akhir<0?
+'<span class="badge red">SELISIH</span>':""}
+</td>
+`;
+
+tbody.appendChild(row);
+
 });
 
-if(first){
-
-map.setView(first,13);
-
-}
-
 }
 
 
-/* =================================================
-MAIN DASHBOARD
-================================================= */
+/* =========================
+PAYROLL
+========================= */
 
-function renderAll(){
+function renderPayroll(){
 
-renderPerformance();
-renderPayroll();
+const tbody=
+document.getElementById("payrollTable");
 
-const performance=
-calculatePerformance();
+tbody.innerHTML="";
 
-let totalPack=0;
-let totalOmzet=0;
-let activeSales=0;
-let totalOutlet=0;
+let totalKpi=0;
+let count=0;
 
-Object.entries(performance)
-.forEach(([id,s])=>{
+Object.values(salesData).forEach(s=>{
 
-if(
-salesUsers[id] &&
-salesUsers[id].status==="aktif"
-){
+if(!s||s.status!=="ACTIVE")return;
 
-activeSales++;
+const stats=getSalesStats(s);
 
-}
-
-totalPack+=s.pack;
-
-totalOmzet+=
-s.pack*settings.productPrice;
-
-});
-
-
-totalOutlet=
-Object.keys(outletData).length;
-
-document.getElementById(
-"totalPack"
-).innerText=
-totalPack.toLocaleString("id-ID");
-
-document.getElementById(
-"totalOmzet"
-).innerText=
-"Rp "+
-totalOmzet.toLocaleString("id-ID");
-
-document.getElementById(
-"totalSales"
-).innerText=
-activeSales;
-
-document.getElementById(
-"totalOutlet"
-).innerText=
-totalOutlet;
-
-renderLeaderboard(performance);
-
-renderAlerts(performance);
-
-updateAI(performance);
-
-}
-
-
-/* =================================================
-LEADERBOARD
-================================================= */
-
-function renderLeaderboard(data){
-
-const box=
-document.getElementById(
-"leaderboard"
+const target=
+Number(
+s.targetMonthly||
+settingsData.targetMonthly||
+1500
 );
 
-const rows=
-Object.values(data)
-.sort((a,b)=>b.pack-a.pack);
+const achievement=
+target
+?Math.min(100,stats.pack/target*100)
+:0;
 
-if(rows.length===0){
+const commission=
+stats.paidPack*
+(settingsData.commission||1000);
 
-box.innerText=
-"Belum ada data sales.";
+const bonus=
+achievement>=100
+?(settingsData.bonus||500000):0;
 
-return;
+const salary=
+(settingsData.salary||2000000)+
+(settingsData.operational||750000)+
+commission+
+bonus;
 
-}
+const kpi=
+Math.round(
+achievement*.35+
+Math.min(100,stats.transactions/100*100)*.20+
+Math.min(100,stats.paidPack/target*100)*.15+
+Math.min(100,stats.transactions/30*100)*.15+
+80*.15
+);
 
-box.innerHTML="";
+totalKpi+=kpi;
+count++;
 
-rows.forEach((s,i)=>{
+const row=document.createElement("tr");
 
-const percent=
-s.target>0
-?
-Math.round(s.pack/s.target*100)
-:
-0;
+row.innerHTML=`
 
-const div=
-document.createElement("div");
+<td><b>${esc(s.name)}</b></td>
+<td>Rp ${(settingsData.salary||2000000).toLocaleString("id-ID")}</td>
+<td>Rp ${(settingsData.operational||750000).toLocaleString("id-ID")}</td>
+<td>Rp ${commission.toLocaleString("id-ID")}</td>
+<td>Rp ${bonus.toLocaleString("id-ID")}</td>
+<td><b>Rp ${salary.toLocaleString("id-ID")}</b></td>
+`;
 
-div.style.padding="12px 0";
-div.style.borderBottom="1px solid #eee";
-
-div.innerHTML=
-
-"<span class='rank'>"+
-(i+1)+". "+
-s.name+
-"</span><br>"+
-
-"<span style='font-size:13px;'>"+
-s.pack.toLocaleString("id-ID")+
-" pack • "+
-percent+
-"% achievement"+
-"</span>";
-
-box.appendChild(div);
+tbody.appendChild(row);
 
 });
 
+document.getElementById(
+"avgKpi"
+).innerText=count?
+Math.round(totalKpi/count):0;
+
 }
 
 
-/* =================================================
+/* =========================
+DASHBOARD
+========================= */
+
+function renderDashboard(){
+
+const list=[];
+
+Object.values(salesData).forEach(s=>{
+
+if(!s)return;
+
+const stats=getSalesStats(s);
+
+const target=
+Number(
+s.targetMonthly||
+settingsData.targetMonthly||
+1500
+);
+
+const achievement=
+target?
+Math.min(100,Math.round(stats.pack/target*100)):0;
+
+const commission=
+stats.paidPack*
+(settingsData.commission||1000);
+
+const bonus=
+achievement>=100?
+(settingsData.bonus||500000):0;
+
+const income=
+(settingsData.salary||2000000)+
+(settingsData.operational||750000)+
+commission+
+bonus;
+
+const kpi=
+Math.round(
+achievement*.35+
+Math.min(100,stats.transactions/100*100)*.20+
+Math.min(100,stats.paidPack/target*100)*.15+
+Math.min(100,stats.transactions/30*100)*.15+
+80*.15
+);
+
+list.push({
+name:s.name||s.salesId,
+pack:stats.pack,
+target,
+achievement,
+kpi,
+income
+});
+
+});
+
+list.sort((a,b)=>b.pack-a.pack);
+
+const tbody=
+document.getElementById("leaderboard");
+
+tbody.innerHTML="";
+
+list.forEach((s,i)=>{
+
+const row=document.createElement("tr");
+
+row.innerHTML=`
+
+<td><b>${i+1}</b></td>
+<td>${esc(s.name)}</td>
+<td>${s.pack.toLocaleString("id-ID")}</td>
+<td>${s.target.toLocaleString("id-ID")}</td>
+<td>${s.achievement}%</td>
+<td>${s.kpi}</td>
+<td>Rp ${s.income.toLocaleString("id-ID")}</td>
+`;
+
+tbody.appendChild(row);
+
+});
+
+const totalPack=
+list.reduce((a,b)=>a+b.pack,0);
+
+const totalTarget=
+list.reduce((a,b)=>a+b.target,0);
+
+document.getElementById(
+"companyAchievement"
+).innerText=
+totalTarget?
+Math.round(totalPack/totalTarget*100)+"%":"0%";
+
+renderAlerts(list);
+
+}
+
+
+/* =========================
 ALERT
-================================================= */
+========================= */
 
-function renderAlerts(data){
+function renderAlerts(list){
 
 const box=
-document.getElementById(
-"alerts"
-);
+document.getElementById("alerts");
 
 box.innerHTML="";
 
 let found=false;
 
-Object.values(data).forEach(s=>{
+list.forEach(s=>{
 
-const percent=
-s.target>0
-?
-s.pack/s.target*100
-:
-0;
-
-if(percent<70){
+if(s.achievement<70){
 
 found=true;
 
-const div=
-document.createElement("div");
+box.innerHTML+=`
+<div class="alert">
+⚠️ <b>${esc(s.name)}</b>
+masih tertinggal dari target.
+Achievement ${s.achievement}%.
+</div>
+`;
 
-div.className="alert";
+}
 
-div.innerHTML=
-"⚠️ <b>"+
-s.name+
-"</b> masih di "+
-Math.round(percent)+
-"% dari target.";
+});
 
-box.appendChild(div);
+Object.values(depositsData||{}).forEach(d=>{
+
+if(
+d &&
+String(d.status||"").toLowerCase()
+.includes("menunggu")
+){
+
+found=true;
+
+box.innerHTML+=`
+<div class="alert">
+💰 Setoran ${esc(d.salesName||d.salesId||"sales")}
+belum diverifikasi.
+</div>
+`;
 
 }
 
@@ -2647,106 +2012,365 @@ box.appendChild(div);
 if(!found){
 
 box.innerHTML=
-"<div class='badge'>🟢 Tidak ada alert kritis.</div>";
+'<span class="badge green">🟢 Tidak ada alert kritis</span>';
 
 }
 
 }
 
 
-/* =================================================
-AI
-================================================= */
+/* =========================
+FILTER SALES
+========================= */
 
-function updateAI(data){
+function renderSalesFilters(){
 
-const box=
+const ids=[
+"filterSales",
+"reportSales"
+];
+
+ids.forEach(id=>{
+
+const select=document.getElementById(id);
+
+const current=select.value;
+
+select.innerHTML=
+'<option value="">Semua Sales</option>';
+
+Object.values(salesData).forEach(s=>{
+
+if(!s)return;
+
+const opt=document.createElement("option");
+
+opt.value=s.salesId;
+
+opt.textContent=s.name+
+" ("+s.salesId+")";
+
+select.appendChild(opt);
+
+});
+
+select.value=current;
+
+});
+
+}
+
+
+/* =========================
+REPORT
+========================= */
+
+window.printReport=function(){
+
+const selected=
+document.getElementById("reportSales").value;
+
+let pack=0;
+let revenue=0;
+let transactions=0;
+
+Object.values(ordersData||{}).forEach(o=>{
+
+if(
+selected &&
+o.salesId!==selected
+)return;
+
+const d=o.date?new Date(o.date):new Date();
+const now=new Date();
+
+if(
+document.getElementById("reportPeriod").value==="month" &&
+(d.getMonth()!==now.getMonth()||
+d.getFullYear()!==now.getFullYear())
+)return;
+
+pack+=Number(o.quantity||0);
+revenue+=Number(o.amount||0);
+transactions++;
+
+});
+
 document.getElementById(
-"managementInsight"
-);
+"reportContent"
+).innerHTML=`
 
-const rows=
-Object.values(data)
-.sort((a,b)=>b.pack-a.pack);
+<p><b>Periode:</b> ${
+document.getElementById("reportPeriod").value==="month"
+?"Bulan Ini":"Semua Data"
+}</p>
 
-if(rows.length===0){
+<p><b>Sales:</b> ${
+selected||"Semua Sales"
+}</p>
 
-box.innerText=
-"Belum cukup data untuk analisis.";
+<br>
+
+<table>
+
+<tr>
+<td>Total Pack</td>
+<td><b>${pack.toLocaleString("id-ID")}</b></td>
+</tr>
+
+<tr>
+<td>Total Transaksi</td>
+<td><b>${transactions}</b></td>
+</tr>
+
+<tr>
+<td>Total Omzet</td>
+<td><b>Rp ${revenue.toLocaleString("id-ID")}</b></td>
+</tr>
+
+</table>
+
+<br>
+
+<p>Dicetak: ${
+new Date().toLocaleString("id-ID")
+}</p>
+`;
+
+window.print();
+
+};
+
+
+/* =========================
+PASSWORD
+========================= */
+
+window.changePassword=async function(){
+
+const oldPassword=
+document.getElementById("oldPassword").value;
+
+const newPassword=
+document.getElementById("newPassword").value;
+
+const confirm=
+document.getElementById("confirmPassword").value;
+
+const user=auth.currentUser;
+
+if(!user){
 
 return;
 
 }
 
-const top=
-rows[0];
+if(!oldPassword||!newPassword){
 
-const low=
-rows[rows.length-1];
+alert("Password wajib diisi.");
 
-box.innerHTML=
-
-"🏆 Sales dengan penjualan tertinggi saat ini adalah <b>"+
-top.name+
-"</b> dengan "+
-top.pack+
-" pack."+
-
-
-"<br><br>⚠️ Sales yang perlu mendapat perhatian adalah <b>"+
-low.name+
-"</b> dengan "+
-low.pack+
-" pack."+
-
-
-"<br><br>💡 Owner sebaiknya fokus pada sales yang achievement-nya rendah, meningkatkan kunjungan outlet potensial, dan memastikan seluruh penjualan cash benar-benar disetor.";
+return;
 
 }
 
+if(newPassword!==confirm){
 
-/* =================================================
-AUDIT LOG
-================================================= */
+alert("Konfirmasi password tidak sama.");
 
-async function writeAudit(action,target,data){
+return;
+
+}
+
+if(newPassword.length<6){
+
+alert("Password minimal 6 karakter.");
+
+return;
+
+}
 
 try{
 
-const auditRef=
-push(ref(database,"auditLogs"));
+const credential=
+EmailAuthProvider.credential(
+user.email,
+oldPassword
+);
 
-await set(
-auditRef,
-{
-action:action,
-target:target,
-data:data,
-actor:"OWNER",
+await reauthenticateWithCredential(
+user,
+credential
+);
+
+await updatePassword(
+user,
+newPassword
+);
+
+await audit(
+"UBAH PASSWORD OWNER",
+user.email
+);
+
+document.getElementById(
+"passwordStatus"
+).innerText=
+"✅ Password berhasil diubah.";
+
+document.getElementById(
+"oldPassword"
+).value="";
+
+document.getElementById(
+"newPassword"
+).value="";
+
+document.getElementById(
+"confirmPassword"
+).value="";
+
+}
+catch(error){
+
+document.getElementById(
+"passwordStatus"
+).innerText=
+"❌ "+error.message;
+
+}
+
+};
+
+
+/* =========================
+AUDIT
+========================= */
+
+async function audit(action,detail){
+
+const user=auth.currentUser;
+
+const r=push(
+ref(database,"audit_logs")
+);
+
+await set(r,{
+
+action,
+detail,
+user:user?user.email:"unknown",
 createdAt:Date.now()
-}
-);
 
-}catch(error){
-
-console.error(
-"Audit gagal:",
-error
-);
-
-}
+});
 
 }
 
 
-/* =================================================
-INITIAL MAP
-================================================= */
+function renderAudit(data){
 
-setTimeout(
-initMap,
-1000
-);
+const tbody=
+document.getElementById("auditTable");
+
+if(!tbody)return;
+
+tbody.innerHTML="";
+
+Object.values(data)
+.reverse()
+.slice(0,100)
+.forEach(x=>{
+
+const row=document.createElement("tr");
+
+row.innerHTML=`
+
+<td>${
+x.createdAt?
+new Date(x.createdAt).toLocaleString("id-ID"):"-"
+}</td>
+
+<td>${esc(x.user||"-")}</td>
+
+<td>${esc(x.action||"-")}</td>
+
+<td>${esc(x.detail||"-")}</td>
+`;
+
+tbody.appendChild(row);
+
+});
+
+}
+
+
+/* =========================
+NAVIGATION
+========================= */
+
+window.showPage=function(id,button){
+
+document.querySelectorAll(".page")
+.forEach(p=>p.classList.remove("active"));
+
+document.getElementById(id)
+.classList.add("active");
+
+document.querySelectorAll(".tabs button")
+.forEach(b=>b.classList.remove("active"));
+
+if(button)
+button.classList.add("active");
+
+renderAll();
+
+};
+
+
+/* =========================
+RENDER ALL
+========================= */
+
+window.renderAll=function(){
+
+renderSales();
+renderSalesFilters();
+renderOrders();
+renderOutlets();
+renderDeposits();
+renderCheckins();
+renderStock();
+renderPayroll();
+renderDashboard();
+
+};
+
+
+/* =========================
+MODAL
+========================= */
+
+window.closeModal=function(id){
+
+document.getElementById(id)
+.style.display="none";
+
+};
+
+
+/* =========================
+ESCAPE HTML
+========================= */
+
+function esc(value){
+
+return String(value??"")
+.replaceAll("&","&amp;")
+.replaceAll("<","&lt;")
+.replaceAll(">","&gt;")
+.replaceAll('"',"&quot;")
+.replaceAll("'","&#039;");
+
+}
 
 </script>
 
