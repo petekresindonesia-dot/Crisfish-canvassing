@@ -1,33 +1,2203 @@
 <!doctype html>
-<html lang="id"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>CRISFISH — Sales</title><script src="https://cdn.tailwindcss.com"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"><style>body{font-family:Inter,system-ui,sans-serif}.card{background:#fff;border:1px solid #e2e8f0;border-radius:20px;box-shadow:0 4px 18px #0f172a0a}.nav.active{color:#ea580c;font-weight:800}</style></head>
+<html lang="id">
+
+<head>
+
+<meta charset="utf-8">
+
+<meta
+name="viewport"
+content="width=device-width,initial-scale=1">
+
+<title>CRISFISH — Sales</title>
+
+<script src="https://cdn.tailwindcss.com"></script>
+
+<link
+rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+<style>
+
+body{
+font-family:Inter,system-ui,sans-serif
+}
+
+.card{
+background:#fff;
+border:1px solid #e2e8f0;
+border-radius:20px;
+box-shadow:0 4px 18px #0f172a0a
+}
+
+.nav.active{
+color:#ea580c;
+font-weight:800
+}
+
+</style>
+
+</head>
+
+
 <body class="bg-slate-100 text-slate-800">
-<div id="login" class="min-h-screen flex items-center justify-center p-4 bg-slate-950"><div class="bg-white rounded-3xl p-7 w-full max-w-md shadow-2xl"><div class="text-center"><div class="text-5xl">🐟</div><h1 class="text-2xl font-black mt-2">CRISFISH SALES</h1><p class="text-xs text-slate-500">SALES CANVASSING SYSTEM</p></div><form id="loginForm" class="mt-6 space-y-3"><input id="email" type="email" required class="w-full border rounded-xl p-3" placeholder="Email sales"><input id="password" type="password" required class="w-full border rounded-xl p-3" placeholder="Password sales"><button class="w-full bg-orange-600 text-white rounded-xl p-3 font-bold">MASUK SALES</button><button type="button" id="resetBtn" class="w-full text-xs text-orange-700">Lupa password / kirim reset email</button><p id="msg" class="text-xs text-center text-rose-600"></p></form></div></div>
-<div id="app" class="hidden min-h-screen"><header class="bg-slate-950 text-white sticky top-0 z-30"><div class="max-w-3xl mx-auto px-4 py-3 flex justify-between items-center"><div><b class="text-lg">🐟 CRISFISH SALES</b><div id="profile" class="text-[10px] text-orange-400">-</div></div><div class="flex gap-2"><span id="conn" class="text-xs bg-emerald-600 px-2 py-1 rounded-full">ONLINE</span><button id="logout" class="text-xs bg-slate-800 px-3 py-2 rounded-lg">Keluar</button></div></div></header><main class="max-w-3xl mx-auto p-3 pb-24" id="content"></main><nav class="fixed bottom-0 left-0 right-0 bg-white border-t z-30"><div class="max-w-3xl mx-auto grid grid-cols-5 text-center"><button class="nav active py-3 text-xs" data-tab="dashboard"><i class="fa-solid fa-house block text-lg"></i>Home</button><button class="nav py-3 text-xs" data-tab="ai"><i class="fa-solid fa-robot block text-lg"></i>AI Sales</button><button class="nav py-3 text-xs" data-tab="route"><i class="fa-solid fa-route block text-lg"></i>Rute</button><button class="nav py-3 text-xs" data-tab="stores"><i class="fa-solid fa-store block text-lg"></i>Toko</button><button class="nav py-3 text-xs" data-tab="deposit"><i class="fa-solid fa-wallet block text-lg"></i>Setoran</button></div></nav></div>
-<div id="modal" class="fixed inset-0 bg-slate-95099 z-50 hidden items-center justify-center p-4"><div class="bg-white rounded-3xl w-full max-w-lg max-h-[90vh] overflow-auto p-6"><div class="flex justify-between"><h3 id="mt" class="font-black text-lg"></h3><button onclick="closeModal()">✕</button></div><div id="mb" class="mt-4"></div></div></div><div id="toast" class="fixed top-20 right-4 z-50"></div>
+
+
+<!-- LOGIN SALES -->
+
+<div
+id="login"
+class="min-h-screen flex items-center justify-center p-4 bg-slate-950">
+
+<div
+class="bg-white rounded-3xl p-7 w-full max-w-md shadow-2xl">
+
+<div class="text-center">
+
+<div class="text-5xl">
+🐟
+</div>
+
+<h1 class="text-2xl font-black mt-2">
+CRISFISH SALES
+</h1>
+
+<p class="text-xs text-slate-500">
+SALES CANVASSING SYSTEM
+</p>
+
+</div>
+
+
+<form
+id="loginForm"
+class="mt-6 space-y-3">
+
+
+<input
+id="email"
+type="email"
+required
+class="w-full border rounded-xl p-3"
+placeholder="Email sales">
+
+
+<input
+id="password"
+type="password"
+required
+class="w-full border rounded-xl p-3"
+placeholder="Password sales">
+
+
+<button
+class="w-full bg-orange-600 text-white rounded-xl p-3 font-bold">
+
+MASUK SALES
+
+</button>
+
+
+<button
+type="button"
+id="resetBtn"
+class="w-full text-xs text-orange-700">
+
+Lupa password
+
+</button>
+
+
+<p
+id="msg"
+class="text-xs text-center text-rose-600">
+</p>
+
+
+</form>
+
+</div>
+</div>
+
+
+<!-- APP -->
+
+<div
+id="app"
+class="hidden min-h-screen">
+
+
+<header
+class="bg-slate-950 text-white sticky top-0 z-30">
+
+<div
+class="max-w-3xl mx-auto px-4 py-3 flex justify-between items-center">
+
+
+<div>
+
+<b class="text-lg">
+🐟 CRISFISH SALES
+</b>
+
+<div
+id="profile"
+class="text-[10px] text-orange-400">
+-
+</div>
+
+</div>
+
+
+<div class="flex gap-2">
+
+<span
+id="conn"
+class="text-xs bg-emerald-600 px-2 py-1 rounded-full">
+
+ONLINE
+
+</span>
+
+
+<button
+id="logout"
+class="text-xs bg-slate-800 px-3 py-2 rounded-lg">
+
+Keluar
+
+</button>
+
+</div>
+
+</div>
+
+</header>
+
+
+<main
+class="max-w-3xl mx-auto p-3 pb-24"
+id="content">
+</main>
+
+
+<nav
+class="fixed bottom-0 left-0 right-0 bg-white border-t z-30">
+
+<div
+class="max-w-3xl mx-auto grid grid-cols-5 text-center">
+
+
+<button
+class="nav active py-3 text-xs"
+data-tab="dashboard">
+
+<i class="fa-solid fa-house block text-lg"></i>
+
+Home
+
+</button>
+
+
+<button
+class="nav py-3 text-xs"
+data-tab="ai">
+
+<i class="fa-solid fa-robot block text-lg"></i>
+
+AI Sales
+
+</button>
+
+
+<button
+class="nav py-3 text-xs"
+data-tab="route">
+
+<i class="fa-solid fa-route block text-lg"></i>
+
+Rute
+
+</button>
+
+
+<button
+class="nav py-3 text-xs"
+data-tab="stores">
+
+<i class="fa-solid fa-store block text-lg"></i>
+
+Toko
+
+</button>
+
+
+<button
+class="nav py-3 text-xs"
+data-tab="deposit">
+
+<i class="fa-solid fa-wallet block text-lg"></i>
+
+Setoran
+
+</button>
+
+
+</div>
+
+</nav>
+
+</div>
+
+
+<!-- MODAL -->
+
+<div
+id="modal"
+class="fixed inset-0 bg-slate-950/60 z-50 hidden items-center justify-center p-4">
+
+<div
+class="bg-white rounded-3xl w-full max-w-lg max-h-[90vh] overflow-auto p-6">
+
+
+<div class="flex justify-between">
+
+<h3
+id="mt"
+class="font-black text-lg">
+</h3>
+
+<button onclick="closeModal()">
+✕
+</button>
+
+</div>
+
+
+<div
+id="mb"
+class="mt-4">
+</div>
+
+
+</div>
+</div>
+
+
+<div
+id="toast"
+class="fixed top-20 right-4 z-50">
+</div>
+
+
 <script type="module">
-import {initializeApp} from 'https://www.gstatic.com/firebasejs/12.0.0/firebase-app.js';import {getAuth,onAuthStateChanged,signInWithEmailAndPassword,sendPasswordResetEmail,signOut} from 'https://www.gstatic.com/firebasejs/12.0.0/firebase-auth.js';import {getDatabase,ref,onValue,set,update,push} from 'https://www.gstatic.com/firebasejs/12.0.0/firebase-database.js';
-import {initializeAppCheck,ReCaptchaEnterpriseProvider} from 'https://www.gstatic.com/firebasejs/12.0.0/firebase-app-check.js';import {getAI,getGenerativeModel,GoogleAIBackend} from 'https://www.gstatic.com/firebasejs/12.0.0/firebase-ai.js';
-const firebaseConfig={apiKey:'AIzaSyDCBW8FxoTJqIc6OwmjraRYuq-FkpBsISc',authDomain:'crisfish-sales.firebaseapp.com',databaseURL:'https://crisfish-sales-default-rtdb.asia-southeast1.firebasedatabase.app',projectId:'crisfish-sales',storageBucket:'crisfish-sales.firebasestorage.app',messagingSenderId:'667038496225',appId:'1:667038496225:web:c41816843bc7e3f4a54ea0',measurementId:'G-DJL475YKN0'};
-const RECAPTCHA_ENTERPRISE_SITE_KEY=''; // isi setelah Web App didaftarkan di Firebase App Check
-const app=initializeApp(firebaseConfig);
-if(RECAPTCHA_ENTERPRISE_SITE_KEY) initializeAppCheck(app,{provider:new ReCaptchaEnterpriseProvider(RECAPTCHA_ENTERPRISE_SITE_KEY),isTokenAutoRefreshEnabled:true});
-const auth=getAuth(app),db=getDatabase(app),ai=getAI(app,{backend:new GoogleAIBackend()}),gemini=getGenerativeModel(ai,{model:'gemini-3.7-flash'});const state={user:null,sales:null,data:{},tab:'dashboard'};const $=id=>document.getElementById(id),esc=s=>String(s??'').replace(/[&<>'"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[c]));const arr=k=>Object.entries(state.data[k]||{}).map(([id,v])=>({id,...v}));const rup=n=>new Intl.NumberFormat('id-ID',{style:'currency',currency:'IDR',maximumFractionDigits:0}).format(Number(n)||0);const today=()=>new Date().toISOString().slice(0,10);const month=()=>today().slice(0,7);const days=d=>d?Math.floor((Date.now()-new Date(d+'T00:00:00'))/86400000):999;const toast=m=>{$('toast').innerHTML=`<div class="bg-slate-900 text-white px-4 py-3 rounded-xl text-xs shadow">${esc(m)}</div>`;setTimeout(()=>$('toast').innerHTML='',2500)};
-$('loginForm').onsubmit=async e=>{e.preventDefault();try{await signInWithEmailAndPassword(auth,$('email').value.trim(),$('password').value)}catch(e){$('msg').textContent='Login gagal: '+e.code}};$('resetBtn').onclick=async()=>{try{await sendPasswordResetEmail(auth,$('email').value.trim());toast('Email reset password dikirim')}catch(e){$('msg').textContent='Isi email sales terlebih dahulu'}};$('logout').onclick=()=>signOut(auth);
-document.querySelectorAll('.nav').forEach(b=>b.onclick=()=>{state.tab=b.dataset.tab;document.querySelectorAll('.nav').forEach(x=>x.classList.remove('active'));b.classList.add('active');render()});
-function subscribe(){onValue(ref(db,'/'),s=>{state.data=s.val()||{};const p=state.data.sales?.[state.sales?.id];if(p)state.sales=p;render();$('conn').textContent='● ONLINE'},e=>{$('conn').textContent='OFFLINE';console.error(e)})}
-function myStores(){return arr('stores').filter(s=>s.salesId===state.sales.id&&s.status!=='NONAKTIF')};function myTx(){return arr('transactions').filter(t=>t.salesId===state.sales.id)};function stats(){const tx=myTx().filter(t=>(t.date||'').startsWith(month()));return{qty:tx.reduce((a,t)=>a+(+t.qty||0),0),revenue:tx.reduce((a,t)=>a+(+t.totalAmount||0),0),visits:arr('visits').filter(v=>v.salesId===state.sales.id&&(v.date||'').startsWith(month())).length,stores:myStores().length}}
-function render(){if(!state.sales)return;const s=stats();if(state.tab==='dashboard')$('content').innerHTML=`<div class="space-y-4"><div class="card p-5"><div class="text-xs text-slate-500">SALES</div><h2 class="text-2xl font-black">${esc(state.sales.name)}</h2><div class="text-xs text-slate-500">${esc(state.sales.code)} • ${esc(state.sales.area)}</div></div><div class="grid grid-cols-2 gap-3">${[['Target',state.sales.monthlyTarget||0+' pack'],['Terjual',s.qty+' pack'],['Omzet',rup(s.revenue)],['Kunjungan',s.visits]].map(x=>`<div class="card p-4"><div class="text-xs text-slate-500">${x[0]}</div><b class="text-xl">${x[1]}</b></div>`).join('')}</div><div class="card p-5"><div class="flex justify-between"><div><b>Target bulan ini</b><div class="text-xs text-slate-500">${s.qty} / ${state.sales.monthlyTarget||0} pack</div></div><b>${Math.round(((s.qty/(state.sales.monthlyTarget||1))*100))}%</b></div><div class="h-3 bg-slate-200 rounded-full mt-3"><div class="h-3 bg-orange-500 rounded-full" style="width:${Math.min(100,(s.qty/(state.sales.monthlyTarget||1))*100)}%"></div></div></div><div class="grid grid-cols-2 gap-3"><button onclick="window.openSale()" class="bg-emerald-600 text-white rounded-2xl p-5 font-black">➕ JUAL</button><button onclick="window.openVisit()" class="bg-blue-600 text-white rounded-2xl p-5 font-black">📍 CHECK-IN</button></div></div>`;else if(state.tab==='ai')renderAI();else if(state.tab==='route')renderRoute();else if(state.tab==='stores')renderStores();else renderDeposit()}
-function renderAI(){$('content').innerHTML=`<div class="card p-5"><div class="flex justify-between gap-3"><div><h2 class="text-xl font-black">AI Sales Advisor</h2><p class="text-xs text-slate-500">AI mengarahkan toko yang perlu dikunjungi berdasarkan konsinyasi 14 hari, stok, dan penjualan.</p></div><button onclick="window.askAI()" class="bg-orange-600 text-white px-3 py-2 rounded-xl text-xs font-bold">ANALISIS</button></div><div id="aiout" class="mt-5 bg-amber-50 rounded-2xl p-4 text-sm">Tekan ANALISIS untuk mendapatkan rute dan prioritas hari ini.</div></div>`};window.askAI=async()=>{const stores=myStores().map(s=>({id:s.id,name:s.name,address:s.address,stock:s.stock,lastVisitDate:s.lastVisitDate,daysSinceLastVisit:days(s.lastVisitDate),avgSales:s.avgSales,notes:s.notes}));$('aiout').textContent='AI sedang menganalisis...';try{const prompt=`Anda adalah AI Sales Advisor CRISFISH. Sistem konsinyasi 14 hari. Sales ${state.sales.name}, area ${state.sales.area}. Toko: ${JSON.stringify(stores)}. Tentukan prioritas kunjungan hari ini. Prioritaskan toko >=14 hari, stok rendah, dan potensi penjualan tinggi. Berikan 1) urutan toko, 2) alasan, 3) tindakan di toko, 4) target pack hari ini. Bahasa Indonesia singkat dan praktis.`;const r=await gemini.generateContent(prompt);$('aiout').innerHTML='<div class="whitespace-pre-wrap">'+esc(r.response.text())+'</div>'}catch(e){$('aiout').innerHTML='<b>Gemini belum dapat dipanggil.</b><div class="text-xs mt-2">'+esc(e.message)+'</div>'}};
-function renderRoute(){const st=myStores().sort((a,b)=>days(b.lastVisitDate)-days(a.lastVisitDate));$('content').innerHTML=`<div class="card p-5"><h2 class="text-xl font-black">Rute & Prioritas</h2><p class="text-xs text-slate-500 mb-4">Konsinyasi 14 hari.</p><div class="space-y-3">${st.map((s,i)=>`<div class="border rounded-2xl p-4"><div class="flex justify-between"><b>${i+1}. ${esc(s.name)}</b><span class="text-xs ${days(s.lastVisitDate)>=14?'text-rose-600':'text-slate-500'}">${days(s.lastVisitDate)} hari</span></div><div class="text-xs text-slate-500">Stok ${s.stock||0} • Rata-rata ${s.avgSales||0} • ${esc(s.address)}</div><button onclick="window.openVisit('${s.id}')" class="mt-2 bg-blue-600 text-white px-3 py-2 rounded-xl text-xs">CHECK-IN</button></div>`).join('')||'Belum ada toko.'}</div></div>`}
-function renderStores(){$('content').innerHTML=`<div class="card p-5"><h2 class="text-xl font-black mb-4">Toko Saya</h2><div class="space-y-3">${myStores().map(s=>`<div class="border rounded-2xl p-4"><div class="flex justify-between"><b>${esc(s.name)}</b><span class="text-xs">${days(s.lastVisitDate)} hari</span></div><div class="text-xs text-slate-500">${esc(s.owner)} • ${esc(s.phone)}</div><div class="text-xs mt-1">${esc(s.address)}</div><div class="mt-2 flex gap-2"><span class="bg-slate-100 rounded-lg px-2 py-1 text-xs">Stok ${s.stock||0}</span><span class="bg-slate-100 rounded-lg px-2 py-1 text-xs">Avg ${s.avgSales||0}</span></div><button onclick="window.openVisit('${s.id}')" class="mt-3 bg-blue-600 text-white px-3 py-2 rounded-xl text-xs">KUNJUNGAN</button></div>`).join('')||'Belum ada toko.'}</div></div>`}
-function renderDeposit(){const dep=arr('deposits').filter(d=>d.salesId===state.sales.id).sort((a,b)=>(b.ts||0)-(a.ts||0));$('content').innerHTML=`<div class="space-y-4"><div class="card p-5"><h2 class="text-xl font-black">Setoran & Klaim Bensin</h2><div class="grid grid-cols-2 gap-3 mt-4"><button onclick="window.openDeposit()" class="bg-emerald-600 text-white rounded-2xl p-4 font-bold">SETORAN</button><button onclick="window.openFuel()" class="bg-orange-600 text-white rounded-2xl p-4 font-bold">KLAIM BENSIN</button></div></div><div class="card p-5"><h3 class="font-black">Riwayat Setoran</h3>${dep.slice(0,20).map(d=>`<div class="border-b py-3 text-xs flex justify-between"><span>${d.date}<small class="block text-slate-500">${esc(d.note||'')}</small></span><b>${rup(d.amount)}</b></div>`).join('')||'<p class="text-xs text-slate-500 mt-3">Belum ada.</p>'}</div></div>`}
-function modal(title,body){$('mt').textContent=title;$('mb').innerHTML=body;$('modal').classList.remove('hidden');$('modal').classList.add('flex')}window.closeModal=()=>{$('modal').classList.add('hidden');$('modal').classList.remove('flex')};
-async function log(action,details){const r=push(ref(db,'auditLogs'));await set(r,{ts:Date.now(),actor:'SALES',uid:auth.currentUser.uid,salesId:state.sales.id,action,details})}
-window.openSale=()=>{const stores=myStores(),products=arr('products').filter(p=>p.status!=='NONAKTIF'&&(+p.stock||0)>0);modal('Catat Penjualan',`<div class="space-y-2"><select id="sale_store" class="w-full border rounded-xl p-3">${stores.map(s=>`<option value="${s.id}">${esc(s.name)}</option>`).join('')}</select><select id="sale_product" class="w-full border rounded-xl p-3">${products.map(p=>`<option value="${p.id}">${esc(p.name)} — ${rup(p.price)} (stok ${p.stock||0})</option>`).join('')}</select><input id="sale_qty" type="number" min="1" class="w-full border rounded-xl p-3" placeholder="Jumlah pack"><select id="sale_pay" class="w-full border rounded-xl p-3"><option>CASH</option><option>TRANSFER</option></select><button onclick="window.saveSale()" class="w-full bg-emerald-600 text-white p-3 rounded-xl font-bold">SIMPAN PENJUALAN</button></div>`)};
-window.saveSale=async()=>{const sid=$('sale_store').value,pid=$('sale_product').value,q=+$('sale_qty').value||0,st=state.data.stores[sid],p=state.data.products[pid];if(!sid||!pid||q<1)return toast('Lengkapi penjualan');if(q>(+p.stock||0))return toast('Stok produk tidak cukup');const id='trx_'+Date.now();const tx={date:today(),ts:Date.now(),salesId:state.sales.id,salesName:state.sales.name,storeId:sid,storeName:st.name,productId:pid,qty:q,unitPrice:+p.price||0,totalAmount:q*(+p.price||0),paymentStatus:'LUNAS',paymentMethod:$('sale_pay').value};await update(ref(db),{['transactions/'+id]:tx,['products/'+pid+'/stock']:(+p.stock||0)-q,['stores/'+sid+'/stock']:Math.max(0,(+st.stock||0)-q),['stores/'+sid+'/totalSales']:(+st.totalSales||0)+q});await log('Sale','Penjualan '+q+' pack di '+st.name);closeModal();toast('Penjualan tersimpan')};
-window.openVisit=(storeId='')=>{const stores=myStores();if(!storeId)storeId=stores[0]?.id||'';modal('Check-in / Kunjungan',`<div class="space-y-2"><select id="v_store" class="w-full border rounded-xl p-3">${stores.map(s=>`<option value="${s.id}" ${s.id===storeId?'selected':''}>${esc(s.name)}</option>`).join('')}</select><input id="v_add" type="number" min="0" class="w-full border rounded-xl p-3" placeholder="Tambah stok pack (opsional)"><input id="v_sold" type="number" min="0" class="w-full border rounded-xl p-3" placeholder="Terjual di toko sejak kunjungan sebelumnya"><input id="v_return" type="number" min="0" class="w-full border rounded-xl p-3" placeholder="Retur/produk kembali"><textarea id="v_note" class="w-full border rounded-xl p-3" placeholder="Catatan toko"></textarea><button onclick="window.saveVisit()" class="w-full bg-blue-600 text-white p-3 rounded-xl font-bold">AMBIL GPS & SIMPAN KUNJUNGAN</button></div>`)};
-window.saveVisit=async()=>{const sid=$('v_store').value,s=state.data.stores[sid];let gps='';try{gps=await new Promise((res,rej)=>navigator.geolocation.getCurrentPosition(p=>res(p.coords.latitude.toFixed(6)+', '+p.coords.longitude.toFixed(6)),rej,{enableHighAccuracy:true,timeout:10000}) )}catch(e){toast('GPS tidak tersedia, kunjungan tetap disimpan.')}const add=+$('v_add').value||0,sold=+$('v_sold').value||0,ret=+$('v_return').value||0;const id='visit_'+Date.now();const v={date:today(),ts:Date.now(),storeId:sid,storeName:s.name,salesId:state.sales.id,checkIn:new Date().toLocaleTimeString('id-ID',{hour:'2-digit',minute:'2-digit'}),initialStock:+s.stock||0,soldCount:sold,addedCount:add,returnCount:ret,notes:$('v_note').value.trim(),gps};await update(ref(db),{['visits/'+id]:v,['stores/'+sid+'/lastVisitDate']:today(),['stores/'+sid+'/stock']:Math.max(0,(+s.stock||0)+add-sold-ret),['stores/'+sid+'/totalSales']:(+s.totalSales||0)+sold});await log('Visit','Kunjungan '+s.name);closeModal();toast('Kunjungan tersimpan')};
-window.openDeposit=()=>modal('Setoran',`<div class="space-y-2"><input id="d_amount" type="number" class="w-full border rounded-xl p-3" placeholder="Jumlah setoran"><textarea id="d_note" class="w-full border rounded-xl p-3" placeholder="Catatan"></textarea><button onclick="window.saveDeposit()" class="w-full bg-emerald-600 text-white p-3 rounded-xl font-bold">SIMPAN SETORAN</button></div>`);window.saveDeposit=async()=>{const amount=+$('d_amount').value||0;if(amount<=0)return toast('Jumlah wajib diisi');const id='dep_'+Date.now();await set(ref(db,'deposits/'+id),{date:today(),ts:Date.now(),salesId:state.sales.id,salesName:state.sales.name,amount,note:$('d_note').value.trim(),status:'MENUNGGU_VERIFIKASI'});await log('Deposit','Setoran '+rup(amount));closeModal();toast('Setoran dikirim ke Owner')};
-window.openFuel=()=>modal('Klaim Bensin',`<div class="space-y-2"><input id="f_amount" type="number" class="w-full border rounded-xl p-3" placeholder="Jumlah bensin"><input id="f_note" class="w-full border rounded-xl p-3" placeholder="Keterangan/rute"><button onclick="window.saveFuel()" class="w-full bg-orange-600 text-white p-3 rounded-xl font-bold">KIRIM KLAIM</button></div>`);window.saveFuel=async()=>{const amount=+$('f_amount').value||0;if(amount<=0)return toast('Jumlah wajib diisi');const id='fuel_'+Date.now();await set(ref(db,'fuelRecords/'+id),{date:today(),ts:Date.now(),salesId:state.sales.id,salesName:state.sales.name,amount,note:$('f_note').value.trim(),status:'MENUNGGU'});await log('Fuel','Klaim bensin '+rup(amount));closeModal();toast('Klaim bensin dikirim')};
-async function boot(u){state.user=u;const snap=await new Promise((res,rej)=>onValue(ref(db,'users/'+u.uid),s=>res(s),rej,{onlyOnce:true}));const prof=snap.val();if(!prof||prof.role!=='sales'||!prof.salesId){await signOut(auth);$('msg').textContent='Akun ini bukan akun Sales CRISFISH.';return}state.sales={id:prof.salesId,...(await new Promise((res,rej)=>onValue(ref(db,'sales/'+prof.salesId),s=>res(s),rej,{onlyOnce:true}))).val()};$('login').classList.add('hidden');$('app').classList.remove('hidden');$('profile').textContent=state.sales.name+' • '+state.sales.area;subscribe()};onAuthStateChanged(auth,u=>u?boot(u):($('login').classList.remove('hidden'),$('app').classList.add('hidden')));
-</script></body></html>
+
+
+/* =========================
+FIREBASE
+========================= */
+
+import {
+initializeApp
+}
+from
+"https://www.gstatic.com/firebasejs/12.0.0/firebase-app.js";
+
+
+import {
+getAuth,
+onAuthStateChanged,
+signInWithEmailAndPassword,
+sendPasswordResetEmail,
+signOut
+}
+from
+"https://www.gstatic.com/firebasejs/12.0.0/firebase-auth.js";
+
+
+import {
+getDatabase,
+ref,
+onValue,
+set,
+update,
+push
+}
+from
+"https://www.gstatic.com/firebasejs/12.0.0/firebase-database.js";
+
+
+/* =========================
+CONFIG
+========================= */
+
+const firebaseConfig={
+
+apiKey:
+"AIzaSyDCBW8FxoTJqIc6OwmjraRYuq-FkpBsISc",
+
+authDomain:
+"crisfish-sales.firebaseapp.com",
+
+databaseURL:
+"https://crisfish-sales-default-rtdb.asia-southeast1.firebasedatabase.app",
+
+projectId:
+"crisfish-sales",
+
+storageBucket:
+"crisfish-sales.firebasestorage.app",
+
+messagingSenderId:
+"667038496225",
+
+appId:
+"1:667038496225:web:c41816843bc7e3f4a54ea0",
+
+measurementId:
+"G-DJL475YKN0"
+
+};
+
+
+const app=
+initializeApp(firebaseConfig);
+
+const auth=
+getAuth(app);
+
+const db=
+getDatabase(app);
+
+
+/* =========================
+STATE
+========================= */
+
+const state={
+
+user:null,
+
+sales:null,
+
+data:{},
+
+tab:"dashboard"
+
+};
+
+
+const $=
+id=>document.getElementById(id);
+
+
+const esc=s=>
+String(s??"")
+.replace(
+/[&<>'"]/g,
+c=>({
+"&":"&amp;",
+"<":"&lt;",
+">":"&gt;",
+"'":"&#39;",
+'"':"&quot;"
+}[c])
+);
+
+
+const arr=k=>
+Object.entries(
+state.data[k]||{}
+)
+.map(([id,v])=>({
+id,
+...v
+}));
+
+
+const rup=n=>
+new Intl.NumberFormat(
+"id-ID",
+{
+style:"currency",
+currency:"IDR",
+maximumFractionDigits:0
+}
+).format(Number(n)||0);
+
+
+const today=()=>
+new Date().toISOString().slice(0,10);
+
+
+const month=()=>
+today().slice(0,7);
+
+
+const days=d=>{
+
+if(!d)return 999;
+
+return Math.floor(
+(
+Date.now()-
+new Date(d+"T00:00:00").getTime()
+)/86400000
+);
+
+};
+
+
+const toast=m=>{
+
+$("toast").innerHTML=
+`
+<div class="bg-slate-900 text-white px-4 py-3 rounded-xl text-xs shadow">
+${esc(m)}
+</div>
+`;
+
+setTimeout(()=>{
+$("toast").innerHTML="";
+},2500);
+
+};
+
+
+/* =========================
+LOGIN
+========================= */
+
+$("loginForm").onsubmit=
+async e=>{
+
+e.preventDefault();
+
+$("msg").textContent="";
+
+try{
+
+await signInWithEmailAndPassword(
+auth,
+$("email").value.trim(),
+$("password").value
+);
+
+}catch(e){
+
+$("msg").textContent=
+"Login gagal: "+e.code;
+
+}
+
+};
+
+
+$("resetBtn").onclick=
+async()=>{
+
+try{
+
+await sendPasswordResetEmail(
+auth,
+$("email").value.trim()
+);
+
+toast(
+"Email reset password dikirim."
+);
+
+}catch(e){
+
+$("msg").textContent=
+"Masukkan email Sales."
+;
+
+}
+
+};
+
+
+$("logout").onclick=
+()=>signOut(auth);
+
+
+/* =========================
+NAV
+========================= */
+
+document
+.querySelectorAll(".nav")
+.forEach(b=>{
+
+b.onclick=()=>{
+
+state.tab=
+b.dataset.tab;
+
+document
+.querySelectorAll(".nav")
+.forEach(x=>
+x.classList.remove("active")
+);
+
+b.classList.add("active");
+
+render();
+
+};
+
+});
+
+
+/* =========================
+REALTIME
+========================= */
+
+function subscribe(){
+
+onValue(
+ref(db,"/"),
+snap=>{
+
+state.data=
+snap.val()||{};
+
+const p=
+state.data.sales?.[
+state.sales?.id
+];
+
+if(p){
+
+state.sales=p;
+
+}
+
+render();
+
+$("conn").textContent=
+"● ONLINE";
+
+$("conn").className=
+"text-xs bg-emerald-600 px-2 py-1 rounded-full";
+
+},
+
+error=>{
+
+console.error(error);
+
+$("conn").textContent=
+"OFFLINE";
+
+$("conn").className=
+"text-xs bg-rose-600 px-2 py-1 rounded-full";
+
+}
+
+);
+
+}
+
+
+/* =========================
+MY STORES
+========================= */
+
+function myStores(){
+
+if(!state.sales)return [];
+
+return arr("stores")
+.filter(
+s=>
+s.salesId===state.sales.id &&
+s.status!=="NONAKTIF"
+);
+
+}
+
+
+function myTx(){
+
+if(!state.sales)return [];
+
+return arr("transactions")
+.filter(
+t=>t.salesId===state.sales.id
+);
+
+}
+
+
+/* =========================
+STATS
+========================= */
+
+function stats(){
+
+const tx=
+myTx()
+.filter(
+t=>
+(t.date||"").startsWith(month())
+);
+
+
+return{
+
+qty:
+tx.reduce(
+(a,t)=>a+(+t.qty||0),
+0
+),
+
+revenue:
+tx.reduce(
+(a,t)=>a+(+t.totalAmount||0),
+0
+),
+
+visits:
+arr("visits")
+.filter(
+v=>
+v.salesId===state.sales.id &&
+(v.date||"").startsWith(month())
+)
+.length,
+
+stores:
+myStores().length
+
+};
+
+}
+
+
+/* =========================
+RENDER
+========================= */
+
+function render(){
+
+if(!state.sales)return;
+
+const s=stats();
+
+
+if(state.tab==="dashboard"){
+
+$("content").innerHTML=`
+
+<div class="space-y-4">
+
+
+<div class="card p-5">
+
+<div class="text-xs text-slate-500">
+SALES
+</div>
+
+<h2 class="text-2xl font-black">
+${esc(state.sales.name)}
+</h2>
+
+<div class="text-xs text-slate-500">
+
+${esc(state.sales.code||"")}
+•
+
+${esc(state.sales.area||"")}
+
+</div>
+
+</div>
+
+
+<div class="grid grid-cols-2 gap-3">
+
+
+<div class="card p-4">
+
+<div class="text-xs text-slate-500">
+Target
+</div>
+
+<b class="text-xl">
+${state.sales.monthlyTarget||0}
+pack
+</b>
+
+</div>
+
+
+<div class="card p-4">
+
+<div class="text-xs text-slate-500">
+Terjual
+</div>
+
+<b class="text-xl">
+${s.qty} pack
+</b>
+
+</div>
+
+
+<div class="card p-4">
+
+<div class="text-xs text-slate-500">
+Omzet
+</div>
+
+<b class="text-xl">
+${rup(s.revenue)}
+</b>
+
+</div>
+
+
+<div class="card p-4">
+
+<div class="text-xs text-slate-500">
+Kunjungan
+</div>
+
+<b class="text-xl">
+${s.visits}
+</b>
+
+</div>
+
+</div>
+
+
+<div class="card p-5">
+
+<div class="flex justify-between">
+
+<div>
+
+<b>
+Target bulan ini
+</b>
+
+<div class="text-xs text-slate-500">
+
+${s.qty}
+/
+${state.sales.monthlyTarget||0}
+pack
+
+</div>
+
+</div>
+
+<b>
+
+${Math.round(
+(
+s.qty/
+(state.sales.monthlyTarget||1)
+)*100
+)}%
+
+</b>
+
+</div>
+
+
+<div
+class="h-3 bg-slate-200 rounded-full mt-3">
+
+<div
+class="h-3 bg-orange-500 rounded-full"
+style="width:${Math.min(
+100,
+(s.qty/(state.sales.monthlyTarget||1))*100
+)}%">
+</div>
+
+</div>
+
+</div>
+
+
+<div class="grid grid-cols-2 gap-3">
+
+<button
+onclick="window.openSale()"
+class="bg-emerald-600 text-white rounded-2xl p-5 font-black">
+
+➕ JUAL
+
+</button>
+
+
+<button
+onclick="window.openVisit()"
+class="bg-blue-600 text-white rounded-2xl p-5 font-black">
+
+📍 CHECK-IN
+
+</button>
+
+</div>
+
+
+</div>
+
+`;
+
+}
+
+else if(state.tab==="ai")
+renderAI();
+
+else if(state.tab==="route")
+renderRoute();
+
+else if(state.tab==="stores")
+renderStores();
+
+else
+renderDeposit();
+
+}
+
+
+/* =========================
+AI SALES
+========================= */
+
+function renderAI(){
+
+$("content").innerHTML=`
+
+<div class="card p-5">
+
+<div class="flex justify-between gap-3">
+
+<div>
+
+<h2 class="text-xl font-black">
+AI Sales Advisor
+</h2>
+
+<p class="text-xs text-slate-500">
+
+AI membantu menentukan toko yang
+harus dikunjungi.
+
+</p>
+
+</div>
+
+
+<button
+onclick="window.askAI()"
+class="bg-orange-600 text-white px-3 py-2 rounded-xl text-xs font-bold">
+
+ANALISIS
+
+</button>
+
+</div>
+
+
+<div
+id="aiout"
+class="mt-5 bg-amber-50 rounded-2xl p-4 text-sm">
+
+Tekan ANALISIS.
+
+</div>
+
+</div>
+
+`;
+
+}
+
+
+window.askAI=async()=>{
+
+const stores=
+myStores().map(s=>({
+
+nama:s.name,
+
+alamat:s.address,
+
+stok:s.stock,
+
+kunjunganTerakhir:s.lastVisitDate,
+
+hariSejakKunjungan:
+days(s.lastVisitDate),
+
+rataRataPenjualan:
+s.avgSales
+
+}));
+
+
+$("aiout").textContent=
+"AI sedang menganalisis...";
+
+
+const prompt=`
+
+Anda adalah AI Sales Advisor CRISFISH.
+
+Sales:
+${state.sales.name}
+
+Area:
+${state.sales.area}
+
+Sistem konsinyasi:
+14 hari.
+
+Data toko:
+${JSON.stringify(stores)}
+
+Tentukan prioritas kunjungan.
+
+Prioritaskan:
+
+1. Toko >=14 hari belum dikunjungi
+2. Stok rendah
+3. Potensi penjualan tinggi
+
+Berikan:
+
+1. Urutan toko
+2. Alasan
+3. Tindakan sales
+4. Target pack hari ini
+
+Bahasa Indonesia.
+Singkat dan praktis.
+`;
+
+
+try{
+
+const response=
+await fetch(
+
+"https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=AIzaSyDCBW8FxoTJqIc6OwmjraRYuq-FkpBsISc",
+
+{
+
+method:"POST",
+
+headers:{
+"Content-Type":
+"application/json"
+},
+
+body:JSON.stringify({
+
+contents:[
+{
+parts:[
+{
+text:prompt
+}
+]
+}
+
+]
+
+})
+
+}
+
+);
+
+
+const data=
+await response.json();
+
+
+const text=
+data?.candidates?.[0]
+?.content?.parts?.[0]?.text;
+
+
+if(!text)
+throw new Error(
+"Gemini belum memberikan jawaban."
+);
+
+
+$("aiout").innerHTML=
+`
+<div class="whitespace-pre-wrap">
+${esc(text)}
+</div>
+`;
+
+
+}catch(e){
+
+$("aiout").innerHTML=
+`
+<b>AI belum aktif.</b>
+
+<div class="text-xs mt-2">
+${esc(e.message)}
+</div>
+`;
+
+}
+
+};
+
+
+/* =========================
+RUTE
+========================= */
+
+function renderRoute(){
+
+const st=
+myStores()
+.sort(
+(a,b)=>
+days(b.lastVisitDate)-
+days(a.lastVisitDate)
+);
+
+
+$("content").innerHTML=`
+
+<div class="card p-5">
+
+<h2 class="text-xl font-black">
+Rute & Prioritas
+</h2>
+
+<p class="text-xs text-slate-500 mb-4">
+
+Konsinyasi 14 hari.
+
+</p>
+
+
+<div class="space-y-3">
+
+${
+st.map((s,i)=>`
+
+<div class="border rounded-2xl p-4">
+
+<div class="flex justify-between">
+
+<b>
+${i+1}.
+${esc(s.name)}
+</b>
+
+<span
+class="text-xs ${
+days(s.lastVisitDate)>=14
+?"text-rose-600"
+:"text-slate-500"
+}">
+
+${days(s.lastVisitDate)}
+hari
+
+</span>
+
+</div>
+
+
+<div class="text-xs text-slate-500">
+
+Stok ${s.stock||0}
+
+•
+
+Avg ${s.avgSales||0}
+
+<br>
+
+${esc(s.address)}
+
+</div>
+
+
+<button
+onclick="window.openVisit('${s.id}')"
+class="mt-2 bg-blue-600 text-white px-3 py-2 rounded-xl text-xs">
+
+CHECK-IN
+
+</button>
+
+</div>
+
+`).join("")
+||
+"Belum ada toko."
+}
+
+</div>
+
+</div>
+
+`;
+
+}
+
+
+/* =========================
+STORES
+========================= */
+
+function renderStores(){
+
+$("content").innerHTML=`
+
+<div class="card p-5">
+
+<h2 class="text-xl font-black mb-4">
+Toko Saya
+</h2>
+
+
+<div class="space-y-3">
+
+${
+myStores().map(s=>`
+
+<div class="border rounded-2xl p-4">
+
+<div class="flex justify-between">
+
+<b>
+${esc(s.name)}
+</b>
+
+<span class="text-xs">
+
+${days(s.lastVisitDate)}
+hari
+
+</span>
+
+</div>
+
+
+<div class="text-xs text-slate-500">
+
+${esc(s.owner)}
+
+•
+
+${esc(s.phone)}
+
+</div>
+
+
+<div class="text-xs mt-1">
+
+${esc(s.address)}
+
+</div>
+
+
+<div class="mt-2 flex gap-2">
+
+<span
+class="bg-slate-100 rounded-lg px-2 py-1 text-xs">
+
+Stok ${s.stock||0}
+
+</span>
+
+
+<span
+class="bg-slate-100 rounded-lg px-2 py-1 text-xs">
+
+Avg ${s.avgSales||0}
+
+</span>
+
+</div>
+
+
+<button
+onclick="window.openVisit('${s.id}')"
+class="mt-3 bg-blue-600 text-white px-3 py-2 rounded-xl text-xs">
+
+KUNJUNGAN
+
+</button>
+
+</div>
+
+`).join("")
+||
+"Belum ada toko."
+}
+
+</div>
+
+</div>
+
+`;
+
+}
+
+
+/* =========================
+DEPOSIT
+========================= */
+
+function renderDeposit(){
+
+const dep=
+arr("deposits")
+.filter(
+d=>d.salesId===state.sales.id
+)
+.sort(
+(a,b)=>(b.ts||0)-(a.ts||0)
+);
+
+
+$("content").innerHTML=`
+
+<div class="space-y-4">
+
+
+<div class="card p-5">
+
+<h2 class="text-xl font-black">
+
+Setoran & Klaim Bensin
+
+</h2>
+
+
+<div class="grid grid-cols-2 gap-3 mt-4">
+
+
+<button
+onclick="window.openDeposit()"
+class="bg-emerald-600 text-white rounded-2xl p-4 font-bold">
+
+SETORAN
+
+</button>
+
+
+<button
+onclick="window.openFuel()"
+class="bg-orange-600 text-white rounded-2xl p-4 font-bold">
+
+KLAIM BENSIN
+
+</button>
+
+
+</div>
+
+</div>
+
+
+<div class="card p-5">
+
+<h3 class="font-black">
+Riwayat Setoran
+</h3>
+
+
+${
+dep.slice(0,20)
+.map(d=>`
+
+<div
+class="border-b py-3 text-xs flex justify-between">
+
+<span>
+
+${d.date}
+
+<small
+class="block text-slate-500">
+
+${esc(d.note||"")}
+
+</small>
+
+</span>
+
+<b>
+${rup(d.amount)}
+</b>
+
+</div>
+
+`).join("")
+||
+"<p class='text-xs text-slate-500 mt-3'>Belum ada.</p>"
+}
+
+</div>
+
+</div>
+
+`;
+
+}
+
+
+/* =========================
+MODAL
+========================= */
+
+function modal(title,body){
+
+$("mt").textContent=title;
+
+$("mb").innerHTML=body;
+
+$("modal")
+.classList.remove("hidden");
+
+$("modal")
+.classList.add("flex");
+
+}
+
+
+window.closeModal=()=>{
+
+$("modal")
+.classList.add("hidden");
+
+$("modal")
+.classList.remove("flex");
+
+};
+
+
+/* =========================
+AUDIT
+========================= */
+
+async function log(action,details){
+
+const r=
+push(ref(db,"auditLogs"));
+
+await set(
+r,
+{
+
+ts:Date.now(),
+
+actor:"SALES",
+
+uid:auth.currentUser.uid,
+
+salesId:state.sales.id,
+
+action,
+
+details
+
+}
+);
+
+}
+
+
+/* =========================
+PENJUALAN
+========================= */
+
+window.openSale=()=>{
+
+const stores=
+myStores();
+
+
+const products=
+arr("products")
+.filter(
+p=>
+p.status!=="NONAKTIF" &&
+(+p.stock||0)>0
+);
+
+
+if(!stores.length)
+return toast(
+"Belum ada toko."
+);
+
+
+if(!products.length)
+return toast(
+"Stok produk kosong."
+);
+
+
+modal(
+"Catat Penjualan",
+`
+
+<div class="space-y-2">
+
+
+<select
+id="sale_store"
+class="w-full border rounded-xl p-3">
+
+${
+stores.map(s=>`
+
+<option value="${s.id}">
+${esc(s.name)}
+</option>
+
+`).join("")
+}
+
+</select>
+
+
+<select
+id="sale_product"
+class="w-full border rounded-xl p-3">
+
+${
+products.map(p=>`
+
+<option value="${p.id}">
+
+${esc(p.name)}
+
+—
+
+${rup(p.price)}
+
+•
+
+stok ${p.stock||0}
+
+</option>
+
+`).join("")
+}
+
+</select>
+
+
+<input
+id="sale_qty"
+type="number"
+min="1"
+class="w-full border rounded-xl p-3"
+placeholder="Jumlah pack">
+
+
+<select
+id="sale_pay"
+class="w-full border rounded-xl p-3">
+
+<option>CASH</option>
+
+<option>TRANSFER</option>
+
+</select>
+
+
+<button
+onclick="window.saveSale()"
+class="w-full bg-emerald-600 text-white p-3 rounded-xl font-bold">
+
+SIMPAN PENJUALAN
+
+</button>
+
+
+</div>
+`
+);
+
+};
+
+
+window.saveSale=async()=>{
+
+const sid=
+$("sale_store").value;
+
+const pid=
+$("sale_product").value;
+
+const q=
++$("sale_qty").value||0;
+
+
+const st=
+state.data.stores[sid];
+
+const p=
+state.data.products[pid];
+
+
+if(!sid||!pid||q<1)
+return toast(
+"Lengkapi penjualan."
+);
+
+
+if(q>(+p.stock||0))
+return toast(
+"Stok produk tidak cukup."
+);
+
+
+const id=
+"trx_"+Date.now();
+
+
+const tx={
+
+date:today(),
+
+ts:Date.now(),
+
+salesId:
+state.sales.id,
+
+salesName:
+state.sales.name,
+
+storeId:sid,
+
+storeName:
+st.name,
+
+productId:pid,
+
+qty:q,
+
+unitPrice:
++p.price||0,
+
+totalAmount:
+q*(+p.price||0),
+
+paymentStatus:
+"LUNAS",
+
+paymentMethod:
+$("sale_pay").value
+
+};
+
+
+await update(
+ref(db),
+{
+
+["transactions/"+id]:
+tx,
+
+["products/"+pid+"/stock"]:
+(+p.stock||0)-q,
+
+["stores/"+sid+"/stock"]:
+Math.max(
+0,
+(+st.stock||0)-q
+),
+
+["stores/"+sid+"/totalSales"]:
+(+st.totalSales||0)+q
+
+}
+);
+
+
+await log(
+"SALE",
+"Penjualan "+q+
+" pack di "+st.name
+);
+
+
+closeModal();
+
+toast(
+"PENJUALAN TERSIMPAN"
+);
+
+};
+
+
+/* =========================
+VISIT
+========================= */
+
+window.openVisit=
+(storeId="")=>{
+
+const stores=
+myStores();
+
+
+if(!stores.length)
+return toast(
+"Belum ada toko."
+);
+
+
+if(!storeId)
+storeId=
+stores[0].id;
+
+
+modal(
+"Check-in / Kunjungan",
+`
+
+<div class="space-y-2">
+
+
+<select
+id="v_store"
+class="w-full border rounded-xl p-3">
+
+${
+stores.map(s=>`
+
+<option
+value="${s.id}"
+${s.id===storeId?"selected":""}>
+
+${esc(s.name)}
+
+</option>
+
+`).join("")
+}
+
+</select>
+
+
+<input
+id="v_add"
+type="number"
+min="0"
+class="w-full border rounded-xl p-3"
+placeholder="Tambah stok pack">
+
+
+<input
+id="v_sold"
+type="number"
+min="0"
+class="w-full border rounded-xl p-3"
+placeholder="Terjual di toko">
+
+
+<input
+id="v_return"
+type="number"
+min="0"
+class="w-full border rounded-xl p-3"
+placeholder="Retur">
+
+
+<textarea
+id="v_note"
+class="w-full border rounded-xl p-3"
+placeholder="Catatan toko">
+</textarea>
+
+
+<button
+onclick="window.saveVisit()"
+class="w-full bg-blue-600 text-white p-3 rounded-xl font-bold">
+
+AMBIL GPS & SIMPAN
+
+</button>
+
+
+</div>
+`
+);
+
+};
+
+
+window.saveVisit=async()=>{
+
+const sid=
+$("v_store").value;
+
+const s=
+state.data.stores[sid];
+
+
+let gps="";
+
+
+try{
+
+gps=
+await new Promise(
+(resolve,reject)=>{
+
+navigator.geolocation
+.getCurrentPosition(
+
+p=>
+resolve(
+p.coords.latitude.toFixed(6)+
+", "+
+p.coords.longitude.toFixed(6)
+),
+
+reject,
+
+{
+enableHighAccuracy:true,
+timeout:10000
+}
+
+);
+
+}
+);
+
+}catch(e){
+
+toast(
+"GPS tidak tersedia."
+);
+
+}
+
+
+const add=
++$("v_add").value||0;
+
+const sold=
++$("v_sold").value||0;
+
+const ret=
++$("v_return").value||0;
+
+
+const id=
+"visit_"+Date.now();
+
+
+const v={
+
+date:today(),
+
+ts:Date.now(),
+
+storeId:sid,
+
+storeName:s.name,
+
+salesId:
+state.sales.id,
+
+checkIn:
+new Date().toLocaleTimeString(
+"id-ID",
+{
+hour:"2-digit",
+minute:"2-digit"
+}
+),
+
+initialStock:
++s.stock||0,
+
+soldCount:sold,
+
+addedCount:add,
+
+returnCount:ret,
+
+notes:
+$("v_note").value.trim(),
+
+gps
+
+};
+
+
+await update(
+ref(db),
+{
+
+["visits/"+id]:v,
+
+["stores/"+sid+"/lastVisitDate"]:
+today(),
+
+["stores/"+sid+"/stock"]:
+Math.max(
+0,
+(+s.stock||0)+add-sold-ret
+),
+
+["stores/"+sid+"/totalSales"]:
+(+s.totalSales||0)+sold
+
+}
+);
+
+
+await log(
+"VISIT",
+"Kunjungan "+s.name
+);
+
+
+closeModal();
+
+toast(
+"KUNJUNGAN TERSIMPAN"
+);
+
+};
+
+
+/* =========================
+SETORAN
+========================= */
+
+window.openDeposit=()=>{
+
+modal(
+"Setoran",
+`
+
+<div class="space-y-2">
+
+<input
+id="d_amount"
+type="number"
+class="w-full border rounded-xl p-3"
+placeholder="Jumlah setoran">
+
+<textarea
+id="d_note"
+class="w-full border rounded-xl p-3"
+placeholder="Catatan">
+</textarea>
+
+
+<button
+onclick="window.saveDeposit()"
+class="w-full bg-emerald-600 text-white p-3 rounded-xl font-bold">
+
+SIMPAN SETORAN
+
+</button>
+
+</div>
+`
+);
+
+};
+
+
+window.saveDeposit=async()=>{
+
+const amount=
++$("d_amount").value||0;
+
+
+if(amount<=0)
+return toast(
+"Jumlah wajib diisi."
+);
+
+
+const id=
+"dep_"+Date.now();
+
+
+await set(
+ref(db,"deposits/"+id),
+{
+
+date:today(),
+
+ts:Date.now(),
+
+salesId:
+state.sales.id,
+
+salesName:
+state.sales.name,
+
+amount,
+
+note:
+$("d_note").value.trim(),
+
+status:
+"MENUNGGU_VERIFIKASI"
+
+}
+);
+
+
+await log(
+"DEPOSIT",
+"Setoran "+rup(amount)
+);
+
+
+closeModal();
+
+toast(
+"SETORAN DIKIRIM KE OWNER"
+);
+
+};
+
+
+/* =========================
+BENSIN
+========================= */
+
+window.openFuel=()=>{
+
+modal(
+"Klaim Bensin",
+`
+
+<div class="space-y-2">
+
+<input
+id="f_amount"
+type="number"
+class="w-full border rounded-xl p-3"
+placeholder="Jumlah bensin">
+
+<input
+id="f_note"
+class="w-full border rounded-xl p-3"
+placeholder="Keterangan / rute">
+
+
+<button
+onclick="window.saveFuel()"
+class="w-full bg-orange-600 text-white p-3 rounded-xl font-bold">
+
+KIRIM KLAIM
+
+</button>
+
+</div>
+`
+);
+
+};
+
+
+window.saveFuel=async()=>{
+
+const amount=
++$("f_amount").value||0;
+
+
+if(amount<=0)
+return toast(
+"Jumlah wajib diisi."
+);
+
+
+const id=
+"fuel_"+Date.now();
+
+
+await set(
+ref(db,"fuelRecords/"+id),
+{
+
+date:today(),
+
+ts:Date.now(),
+
+salesId:
+state.sales.id,
+
+salesName:
+state.sales.name,
+
+amount,
+
+note:
+$("f_note").value.trim(),
+
+status:
+"MENUNGGU"
+
+}
+);
+
+
+await log(
+"FUEL",
+"Klaim bensin "+rup(amount)
+);
+
+
+closeModal();
+
+toast(
+"KLAIM BENSIN DIKIRIM"
+);
+
+};
+
+
+/* =========================
+BOOT
+========================= */
+
+async function boot(u){
+
+state.user=u;
+
+
+/*
+Ambil profile Sales
+*/
+
+const snap=
+await new Promise(
+(resolve,reject)=>{
+
+onValue(
+ref(db,"users/"+u.uid),
+s=>resolve(s),
+reject,
+{onlyOnce:true}
+);
+
+}
+);
+
+
+const profile=
+snap.val();
+
+
+if(
+!profile ||
+profile.role!=="sales" ||
+!profile.salesId
+){
+
+await signOut(auth);
+
+$("msg").textContent=
+"Akun ini bukan akun Sales CRISFISH.";
+
+return;
+
+}
+
+
+const salesSnap=
+await new Promise(
+(resolve,reject)=>{
+
+onValue(
+ref(db,"sales/"+profile.salesId),
+s=>resolve(s),
+reject,
+{onlyOnce:true}
+);
+
+}
+);
+
+
+const salesProfile=
+salesSnap.val();
+
+
+if(!salesProfile){
+
+await signOut(auth);
+
+$("msg").textContent=
+"Data Sales belum ditemukan.";
+
+return;
+
+}
+
+
+state.sales={
+id:profile.salesId,
+...salesProfile
+};
+
+
+$("login").classList.add("hidden");
+
+$("app").classList.remove("hidden");
+
+
+$("profile").textContent=
+state.sales.name+
+" • "+
+state.sales.area;
+
+
+subscribe();
+
+}
+
+
+onAuthStateChanged(
+auth,
+u=>{
+
+if(u){
+
+boot(u);
+
+}else{
+
+$("login").classList.remove("hidden");
+
+$("app").classList.add("hidden");
+
+}
+
+}
+);
+
+</script>
+
+</body>
+</html>
