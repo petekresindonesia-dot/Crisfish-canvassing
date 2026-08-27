@@ -1,64 +1,2266 @@
 <!doctype html>
 <html lang="id">
 <head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
 <title>CRISFISH — Owner Dashboard</title>
 <script src="https://cdn.tailwindcss.com"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
-<style>body{font-family:Inter,system-ui,sans-serif}.card{background:#fff;border:1px solid #e2e8f0;border-radius:20px;box-shadow:0 4px 18px #0f172a0a}.navbtn.active{background:#ea580c;color:#fff}.modal{background:#0f172a99}.hiddenx{display:none!important}</style>
+<style>
+body{font-family:Inter,system-ui,sans-serif}
+.card{background:#fff;border:1px solid #e2e8f0;border-radius:20px;box-shadow:0 4px 18px #0f172a0a}
+.navbtn.active{background:#ea580c;color:#fff}
+.modal{background:#0f172a99}
+.hiddenx{display:none!important}
+</style>
 </head>
-<body class="bg-slate-100 text-slate-800">
-<div id="login" class="min-h-screen flex items-center justify-center p-4 bg-slate-950"><div class="bg-white rounded-3xl p-7 w-full max-w-md shadow-2xl"><div class="text-center"><div class="text-5xl">🐟</div><h1 class="text-2xl font-black mt-2">CRISFISH OWNER</h1><p class="text-xs text-slate-500">OWNER DASHBOARD • PETEKRES</p></div><form id="loginForm" class="mt-6 space-y-3"><input id="email" type="email" required class="w-full border rounded-xl p-3" placeholder="Email owner"><input id="password" type="password" required class="w-full border rounded-xl p-3" placeholder="Password owner"><button class="w-full bg-orange-600 text-white rounded-xl p-3 font-bold">MASUK OWNER</button><button type="button" id="resetBtn" class="w-full text-xs text-orange-700">Lupa password / kirim reset email</button><p id="loginMsg" class="text-xs text-center text-rose-600"></p></form></div></div>
-<div id="app" class="hiddenx min-h-screen"><header class="bg-slate-950 text-white sticky top-0 z-30"><div class="max-w-7xl mx-auto px-4 py-3 flex justify-between items-center"><div><b class="text-lg">🐟 CRISFISH</b><div class="text-[10px] text-orange-400">OWNER DASHBOARD • PETEKRES</div></div><div class="flex items-center gap-2"><span id="conn" class="text-xs bg-emerald-600 px-2 py-1 rounded-full">ONLINE</span><button id="logout" class="text-xs bg-slate-800 px-3 py-2 rounded-lg">Keluar</button></div></div></header>
-<main class="max-w-7xl mx-auto p-3 md:p-6"><div class="flex flex-col md:flex-row gap-5"><aside class="md:w-64 bg-slate-950 rounded-3xl p-3 text-white h-fit"><div class="p-3 border-b border-slate-800 mb-2"><div class="text-[10px] text-orange-400">OWNER DASHBOARD</div><b>PETEKRES MANAGEMENT</b></div><div id="nav" class="space-y-1"></div></aside><section id="content" class="flex-1"></section></div></main></div>
-<div id="modal" class="modal fixed inset-0 z-50 hiddenx items-center justify-center p-4"><div class="bg-white rounded-3xl w-full max-w-lg max-h-[90vh] overflow-auto p-6"><div class="flex justify-between"><h3 id="mt" class="font-black text-lg"></h3><button onclick="closeModal()">✕</button></div><div id="mb" class="mt-4"></div></div></div><div id="toast" class="fixed top-20 right-4 z-50"></div>
-<script type="module">
-import {initializeApp,getApps,getApp} from 'https://www.gstatic.com/firebasejs/12.0.0/firebase-app.js';
-import {getAuth,onAuthStateChanged,signInWithEmailAndPassword,sendPasswordResetEmail,signOut,createUserWithEmailAndPassword} from 'https://www.gstatic.com/firebasejs/12.0.0/firebase-auth.js';
-import {getDatabase,ref,onValue,set,update,push,remove} from 'https://www.gstatic.com/firebasejs/12.0.0/firebase-database.js';
-import {initializeAppCheck,ReCaptchaEnterpriseProvider} from 'https://www.gstatic.com/firebasejs/12.0.0/firebase-app-check.js';
-import {getAI,getGenerativeModel,GoogleAIBackend} from 'https://www.gstatic.com/firebasejs/12.0.0/firebase-ai.js';
 
-const firebaseConfig={apiKey:'AIzaSyDCBW8FxoTJqIc6OwmjraRYuq-FkpBsISc',authDomain:'crisfish-sales.firebaseapp.com',databaseURL:'https://crisfish-sales-default-rtdb.asia-southeast1.firebasedatabase.app',projectId:'crisfish-sales',storageBucket:'crisfish-sales.firebasestorage.app',messagingSenderId:'667038496225',appId:'1:667038496225:web:c41816843bc7e3f4a54ea0',measurementId:'G-DJL475YKN0'};
-const OWNER_UID='FnO4jWsgfyN716sEDkflMPFHdTT2';
-const RECAPTCHA_ENTERPRISE_SITE_KEY=''; // isi setelah Web App didaftarkan di Firebase App Check
-const app=initializeApp(firebaseConfig);
-if(RECAPTCHA_ENTERPRISE_SITE_KEY) initializeAppCheck(app,{provider:new ReCaptchaEnterpriseProvider(RECAPTCHA_ENTERPRISE_SITE_KEY),isTokenAutoRefreshEnabled:true});
-const auth=getAuth(app),db=getDatabase(app);
-const ai=getAI(app,{backend:new GoogleAIBackend()});
-const gemini=getGenerativeModel(ai,{model:'gemini-3.7-flash'});
-const state={tab:'dashboard',data:{},user:null};
-const keys=['users','sales','products','stores','transactions','visits','deposits','fuelRecords','auditLogs','settings'];
-const $=id=>document.getElementById(id); const esc=s=>String(s??'').replace(/[&<>'"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[c]));
-const arr=k=>Object.entries(state.data[k]||{}).map(([id,v])=>({id,...v})); const rup=n=>new Intl.NumberFormat('id-ID',{style:'currency',currency:'IDR',maximumFractionDigits:0}).format(Number(n)||0); const today=()=>new Date().toISOString().slice(0,10); const month=()=>today().slice(0,7); const toast=m=>{$('toast').innerHTML=`<div class="bg-slate-900 text-white px-4 py-3 rounded-xl shadow-lg text-xs">${esc(m)}</div>`;setTimeout(()=>$('toast').innerHTML='',2500)};
-function showLoginMsg(m){$('loginMsg').textContent=m}
-$('loginForm').onsubmit=async e=>{e.preventDefault();try{await signInWithEmailAndPassword(auth,$('email').value.trim(),$('password').value)}catch(e){showLoginMsg('Login gagal: '+e.code)}};
-$('resetBtn').onclick=async()=>{try{await sendPasswordResetEmail(auth,$('email').value.trim());toast('Email reset password dikirim.')}catch(e){showLoginMsg('Isi email owner terlebih dahulu.')}};
+<body class="bg-slate-100 text-slate-800">
+
+<div id="login" class="min-h-screen flex items-center justify-center p-4 bg-slate-950">
+<div class="bg-white rounded-3xl p-7 w-full max-w-md shadow-2xl">
+
+<div class="text-center">
+<div class="text-5xl">🐟</div>
+<h1 class="text-2xl font-black mt-2">CRISFISH OWNER</h1>
+<p class="text-xs text-slate-500">OWNER DASHBOARD • PETEKRES</p>
+</div>
+
+<form id="loginForm" class="mt-6 space-y-3">
+
+<input
+id="email"
+type="email"
+required
+value="crisfishindonesia@gmail.com"
+class="w-full border rounded-xl p-3"
+placeholder="Email owner">
+
+<input
+id="password"
+type="password"
+required
+class="w-full border rounded-xl p-3"
+placeholder="Password owner">
+
+<button class="w-full bg-orange-600 text-white rounded-xl p-3 font-bold">
+MASUK OWNER
+</button>
+
+<button
+type="button"
+id="resetBtn"
+class="w-full text-xs text-orange-700">
+Lupa password / kirim reset email
+</button>
+
+<p id="loginMsg" class="text-xs text-center text-rose-600"></p>
+
+</form>
+</div>
+</div>
+
+
+<div id="app" class="hiddenx min-h-screen">
+
+<header class="bg-slate-950 text-white sticky top-0 z-30">
+<div class="max-w-7xl mx-auto px-4 py-3 flex justify-between items-center">
+
+<div>
+<b class="text-lg">🐟 CRISFISH</b>
+<div class="text-[10px] text-orange-400">
+OWNER DASHBOARD • PETEKRES
+</div>
+</div>
+
+<div class="flex items-center gap-2">
+<span id="conn" class="text-xs bg-emerald-600 px-2 py-1 rounded-full">
+ONLINE
+</span>
+
+<button id="logout"
+class="text-xs bg-slate-800 px-3 py-2 rounded-lg">
+Keluar
+</button>
+</div>
+
+</div>
+</header>
+
+
+<main class="max-w-7xl mx-auto p-3 md:p-6">
+
+<div class="flex flex-col md:flex-row gap-5">
+
+<aside class="md:w-64 bg-slate-950 rounded-3xl p-3 text-white h-fit">
+
+<div class="p-3 border-b border-slate-800 mb-2">
+<div class="text-[10px] text-orange-400">
+OWNER DASHBOARD
+</div>
+<b>PETEKRES MANAGEMENT</b>
+</div>
+
+<div id="nav" class="space-y-1"></div>
+
+</aside>
+
+<section id="content" class="flex-1"></section>
+
+</div>
+</main>
+</div>
+
+
+<div id="modal"
+class="modal fixed inset-0 z-50 hiddenx items-center justify-center p-4">
+
+<div class="bg-white rounded-3xl w-full max-w-lg max-h-[90vh] overflow-auto p-6">
+
+<div class="flex justify-between">
+<h3 id="mt" class="font-black text-lg"></h3>
+<button onclick="closeModal()">✕</button>
+</div>
+
+<div id="mb" class="mt-4"></div>
+
+</div>
+</div>
+
+
+<div id="toast" class="fixed top-20 right-4 z-50"></div>
+
+
+<script type="module">
+
+import {
+initializeApp
+} from 'https://www.gstatic.com/firebasejs/12.0.0/firebase-app.js';
+
+import {
+getAuth,
+onAuthStateChanged,
+signInWithEmailAndPassword,
+sendPasswordResetEmail,
+signOut,
+createUserWithEmailAndPassword
+} from 'https://www.gstatic.com/firebasejs/12.0.0/firebase-auth.js';
+
+import {
+getDatabase,
+ref,
+onValue,
+set,
+update,
+push
+} from 'https://www.gstatic.com/firebasejs/12.0.0/firebase-database.js';
+
+import {
+getAI,
+getGenerativeModel,
+GoogleAIBackend
+} from 'https://www.gstatic.com/firebasejs/12.0.0/firebase-ai.js';
+
+
+const firebaseConfig = {
+
+apiKey:'AIzaSyDCBW8FxoTJqIc6OwmjraRYuq-FkpBsISc',
+
+authDomain:'crisfish-sales.firebaseapp.com',
+
+databaseURL:
+'https://crisfish-sales-default-rtdb.asia-southeast1.firebasedatabase.app',
+
+projectId:'crisfish-sales',
+
+storageBucket:
+'crisfish-sales.firebasestorage.app',
+
+messagingSenderId:'667038496225',
+
+appId:
+'1:667038496225:web:c41816843bc7e3f4a54ea0',
+
+measurementId:'G-DJL475YKN0'
+
+};
+
+
+/* =========================
+   OWNER UID BARU
+========================= */
+
+const OWNER_UID =
+'cUvtH5hEZRgIiaKw0VLDt98ma1q2';
+
+
+const app = initializeApp(firebaseConfig);
+
+const auth = getAuth(app);
+
+const db = getDatabase(app);
+
+const ai = getAI(app,{
+backend:new GoogleAIBackend()
+});
+
+const gemini =
+getGenerativeModel(ai,{
+model:'gemini-3.7-flash'
+});
+
+
+const state={
+tab:'dashboard',
+data:{},
+user:null
+};
+
+
+const $=id=>document.getElementById(id);
+
+const esc=s=>
+String(s??'').replace(
+/[&<>'"]/g,
+c=>({
+'&':'&amp;',
+'<':'&lt;',
+'>':'&gt;',
+"'":'&#39;',
+'"':'&quot;'
+}[c])
+);
+
+
+const arr=k=>
+Object.entries(state.data[k]||{})
+.map(([id,v])=>({id,...v}));
+
+
+const rup=n=>
+new Intl.NumberFormat('id-ID',{
+style:'currency',
+currency:'IDR',
+maximumFractionDigits:0
+}).format(Number(n)||0);
+
+
+const today=()=>
+new Date().toISOString().slice(0,10);
+
+
+const month=()=>
+today().slice(0,7);
+
+
+const toast=m=>{
+
+$('toast').innerHTML=
+`<div class="bg-slate-900 text-white px-4 py-3 rounded-xl shadow-lg text-xs">
+${esc(m)}
+</div>`;
+
+setTimeout(()=>{
+$('toast').innerHTML='';
+},2500);
+
+};
+
+
+function showLoginMsg(m){
+$('loginMsg').textContent=m;
+}
+
+
+/* =========================
+   LOGIN OWNER
+========================= */
+
+$('loginForm').onsubmit=async e=>{
+
+e.preventDefault();
+
+showLoginMsg('Sedang masuk...');
+
+try{
+
+const email=$('email').value.trim();
+
+const password=$('password').value;
+
+await signInWithEmailAndPassword(
+auth,
+email,
+password
+);
+
+showLoginMsg('');
+
+}catch(e){
+
+console.error(e);
+
+showLoginMsg(
+'Login gagal. Periksa email dan password.'
+);
+
+}
+
+};
+
+
+/* =========================
+   RESET PASSWORD
+========================= */
+
+$('resetBtn').onclick=async()=>{
+
+const email=$('email').value.trim();
+
+if(!email){
+
+showLoginMsg(
+'Masukkan email Owner terlebih dahulu.'
+);
+
+return;
+
+}
+
+try{
+
+await sendPasswordResetEmail(
+auth,
+email
+);
+
+showLoginMsg(
+'Email reset password sudah dikirim. Cek Inbox dan Spam.'
+);
+
+}catch(e){
+
+console.error(e);
+
+showLoginMsg(
+'Email reset gagal. Pastikan email Owner benar.'
+);
+
+}
+
+};
+
+
 $('logout').onclick=()=>signOut(auth);
-function isOwner(){return state.user?.uid===OWNER_UID || state.data.users?.[state.user?.uid]?.role==='owner'}
-function nav(){const items=[['dashboard','chart-line','Ringkasan Eksekutif'],['ai','brain','AI Business Advisor'],['sales','users','Kelola Tim Sales'],['products','boxes-stacked','Produk & Stok Master'],['stores','store','Kelola Toko'],['financials','wallet','Laporan Keuangan'],['audit','shield-halved','Audit Log Sistem']];$('nav').innerHTML=items.map(x=>`<button onclick="window.goto('${x[0]}')" class="navbtn ${state.tab===x[0]?'active':''} w-full text-left px-3 py-3 rounded-xl text-xs font-bold"><i class="fa-solid fa-${x[1]} w-6"></i>${x[2]}</button>`).join('')}
-window.goto=t=>{state.tab=t;nav();render()};
-function subscribe(){onValue(ref(db,'/'),snap=>{state.data=snap.val()||{};render();$('conn').textContent='● ONLINE';$('conn').className='text-xs bg-emerald-600 px-2 py-1 rounded-full'},e=>{console.error(e);$('conn').textContent='OFFLINE';$('conn').className='text-xs bg-rose-600 px-2 py-1 rounded-full'})}
-async function seed(){if(!isOwner())return;const base={settings:{companyName:'CRISFISH',consignmentDays:14},products:{prod_1:{name:'Petekres Original',price:12000,hpp:7000,stock:0,status:'AKTIF'},prod_2:{name:'Petekres Rumput Laut',price:12000,hpp:7000,stock:0,status:'AKTIF'}}};for(const [k,v] of Object.entries(base))if(!state.data[k])await set(ref(db,k),v);await set(ref(db,'users/'+auth.currentUser.uid),{role:'owner',name:'Owner CRISFISH',email:auth.currentUser.email});}
-function stats(){const tx=arr('transactions').filter(x=>(x.date||'').startsWith(month()));const sales=arr('sales').filter(x=>x.status!=='NONAKTIF');const omzet=tx.reduce((a,x)=>a+(+x.totalAmount||0),0),qty=tx.reduce((a,x)=>a+(+x.qty||0),0),hpp=tx.reduce((a,x)=>a+(+x.qty||0)*(+state.data.products?.[x.productId]?.hpp||0),0),fuel=arr('fuelRecords').filter(x=String(x.date||'').startsWith(month())).reduce((a,x)=>a+(+x.amount||0),0),comm=tx.reduce((a,x)=>a+(+x.qty||0)*(+state.data.sales?.[x.salesId]?.commissionRate||0),0);return{omzet,qty,gross:omzet-hpp,net:omzet-hpp-fuel-comm,sales:sales.length,stores:arr('stores').length,overdue:arr('stores').filter(s=>days(s.lastVisitDate)>=14).length}}
-function days(d){if(!d)return 999;return Math.floor((Date.now()-new Date(d+'T00:00:00').getTime())/86400000)}
-function render(){if(!state.user)return;const s=stats();nav();if(state.tab==='dashboard')$('content').innerHTML=`<div class="space-y-4"><div><h2 class="text-2xl font-black">Ringkasan Eksekutif</h2><p class="text-xs text-slate-500">Data realtime dari Firebase.</p></div><div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-3">${[['Omzet',rup(s.omzet),'emerald'],['Terjual',s.qty+' pack','blue'],['Laba bersih',rup(s.net),'orange'],['Toko overdue',s.overdue+' toko','rose']].map(x=>`<div class="card p-5"><div class="text-xs text-slate-500">${x[0]}</div><b class="text-2xl text-${x[2]}-600">${x[1]}</b></div>`).join('')}</div><div class="grid md:grid-cols-2 gap-4"><div class="card p-5"><h3 class="font-black">Tim & Operasional</h3><div class="mt-3 text-sm space-y-2"><div>${s.sales} sales aktif</div><div>${s.stores} toko terdaftar</div><div>${s.overdue} toko sudah ≥14 hari belum dikunjungi</div></div></div><div class="card p-5"><h3 class="font-black">Stok Produk</h3>${arr('products').map(p=>`<div class="flex justify-between py-2 border-b text-sm"><span>${esc(p.name)}</span><b>${p.stock||0} pack</b></div>`).join('')}</div></div></div>`;
-else if(state.tab==='ai')renderAI();else if(state.tab==='sales')renderSales();else if(state.tab==='products')renderProducts();else if(state.tab==='stores')renderStores();else if(state.tab==='financials')renderFinancials();else renderAudit()}
-function renderAI(){const s=stats();$('content').innerHTML=`<div class="card p-6"><div class="flex justify-between gap-3"><div><h2 class="text-xl font-black">AI Business Advisor</h2><p class="text-xs text-slate-500">Gemini membaca data realtime CRISFISH dan memberi rekomendasi bisnis.</p></div><button onclick="window.askAI()" class="bg-orange-600 text-white px-4 py-2 rounded-xl text-xs font-bold">ANALISIS AI</button></div><div id="aiout" class="mt-5 bg-slate-50 rounded-2xl p-5 text-sm">Tekan ANALISIS AI.</div></div>`}
-window.askAI=async()=>{const o=stats(),stores=arr('stores').map(x=>({name:x.name,salesId:x.salesId,stock:x.stock,lastVisitDate:x.lastVisitDate,daysSinceLastVisit:days(x.lastVisitDate),avgSales:x.avgSales}));$('aiout').innerHTML='AI sedang menganalisis...';try{const prompt=`Anda adalah konsultan bisnis canvassing CRISFISH/Petekres. Data bulan berjalan: omzet ${o.omzet}, terjual ${o.qty} pack, laba bersih ${o.net}, toko overdue ${o.overdue}. Toko: ${JSON.stringify(stores)}. Berikan rekomendasi singkat dan praktis untuk owner: prioritas kunjungan, stok, sales, target, dan tindakan 7 hari. Gunakan bahasa Indonesia, bullet list.`;const r=await gemini.generateContent(prompt);$('aiout').innerHTML='<div class="whitespace-pre-wrap">'+esc(r.response.text())+'</div>'}catch(e){$('aiout').innerHTML='<b>Gemini belum bisa dipanggil.</b><div class="text-xs mt-2">'+esc(e.message)+'</div>'}}
-function renderSales(){$('content').innerHTML=`<div class="card p-6"><div class="flex justify-between items-center mb-5"><div><h2 class="text-xl font-black">Kelola Tim Sales</h2><p class="text-xs text-slate-500">Tambah, edit target, gaji, komisi, area, dan status.</p></div><button onclick="window.addSales()" class="bg-orange-600 text-white px-4 py-2 rounded-xl text-xs font-bold">+ TAMBAH SALES</button></div><div class="space-y-3">${arr('sales').map(s=>`<div class="border rounded-2xl p-4 flex flex-col md:flex-row justify-between gap-3"><div><b>${esc(s.name)}</b><div class="text-xs text-slate-500">${esc(s.code)} • ${esc(s.area)} • ${esc(s.email)}</div><div class="text-xs mt-1">Target ${s.monthlyTarget||0} pack • Gaji ${rup(s.baseSalary)} • Komisi ${rup(s.commissionRate)}/pack • Bensin ${rup(s.fuelAllowance)}</div></div><button onclick="window.editSales('${s.id}')" class="bg-slate-900 text-white px-4 py-2 rounded-xl text-xs font-bold">EDIT</button></div>`).join('')||'<p class="text-sm text-slate-500">Belum ada sales.</p>'}</div></div>`}
-function renderProducts(){$('content').innerHTML=`<div class="card p-6"><div class="flex justify-between items-center mb-5"><h2 class="text-xl font-black">Produk & Stok Master</h2><button onclick="window.addProduct()" class="bg-orange-600 text-white px-4 py-2 rounded-xl text-xs font-bold">+ PRODUK</button></div><div class="space-y-3">${arr('products').map(p=>`<div class="border rounded-2xl p-4 flex justify-between items-center"><div><b>${esc(p.name)}</b><div class="text-xs text-slate-500">Harga ${rup(p.price)} • HPP ${rup(p.hpp)}</div></div><div class="flex items-center gap-2"><b>${p.stock||0} pack</b><button onclick="window.editProduct('${p.id}')" class="bg-slate-900 text-white px-3 py-2 rounded-lg text-xs">EDIT</button></div></div>`).join('')}</div></div>`}
-function renderStores(){$('content').innerHTML=`<div class="card p-6"><div class="flex justify-between items-center mb-5"><div><h2 class="text-xl font-black">Kelola Toko</h2><p class="text-xs text-slate-500">Konsinyasi 14 hari. Owner dapat mengedit semua data toko.</p></div><button onclick="window.addStore()" class="bg-orange-600 text-white px-4 py-2 rounded-xl text-xs font-bold">+ TOKO</button></div><div class="grid md:grid-cols-2 gap-3">${arr('stores').map(s=>{const sl=state.data.sales?.[s.salesId];return `<div class="border rounded-2xl p-4"><div class="flex justify-between"><b>${esc(s.name)}</b><button onclick="window.editStore('${s.id}')" class="text-orange-600 text-xs font-bold">EDIT</button></div><div class="text-xs text-slate-500 mt-1">${esc(s.owner)} • Sales: ${esc(sl?.name||'-')}</div><div class="text-xs mt-2">Stok ${s.stock||0} • ${days(s.lastVisitDate)} hari belum dikunjungi</div><div class="text-xs text-slate-500">${esc(s.address)}</div></div>`}).join('')||'<p>Belum ada toko.</p>'}</div></div>`}
-function renderFinancials(){const o=stats(),fuel=arr('fuelRecords').reduce((a,x)=>a+(+x.amount||0),0),dep=arr('deposits').reduce((a,x)=>a+(+x.amount||0),0);$('content').innerHTML=`<div class="space-y-4"><div class="card p-6"><h2 class="text-xl font-black">Laporan Keuangan</h2><div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-3 mt-4">${[['Omzet',rup(o.omzet)],['HPP',rup(o.omzet-o.gross)],['Bensin',rup(fuel)],['Setoran',rup(dep)]].map(x=>`<div class="bg-slate-50 rounded-2xl p-4"><div class="text-xs text-slate-500">${x[0]}</div><b>${x[1]}</b></div>`).join('')}</div></div><div class="card p-6"><h3 class="font-black">Pendapatan Sales bulan ini</h3>${arr('sales').map(s=>{const q=arr('transactions').filter(t=>t.salesId===s.id&&(t.date||'').startsWith(month())).reduce((a,t)=>a+(+t.qty||0),0);const g=(s.baseSalary||0)+q*(s.commissionRate||0)+(s.fuelAllowance||0);return `<div class="flex justify-between border-b py-3 text-sm"><span>${esc(s.name)}<small class="block text-slate-500">${q} pack</small></span><b>${rup(g)}</b></div>`}).join('')}</div></div>`}
-function renderAudit(){$('content').innerHTML=`<div class="card p-6"><h2 class="text-xl font-black">Audit Log Sistem</h2><div class="mt-4 space-y-2">${arr('auditLogs').sort((a,b)=>(b.ts||0)-(a.ts||0)).slice(0,100).map(x=>`<div class="border-b py-2 text-xs"><b>${esc(x.actor||'')}</b> • ${esc(x.action||'')}<div class="text-slate-500">${esc(x.details||'')}</div></div>`).join('')||'Belum ada log.'}</div></div>`}
-function modal(title,body){$('mt').textContent=title;$('mb').innerHTML=body;$('modal').classList.remove('hiddenx');$('modal').classList.add('flex')};window.closeModal=()=>{$('modal').classList.add('hiddenx');$('modal').classList.remove('flex')};
-async function log(action,details){if(!auth.currentUser)return;const r=push(ref(db,'auditLogs'));await set(r,{ts:Date.now(),actor:'OWNER',uid:auth.currentUser.uid,action,details})}
-window.addSales=()=>modal('Tambah Sales',`<div class="space-y-2">${[['code','Kode Sales'],['name','Nama Sales'],['email','Email Login'],['password','Password Awal'],['area','Area']].map(x=>`<input id="s_${x[0]}" type="${x[0]==='email'?'email':x[0]==='password'?'password':'text'}" class="w-full border rounded-xl p-3" placeholder="${x[1]}">`).join('')}<input id="s_daily" type="number" class="w-full border rounded-xl p-3" placeholder="Target harian (pack)"><input id="s_monthly" type="number" class="w-full border rounded-xl p-3" placeholder="Target bulanan (pack)"><input id="s_salary" type="number" class="w-full border rounded-xl p-3" placeholder="Gaji pokok"><input id="s_comm" type="number" class="w-full border rounded-xl p-3" placeholder="Komisi / pack"><input id="s_fuel" type="number" class="w-full border rounded-xl p-3" placeholder="Uang bensin"><button onclick="window.saveNewSales()" class="w-full bg-orange-600 text-white p-3 rounded-xl font-bold">BUAT AKUN SALES</button></div>`);
-window.saveNewSales=async()=>{try{const email=$('s_email').value.trim(),password=$('s_password').value.trim();if(!email||password.length<6)throw Error('Email dan password minimal 6 karakter wajib.');const creatorName='salesCreator';const creator=getApps().some(x=>x.name===creatorName)?getApp(creatorName):initializeApp(firebaseConfig,creatorName);const ca=getAuth(creator);const cred=await createUserWithEmailAndPassword(ca,email,password);const uid=cred.user.uid;await signOut(ca);const id='sales_'+uid.slice(0,8);const profile={uid,code:$('s_code').value.trim(),name:$('s_name').value.trim(),email,area:$('s_area').value.trim(),dailyTarget:+$('s_daily').value||0,monthlyTarget:+$('s_monthly').value||0,baseSalary:+$('s_salary').value||0,commissionRate:+$('s_comm').value||0,fuelAllowance:+$('s_fuel').value||0,status:'AKTIF'};await update(ref(db),{['users/'+uid]:{role:'sales',salesId:id,name:profile.name,email},['sales/'+id]:profile});await log('Add Sales','Sales '+profile.name+' dibuat');closeModal();toast('Akun sales berhasil dibuat.');}catch(e){toast('Gagal: '+e.message)}};
-window.editSales=id=>{const s=state.data.sales[id];modal('Edit Sales',`<div class="space-y-2">${[['name','Nama',s.name],['code','Kode',s.code],['email','Email',s.email],['area','Area',s.area]].map(x=>`<input id="e_${x[0]}" value="${esc(x[2])}" class="w-full border rounded-xl p-3" placeholder="${x[1]}">`).join('')}<input id="e_daily" type="number" value="${s.dailyTarget||0}" class="w-full border rounded-xl p-3" placeholder="Target harian"><input id="e_monthly" type="number" value="${s.monthlyTarget||0}" class="w-full border rounded-xl p-3" placeholder="Target bulanan"><input id="e_salary" type="number" value="${s.baseSalary||0}" class="w-full border rounded-xl p-3" placeholder="Gaji"><input id="e_comm" type="number" value="${s.commissionRate||0}" class="w-full border rounded-xl p-3" placeholder="Komisi/pack"><input id="e_fuel" type="number" value="${s.fuelAllowance||0}" class="w-full border rounded-xl p-3" placeholder="Bensin"><select id="e_status" class="w-full border rounded-xl p-3"><option ${s.status==='AKTIF'?'selected':''}>AKTIF</option><option ${s.status==='NONAKTIF'?'selected':''}>NONAKTIF</option></select><button onclick="window.saveSales('${id}')" class="w-full bg-orange-600 text-white p-3 rounded-xl font-bold">SIMPAN</button><button onclick="window.resetSales('${id}')" class="w-full bg-slate-100 p-3 rounded-xl text-sm">KIRIM RESET PASSWORD KE EMAIL</button></div>`)};
-window.saveSales=async id=>{const s=state.data.sales[id];const n={...s,name:$('e_name').value.trim(),code:$('e_code').value.trim(),email:$('e_email').value.trim(),area:$('e_area').value.trim(),dailyTarget:+$('e_daily').value||0,monthlyTarget:+$('e_monthly').value||0,baseSalary:+$('e_salary').value||0,commissionRate:+$('e_comm').value||0,fuelAllowance:+$('e_fuel').value||0,status:$('e_status').value};await update(ref(db),{['sales/'+id]:n,['users/'+s.uid+'/name']:n.name,['users/'+s.uid+'/email']:n.email});await log('Edit Sales','Sales '+n.name+' diperbarui');closeModal();toast('Data sales diperbarui')};window.resetSales=async id=>{const e=state.data.sales[id]?.email;try{await sendPasswordResetEmail(auth,e);toast('Email reset password dikirim ke '+e)}catch(x){toast(x.message)}};
-window.addProduct=()=>modal('Tambah Produk',`<div class="space-y-2"><input id="p_name" class="w-full border rounded-xl p-3" placeholder="Nama produk"><input id="p_price" type="number" class="w-full border rounded-xl p-3" placeholder="Harga jual"><input id="p_hpp" type="number" class="w-full border rounded-xl p-3" placeholder="HPP"><input id="p_stock" type="number" class="w-full border rounded-xl p-3" placeholder="Stok"><button onclick="window.saveProduct()" class="w-full bg-orange-600 text-white p-3 rounded-xl font-bold">SIMPAN</button></div>`);window.saveProduct=async()=>{const id='prod_'+Date.now();await set(ref(db,'products/'+id),{name:$('p_name').value.trim(),price:+$('p_price').value||0,hpp:+$('p_hpp').value||0,stock:+$('p_stock').value||0,status:'AKTIF'});await log('Add Product','Produk ditambahkan');closeModal()};window.editProduct=id=>{const p=state.data.products[id];modal('Edit Produk & Stok',`<div class="space-y-2"><input id="ep_name" value="${esc(p.name)}" class="w-full border rounded-xl p-3"><input id="ep_price" type="number" value="${p.price||0}" class="w-full border rounded-xl p-3"><input id="ep_hpp" type="number" value="${p.hpp||0}" class="w-full border rounded-xl p-3"><input id="ep_stock" type="number" value="${p.stock||0}" class="w-full border rounded-xl p-3"><button onclick="window.saveProductEdit('${id}')" class="w-full bg-orange-600 text-white p-3 rounded-xl font-bold">SIMPAN STOK & PRODUK</button></div>`)};window.saveProductEdit=async id=>{await update(ref(db,'products/'+id),{name:$('ep_name').value.trim(),price:+$('ep_price').value||0,hpp:+$('ep_hpp').value||0,stock:+$('ep_stock').value||0});await log('Edit Product','Produk '+id+' diperbarui');closeModal();toast('Produk/stok diperbarui')};
-window.addStore=()=>{const opts=arr('sales').filter(s=>s.status==='AKTIF').map(s=>`<option value="${s.id}">${esc(s.name)}</option>`).join('');modal('Tambah Toko',`<div class="space-y-2"><input id="t_name" class="w-full border rounded-xl p-3" placeholder="Nama toko"><input id="t_owner" class="w-full border rounded-xl p-3" placeholder="Nama pemilik"><input id="t_phone" class="w-full border rounded-xl p-3" placeholder="No. HP"><input id="t_address" class="w-full border rounded-xl p-3" placeholder="Alamat"><select id="t_sales" class="w-full border rounded-xl p-3">${opts}</select><input id="t_stock" type="number" class="w-full border rounded-xl p-3" placeholder="Stok awal"><input id="t_avg" type="number" class="w-full border rounded-xl p-3" placeholder="Rata-rata penjualan"><textarea id="t_notes" class="w-full border rounded-xl p-3" placeholder="Catatan"></textarea><button onclick="window.saveStore()" class="w-full bg-orange-600 text-white p-3 rounded-xl font-bold">SIMPAN TOKO</button></div>`)};window.saveStore=async()=>{const id='store_'+Date.now();await set(ref(db,'stores/'+id),{name:$('t_name').value.trim(),owner:$('t_owner').value.trim(),phone:$('t_phone').value.trim(),address:$('t_address').value.trim(),salesId:$('t_sales').value,stock:+$('t_stock').value||0,avgSales:+$('t_avg').value||0,lastVisitDate:'',notes:$('t_notes').value.trim(),status:'AKTIF'});await log('Add Store','Toko ditambahkan');closeModal()};window.editStore=id=>{const s=state.data.stores[id];const opts=arr('sales').map(x=>`<option value="${x.id}" ${x.id===s.salesId?'selected':''}>${esc(x.name)}</option>`).join('');modal('Edit Toko',`<div class="space-y-2"><input id="et_name" value="${esc(s.name)}" class="w-full border rounded-xl p-3"><input id="et_owner" value="${esc(s.owner)}" class="w-full border rounded-xl p-3"><input id="et_phone" value="${esc(s.phone)}" class="w-full border rounded-xl p-3"><input id="et_address" value="${esc(s.address)}" class="w-full border rounded-xl p-3"><select id="et_sales" class="w-full border rounded-xl p-3">${opts}</select><input id="et_stock" type="number" value="${s.stock||0}" class="w-full border rounded-xl p-3"><input id="et_avg" type="number" value="${s.avgSales||0}" class="w-full border rounded-xl p-3"><input id="et_last" type="date" value="${s.lastVisitDate||''}" class="w-full border rounded-xl p-3"><textarea id="et_notes" class="w-full border rounded-xl p-3">${esc(s.notes)}</textarea><button onclick="window.saveStoreEdit('${id}')" class="w-full bg-orange-600 text-white p-3 rounded-xl font-bold">SIMPAN TOKO</button></div>`)};window.saveStoreEdit=async id=>{await update(ref(db,'stores/'+id),{name:$('et_name').value.trim(),owner:$('et_owner').value.trim(),phone:$('et_phone').value.trim(),address:$('et_address').value.trim(),salesId:$('et_sales').value,stock:+$('et_stock').value||0,avgSales:+$('et_avg').value||0,lastVisitDate:$('et_last').value,notes:$('et_notes').value.trim()});await log('Edit Store','Toko '+id+' diperbarui');closeModal();toast('Toko diperbarui')};
-async function boot(u){state.user=u;const snap=await new Promise((res,rej)=>onValue(ref(db,'users/'+u.uid),s=>res(s),rej,{onlyOnce:true}));if(u.uid!==OWNER_UID&&snap.val()?.role!=='owner'){await signOut(auth);showLoginMsg('Akun ini bukan akun Owner. Gunakan halaman Sales untuk akun sales.');return}await seed();$('login').classList.add('hiddenx');$('app').classList.remove('hiddenx');subscribe();}
-onAuthStateChanged(auth,u=>u?boot(u):($('login').classList.remove('hiddenx'),$('app').classList.add('hiddenx')));
-</script></body></html>
+
+
+/* =========================
+   CEK OWNER
+========================= */
+
+function isOwner(){
+
+return state.user?.uid===OWNER_UID ||
+state.data.users?.[state.user?.uid]?.role==='owner';
+
+}
+
+
+/* =========================
+   NAVIGASI
+========================= */
+
+function nav(){
+
+const items=[
+
+['dashboard','chart-line','Ringkasan Eksekutif'],
+
+['ai','brain','AI Business Advisor'],
+
+['sales','users','Kelola Tim Sales'],
+
+['products','boxes-stacked','Produk & Stok Master'],
+
+['stores','store','Kelola Toko'],
+
+['financials','wallet','Laporan Keuangan'],
+
+['audit','shield-halved','Audit Log Sistem']
+
+];
+
+
+$('nav').innerHTML=
+
+items.map(x=>`
+
+<button
+onclick="window.goto('${x[0]}')"
+class="navbtn ${
+state.tab===x[0]?'active':''
+} w-full text-left px-3 py-3 rounded-xl text-xs font-bold">
+
+<i class="fa-solid fa-${x[1]} w-6"></i>
+
+${x[2]}
+
+</button>
+
+`).join('');
+
+}
+
+
+window.goto=t=>{
+
+state.tab=t;
+
+nav();
+
+render();
+
+};
+
+
+/* =========================
+   FIREBASE DATA
+========================= */
+
+function subscribe(){
+
+onValue(
+ref(db,'/'),
+snap=>{
+
+state.data=snap.val()||{};
+
+render();
+
+$('conn').textContent='● ONLINE';
+
+$('conn').className=
+'text-xs bg-emerald-600 px-2 py-1 rounded-full';
+
+},
+e=>{
+
+console.error(e);
+
+$('conn').textContent='OFFLINE';
+
+$('conn').className=
+'text-xs bg-rose-600 px-2 py-1 rounded-full';
+
+});
+
+}
+
+
+/* =========================
+   SEED
+========================= */
+
+async function seed(){
+
+if(!isOwner())return;
+
+const base={
+
+settings:{
+companyName:'CRISFISH',
+consignmentDays:14
+},
+
+products:{
+
+prod_1:{
+name:'Petekres Original',
+price:12000,
+hpp:7000,
+stock:0,
+status:'AKTIF'
+},
+
+prod_2:{
+name:'Petekres Rumput Laut',
+price:12000,
+hpp:7000,
+stock:0,
+status:'AKTIF'
+}
+
+}
+
+};
+
+
+for(
+const [k,v]
+of Object.entries(base)
+){
+
+if(!state.data[k])
+await set(ref(db,k),v);
+
+}
+
+
+await set(
+ref(db,'users/'+auth.currentUser.uid),
+{
+role:'owner',
+name:'Owner CRISFISH',
+email:auth.currentUser.email
+}
+);
+
+}
+
+
+/* =========================
+   STATISTIK
+========================= */
+
+function days(d){
+
+if(!d)return 999;
+
+return Math.floor(
+(Date.now()-
+new Date(d+'T00:00:00').getTime())
+/86400000
+);
+
+}
+
+
+function stats(){
+
+const tx=
+arr('transactions')
+.filter(x=>
+(x.date||'').startsWith(month())
+);
+
+const sales=
+arr('sales')
+.filter(x=>
+x.status!=='NONAKTIF'
+);
+
+const omzet=
+tx.reduce(
+(a,x)=>a+(+x.totalAmount||0),
+0
+);
+
+const qty=
+tx.reduce(
+(a,x)=>a+(+x.qty||0),
+0
+);
+
+const hpp=
+tx.reduce(
+(a,x)=>
+a+
+(+x.qty||0)*
+(+state.data.products?.[x.productId]?.hpp||0),
+0
+);
+
+const fuel=
+arr('fuelRecords')
+.filter(x=>
+String(x.date||'').startsWith(month())
+)
+.reduce(
+(a,x)=>a+(+x.amount||0),
+0
+);
+
+const comm=
+tx.reduce(
+(a,x)=>
+a+
+(+x.qty||0)*
+(+state.data.sales?.[x.salesId]?.commissionRate||0),
+0
+);
+
+return{
+
+omzet,
+
+qty,
+
+gross:
+omzet-hpp,
+
+net:
+omzet-hpp-fuel-comm,
+
+sales:sales.length,
+
+stores:
+arr('stores').length,
+
+overdue:
+arr('stores')
+.filter(s=>days(s.lastVisitDate)>=14)
+.length
+
+};
+
+}
+
+
+/* =========================
+   RENDER
+========================= */
+
+function render(){
+
+if(!state.user)return;
+
+const s=stats();
+
+nav();
+
+
+if(state.tab==='dashboard')
+
+$('content').innerHTML=`
+
+<div class="space-y-4">
+
+<div>
+
+<h2 class="text-2xl font-black">
+Ringkasan Eksekutif
+</h2>
+
+<p class="text-xs text-slate-500">
+Data realtime dari Firebase.
+</p>
+
+</div>
+
+
+<div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-3">
+
+${[
+
+['Omzet',rup(s.omzet),'emerald'],
+
+['Terjual',s.qty+' pack','blue'],
+
+['Laba bersih',rup(s.net),'orange'],
+
+['Toko overdue',
+s.overdue+' toko','rose']
+
+].map(x=>`
+
+<div class="card p-5">
+
+<div class="text-xs text-slate-500">
+${x[0]}
+</div>
+
+<b class="text-2xl text-${x[2]}-600">
+${x[1]}
+</b>
+
+</div>
+
+`).join('')}
+
+</div>
+
+
+<div class="grid md:grid-cols-2 gap-4">
+
+<div class="card p-5">
+
+<h3 class="font-black">
+Tim & Operasional
+</h3>
+
+<div class="mt-3 text-sm space-y-2">
+
+<div>${s.sales} sales aktif</div>
+
+<div>${s.stores} toko terdaftar</div>
+
+<div>
+${s.overdue} toko sudah ≥14 hari belum dikunjungi
+</div>
+
+</div>
+
+</div>
+
+
+<div class="card p-5">
+
+<h3 class="font-black">
+Stok Produk
+</h3>
+
+${arr('products').map(p=>`
+
+<div class="flex justify-between py-2 border-b text-sm">
+
+<span>${esc(p.name)}</span>
+
+<b>${p.stock||0} pack</b>
+
+</div>
+
+`).join('')}
+
+</div>
+
+</div>
+
+</div>
+`;
+
+
+else if(state.tab==='ai')
+renderAI();
+
+else if(state.tab==='sales')
+renderSales();
+
+else if(state.tab==='products')
+renderProducts();
+
+else if(state.tab==='stores')
+renderStores();
+
+else if(state.tab==='financials')
+renderFinancials();
+
+else
+renderAudit();
+
+}
+
+
+/* =========================
+   AI
+========================= */
+
+function renderAI(){
+
+$('content').innerHTML=`
+
+<div class="card p-6">
+
+<div class="flex justify-between gap-3">
+
+<div>
+
+<h2 class="text-xl font-black">
+AI Business Advisor
+</h2>
+
+<p class="text-xs text-slate-500">
+Gemini membaca data realtime CRISFISH
+dan memberi rekomendasi bisnis.
+</p>
+
+</div>
+
+<button
+onclick="window.askAI()"
+class="bg-orange-600 text-white px-4 py-2 rounded-xl text-xs font-bold">
+
+ANALISIS AI
+
+</button>
+
+</div>
+
+<div id="aiout"
+class="mt-5 bg-slate-50 rounded-2xl p-5 text-sm">
+
+Tekan ANALISIS AI.
+
+</div>
+
+</div>
+
+`;
+
+}
+
+
+window.askAI=async()=>{
+
+const o=stats();
+
+const stores=
+arr('stores')
+.map(x=>({
+
+name:x.name,
+
+salesId:x.salesId,
+
+stock:x.stock,
+
+lastVisitDate:x.lastVisitDate,
+
+daysSinceLastVisit:
+days(x.lastVisitDate),
+
+avgSales:x.avgSales
+
+}));
+
+
+$('aiout').innerHTML=
+'AI sedang menganalisis...';
+
+
+try{
+
+const prompt=
+
+`Anda adalah konsultan bisnis canvassing CRISFISH/Petekres.
+
+Data bulan berjalan:
+omzet ${o.omzet}
+terjual ${o.qty} pack
+laba bersih ${o.net}
+toko overdue ${o.overdue}.
+
+Toko:
+${JSON.stringify(stores)}
+
+Berikan rekomendasi singkat dan praktis untuk owner:
+prioritas kunjungan, stok, sales, target,
+dan tindakan 7 hari.
+
+Gunakan bahasa Indonesia.
+Bullet list.`;
+
+const r=
+await gemini.generateContent(prompt);
+
+$('aiout').innerHTML=
+'<div class="whitespace-pre-wrap">'+
+esc(r.response.text())+
+'</div>';
+
+}catch(e){
+
+$('aiout').innerHTML=
+'<b>Gemini belum bisa dipanggil.</b>';
+
+}
+
+};
+
+
+/* =========================
+   SALES
+========================= */
+
+function renderSales(){
+
+$('content').innerHTML=`
+
+<div class="card p-6">
+
+<div class="flex justify-between items-center mb-5">
+
+<div>
+
+<h2 class="text-xl font-black">
+Kelola Tim Sales
+</h2>
+
+<p class="text-xs text-slate-500">
+Tambah, edit target, gaji, komisi,
+area, dan status.
+</p>
+
+</div>
+
+<button
+onclick="window.addSales()"
+class="bg-orange-600 text-white px-4 py-2 rounded-xl text-xs font-bold">
+
++ TAMBAH SALES
+
+</button>
+
+</div>
+
+
+<div class="space-y-3">
+
+${arr('sales').map(s=>`
+
+<div class="border rounded-2xl p-4 flex flex-col md:flex-row justify-between gap-3">
+
+<div>
+
+<b>${esc(s.name)}</b>
+
+<div class="text-xs text-slate-500">
+${esc(s.code)} •
+${esc(s.area)} •
+${esc(s.email)}
+</div>
+
+<div class="text-xs mt-1">
+Target ${s.monthlyTarget||0} pack •
+Gaji ${rup(s.baseSalary)} •
+Komisi ${rup(s.commissionRate)}/pack •
+Bensin ${rup(s.fuelAllowance)}
+</div>
+
+</div>
+
+<button
+onclick="window.editSales('${s.id}')"
+class="bg-slate-900 text-white px-4 py-2 rounded-xl text-xs font-bold">
+
+EDIT
+
+</button>
+
+</div>
+
+`).join('')||
+
+'<p class="text-sm text-slate-500">Belum ada sales.</p>'}
+
+</div>
+
+</div>
+
+`;
+
+}
+
+
+/* =========================
+   PRODUCTS
+========================= */
+
+function renderProducts(){
+
+$('content').innerHTML=`
+
+<div class="card p-6">
+
+<div class="flex justify-between items-center mb-5">
+
+<h2 class="text-xl font-black">
+Produk & Stok Master
+</h2>
+
+<button
+onclick="window.addProduct()"
+class="bg-orange-600 text-white px-4 py-2 rounded-xl text-xs font-bold">
+
++ PRODUK
+
+</button>
+
+</div>
+
+
+<div class="space-y-3">
+
+${arr('products').map(p=>`
+
+<div class="border rounded-2xl p-4 flex justify-between items-center">
+
+<div>
+
+<b>${esc(p.name)}</b>
+
+<div class="text-xs text-slate-500">
+Harga ${rup(p.price)} • HPP ${rup(p.hpp)}
+</div>
+
+</div>
+
+<div class="flex items-center gap-2">
+
+<b>${p.stock||0} pack</b>
+
+<button
+onclick="window.editProduct('${p.id}')"
+class="bg-slate-900 text-white px-3 py-2 rounded-lg text-xs">
+
+EDIT
+
+</button>
+
+</div>
+
+</div>
+
+`).join('')}
+
+</div>
+
+</div>
+
+`;
+
+}
+
+
+/* =========================
+   STORE
+========================= */
+
+function renderStores(){
+
+$('content').innerHTML=`
+
+<div class="card p-6">
+
+<div class="flex justify-between items-center mb-5">
+
+<div>
+
+<h2 class="text-xl font-black">
+Kelola Toko
+</h2>
+
+<p class="text-xs text-slate-500">
+Konsinyasi 14 hari.
+Owner dapat mengedit semua data toko.
+</p>
+
+</div>
+
+<button
+onclick="window.addStore()"
+class="bg-orange-600 text-white px-4 py-2 rounded-xl text-xs font-bold">
+
++ TOKO
+
+</button>
+
+</div>
+
+
+<div class="grid md:grid-cols-2 gap-3">
+
+${arr('stores').map(s=>{
+
+const sl=
+state.data.sales?.[s.salesId];
+
+return `
+
+<div class="border rounded-2xl p-4">
+
+<div class="flex justify-between">
+
+<b>${esc(s.name)}</b>
+
+<button
+onclick="window.editStore('${s.id}')"
+class="text-orange-600 text-xs font-bold">
+
+EDIT
+
+</button>
+
+</div>
+
+<div class="text-xs text-slate-500 mt-1">
+
+${esc(s.owner)} •
+
+Sales:
+${esc(sl?.name||'-')}
+
+</div>
+
+<div class="text-xs mt-2">
+
+Stok ${s.stock||0} •
+
+${days(s.lastVisitDate)}
+hari belum dikunjungi
+
+</div>
+
+<div class="text-xs text-slate-500">
+
+${esc(s.address)}
+
+</div>
+
+</div>
+
+`;
+
+}).join('')||
+
+'<p>Belum ada toko.</p>'}
+
+</div>
+
+</div>
+
+`;
+
+}
+
+
+/* =========================
+   FINANCIAL
+========================= */
+
+function renderFinancials(){
+
+const o=stats();
+
+const fuel=
+arr('fuelRecords')
+.reduce(
+(a,x)=>a+(+x.amount||0),
+0
+);
+
+const dep=
+arr('deposits')
+.reduce(
+(a,x)=>a+(+x.amount||0),
+0
+);
+
+
+$('content').innerHTML=`
+
+<div class="space-y-4">
+
+<div class="card p-6">
+
+<h2 class="text-xl font-black">
+Laporan Keuangan
+</h2>
+
+<div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-3 mt-4">
+
+${[
+
+['Omzet',rup(o.omzet)],
+
+['HPP',rup(o.omzet-o.gross)],
+
+['Bensin',rup(fuel)],
+
+['Setoran',rup(dep)]
+
+].map(x=>`
+
+<div class="bg-slate-50 rounded-2xl p-4">
+
+<div class="text-xs text-slate-500">
+${x[0]}
+</div>
+
+<b>${x[1]}</b>
+
+</div>
+
+`).join('')}
+
+</div>
+
+</div>
+
+
+<div class="card p-6">
+
+<h3 class="font-black">
+Pendapatan Sales bulan ini
+</h3>
+
+${arr('sales').map(s=>{
+
+const q=
+arr('transactions')
+.filter(t=>
+t.salesId===s.id &&
+(t.date||'').startsWith(month())
+)
+.reduce(
+(a,t)=>a+(+t.qty||0),
+0
+);
+
+const g=
+(s.baseSalary||0)+
+q*(s.commissionRate||0)+
+(s.fuelAllowance||0);
+
+return `
+
+<div class="flex justify-between border-b py-3 text-sm">
+
+<span>
+
+${esc(s.name)}
+
+<small class="block text-slate-500">
+${q} pack
+</small>
+
+</span>
+
+<b>${rup(g)}</b>
+
+</div>
+
+`;
+
+}).join('')}
+
+</div>
+
+</div>
+
+`;
+
+}
+
+
+/* =========================
+   AUDIT
+========================= */
+
+function renderAudit(){
+
+$('content').innerHTML=`
+
+<div class="card p-6">
+
+<h2 class="text-xl font-black">
+Audit Log Sistem
+</h2>
+
+<div class="mt-4 space-y-2">
+
+${arr('auditLogs')
+.sort((a,b)=>
+(b.ts||0)-(a.ts||0)
+)
+.slice(0,100)
+.map(x=>`
+
+<div class="border-b py-2 text-xs">
+
+<b>${esc(x.actor||'')}</b> •
+
+${esc(x.action||'')}
+
+<div class="text-slate-500">
+${esc(x.details||'')}
+</div>
+
+</div>
+
+`).join('')||
+
+'Belum ada log.'
+
+}
+
+</div>
+
+</div>
+
+`;
+
+}
+
+
+/* =========================
+   MODAL
+========================= */
+
+function modal(title,body){
+
+$('mt').textContent=title;
+
+$('mb').innerHTML=body;
+
+$('modal').classList.remove('hiddenx');
+
+$('modal').classList.add('flex');
+
+}
+
+
+window.closeModal=()=>{
+
+$('modal').classList.add('hiddenx');
+
+$('modal').classList.remove('flex');
+
+};
+
+
+/* =========================
+   AUDIT LOG
+========================= */
+
+async function log(action,details){
+
+if(!auth.currentUser)return;
+
+const r=
+push(ref(db,'auditLogs'));
+
+await set(r,{
+
+ts:Date.now(),
+
+actor:'OWNER',
+
+uid:auth.currentUser.uid,
+
+action,
+
+details
+
+});
+
+}
+
+
+/* =========================
+   TAMBAH SALES
+========================= */
+
+window.addSales=()=>modal(
+
+'Tambah Sales',
+
+`
+
+<div class="space-y-2">
+
+<input id="s_code"
+class="w-full border rounded-xl p-3"
+placeholder="Kode Sales">
+
+<input id="s_name"
+class="w-full border rounded-xl p-3"
+placeholder="Nama Sales">
+
+<input id="s_email"
+type="email"
+class="w-full border rounded-xl p-3"
+placeholder="Email Login">
+
+<input id="s_password"
+type="password"
+class="w-full border rounded-xl p-3"
+placeholder="Password Awal">
+
+<input id="s_area"
+class="w-full border rounded-xl p-3"
+placeholder="Area">
+
+<input id="s_daily"
+type="number"
+class="w-full border rounded-xl p-3"
+placeholder="Target harian (pack)">
+
+<input id="s_monthly"
+type="number"
+class="w-full border rounded-xl p-3"
+placeholder="Target bulanan (pack)">
+
+<input id="s_salary"
+type="number"
+class="w-full border rounded-xl p-3"
+placeholder="Gaji pokok">
+
+<input id="s_comm"
+type="number"
+class="w-full border rounded-xl p-3"
+placeholder="Komisi / pack">
+
+<input id="s_fuel"
+type="number"
+class="w-full border rounded-xl p-3"
+placeholder="Uang bensin">
+
+<button
+onclick="window.saveNewSales()"
+class="w-full bg-orange-600 text-white p-3 rounded-xl font-bold">
+
+BUAT AKUN SALES
+
+</button>
+
+</div>
+
+`);
+
+window.saveNewSales=async()=>{
+
+try{
+
+const email=
+$('s_email').value.trim();
+
+const password=
+$('s_password').value.trim();
+
+if(!email||
+password.length<6)
+throw Error(
+'Email dan password minimal 6 karakter wajib.'
+);
+
+
+const creatorApp=
+initializeApp(
+firebaseConfig,
+'salesCreator'
+);
+
+const ca=
+getAuth(creatorApp);
+
+const cred=
+await createUserWithEmailAndPassword(
+ca,
+email,
+password
+);
+
+const uid=
+cred.user.uid;
+
+await signOut(ca);
+
+
+const id=
+'sales_'+uid.slice(0,8);
+
+
+const profile={
+
+uid,
+
+code:
+$('s_code').value.trim(),
+
+name:
+$('s_name').value.trim(),
+
+email,
+
+area:
+$('s_area').value.trim(),
+
+dailyTarget:
++$('s_daily').value||0,
+
+monthlyTarget:
++$('s_monthly').value||0,
+
+baseSalary:
++$('s_salary').value||0,
+
+commissionRate:
++$('s_comm').value||0,
+
+fuelAllowance:
++$('s_fuel').value||0,
+
+status:'AKTIF'
+
+};
+
+
+await update(
+ref(db),
+{
+
+['users/'+uid]:{
+
+role:'sales',
+
+salesId:id,
+
+name:profile.name,
+
+email
+
+},
+
+['sales/'+id]:profile
+
+}
+);
+
+
+await log(
+'Add Sales',
+'Sales '+profile.name+' dibuat'
+);
+
+closeModal();
+
+toast(
+'Akun sales berhasil dibuat.'
+);
+
+}catch(e){
+
+console.error(e);
+
+toast(
+'Gagal: '+e.message
+);
+
+}
+
+};
+
+
+/* =========================
+   EDIT SALES
+========================= */
+
+window.editSales=id=>{
+
+const s=
+state.data.sales[id];
+
+modal(
+
+'Edit Sales',
+
+`
+
+<div class="space-y-2">
+
+<input id="e_name"
+value="${esc(s.name)}"
+class="w-full border rounded-xl p-3"
+placeholder="Nama">
+
+<input id="e_code"
+value="${esc(s.code)}"
+class="w-full border rounded-xl p-3"
+placeholder="Kode">
+
+<input id="e_email"
+value="${esc(s.email)}"
+class="w-full border rounded-xl p-3"
+placeholder="Email">
+
+<input id="e_area"
+value="${esc(s.area)}"
+class="w-full border rounded-xl p-3"
+placeholder="Area">
+
+<input id="e_daily"
+type="number"
+value="${s.dailyTarget||0}"
+class="w-full border rounded-xl p-3"
+placeholder="Target harian">
+
+<input id="e_monthly"
+type="number"
+value="${s.monthlyTarget||0}"
+class="w-full border rounded-xl p-3"
+placeholder="Target bulanan">
+
+<input id="e_salary"
+type="number"
+value="${s.baseSalary||0}"
+class="w-full border rounded-xl p-3"
+placeholder="Gaji">
+
+<input id="e_comm"
+type="number"
+value="${s.commissionRate||0}"
+class="w-full border rounded-xl p-3"
+placeholder="Komisi/pack">
+
+<input id="e_fuel"
+type="number"
+value="${s.fuelAllowance||0}"
+class="w-full border rounded-xl p-3"
+placeholder="Bensin">
+
+<select id="e_status"
+class="w-full border rounded-xl p-3">
+
+<option ${
+s.status==='AKTIF'?'selected':''
+}>
+AKTIF
+</option>
+
+<option ${
+s.status==='NONAKTIF'?'selected':''
+}>
+NONAKTIF
+</option>
+
+</select>
+
+
+<button
+onclick="window.saveSales('${id}')"
+class="w-full bg-orange-600 text-white p-3 rounded-xl font-bold">
+
+SIMPAN
+
+</button>
+
+
+<button
+onclick="window.resetSales('${id}')"
+class="w-full bg-slate-100 p-3 rounded-xl text-sm">
+
+KIRIM RESET PASSWORD KE EMAIL
+
+</button>
+
+</div>
+
+`);
+
+};
+
+
+window.saveSales=async id=>{
+
+const s=
+state.data.sales[id];
+
+const n={
+
+...s,
+
+name:
+$('e_name').value.trim(),
+
+code:
+$('e_code').value.trim(),
+
+email:
+$('e_email').value.trim(),
+
+area:
+$('e_area').value.trim(),
+
+dailyTarget:
++$('e_daily').value||0,
+
+monthlyTarget:
++$('e_monthly').value||0,
+
+baseSalary:
++$('e_salary').value||0,
+
+commissionRate:
++$('e_comm').value||0,
+
+fuelAllowance:
++$('e_fuel').value||0,
+
+status:
+$('e_status').value
+
+};
+
+
+await update(
+ref(db),
+{
+
+['sales/'+id]:n,
+
+['users/'+s.uid+'/name']:
+n.name,
+
+['users/'+s.uid+'/email']:
+n.email
+
+}
+);
+
+await log(
+'Edit Sales',
+'Sales '+n.name+' diperbarui'
+);
+
+closeModal();
+
+toast(
+'Data sales diperbarui'
+);
+
+};
+
+
+window.resetSales=async id=>{
+
+const e=
+state.data.sales[id]?.email;
+
+try{
+
+await sendPasswordResetEmail(
+auth,
+e
+);
+
+toast(
+'Email reset password dikirim ke '+e
+);
+
+}catch(x){
+
+toast(x.message);
+
+}
+
+};
+
+
+/* =========================
+   PRODUCT
+========================= */
+
+window.addProduct=()=>modal(
+
+'Tambah Produk',
+
+`
+
+<div class="space-y-2">
+
+<input id="p_name"
+class="w-full border rounded-xl p-3"
+placeholder="Nama produk">
+
+<input id="p_price"
+type="number"
+class="w-full border rounded-xl p-3"
+placeholder="Harga jual">
+
+<input id="p_hpp"
+type="number"
+class="w-full border rounded-xl p-3"
+placeholder="HPP">
+
+<input id="p_stock"
+type="number"
+class="w-full border rounded-xl p-3"
+placeholder="Stok">
+
+<button
+onclick="window.saveProduct()"
+class="w-full bg-orange-600 text-white p-3 rounded-xl font-bold">
+
+SIMPAN
+
+</button>
+
+</div>
+
+`);
+
+
+window.saveProduct=async()=>{
+
+const id=
+'prod_'+Date.now();
+
+await set(
+ref(db,'products/'+id),
+{
+
+name:
+$('p_name').value.trim(),
+
+price:
++$('p_price').value||0,
+
+hpp:
++$('p_hpp').value||0,
+
+stock:
++$('p_stock').value||0,
+
+status:'AKTIF'
+
+}
+);
+
+await log(
+'Add Product',
+'Produk ditambahkan'
+);
+
+closeModal();
+
+toast(
+'Produk ditambahkan'
+);
+
+};
+
+
+window.editProduct=id=>{
+
+const p=
+state.data.products[id];
+
+modal(
+
+'Edit Produk & Stok',
+
+`
+
+<div class="space-y-2">
+
+<input id="ep_name"
+value="${esc(p.name)}"
+class="w-full border rounded-xl p-3">
+
+<input id="ep_price"
+type="number"
+value="${p.price||0}"
+class="w-full border rounded-xl p-3">
+
+<input id="ep_hpp"
+type="number"
+value="${p.hpp||0}"
+class="w-full border rounded-xl p-3">
+
+<input id="ep_stock"
+type="number"
+value="${p.stock||0}"
+class="w-full border rounded-xl p-3">
+
+<button
+onclick="window.saveProductEdit('${id}')"
+class="w-full bg-orange-600 text-white p-3 rounded-xl font-bold">
+
+SIMPAN STOK & PRODUK
+
+</button>
+
+</div>
+
+`);
+
+};
+
+
+window.saveProductEdit=async id=>{
+
+await update(
+ref(db,'products/'+id),
+{
+
+name:
+$('ep_name').value.trim(),
+
+price:
++$('ep_price').value||0,
+
+hpp:
++$('ep_hpp').value||0,
+
+stock:
++$('ep_stock').value||0
+
+}
+);
+
+await log(
+'Edit Product',
+'Produk '+id+' diperbarui'
+);
+
+closeModal();
+
+toast(
+'Produk/stok diperbarui'
+);
+
+};
+
+
+/* =========================
+   STORE
+========================= */
+
+window.addStore=()=>{
+
+const opts=
+arr('sales')
+.filter(s=>s.status==='AKTIF')
+.map(s=>`
+
+<option value="${s.id}">
+${esc(s.name)}
+</option>
+
+`)
+.join('');
+
+
+modal(
+
+'Tambah Toko',
+
+`
+
+<div class="space-y-2">
+
+<input id="t_name"
+class="w-full border rounded-xl p-3"
+placeholder="Nama toko">
+
+<input id="t_owner"
+class="w-full border rounded-xl p-3"
+placeholder="Nama pemilik">
+
+<input id="t_phone"
+class="w-full border rounded-xl p-3"
+placeholder="No. HP">
+
+<input id="t_address"
+class="w-full border rounded-xl p-3"
+placeholder="Alamat">
+
+<select id="t_sales"
+class="w-full border rounded-xl p-3">
+
+${opts}
+
+</select>
+
+<input id="t_stock"
+type="number"
+class="w-full border rounded-xl p-3"
+placeholder="Stok awal">
+
+<input id="t_avg"
+type="number"
+class="w-full border rounded-xl p-3"
+placeholder="Rata-rata penjualan">
+
+<textarea
+id="t_notes"
+class="w-full border rounded-xl p-3"
+placeholder="Catatan">
+</textarea>
+
+<button
+onclick="window.saveStore()"
+class="w-full bg-orange-600 text-white p-3 rounded-xl font-bold">
+
+SIMPAN TOKO
+
+</button>
+
+</div>
+
+`);
+
+};
+
+
+window.saveStore=async()=>{
+
+const id=
+'store_'+Date.now();
+
+await set(
+ref(db,'stores/'+id),
+{
+
+name:
+$('t_name').value.trim(),
+
+owner:
+$('t_owner').value.trim(),
+
+phone:
+$('t_phone').value.trim(),
+
+address:
+$('t_address').value.trim(),
+
+salesId:
+$('t_sales').value,
+
+stock:
++$('t_stock').value||0,
+
+avgSales:
++$('t_avg').value||0,
+
+lastVisitDate:'',
+
+notes:
+$('t_notes').value.trim(),
+
+status:'AKTIF'
+
+}
+);
+
+await log(
+'Add Store',
+'Toko ditambahkan'
+);
+
+closeModal();
+
+toast(
+'Toko ditambahkan'
+);
+
+};
+
+
+window.editStore=id=>{
+
+const s=
+state.data.stores[id];
+
+const opts=
+arr('sales')
+.map(x=>`
+
+<option
+value="${x.id}"
+${x.id===s.salesId?'selected':''}>
+
+${esc(x.name)}
+
+</option>
+
+`)
+.join('');
+
+
+modal(
+
+'Edit Toko',
+
+`
+
+<div class="space-y-2">
+
+<input id="et_name"
+value="${esc(s.name)}"
+class="w-full border rounded-xl p-3">
+
+<input id="et_owner"
+value="${esc(s.owner)}"
+class="w-full border rounded-xl p-3">
+
+<input id="et_phone"
+value="${esc(s.phone)}"
+class="w-full border rounded-xl p-3">
+
+<input id="et_address"
+value="${esc(s.address)}"
+class="w-full border rounded-xl p-3">
+
+<select id="et_sales"
+class="w-full border rounded-xl p-3">
+
+${opts}
+
+</select>
+
+<input id="et_stock"
+type="number"
+value="${s.stock||0}"
+class="w-full border rounded-xl p-3">
+
+<input id="et_avg"
+type="number"
+value="${s.avgSales||0}"
+class="w-full border rounded-xl p-3">
+
+<input id="et_last"
+type="date"
+value="${s.lastVisitDate||''}"
+class="w-full border rounded-xl p-3">
+
+<textarea
+id="et_notes"
+class="w-full border rounded-xl p-3">
+
+${esc(s.notes)}
+
+</textarea>
+
+<button
+onclick="window.saveStoreEdit('${id}')"
+class="w-full bg-orange-600 text-white p-3 rounded-xl font-bold">
+
+SIMPAN TOKO
+
+</button>
+
+</div>
+
+`);
+
+};
+
+
+window.saveStoreEdit=async id=>{
+
+await update(
+ref(db,'stores/'+id),
+{
+
+name:
+$('et_name').value.trim(),
+
+owner:
+$('et_owner').value.trim(),
+
+phone:
+$('et_phone').value.trim(),
+
+address:
+$('et_address').value.trim(),
+
+salesId:
+$('et_sales').value,
+
+stock:
++$('et_stock').value||0,
+
+avgSales:
++$('et_avg').value||0,
+
+lastVisitDate:
+$('et_last').value,
+
+notes:
+$('et_notes').value.trim()
+
+}
+);
+
+await log(
+'Edit Store',
+'Toko '+id+' diperbarui'
+);
+
+closeModal();
+
+toast(
+'Toko diperbarui'
+);
+
+};
+
+
+/* =========================
+   BOOT OWNER
+========================= */
+
+async function boot(u){
+
+state.user=u;
+
+
+/* CEK UID OWNER */
+
+if(u.uid!==OWNER_UID){
+
+const userSnap=
+await new Promise((resolve,reject)=>{
+
+onValue(
+ref(db,'users/'+u.uid),
+s=>resolve(s),
+reject,
+{onlyOnce:true}
+);
+
+});
+
+
+if(userSnap.val()?.role!=='owner'){
+
+await signOut(auth);
+
+showLoginMsg(
+'Akun ini bukan akun Owner.'
+);
+
+return;
+
+}
+
+}
+
+
+await seed();
+
+
+$('login').classList.add('hiddenx');
+
+$('app').classList.remove('hiddenx');
+
+subscribe();
+
+}
+
+
+onAuthStateChanged(
+auth,
+u=>{
+
+if(u){
+
+boot(u);
+
+}else{
+
+$('login').classList.remove('hiddenx');
+
+$('app').classList.add('hiddenx');
+
+}
+
+}
+
+);
+
+</script>
+
+</body>
+</html>
