@@ -1,2376 +1,6774 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>CRISFISH SALES - Owner</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CRISFISH Sales Management System</title>
 
-<style>
-*{box-sizing:border-box;margin:0;padding:0;font-family:Arial,sans-serif}
-body{background:#f3f4f6;color:#17202a}
-.app{max-width:1250px;margin:auto;min-height:100vh}
-.header{background:#111827;color:white;padding:20px;position:sticky;top:0;z-index:20}
-.logo{font-size:25px;font-weight:bold}
-.subtitle{font-size:12px;opacity:.8;margin-top:5px}
-.container{padding:16px}
-.card{background:white;border-radius:16px;padding:18px;margin-bottom:16px;box-shadow:0 3px 12px rgba(0,0,0,.07)}
-.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
-.stat-title{font-size:12px;color:#666}
-.stat-value{font-size:25px;font-weight:bold;margin-top:7px}
-.section-title{font-size:19px;font-weight:bold;margin-bottom:15px}
-.form-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
-label{font-size:12px;font-weight:bold}
-input,select,textarea{
-width:100%;padding:12px;margin-top:5px;margin-bottom:10px;
-border:1px solid #ddd;border-radius:10px;font-size:14px
-}
-textarea{min-height:70px}
-button{
-border:0;border-radius:10px;padding:11px 14px;
-font-weight:bold;cursor:pointer
-}
-.btn{background:#16a34a;color:white}
-.btn-blue{background:#2563eb;color:white}
-.btn-dark{background:#111827;color:white}
-.btn-red{background:#dc2626;color:white}
-.btn-orange{background:#ea580c;color:white}
-.btn-gray{background:#e5e7eb;color:#111}
-.btn-small{padding:7px 9px;font-size:11px}
-.tabs{display:flex;gap:7px;overflow:auto;margin-bottom:15px}
-.tabs button{white-space:nowrap;background:#e5e7eb}
-.tabs button.active{background:#111827;color:white}
-.page{display:none}
-.page.active{display:block}
-.table-wrap{overflow-x:auto}
-table{width:100%;border-collapse:collapse}
-th,td{padding:10px;border-bottom:1px solid #eee;text-align:left;font-size:12px}
-th{background:#f9fafb}
-.badge{display:inline-block;padding:5px 8px;border-radius:20px;font-size:10px}
-.green{background:#dcfce7;color:#166534}
-.yellow{background:#fef9c3;color:#854d0e}
-.red{background:#fee2e2;color:#991b1b}
-.blue{background:#dbeafe;color:#1d4ed8}
-.map{width:100%;height:420px;border:0;border-radius:14px}
-.alert{padding:12px;border-radius:10px;background:#fff7ed;border:1px solid #fed7aa;margin-bottom:8px}
-.login{
-position:fixed;inset:0;background:#111827;display:flex;
-align-items:center;justify-content:center;padding:20px;z-index:1000
-}
-.login-box{background:white;width:100%;max-width:420px;padding:25px;border-radius:20px}
-.login-logo{text-align:center;font-size:27px;font-weight:bold;margin-bottom:5px}
-.login-sub{text-align:center;color:#666;font-size:12px;margin-bottom:20px}
-.status{font-size:12px;margin-top:8px}
-.modal{
-display:none;position:fixed;inset:0;background:rgba(0,0,0,.55);
-z-index:500;align-items:center;justify-content:center;padding:15px
-}
-.modal-box{
-background:white;width:100%;max-width:600px;max-height:92vh;
-overflow:auto;border-radius:18px;padding:20px
-}
-.modal-title{font-size:20px;font-weight:bold;margin-bottom:15px}
-.kpi{font-size:22px;font-weight:bold}
-.progress{height:10px;background:#e5e7eb;border-radius:10px;overflow:hidden}
-.progress-bar{height:100%;background:#16a34a}
-.actions{display:flex;gap:5px;flex-wrap:wrap}
-@media(max-width:850px){
-.grid{grid-template-columns:repeat(2,1fr)}
-.form-grid{grid-template-columns:1fr 1fr}
-}
-@media(max-width:550px){
-.container{padding:10px}
-.grid{grid-template-columns:1fr 1fr}
-.form-grid{grid-template-columns:1fr}
-.stat-value{font-size:20px}
-}
-@media print{
-.no-print,.tabs,.header button{display:none!important}
-body{background:white}
-.card{box-shadow:none;border:1px solid #ddd}
-}
-</style>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              50: '#fff7ed',
+              100: '#ffedd5',
+              500: '#f97316',
+              600: '#ea580c',
+              700: '#c2410c',
+              800: '#9a3412',
+              900: '#7c2d12',
+            },
+            accent: {
+              500: '#06b6d4',
+              600: '#0891b2'
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    ::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: #f1f1f1;
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: #cbd5e1;
+      border-radius: 4px;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+      background: #94a3b8;
+    }
+
+    .glass-card {
+      background: rgba(255,255,255,.9);
+      backdrop-filter: blur(8px);
+    }
+
+    .modal-enter {
+      animation: modalEnter .2s ease-out forwards;
+    }
+
+    @keyframes modalEnter {
+      from {
+        transform: scale(.95);
+        opacity: 0;
+      }
+      to {
+        transform: scale(1);
+        opacity: 1;
+      }
+    }
+  </style>
 </head>
 
-<body>
+<body class="bg-slate-100 text-slate-800 font-sans antialiased min-h-screen flex flex-col">
+
+<div id="app" class="flex-1 flex flex-col min-h-screen">
+
+  <!-- HEADER -->
+  <header class="bg-slate-900 text-white shadow-md sticky top-0 z-40 border-b border-slate-800">
+    <div class="max-w-7xl mx-auto px-4 py-3 flex justify-between items-center">
+
+      <div class="flex items-center space-x-3">
+        <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-brand-600 to-amber-400
+                    flex items-center justify-center font-bold text-xl shadow-lg">
+          🐟
+        </div>
+
+        <div>
+          <h1 class="font-bold text-lg leading-none text-white tracking-wide">
+            CRISFISH
+          </h1>
+
+          <p class="text-[10px] text-brand-400 font-medium tracking-wider uppercase">
+            Sales System • PETEKRES
+          </p>
+        </div>
+      </div>
+
+      <div id="header-user-info"
+           class="flex items-center space-x-3"></div>
+
+    </div>
+  </header>
+
+  <!-- MAIN -->
+  <main id="main-content"
+        class="flex-1 max-w-7xl w-full mx-auto px-3 sm:px-6 py-4 pb-24 md:pb-6">
+  </main>
+
+  <!-- MOBILE SALES NAV -->
+  <nav id="mobile-nav"
+       class="hidden fixed bottom-0 left-0 right-0 bg-white border-t border-slate-200
+              z-30 md:hidden shadow-lg">
+
+    <div class="grid grid-cols-5 text-center text-xs py-2">
+
+      <button onclick="navigateSales('dashboard')"
+              class="sales-nav-btn text-brand-600 font-semibold flex flex-col items-center"
+              data-view="dashboard">
+        <i class="fa-solid fa-house text-lg mb-0.5"></i>
+        <span>Home</span>
+      </button>
+
+      <button onclick="navigateSales('ai-assistant')"
+              class="sales-nav-btn text-slate-500 flex flex-col items-center"
+              data-view="ai-assistant">
+        <i class="fa-solid fa-robot text-lg mb-0.5 text-amber-500"></i>
+        <span>AI Sales</span>
+      </button>
+
+      <button onclick="navigateSales('route')"
+              class="sales-nav-btn text-slate-500 flex flex-col items-center"
+              data-view="route">
+        <i class="fa-solid fa-route text-lg mb-0.5"></i>
+        <span>Rute</span>
+      </button>
+
+      <button onclick="navigateSales('stores')"
+              class="sales-nav-btn text-slate-500 flex flex-col items-center"
+              data-view="stores">
+        <i class="fa-solid fa-store text-lg mb-0.5"></i>
+        <span>Toko</span>
+      </button>
+
+      <button onclick="navigateSales('deposit')"
+              class="sales-nav-btn text-slate-500 flex flex-col items-center"
+              data-view="deposit">
+        <i class="fa-solid fa-wallet text-lg mb-0.5"></i>
+        <span>Setoran</span>
+      </button>
+
+    </div>
+  </nav>
+
+</div>
+
+<!-- MODAL -->
+<div id="modal-backdrop"
+     class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 hidden
+            items-center justify-center p-4">
+
+  <div id="modal-card"
+       class="bg-white rounded-2xl shadow-2xl max-w-lg w-full
+              max-h-[90vh] overflow-y-auto p-6">
+
+    <div class="flex justify-between items-center border-b pb-3 mb-4">
+
+      <h3 id="modal-title"
+          class="text-lg font-bold text-slate-800">
+        Title
+      </h3>
+
+      <button onclick="closeModal()"
+              class="text-slate-400 hover:text-slate-600 text-xl font-bold">
+        &times;
+      </button>
 
-<!-- LOGIN OWNER -->
-<div class="login" id="loginScreen">
+    </div>
 
-<div class="login-box">
+    <div id="modal-body"
+         class="space-y-4"></div>
 
-<div class="login-logo">CRISFISH SALES</div>
-<div class="login-sub">OWNER / SPV MANAGEMENT SYSTEM</div>
-
-<label>Email Owner</label>
-<input id="loginEmail" type="email" placeholder="email owner">
-
-<label>Password</label>
-<input id="loginPassword" type="password" placeholder="password">
-
-<button class="btn" style="width:100%" onclick="ownerLogin()">
-MASUK SEBAGAI OWNER
-</button>
-
-<button class="btn-gray" style="width:100%;margin-top:8px"
-onclick="forgotPassword()">
-LUPA PASSWORD?
-</button>
-
-<div id="loginStatus" class="status"></div>
-
-</div>
-</div>
-
-
-<div class="app" id="app" style="display:none">
-
-<div class="header">
-
-<div style="display:flex;justify-content:space-between;gap:10px;align-items:center">
-
-<div>
-<div class="logo">CRISFISH SALES</div>
-<div class="subtitle">
-OWNER / SPV DASHBOARD • PETEKRES CRISFISH
-</div>
-</div>
-
-<button class="btn-red" onclick="logout()">KELUAR</button>
-
-</div>
-
-<div id="firebaseStatus" class="status">
-Menghubungkan Firebase...
-</div>
-
-</div>
-
-
-<div class="container">
-
-<div class="tabs no-print">
-
-<button class="active" onclick="showPage('dashboard',this)">📊 Dashboard</button>
-<button onclick="showPage('sales',this)">👥 Sales</button>
-<button onclick="showPage('outlets',this)">🏪 Outlet</button>
-<button onclick="showPage('salesHistory',this)">🛒 Penjualan</button>
-<button onclick="showPage('deposits',this)">💰 Setoran</button>
-<button onclick="showPage('stock',this)">📦 Stok</button>
-<button onclick="showPage('map',this)">🗺️ Peta</button>
-<button onclick="showPage('payroll',this)">💼 Penggajian</button>
-<button onclick="showPage('reports',this)">🖨️ Laporan</button>
-<button onclick="showPage('settings',this)">⚙️ Pengaturan</button>
-
-</div>
-
-
-<!-- DASHBOARD -->
-<div id="dashboard" class="page active">
-
-<div class="grid">
-
-<div class="card">
-<div class="stat-title">Omzet Hari Ini</div>
-<div class="stat-value" id="todayRevenue">Rp 0</div>
-</div>
-
-<div class="card">
-<div class="stat-title">Pack Bulan Ini</div>
-<div class="stat-value" id="monthPack">0</div>
-</div>
-
-<div class="card">
-<div class="stat-title">Sales Aktif</div>
-<div class="stat-value" id="activeSales">0</div>
-</div>
-
-<div class="card">
-<div class="stat-title">Outlet</div>
-<div class="stat-value" id="outletTotal">0</div>
-</div>
-
-<div class="card">
-<div class="stat-title">Setoran</div>
-<div class="stat-value" id="depositTotal">Rp 0</div>
-</div>
-
-<div class="card">
-<div class="stat-title">Achievement</div>
-<div class="stat-value" id="companyAchievement">0%</div>
-</div>
-
-<div class="card">
-<div class="stat-title">Komisi Sales</div>
-<div class="stat-value" id="commissionTotal">Rp 0</div>
-</div>
-
-<div class="card">
-<div class="stat-title">Rata-rata KPI</div>
-<div class="stat-value" id="avgKpi">0</div>
-</div>
-
-</div>
-
-
-<div class="card">
-
-<div class="section-title">🚨 Alert Owner</div>
-
-<div id="alerts">
-Tidak ada peringatan.
-</div>
-
-</div>
-
-
-<div class="card">
-
-<div class="section-title">🏆 Ranking Sales</div>
-
-<div class="table-wrap">
-
-<table>
-
-<thead>
-<tr>
-<th>Rank</th>
-<th>Sales</th>
-<th>Pack</th>
-<th>Target</th>
-<th>Achievement</th>
-<th>KPI</th>
-<th>Pendapatan</th>
-</tr>
-</thead>
-
-<tbody id="leaderboard"></tbody>
-
-</table>
-
-</div>
-
-</div>
-
-</div>
-
-
-<!-- SALES -->
-<div id="sales" class="page">
-
-<div class="card">
-
-<div class="section-title">👥 Manajemen Sales</div>
-
-<button class="btn" onclick="openSalesModal()">
-+ TAMBAH SALES
-</button>
-
-</div>
-
-<div class="card">
-
-<div class="table-wrap">
-
-<table>
-
-<thead>
-<tr>
-<th>Sales</th>
-<th>Area</th>
-<th>Target</th>
-<th>Pack</th>
-<th>Achievement</th>
-<th>Status</th>
-<th>Aksi</th>
-</tr>
-</thead>
-
-<tbody id="salesTable"></tbody>
-
-</table>
-
-</div>
-
-</div>
-
-</div>
-
-
-<!-- OUTLET -->
-<div id="outlets" class="page">
-
-<div class="card">
-
-<div class="section-title">🏪 Database Outlet</div>
-
-<div class="table-wrap">
-
-<table>
-
-<thead>
-<tr>
-<th>Outlet</th>
-<th>Pemilik</th>
-<th>Sales</th>
-<th>Tipe</th>
-<th>HP</th>
-<th>Alamat</th>
-<th>GPS</th>
-</tr>
-</thead>
-
-<tbody id="outletTable"></tbody>
-
-</table>
-
-</div>
-
-</div>
-
-</div>
-
-
-<!-- SALES HISTORY -->
-<div id="salesHistory" class="page">
-
-<div class="card">
-
-<div class="section-title">🛒 Rekap Penjualan</div>
-
-<div class="form-grid">
-
-<div>
-<label>Sales</label>
-<select id="filterSales" onchange="renderAll()">
-<option value="">Semua Sales</option>
-</select>
-</div>
-
-<div>
-<label>Status Pembayaran</label>
-<select id="filterPayment" onchange="renderAll()">
-<option value="">Semua</option>
-<option value="paid">Sudah Dibayar</option>
-<option value="unpaid">Belum Dibayar</option>
-<option value="return">Retur</option>
-</select>
-</div>
-
-<div>
-<label>Periode</label>
-<select id="filterPeriod" onchange="renderAll()">
-<option value="month">Bulan Ini</option>
-<option value="all">Semua</option>
-</select>
-</div>
-
-</div>
-
-<div class="table-wrap">
-
-<table>
-
-<thead>
-<tr>
-<th>Tanggal</th>
-<th>Sales</th>
-<th>Outlet</th>
-<th>Pack</th>
-<th>Omzet</th>
-<th>Status</th>
-</tr>
-</thead>
-
-<tbody id="historyTable"></tbody>
-
-</table>
-
-</div>
-
-</div>
-
-</div>
-
-
-<!-- DEPOSITS -->
-<div id="deposits" class="page">
-
-<div class="card">
-
-<div class="section-title">💰 Rekap Setoran</div>
-
-<div class="table-wrap">
-
-<table>
-
-<thead>
-<tr>
-<th>Tanggal</th>
-<th>Sales</th>
-<th>Jumlah</th>
-<th>Keterangan</th>
-<th>Status</th>
-</tr>
-</thead>
-
-<tbody id="depositTable"></tbody>
-
-</table>
-
-</div>
-
-</div>
-
-</div>
-
-
-<!-- STOCK -->
-<div id="stock" class="page">
-
-<div class="card">
-
-<div class="section-title">📦 Stok Sales</div>
-
-<div class="table-wrap">
-
-<table>
-
-<thead>
-<tr>
-<th>Sales</th>
-<th>Stok Awal</th>
-<th>Diterima</th>
-<th>Terjual</th>
-<th>Retur</th>
-<th>Stok Akhir</th>
-</tr>
-</thead>
-
-<tbody id="stockTable"></tbody>
-
-</table>
-
-</div>
-
-</div>
-
-</div>
-
-
-<!-- MAP -->
-<div id="map" class="page">
-
-<div class="card">
-
-<div class="section-title">🗺️ Peta Aktivitas Sales</div>
-
-<iframe
-id="mapFrame"
-class="map"
-src="https://www.google.com/maps?q=Indonesia&output=embed">
-</iframe>
-
-</div>
-
-<div class="card">
-
-<div class="section-title">📍 Riwayat Check-in</div>
-
-<div class="table-wrap">
-
-<table>
-
-<thead>
-<tr>
-<th>Tanggal</th>
-<th>Sales</th>
-<th>Outlet</th>
-<th>Koordinat</th>
-<th>Maps</th>
-</tr>
-</thead>
-
-<tbody id="visitTable"></tbody>
-
-</table>
-
-</div>
-
-</div>
-
-</div>
-
-
-<!-- PAYROLL -->
-<div id="payroll" class="page">
-
-<div class="card">
-
-<div class="section-title">💼 Penggajian Sales</div>
-
-<div class="table-wrap">
-
-<table>
-
-<thead>
-<tr>
-<th>Sales</th>
-<th>Gapok</th>
-<th>Operasional</th>
-<th>Komisi</th>
-<th>Bonus</th>
-<th>Total</th>
-</tr>
-</thead>
-
-<tbody id="payrollTable"></tbody>
-
-</table>
-
-</div>
-
-</div>
-
-</div>
-
-
-<!-- REPORT -->
-<div id="reports" class="page">
-
-<div class="card">
-
-<div class="section-title">🖨️ Laporan Owner</div>
-
-<div class="form-grid">
-
-<div>
-<label>Sales</label>
-<select id="reportSales">
-<option value="">Semua Sales</option>
-</select>
-</div>
-
-<div>
-<label>Periode</label>
-<select id="reportPeriod">
-<option value="month">Bulan Ini</option>
-<option value="all">Semua Data</option>
-</select>
-</div>
-
-</div>
-
-<button class="btn" onclick="printReport()">
-🖨️ CETAK / SIMPAN PDF
-</button>
-
-</div>
-
-<div id="printReportArea" class="card">
-
-<h2>CRISFISH SALES</h2>
-<p>Laporan Penjualan & Kinerja Sales</p>
-
-<hr style="margin:12px 0">
-
-<div id="reportContent"></div>
-
-</div>
-
-</div>
-
-
-<!-- SETTINGS -->
-<div id="settings" class="page">
-
-<div class="card">
-
-<div class="section-title">⚙️ Target & Penggajian</div>
-
-<div class="form-grid">
-
-<div>
-<label>Target Bulanan / Sales</label>
-<input id="settingTarget" type="number">
-</div>
-
-<div>
-<label>Hari Kerja</label>
-<input id="settingWorkdays" type="number">
-</div>
-
-<div>
-<label>Harga Jual / Pack</label>
-<input id="settingPrice" type="number">
-</div>
-
-<div>
-<label>HPP / Pack</label>
-<input id="settingHpp" type="number">
-</div>
-
-<div>
-<label>Gapok</label>
-<input id="settingSalary" type="number">
-</div>
-
-<div>
-<label>Operasional</label>
-<input id="settingOperational" type="number">
-</div>
-
-<div>
-<label>Komisi / Pack</label>
-<input id="settingCommission" type="number">
-</div>
-
-<div>
-<label>Bonus Target</label>
-<input id="settingBonus" type="number">
-</div>
-
-<div>
-<label>Target Outlet / Hari</label>
-<input id="settingOutletTarget" type="number">
-</div>
-
-</div>
-
-<button class="btn" onclick="saveSettings()">
-💾 SIMPAN PENGATURAN
-</button>
-
-<div id="settingStatus" class="status"></div>
-
-</div>
-
-
-<div class="card">
-
-<div class="section-title">🔐 Keamanan Owner</div>
-
-<label>Password Lama</label>
-<input id="oldPassword" type="password">
-
-<label>Password Baru</label>
-<input id="newPassword" type="password">
-
-<label>Konfirmasi Password</label>
-<input id="confirmPassword" type="password">
-
-<button class="btn-blue" onclick="changePassword()">
-UBAH PASSWORD
-</button>
-
-<div id="passwordStatus" class="status"></div>
-
-</div>
-
-
-<div class="card">
-
-<div class="section-title">📝 Audit Log</div>
-
-<div class="table-wrap">
-
-<table>
-
-<thead>
-<tr>
-<th>Waktu</th>
-<th>User</th>
-<th>Aksi</th>
-<th>Keterangan</th>
-</tr>
-</thead>
-
-<tbody id="auditTable"></tbody>
-
-</table>
-
-</div>
-
-</div>
-
-</div>
-
-</div>
-</div>
-
-
-<!-- MODAL SALES -->
-<div class="modal" id="salesModal">
-
-<div class="modal-box">
-
-<div class="modal-title">👤 Data Sales</div>
-
-<input id="salesKey" type="hidden">
-
-<label>Nama Lengkap</label>
-<input id="salesName">
-
-<label>Nama Panggilan</label>
-<input id="salesNick">
-
-<label>Nomor HP</label>
-<input id="salesPhone">
-
-<label>Email</label>
-<input id="salesEmail" type="email">
-
-<label>Kode Sales / Username</label>
-<input id="salesCode">
-
-<label>Area</label>
-<input id="salesArea">
-
-<label>Wilayah</label>
-<input id="salesRegion">
-
-<label>Target Bulanan</label>
-<input id="salesTarget" type="number">
-
-<label>Tanggal Mulai</label>
-<input id="salesStart" type="date">
-
-<label>Status</label>
-<select id="salesStatus">
-<option value="ACTIVE">AKTIF</option>
-<option value="INACTIVE">NONAKTIF</option>
-</select>
-
-<label>Password Awal</label>
-<input id="salesPassword" type="password"
-placeholder="Isi jika membuat akun login">
-
-<div class="actions">
-
-<button class="btn" onclick="saveSales()">
-SIMPAN
-</button>
-
-<button class="btn-gray"
-onclick="closeModal('salesModal')">
-BATAL
-</button>
-
+  </div>
 </div>
 
-<div id="salesStatusText" class="status"></div>
-
-</div>
+<!-- TOAST -->
+<div id="toast-container"
+     class="fixed top-16 right-4 z-50 space-y-2 pointer-events-none">
 </div>
 
 
 <script type="module">
 
-import {
-initializeApp,
-getApps,
-getApp
-}
-from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+/* =========================================================
+   FIREBASE
+========================================================= */
 
 import {
-getDatabase,
-ref,
-set,
-push,
-onValue
-}
-from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
+  initializeApp
+} from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
 
 import {
-getAuth,
-signInWithEmailAndPassword,
-signOut,
-sendPasswordResetEmail,
-updatePassword,
-EmailAuthProvider,
-reauthenticateWithCredential
-}
-from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+  getAuth
+} from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+
+import {
+  getFirestore
+} from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
 
 
-const firebaseConfig={
-databaseURL:
-"https://crisfish-sales-default-rtdb.asia-southeast1.firebasedatabase.app/"
-};
+const apiKey = "";
 
 
-const app=
-getApps().length
-?getApp()
-:initializeApp(firebaseConfig);
+/*
+  Jika aplikasi dijalankan di environment yang menyediakan
+  __firebase_config maka konfigurasi tersebut digunakan.
 
+  Jika tidak, aplikasi tetap berjalan sebagai prototype.
+*/
 
-const database=getDatabase(app);
-const auth=getAuth(app);
+const firebaseConfig =
+  typeof __firebase_config !== "undefined"
+    ? JSON.parse(__firebase_config)
+    : {
+        apiKey: "demo-key",
+        authDomain: "crisfish-demo.firebaseapp.com",
+        projectId: "crisfish-demo",
+        storageBucket: "crisfish-demo.appspot.com",
+        messagingSenderId: "123456789",
+        appId: "1:123456789:web:demo"
+      };
 
+let firebaseApp = null;
+let auth = null;
+let db = null;
 
-let salesData={};
-let ordersData={};
-let outletsData={};
-let depositsData={};
-let checkinsData={};
-let settingsData={};
-let stocksData={};
-
-
-const defaultSettings={
-targetMonthly:1500,
-workdays:26,
-productPrice:34000,
-productHpp:22908,
-salary:2000000,
-operational:750000,
-commission:1000,
-bonus:500000,
-outletTarget:30
-};
-
-
-/* =========================
-AUTH
-========================= */
-
-auth.onAuthStateChanged=function(){};
-
-
-window.ownerLogin=async function(){
-
-const email=
-document.getElementById("loginEmail").value.trim();
-
-const password=
-document.getElementById("loginPassword").value;
-
-if(!email||!password){
-
-setLoginStatus("Email dan password wajib diisi.");
-
-return;
-
-}
-
-try{
-
-await signInWithEmailAndPassword(
-auth,
-email,
-password
-);
-
-document.getElementById(
-"loginScreen"
-).style.display="none";
-
-document.getElementById(
-"app"
-).style.display="block";
-
-loadEverything();
-
-}
-
-catch(error){
-
-setLoginStatus(
-"Gagal login: "+
-error.message
-);
-
-}
-
-};
-
-
-window.logout=async function(){
-
-await signOut(auth);
-
-location.reload();
-
-};
-
-
-window.forgotPassword=async function(){
-
-const email=
-document.getElementById("loginEmail").value.trim();
-
-if(!email){
-
-setLoginStatus(
-"Masukkan email Owner terlebih dahulu."
-);
-
-return;
-
-}
-
-try{
-
-await sendPasswordResetEmail(
-auth,
-email
-);
-
-setLoginStatus(
-"✅ Link reset password dikirim ke email."
-);
-
-}
-catch(error){
-
-setLoginStatus(
-"Gagal mengirim reset password: "+
-error.message
-);
-
-}
-
-};
-
-
-function setLoginStatus(text){
-
-document.getElementById(
-"loginStatus"
-).innerText=text;
-
+try {
+  firebaseApp = initializeApp(firebaseConfig);
+  auth = getAuth(firebaseApp);
+  db = getFirestore(firebaseApp);
+} catch (error) {
+  console.warn("Firebase belum aktif. Prototype mode.", error);
 }
 
 
-/* =========================
-LOAD DATA
-========================= */
+/* =========================================================
+   STORAGE
+========================================================= */
 
-function loadEverything(){
-
-document.getElementById(
-"firebaseStatus"
-).innerText="🟢 Firebase terhubung";
-
-onValue(
-ref(database,"settings"),
-s=>{
-settingsData=s.val()||{};
-applySettings();
-renderAll();
-}
-);
-
-onValue(
-ref(database,"sales"),
-s=>{
-salesData=s.val()||{};
-renderAll();
-}
-);
-
-onValue(
-ref(database,"sales_orders"),
-s=>{
-ordersData=s.val()||{};
-renderAll();
-}
-);
-
-onValue(
-ref(database,"sales"),
-s=>{
-ordersData=s.val()||{};
-renderAll();
-}
-);
-
-onValue(
-ref(database,"outlets"),
-s=>{
-outletsData=s.val()||{};
-renderAll();
-}
-);
-
-onValue(
-ref(database,"deposits"),
-s=>{
-depositsData=s.val()||{};
-renderAll();
-}
-);
-
-onValue(
-ref(database,"checkins"),
-s=>{
-checkinsData=s.val()||{};
-renderAll();
-}
-);
-
-onValue(
-ref(database,"stocks"),
-s=>{
-stocksData=s.val()||{};
-renderAll();
-}
-);
-
-onValue(
-ref(database,"audit_logs"),
-s=>{
-renderAudit(s.val()||{});
-}
-);
-
-}
+const STORAGE_KEY = "CRISFISH_MASTER_DATABASE_V2";
 
 
-/* =========================
-SETTINGS
-========================= */
+/* =========================================================
+   DEFAULT DATABASE
+========================================================= */
 
-function applySettings(){
+const defaultDatabase = {
 
-const d={
-...defaultSettings,
-...settingsData
-};
+  products: [
 
-document.getElementById("settingTarget").value=d.targetMonthly;
-document.getElementById("settingWorkdays").value=d.workdays;
-document.getElementById("settingPrice").value=d.productPrice;
-document.getElementById("settingHpp").value=d.productHpp;
-document.getElementById("settingSalary").value=d.salary;
-document.getElementById("settingOperational").value=d.operational;
-document.getElementById("settingCommission").value=d.commission;
-document.getElementById("settingBonus").value=d.bonus;
-document.getElementById("settingOutletTarget").value=d.outletTarget;
+    {
+      id: "prod_1",
+      sku: "PETEKRES-01",
+      name: "PETEKRES Original 50g",
+      price: 12000,
+      hpp: 7500,
+      stock: 450,
+      status: "AKTIF"
+    },
 
-}
+    {
+      id: "prod_2",
+      sku: "PETEKRES-02",
+      name: "PETEKRES Pedas Manis 50g",
+      price: 12000,
+      hpp: 7500,
+      stock: 380,
+      status: "AKTIF"
+    },
 
+    {
+      id: "prod_3",
+      sku: "PETEKRES-03",
+      name: "PETEKRES Rumput Laut 50g",
+      price: 12500,
+      hpp: 7800,
+      stock: 210,
+      status: "AKTIF"
+    },
 
-window.saveSettings=async function(){
+    {
+      id: "prod_4",
+      sku: "PETEKRES-04",
+      name: "PETEKRES Balado Extra 50g",
+      price: 12500,
+      hpp: 7800,
+      stock: 150,
+      status: "AKTIF"
+    }
 
-const old={
-...defaultSettings,
-...settingsData
-};
-
-const data={
-targetMonthly:Number(document.getElementById("settingTarget").value),
-workdays:Number(document.getElementById("settingWorkdays").value),
-productPrice:Number(document.getElementById("settingPrice").value),
-productHpp:Number(document.getElementById("settingHpp").value),
-salary:Number(document.getElementById("settingSalary").value),
-operational:Number(document.getElementById("settingOperational").value),
-commission:Number(document.getElementById("settingCommission").value),
-bonus:Number(document.getElementById("settingBonus").value),
-outletTarget:Number(document.getElementById("settingOutletTarget").value),
-updatedAt:Date.now()
-};
-
-await set(ref(database,"settings"),data);
-
-await audit(
-"UBAH PENGATURAN",
-JSON.stringify({
-lama:old,
-baru:data
-})
-);
-
-document.getElementById(
-"settingStatus"
-).innerText="✅ Pengaturan berhasil disimpan.";
-
-};
+  ],
 
 
-/* =========================
-SALES
-========================= */
+  salesList: [
 
-window.openSalesModal=function(key=""){
+    {
+      id: "sales_1",
+      name: "Andi Saputra",
+      username: "andi",
+      email: "andi@crisfish.com",
+      password: "sales123",
+      role: "SALES",
+      area: "Bandung Timur",
+      dailyTarget: 58,
+      monthlyTarget: 1500,
+      baseSalary: 2800000,
+      commissionRate: 500,
+      fuelAllowance: 25000,
+      status: "AKTIF"
+    },
 
-document.getElementById("salesKey").value=key;
+    {
+      id: "sales_2",
+      name: "Budi Santoso",
+      username: "budi",
+      email: "budi@crisfish.com",
+      password: "sales123",
+      role: "SALES",
+      area: "Bandung Barat",
+      dailyTarget: 55,
+      monthlyTarget: 1400,
+      baseSalary: 2700000,
+      commissionRate: 500,
+      fuelAllowance: 25000,
+      status: "AKTIF"
+    }
 
-if(key&&salesData[key]){
+  ],
 
-const s=salesData[key];
 
-document.getElementById("salesName").value=s.name||"";
-document.getElementById("salesNick").value=s.nick||"";
-document.getElementById("salesPhone").value=s.phone||"";
-document.getElementById("salesEmail").value=s.email||"";
-document.getElementById("salesCode").value=s.salesId||key;
-document.getElementById("salesArea").value=s.area||"";
-document.getElementById("salesRegion").value=s.region||"";
-document.getElementById("salesTarget").value=
-s.targetMonthly||settingsData.targetMonthly||1500;
-document.getElementById("salesStart").value=s.startDate||"";
-document.getElementById("salesStatus").value=
-s.status||"ACTIVE";
+  stores: [
 
-}else{
+    {
+      id: "store_1",
+      name: "Warung Berkah",
+      owner: "Hj. Aminah",
+      phone: "081234567890",
+      address: "Jl. Raya Cicaheum No. 42",
+      salesId: "sales_1",
+      lastVisitDate: "2026-08-08",
+      daysSinceLastVisit: 18,
+      stock: 2,
+      totalSales: 85,
+      avgSales: 8,
+      status: "PRIORITAS",
+      lat: -6.9034,
+      lng: 107.6541,
+      notes: "Stok menipis, sering habis weekend."
+    },
 
-document.querySelectorAll("#salesModal input").forEach(
-x=>x.value=""
-);
+    {
+      id: "store_2",
+      name: "Toko Jaya Abadi",
+      owner: "Pak Kohar",
+      phone: "081398765432",
+      address: "Jl. Antapani Utama No. 15",
+      salesId: "sales_1",
+      lastVisitDate: "2026-08-13",
+      daysSinceLastVisit: 13,
+      stock: 3,
+      totalSales: 110,
+      avgSales: 10,
+      status: "PERLU DIKUNJUNGI",
+      lat: -6.9123,
+      lng: 107.6621,
+      notes: "Minta diskon khusus jika beli 2 karton."
+    },
 
-document.getElementById("salesTarget").value=
-settingsData.targetMonthly||1500;
+    {
+      id: "store_3",
+      name: "Warung Makmur",
+      owner: "Bu Sri",
+      phone: "085712348899",
+      address: "Jl. Sukamiskin Raya No. 8",
+      salesId: "sales_1",
+      lastVisitDate: "2026-08-20",
+      daysSinceLastVisit: 6,
+      stock: 15,
+      totalSales: 140,
+      avgSales: 12,
+      status: "AKTIF",
+      lat: -6.9088,
+      lng: 107.6711,
+      notes: "Penjualan stabil."
+    },
 
-document.getElementById("salesStatus").value="ACTIVE";
+    {
+      id: "store_4",
+      name: "Toko Rejeki Canvass",
+      owner: "Pak Hendra",
+      phone: "082155443322",
+      address: "Jl. Arcamanik No. 99",
+      salesId: "sales_1",
+      lastVisitDate: "2026-08-01",
+      daysSinceLastVisit: 25,
+      stock: 1,
+      totalSales: 45,
+      avgSales: 5,
+      status: "SLOW MOVING",
+      lat: -6.9190,
+      lng: 107.6788,
+      notes: "Tempat agak tersembunyi."
+    },
 
-}
+    {
+      id: "store_5",
+      name: "Warung Ibu Eni",
+      owner: "Ibu Eni",
+      phone: "087899001122",
+      address: "Jl. Kiaracondong No. 201",
+      salesId: "sales_2",
+      lastVisitDate: "2026-08-11",
+      daysSinceLastVisit: 15,
+      stock: 4,
+      totalSales: 70,
+      avgSales: 7,
+      status: "PRIORITAS",
+      lat: -6.9250,
+      lng: 107.6450,
+      notes: "Suka stok rasa Rumput Laut."
+    }
 
-document.getElementById(
-"salesModal"
-).style.display="flex";
+  ],
+
+
+  visits: [
+
+    {
+      id: "v_1",
+      storeId: "store_1",
+      salesId: "sales_1",
+      storeName: "Warung Berkah",
+      date: "2026-08-08",
+      checkIn: "09:15",
+      checkOut: "09:30",
+      durationMinutes: 15,
+      initialStock: 10,
+      soldCount: 8,
+      addedCount: 10,
+      returnCount: 0,
+      deposit: 96000,
+      notes: "Laku keras rasa original",
+      gps: "-6.9034, 107.6541"
+    }
+
+  ],
+
+
+  transactions: [
+
+    {
+      id: "trx_1",
+      date: "2026-08-08",
+      salesId: "sales_1",
+      salesName: "Andi Saputra",
+      storeId: "store_1",
+      storeName: "Warung Berkah",
+      productId: "prod_1",
+      qty: 8,
+      unitPrice: 12000,
+      totalAmount: 96000,
+      paymentStatus: "LUNAS",
+      paymentMethod: "CASH"
+    },
+
+    {
+      id: "trx_2",
+      date: "2026-08-20",
+      salesId: "sales_1",
+      salesName: "Andi Saputra",
+      storeId: "store_3",
+      storeName: "Warung Makmur",
+      productId: "prod_2",
+      qty: 12,
+      unitPrice: 12000,
+      totalAmount: 144000,
+      paymentStatus: "LUNAS",
+      paymentMethod: "CASH"
+    }
+
+  ],
+
+
+  deposits: [],
+
+  fuelRecords: [],
+
+  auditLogs: [
+
+    {
+      id: "log_1",
+      timestamp: "2026-08-26 08:00:00",
+      actor: "OWNER",
+      action: "System initialized",
+      details: "CRISFISH database initialized."
+    }
+
+  ]
 
 };
 
 
-window.saveSales=async function(){
+/* =========================================================
+   LOAD DATABASE
+========================================================= */
 
-const key=
-document.getElementById("salesKey").value;
+function loadDatabase() {
 
-const name=
-document.getElementById("salesName").value.trim();
+  try {
 
-const salesId=
-document.getElementById("salesCode").value.trim();
+    const saved = localStorage.getItem(STORAGE_KEY);
 
-if(!name||!salesId){
+    if (saved) {
+      return JSON.parse(saved);
+    }
 
-alert("Nama dan kode sales wajib diisi.");
+  } catch (error) {
+    console.warn("Database local gagal dibaca.", error);
+  }
 
-return;
-
+  return JSON.parse(JSON.stringify(defaultDatabase));
 }
 
-const data={
 
-name:name,
+const dbData = loadDatabase();
 
-nick:
-document.getElementById("salesNick").value.trim(),
 
-phone:
-document.getElementById("salesPhone").value.trim(),
+/* =========================================================
+   GLOBAL STATE
+========================================================= */
 
-email:
-document.getElementById("salesEmail").value.trim(),
+const state = {
 
-salesId:salesId,
+  currentUser: null,
 
-area:
-document.getElementById("salesArea").value.trim(),
+  products: dbData.products || [],
 
-region:
-document.getElementById("salesRegion").value.trim(),
+  salesList: dbData.salesList || [],
 
-targetMonthly:
-Number(document.getElementById("salesTarget").value),
+  stores: dbData.stores || [],
 
-startDate:
-document.getElementById("salesStart").value,
+  visits: dbData.visits || [],
 
-status:
-document.getElementById("salesStatus").value,
+  transactions: dbData.transactions || [],
 
-updatedAt:Date.now()
+  deposits: dbData.deposits || [],
+
+  fuelRecords: dbData.fuelRecords || [],
+
+  auditLogs: dbData.auditLogs || [],
+
+  currentView: "login",
+
+  activeSalesTab: "dashboard",
+
+  activeOwnerTab: "dashboard",
+
+  activeCheckInStore: null
 
 };
 
 
-try{
+/* =========================================================
+   SAVE DATABASE
+========================================================= */
 
-let targetRef;
+function saveDatabase() {
 
-if(key){
+  try {
 
-targetRef=ref(database,"sales/"+key);
+    localStorage.setItem(
+      STORAGE_KEY,
+      JSON.stringify({
+        products: state.products,
+        salesList: state.salesList,
+        stores: state.stores,
+        visits: state.visits,
+        transactions: state.transactions,
+        deposits: state.deposits,
+        fuelRecords: state.fuelRecords,
+        auditLogs: state.auditLogs
+      })
+    );
 
-}else{
+  } catch (error) {
 
-targetRef=push(ref(database,"sales"));
+    console.error("Gagal menyimpan database:", error);
+
+  }
+
+}
+
+
+/* =========================================================
+   SYNC ANTAR TAB
+========================================================= */
+
+window.addEventListener("storage", function(event) {
+
+  if (event.key !== STORAGE_KEY) return;
+
+  try {
+
+    const data = JSON.parse(event.newValue);
+
+    if (!data) return;
+
+    state.products = data.products || [];
+    state.salesList = data.salesList || [];
+    state.stores = data.stores || [];
+    state.visits = data.visits || [];
+    state.transactions = data.transactions || [];
+    state.deposits = data.deposits || [];
+    state.fuelRecords = data.fuelRecords || [];
+    state.auditLogs = data.auditLogs || [];
+
+    refreshCurrentScreen();
+
+    showToast(
+      "Data CRISFISH diperbarui dari tab lain.",
+      "success"
+    );
+
+  } catch (error) {
+    console.error(error);
+  }
+
+});
+
+
+/* =========================================================
+   UTILITIES
+========================================================= */
+
+function todayString() {
+
+  return new Date().toISOString().slice(0, 10);
 
 }
 
-await set(targetRef,data);
 
-await audit(
-key?"EDIT SALES":"TAMBAH SALES",
-JSON.stringify(data)
-);
+function calculateDaysDifference(dateString) {
 
-alert("✅ Data sales berhasil disimpan.");
+  if (!dateString) return 999;
 
-closeModal("salesModal");
+  const visitDate = new Date(dateString);
+
+  const today = new Date("2026-08-26");
+
+  const diff =
+    Math.abs(today - visitDate) /
+    (1000 * 60 * 60 * 24);
+
+  return Math.ceil(diff);
+
+}
+
+
+function formatRupiah(number) {
+
+  return new Intl.NumberFormat(
+    "id-ID",
+    {
+      style: "currency",
+      currency: "IDR",
+      maximumFractionDigits: 0
+    }
+  ).format(Number(number) || 0);
 
 }
 
-catch(error){
 
-document.getElementById(
-"salesStatusText"
-).innerText=
-"❌ "+error.message;
+function escapeHTML(value) {
+
+  return String(value ?? "")
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#039;");
 
 }
+
+
+/* =========================================================
+   TOAST
+========================================================= */
+
+function showToast(message, type = "info") {
+
+  const container =
+    document.getElementById("toast-container");
+
+  const toast =
+    document.createElement("div");
+
+  const bg =
+    type === "success"
+      ? "bg-emerald-600"
+      : type === "error"
+      ? "bg-rose-600"
+      : type === "warning"
+      ? "bg-amber-500"
+      : "bg-slate-800";
+
+  toast.className =
+    `${bg} text-white px-4 py-3 rounded-xl shadow-xl
+     flex items-center space-x-2 text-sm
+     pointer-events-auto`;
+
+  toast.innerHTML = `
+    <i class="fa-solid ${
+      type === "success"
+        ? "fa-check-circle"
+        : type === "error"
+        ? "fa-triangle-exclamation"
+        : "fa-circle-info"
+    }"></i>
+
+    <span>${escapeHTML(message)}</span>
+  `;
+
+  container.appendChild(toast);
+
+  setTimeout(() => {
+    toast.remove();
+  }, 3500);
+
+}
+
+
+/* =========================================================
+   MODAL
+========================================================= */
+
+window.openModal = function(title, htmlContent) {
+
+  document.getElementById("modal-title").innerText = title;
+
+  document.getElementById("modal-body").innerHTML =
+    htmlContent;
+
+  const backdrop =
+    document.getElementById("modal-backdrop");
+
+  const card =
+    document.getElementById("modal-card");
+
+  backdrop.classList.remove("hidden");
+  backdrop.classList.add("flex");
+
+  card.classList.add("modal-enter");
 
 };
 
 
-window.toggleSales=async function(key){
+window.closeModal = function() {
 
-if(!salesData[key])return;
+  const backdrop =
+    document.getElementById("modal-backdrop");
 
-const old=salesData[key].status||"ACTIVE";
+  backdrop.classList.add("hidden");
+  backdrop.classList.remove("flex");
 
-const next=
-old==="ACTIVE"
-?"INACTIVE"
-:"ACTIVE";
-
-await set(
-ref(database,"sales/"+key+"/status"),
-next
-);
-
-await audit(
-"UBAH STATUS SALES",
-salesData[key].name+
-": "+
-old+
-" → "+
-next
-);
+  document.getElementById("modal-body").innerHTML = "";
 
 };
 
 
-function renderSales(){
+/* =========================================================
+   AUDIT
+========================================================= */
 
-const tbody=
-document.getElementById("salesTable");
+function logAudit(actor, action, details) {
 
-tbody.innerHTML="";
+  state.auditLogs.unshift({
 
-let active=0;
+    id: "log_" + Date.now(),
 
-Object.entries(salesData).forEach(
-([key,s])=>{
+    timestamp:
+      new Date()
+        .toISOString()
+        .replace("T", " ")
+        .substring(0, 19),
 
-if(!s)return;
+    actor,
 
-if(s.status==="ACTIVE")active++;
+    action,
 
-const stats=
-getSalesStats(s);
+    details
 
-const target=
-Number(s.targetMonthly||
-settingsData.targetMonthly||
-1500);
+  });
 
-const ach=
-target
-?Math.round(stats.pack/target*100)
-:0;
+}
 
-const row=document.createElement("tr");
 
-row.innerHTML=`
+/* =========================================================
+   REFRESH SCREEN
+========================================================= */
 
-<td>
-<b>${esc(s.name||"-")}</b><br>
-<small>${esc(s.salesId||key)}</small>
-</td>
+function refreshCurrentScreen() {
 
-<td>${esc(s.area||"-")}</td>
+  if (!state.currentUser) {
 
-<td>${target.toLocaleString("id-ID")}</td>
+    renderLogin();
 
-<td>${stats.pack.toLocaleString("id-ID")}</td>
+    return;
 
-<td>${ach}%</td>
+  }
 
-<td>
-<span class="badge ${s.status==="ACTIVE"?"green":"red"}">
-${s.status==="ACTIVE"?"AKTIF":"NONAKTIF"}
-</span>
-</td>
+  if (state.currentUser.role === "OWNER") {
 
-<td>
-<div class="actions">
-<button class="btn-blue btn-small"
-onclick="openSalesModal('${key}')">
-EDIT
-</button>
+    renderOwnerApp();
 
-<button class="${s.status==="ACTIVE"?"btn-red":"btn"} btn-small"
-onclick="toggleSales('${key}')">
-${s.status==="ACTIVE"?"NONAKTIFKAN":"AKTIFKAN"}
-</button>
-</div>
-</td>
+  } else {
+
+    const currentSales =
+      state.salesList.find(
+        s => s.id === state.currentUser.id
+      );
+
+    if (currentSales) {
+
+      state.currentUser = currentSales;
+
+      renderSalesApp();
+
+    } else {
+
+      logout();
+
+    }
+
+  }
+
+}
+
+
+/* =========================================================
+   AUTH
+========================================================= */
+
+window.handleLogin = function(event) {
+
+  event.preventDefault();
+
+  const role =
+    document.getElementById("login-role").value;
+
+  const username =
+    document.getElementById("login-username")
+      .value
+      .trim();
+
+  const password =
+    document.getElementById("login-password")
+      .value
+      .trim();
+
+
+  if (role === "OWNER") {
+
+    if (
+      username === "owner" &&
+      password === "owner123"
+    ) {
+
+      state.currentUser = {
+
+        id: "owner_1",
+
+        name: "Pak Boss (Owner)",
+
+        username: "owner",
+
+        role: "OWNER",
+
+        email: "owner@crisfish.com"
+
+      };
+
+      logAudit(
+        "OWNER",
+        "Login Success",
+        "Owner login."
+      );
+
+      saveDatabase();
+
+      showToast(
+        "Login Owner berhasil!",
+        "success"
+      );
+
+      renderOwnerApp();
+
+    } else {
+
+      showToast(
+        "Username atau password Owner salah.",
+        "error"
+      );
+
+    }
+
+    return;
+
+  }
+
+
+  const sales =
+    state.salesList.find(
+      s =>
+        (
+          s.username === username ||
+          s.email === username
+        ) &&
+        s.status === "AKTIF"
+    );
+
+
+  if (
+    sales &&
+    password === (sales.password || "sales123")
+  ) {
+
+    state.currentUser = sales;
+
+    logAudit(
+      sales.name,
+      "Login Success",
+      "Sales login."
+    );
+
+    saveDatabase();
+
+    showToast(
+      `Selamat bekerja, ${sales.name}!`,
+      "success"
+    );
+
+    renderSalesApp();
+
+  } else {
+
+    showToast(
+      "Sales tidak ditemukan atau password salah.",
+      "error"
+    );
+
+  }
+
+};
+
+
+window.logout = function() {
+
+  if (state.currentUser) {
+
+    logAudit(
+      state.currentUser.name,
+      "Logout",
+      "User keluar dari sistem."
+    );
+
+    saveDatabase();
+
+  }
+
+  state.currentUser = null;
+
+  renderLogin();
+
+};
+
+
+/* =========================================================
+   HEADER
+========================================================= */
+
+function renderHeader() {
+
+  const container =
+    document.getElementById(
+      "header-user-info"
+    );
+
+
+  if (!state.currentUser) {
+
+    container.innerHTML = `
+      <span class="text-xs text-slate-400
+                   bg-slate-800 px-3 py-1.5
+                   rounded-full border border-slate-700">
+        Not Authenticated
+      </span>
+    `;
+
+    return;
+
+  }
+
+
+  container.innerHTML = `
+
+    <div class="text-right hidden sm:block">
+
+      <p class="text-xs font-semibold text-white">
+        ${escapeHTML(state.currentUser.name)}
+      </p>
+
+      <p class="text-[10px] text-brand-400 font-medium">
+
+        ${escapeHTML(state.currentUser.role)}
+
+        ${
+          state.currentUser.area
+            ? " • " + escapeHTML(state.currentUser.area)
+            : ""
+        }
+
+      </p>
+
+    </div>
+
+
+    <button
+      onclick="logout()"
+      class="bg-rose-500/20 hover:bg-rose-500/30
+             text-rose-300 text-xs px-3 py-1.5
+             rounded-lg border border-rose-500/30">
+
+      <i class="fa-solid fa-right-from-bracket"></i>
+
+      <span class="hidden sm:inline">
+        Keluar
+      </span>
+
+    </button>
+
+  `;
+
+}
+
+
+/* =========================================================
+   LOGIN
+========================================================= */
+
+function renderLogin() {
+
+  document
+    .getElementById("mobile-nav")
+    .classList.add("hidden");
+
+  renderHeader();
+
+  document
+    .getElementById("main-content")
+    .innerHTML = `
+
+    <div class="max-w-md mx-auto my-12 bg-white
+                rounded-3xl shadow-2xl
+                overflow-hidden border border-slate-200">
+
+      <div class="bg-gradient-to-br
+                  from-slate-900 via-slate-800
+                  to-brand-900 text-white
+                  p-8 text-center">
+
+        <div class="w-16 h-16 bg-white/10
+                    rounded-2xl mx-auto
+                    flex items-center justify-center
+                    text-3xl mb-3">
+          🐟
+        </div>
+
+        <h2 class="text-2xl font-bold">
+          CRISFISH SALES
+        </h2>
+
+        <p class="text-xs text-brand-300 mt-1">
+          Sistem Informasi Canvassing Snack Petekres
+        </p>
+
+      </div>
+
+
+      <form
+        onsubmit="handleLogin(event)"
+        class="p-8 space-y-5">
+
+        <div>
+
+          <label class="block text-xs font-bold
+                        text-slate-700 uppercase
+                        tracking-wider mb-2">
+            Peran Akses
+          </label>
+
+          <select
+            id="login-role"
+            class="w-full bg-slate-50 border
+                   border-slate-300 rounded-xl
+                   px-4 py-3 text-sm font-semibold">
+
+            <option value="SALES">
+              MOTORIS / SALES CANVASSER
+            </option>
+
+            <option value="OWNER">
+              OWNER / MANAGEMENT
+            </option>
+
+          </select>
+
+        </div>
+
+
+        <div>
+
+          <label class="block text-xs font-bold
+                        text-slate-700 uppercase
+                        tracking-wider mb-2">
+            Username / Email
+          </label>
+
+          <input
+            type="text"
+            id="login-username"
+            required
+            value="andi"
+            class="w-full bg-slate-50
+                   border border-slate-300
+                   rounded-xl px-4 py-3 text-sm">
+
+        </div>
+
+
+        <div>
+
+          <label class="block text-xs font-bold
+                        text-slate-700 uppercase
+                        tracking-wider mb-2">
+            Password
+          </label>
+
+          <input
+            type="password"
+            id="login-password"
+            required
+            value="sales123"
+            class="w-full bg-slate-50
+                   border border-slate-300
+                   rounded-xl px-4 py-3 text-sm">
+
+        </div>
+
+
+        <button
+          type="submit"
+          class="w-full bg-gradient-to-r
+                 from-brand-600 to-amber-500
+                 text-white font-bold py-3.5
+                 rounded-xl shadow-lg">
+
+          <i class="fa-solid fa-lock"></i>
+
+          MASUK APLIKASI
+
+        </button>
+
+
+        <div class="bg-amber-50 rounded-xl
+                    p-3 border border-amber-200
+                    text-xs text-amber-800">
+
+          <p class="font-bold">
+            <i class="fa-solid fa-key"></i>
+            Kredensial Demo
+          </p>
+
+          <p>Sales: <b>andi / sales123</b></p>
+
+          <p>Owner:
+            <b>owner / owner123</b>
+          </p>
+
+        </div>
+
+      </form>
+
+    </div>
+
+  `;
+
+}
+
+
+/* =========================================================
+   SALES NAVIGATION
+========================================================= */
+
+window.navigateSales = function(viewName) {
+
+  state.activeSalesTab = viewName;
+
+  renderSalesContent();
+
+};
+
+
+/* =========================================================
+   SALES APP
+========================================================= */
+
+function renderSalesApp() {
+
+  document
+    .getElementById("mobile-nav")
+    .classList.remove("hidden");
+
+  renderHeader();
+
+  renderSalesContent();
+
+}
+
+
+/* =========================================================
+   SALES DASHBOARD
+========================================================= */
+
+function renderSalesContent() {
+
+  const main =
+    document.getElementById("main-content");
+
+  const user =
+    state.salesList.find(
+      s => s.id === state.currentUser.id
+    );
+
+
+  if (!user) {
+
+    logout();
+
+    return;
+
+  }
+
+
+  state.currentUser = user;
+
+
+  const userStores =
+    state.stores
+      .filter(s => s.salesId === user.id);
+
+
+  userStores.forEach(store => {
+
+    store.daysSinceLastVisit =
+      calculateDaysDifference(
+        store.lastVisitDate
+      );
+
+    if (store.daysSinceLastVisit >= 14) {
+
+      store.status = "PRIORITAS";
+
+    } else if (
+      store.daysSinceLastVisit >= 11
+    ) {
+
+      store.status = "PERLU DIKUNJUNGI";
+
+    } else {
+
+      store.status = "AKTIF";
+
+    }
+
+  });
+
+
+  if (state.activeSalesTab === "dashboard") {
+
+    renderSalesDashboard(
+      main,
+      user,
+      userStores
+    );
+
+  } else if (
+    state.activeSalesTab === "ai-assistant"
+  ) {
+
+    renderAISalesAssistant();
+
+  } else if (
+    state.activeSalesTab === "route"
+  ) {
+
+    renderSalesRoute();
+
+  } else if (
+    state.activeSalesTab === "stores"
+  ) {
+
+    renderSalesStores();
+
+  } else if (
+    state.activeSalesTab === "deposit"
+  ) {
+
+    renderSalesDeposit();
+
+  }
+
+}
+
+
+/* =========================================================
+   SALES DASHBOARD
+========================================================= */
+
+function renderSalesDashboard(
+  main,
+  user,
+  userStores
+) {
+
+  const today = "2026-08-26";
+
+
+  const todayTrx =
+    state.transactions.filter(
+      t =>
+        t.salesId === user.id &&
+        t.date === today
+    );
+
+
+  const todayVisits =
+    state.visits.filter(
+      v =>
+        v.salesId === user.id &&
+        v.date === today
+    );
+
+
+  const totalPacksToday =
+    todayTrx.reduce(
+      (sum, t) => sum + Number(t.qty),
+      0
+    );
+
+
+  const totalOmzetToday =
+    todayTrx.reduce(
+      (sum, t) => sum + Number(t.totalAmount),
+      0
+    );
+
+
+  const achievement =
+    user.dailyTarget > 0
+      ? Math.round(
+          totalPacksToday /
+          user.dailyTarget *
+          100
+        )
+      : 0;
+
+
+  const overdueStores =
+    userStores.filter(
+      s => s.daysSinceLastVisit >= 14
+    );
+
+
+  /*
+    INI BAGIAN PENTING:
+
+    Dashboard Sales membaca stok langsung
+    dari state.products.
+
+    Jadi ketika Owner mengedit stok,
+    angka baru akan muncul di sini
+    setelah render.
+  */
+
+  const totalWarehouseStock =
+    state.products.reduce(
+      (sum, p) =>
+        sum + Number(p.stock || 0),
+      0
+    );
+
+
+  main.innerHTML = `
+
+    <div class="bg-gradient-to-br
+                from-slate-900 via-slate-800
+                to-brand-900 text-white
+                rounded-3xl p-6 shadow-xl mb-6">
+
+      <span class="text-xs uppercase font-bold
+                   text-brand-400 tracking-wider">
+
+        Dashboard Sales Motoris
+
+      </span>
+
+      <h2 class="text-2xl font-bold mt-1">
+
+        Selamat Bekerja,
+        ${escapeHTML(user.name)}!
+
+      </h2>
+
+      <p class="text-xs text-slate-300 mt-1">
+
+        <i class="fa-solid fa-location-dot
+                  text-brand-400"></i>
+
+        Area:
+        <b>${escapeHTML(user.area)}</b>
+
+      </p>
+
+
+      <div class="mt-5 bg-white/10
+                  p-4 rounded-2xl">
+
+        <div class="flex justify-between
+                    text-xs font-semibold mb-1">
+
+          <span>
+            Target Hari Ini:
+            <b>${user.dailyTarget} Pack</b>
+          </span>
+
+          <span class="${
+            achievement >= 100
+              ? "text-emerald-400"
+              : "text-amber-300"
+          }">
+
+            ${achievement}%
+
+          </span>
+
+        </div>
+
+
+        <div class="w-full bg-slate-700
+                    rounded-full h-3">
+
+          <div
+            class="bg-gradient-to-r
+                   from-brand-500 to-amber-400
+                   h-3 rounded-full"
+            style="width:${Math.min(
+              achievement,
+              100
+            )}%">
+
+          </div>
+
+        </div>
+
+
+        <div class="flex justify-between
+                    text-[11px]
+                    text-slate-300 mt-2">
+
+          <span>
+            Terjual:
+            <b>${totalPacksToday} Pack</b>
+          </span>
+
+          <span>
+            Kurang:
+            <b>${Math.max(
+              0,
+              user.dailyTarget -
+              totalPacksToday
+            )} Pack</b>
+          </span>
+
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <!-- STOCK WAREHOUSE -->
+    <div class="bg-white rounded-2xl
+                border border-slate-200
+                p-5 mb-6">
+
+      <div class="flex justify-between
+                  items-center mb-4">
+
+        <div>
+
+          <h3 class="font-bold text-slate-800">
+
+            Stok Produk Tersedia
+
+          </h3>
+
+          <p class="text-xs text-slate-500">
+
+            Data langsung dari Master Owner
+
+          </p>
+
+        </div>
+
+        <span class="bg-brand-100
+                     text-brand-700
+                     px-3 py-1.5
+                     rounded-xl text-xs
+                     font-bold">
+
+          ${totalWarehouseStock} Pack
+
+        </span>
+
+      </div>
+
+
+      <div class="grid grid-cols-2
+                  md:grid-cols-4 gap-3">
+
+        ${state.products.map(p => `
+
+          <div class="border border-slate-200
+                      rounded-xl p-3">
+
+            <p class="text-[10px]
+                      text-slate-400">
+
+              ${escapeHTML(p.sku)}
+
+            </p>
+
+            <p class="font-bold text-xs
+                      text-slate-800">
+
+              ${escapeHTML(p.name)}
+
+            </p>
+
+            <p class="text-lg font-black
+                      ${
+                        p.stock <= 20
+                          ? "text-rose-600"
+                          : "text-brand-600"
+                      }">
+
+              ${p.stock}
+
+              <span class="text-[10px]
+                           font-normal">
+
+                Pack
+
+              </span>
+
+            </p>
+
+            <p class="text-[10px]
+                      text-slate-500">
+
+              ${formatRupiah(p.price)}
+
+            </p>
+
+          </div>
+
+        `).join("")}
+
+      </div>
+
+    </div>
+
+
+    <!-- AI -->
+    <div
+      onclick="navigateSales('ai-assistant')"
+      class="cursor-pointer
+             bg-gradient-to-r
+             from-amber-500 to-brand-600
+             text-white rounded-2xl
+             p-4 shadow-lg mb-6">
+
+      <div class="flex items-center
+                  justify-between">
+
+        <div class="flex items-center gap-3">
+
+          <div class="w-10 h-10
+                      rounded-xl bg-white/20
+                      flex items-center
+                      justify-center text-xl">
+
+            🤖
+
+          </div>
+
+          <div>
+
+            <h4 class="font-bold text-sm">
+
+              AI Penasihat Sales
+
+            </h4>
+
+            <p class="text-xs text-amber-100">
+
+              ${overdueStores.length}
+              toko membutuhkan perhatian.
+
+            </p>
+
+          </div>
+
+        </div>
+
+        <span class="bg-white
+                     text-brand-700
+                     font-bold text-xs
+                     px-3 py-1.5
+                     rounded-xl">
+
+          Buka AI
+
+        </span>
+
+      </div>
+
+    </div>
+
+
+    <!-- STATS -->
+
+    <div class="grid grid-cols-2
+                sm:grid-cols-4 gap-4 mb-6">
+
+      <div class="bg-white p-4
+                  rounded-2xl border">
+
+        <div class="text-xs text-slate-500">
+          Penjualan Hari Ini
+        </div>
+
+        <div class="text-lg font-bold">
+          ${formatRupiah(totalOmzetToday)}
+        </div>
+
+        <div class="text-[10px]
+                    text-emerald-600">
+
+          ${totalPacksToday} Pack
+
+        </div>
+
+      </div>
+
+
+      <div class="bg-white p-4
+                  rounded-2xl border">
+
+        <div class="text-xs text-slate-500">
+          Kunjungan
+        </div>
+
+        <div class="text-lg font-bold">
+          ${todayVisits.length} Toko
+        </div>
+
+      </div>
+
+
+      <div class="bg-white p-4
+                  rounded-2xl border">
+
+        <div class="text-xs text-slate-500">
+          Prioritas
+        </div>
+
+        <div class="text-lg font-bold
+                    text-rose-600">
+
+          ${overdueStores.length}
+
+        </div>
+
+        <div class="text-[10px]
+                    text-rose-500">
+
+          ≥14 Hari
+
+        </div>
+
+      </div>
+
+
+      <div class="bg-white p-4
+                  rounded-2xl border">
+
+        <div class="text-xs text-slate-500">
+          Estimasi Komisi
+        </div>
+
+        <div class="text-lg font-bold
+                    text-brand-600">
+
+          ${formatRupiah(
+            totalPacksToday *
+            user.commissionRate
+          )}
+
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <!-- PRIORITY -->
+
+    <div class="bg-white rounded-2xl
+                border p-5">
+
+      <div class="flex justify-between
+                  items-center mb-4">
+
+        <h3 class="font-bold">
+
+          <i class="fa-solid
+                    fa-triangle-exclamation
+                    text-rose-500"></i>
+
+          Toko Prioritas
+
+        </h3>
+
+        <button
+          onclick="navigateSales('stores')"
+          class="text-xs text-brand-600
+                 font-bold">
+
+          Lihat Semua
+
+        </button>
+
+      </div>
+
+
+      <div class="space-y-3">
+
+        ${
+          overdueStores.length
+            ? overdueStores.map(store => `
+
+              <div class="border rounded-xl
+                          p-4 flex flex-col
+                          sm:flex-row
+                          justify-between
+                          gap-3">
+
+                <div>
+
+                  <h4 class="font-bold">
+
+                    ${escapeHTML(store.name)}
+
+                  </h4>
+
+                  <p class="text-xs
+                            text-slate-500">
+
+                    ${escapeHTML(
+                      store.address
+                    )}
+
+                  </p>
+
+                  <p class="text-xs
+                            text-rose-600
+                            font-bold mt-1">
+
+                    ${store.daysSinceLastVisit}
+                    hari belum dikunjungi
+
+                  </p>
+
+                </div>
+
+                <button
+                  onclick="openCheckInModal('${store.id}')"
+                  class="bg-brand-600
+                         text-white
+                         font-bold
+                         text-xs
+                         px-4 py-2
+                         rounded-xl">
+
+                  CHECK-IN
+
+                </button>
+
+              </div>
+
+            `).join("")
+            : `
+              <p class="text-center
+                        text-xs text-slate-500
+                        py-5">
+
+                Semua toko terpantau aman.
+
+              </p>
+            `
+        }
+
+      </div>
+
+    </div>
+
+  `;
+
+}
+
+
+/* =========================================================
+   AI SALES
+========================================================= */
+
+function renderAISalesAssistant() {
+
+  const main =
+    document.getElementById("main-content");
+
+  const user =
+    state.currentUser;
+
+  const stores =
+    state.stores.filter(
+      s => s.salesId === user.id
+    );
+
+
+  main.innerHTML = `
+
+    <div class="bg-white rounded-3xl
+                border shadow-sm p-6">
+
+      <div class="flex justify-between
+                  items-center mb-6">
+
+        <div>
+
+          <h2 class="text-xl font-bold">
+            AI Sales Advisor
+          </h2>
+
+          <p class="text-xs text-slate-500">
+            Penasihat canvassing berdasarkan
+            siklus 14 hari, stok dan potensi.
+          </p>
+
+        </div>
+
+        <button
+          onclick="generateGeminiSalesAdvice()"
+          class="bg-brand-600 text-white
+                 px-4 py-2.5
+                 rounded-xl text-xs
+                 font-bold">
+
+          <i class="fa-solid fa-wand-magic-sparkles"></i>
+
+          Analisis AI
+
+        </button>
+
+      </div>
+
+
+      <div id="ai-response-container">
+
+        <div class="bg-amber-50
+                    border border-amber-200
+                    rounded-2xl p-5 text-xs">
+
+          <b>Rekomendasi Hari Ini</b>
+
+          <p class="mt-2">
+
+            ${stores.length}
+            toko berada di area
+            ${escapeHTML(user.area)}.
+
+          </p>
+
+          <div class="mt-4 space-y-2">
+
+            ${stores
+              .sort(
+                (a,b) =>
+                  b.daysSinceLastVisit -
+                  a.daysSinceLastVisit
+              )
+              .map((s,index) => `
+
+                <div class="bg-white
+                            rounded-xl p-3
+                            border">
+
+                  <b>
+                    ${index + 1}.
+                    ${escapeHTML(s.name)}
+                  </b>
+
+                  <p class="text-[11px]
+                            text-slate-500">
+
+                    ${s.daysSinceLastVisit}
+                    hari belum dikunjungi
+                    • Stok ${s.stock} pack
+
+                  </p>
+
+                </div>
+
+              `)
+              .join("")}
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  `;
+
+}
+
+
+window.generateGeminiSalesAdvice =
+async function() {
+
+  const container =
+    document.getElementById(
+      "ai-response-container"
+    );
+
+  if (!container) return;
+
+  container.innerHTML = `
+
+    <div class="text-center py-10">
+
+      <i class="fa-solid fa-spinner
+                fa-spin text-3xl
+                text-brand-600"></i>
+
+      <p class="text-xs mt-3">
+        AI sedang menganalisis toko...
+      </p>
+
+    </div>
+
+  `;
+
+
+  if (!apiKey) {
+
+    container.innerHTML = `
+
+      <div class="bg-amber-50
+                  border border-amber-200
+                  rounded-2xl p-5 text-xs">
+
+        <b>AI Gemini belum diaktifkan.</b>
+
+        <p class="mt-2">
+          Masukkan Gemini API Key pada
+          variabel <b>apiKey</b>.
+        </p>
+
+        <hr class="my-3">
+
+        <b>Analisis lokal sementara:</b>
+
+        <ul class="list-disc ml-5 mt-2">
+
+          ${
+            state.stores
+              .filter(
+                s =>
+                  s.salesId ===
+                  state.currentUser.id
+              )
+              .sort(
+                (a,b) =>
+                  b.daysSinceLastVisit -
+                  a.daysSinceLastVisit
+              )
+              .slice(0,3)
+              .map(
+                s => `
+                  <li>
+                    ${escapeHTML(s.name)}
+                    —
+                    ${s.daysSinceLastVisit}
+                    hari belum dikunjungi,
+                    stok ${s.stock} pack.
+                  </li>
+                `
+              )
+              .join("")
+          }
+
+        </ul>
+
+      </div>
+
+    `;
+
+    return;
+
+  }
+
+
+  try {
+
+    const stores =
+      state.stores.filter(
+        s =>
+          s.salesId ===
+          state.currentUser.id
+      );
+
+
+    const prompt = `
+Anda adalah AI Sales Advisor CRISFISH.
+
+Sales:
+${state.currentUser.name}
+
+Area:
+${state.currentUser.area}
+
+Data toko:
+${JSON.stringify(stores)}
+
+Tentukan tiga toko paling prioritas
+untuk dikunjungi hari ini.
+
+Pertimbangkan:
+1. Sudah berapa hari tidak dikunjungi.
+2. Stok toko.
+3. Rata-rata penjualan.
+4. Potensi omzet.
+
+Berikan rekomendasi praktis dalam bahasa Indonesia.
 `;
 
-tbody.appendChild(row);
 
-});
+    const response =
+      await fetch(
+        `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`,
+        {
+          method: "POST",
 
-document.getElementById("activeSales").innerText=active;
+          headers: {
+            "Content-Type":
+              "application/json"
+          },
 
-}
+          body: JSON.stringify({
+            contents: [
+              {
+                parts: [
+                  {
+                    text: prompt
+                  }
+                ]
+              }
+            ]
+          })
+        }
+      );
 
 
-/* =========================
-SALES STATS
-========================= */
+    const data =
+      await response.json();
 
-function getSalesStats(s){
 
-const id=s.salesId;
+    const text =
+      data.candidates?.[0]
+        ?.content?.parts?.[0]?.text
+      || "AI tidak memberikan jawaban.";
 
-let pack=0;
-let revenue=0;
-let transactions=0;
-let paidPack=0;
-let paidRevenue=0;
 
-Object.values(ordersData||{}).forEach(o=>{
+    container.innerHTML = `
 
-if(!o||o.salesId!==id)return;
+      <div class="bg-amber-50
+                  border border-amber-200
+                  rounded-2xl p-5
+                  text-sm leading-relaxed">
 
-const qty=Number(o.quantity||0);
-const amount=Number(
-o.amount||
-qty*(settingsData.productPrice||34000)
-);
+        ${text}
 
-pack+=qty;
-revenue+=amount;
-transactions++;
+      </div>
 
-const status=String(
-o.paymentStatus||
-o.status||
-"paid"
-).toLowerCase();
+    `;
 
-if(
-status==="paid"||
-status==="sudah dibayar"||
-status==="cash"
-){
+  } catch(error) {
 
-paidPack+=qty;
-paidRevenue+=amount;
+    console.error(error);
 
-}
+    showToast(
+      "AI gagal dihubungi.",
+      "warning"
+    );
 
-});
+    renderAISalesAssistant();
 
-return{
-pack,
-revenue,
-transactions,
-paidPack,
-paidRevenue
-};
-
-}
-
-
-/* =========================
-OUTLET
-========================= */
-
-function renderOutlets(){
-
-const tbody=
-document.getElementById("outletTable");
-
-tbody.innerHTML="";
-
-let count=0;
-
-Object.entries(outletsData).forEach(
-([key,o])=>{
-
-if(!o)return;
-
-count++;
-
-let maps="";
-
-if(o.latitude&&o.longitude){
-
-const url=
-"https://www.google.com/maps?q="+
-o.latitude+","+o.longitude;
-
-maps=
-`<a href="${url}" target="_blank">
-<button class="btn-blue btn-small">MAPS</button>
-</a>`;
-
-}
-
-const row=document.createElement("tr");
-
-row.innerHTML=`
-
-<td><b>${esc(o.name||"-")}</b></td>
-<td>${esc(o.owner||"-")}</td>
-<td>${esc(o.salesName||o.salesId||"-")}</td>
-<td>${esc(o.type||"-")}</td>
-<td>${esc(o.phone||"-")}</td>
-<td>${esc(o.address||"-")}</td>
-<td>${maps}</td>
-`;
-
-tbody.appendChild(row);
-
-});
-
-document.getElementById(
-"outletTotal"
-).innerText=count;
-
-}
-
-
-/* =========================
-ORDERS
-========================= */
-
-function renderOrders(){
-
-const tbody=
-document.getElementById("historyTable");
-
-tbody.innerHTML="";
-
-const filterSales=
-document.getElementById("filterSales").value;
-
-const payment=
-document.getElementById("filterPayment").value;
-
-const period=
-document.getElementById("filterPeriod").value;
-
-let monthPack=0;
-let monthRevenue=0;
-let todayRevenue=0;
-let totalCommission=0;
-
-const now=new Date();
-
-Object.values(ordersData||{})
-.reverse()
-.forEach(o=>{
-
-if(!o)return;
-
-if(
-filterSales &&
-o.salesId!==filterSales
-)return;
-
-const date=
-o.date?new Date(o.date):new Date();
-
-if(
-period==="month" &&
-(date.getMonth()!==now.getMonth()||
-date.getFullYear()!==now.getFullYear())
-)return;
-
-const status=
-String(
-o.paymentStatus||
-o.status||
-"paid"
-).toLowerCase();
-
-if(payment==="paid"&&
-!["paid","sudah dibayar","cash"].includes(status))
-return;
-
-if(payment==="unpaid"&&
-!["unpaid","belum dibayar"].includes(status))
-return;
-
-if(payment==="return"&&
-!["return","retur"].includes(status))
-return;
-
-const qty=Number(o.quantity||0);
-const amount=Number(
-o.amount||
-qty*(settingsData.productPrice||34000)
-);
-
-monthPack+=qty;
-monthRevenue+=amount;
-
-if(
-date.toDateString()===now.toDateString()
-){
-
-todayRevenue+=amount;
-
-}
-
-if(
-["paid","sudah dibayar","cash"].includes(status)
-){
-
-totalCommission+=
-qty*(settingsData.commission||1000);
-
-}
-
-const row=document.createElement("tr");
-
-row.innerHTML=`
-
-<td>${date.toLocaleString("id-ID")}</td>
-<td>${esc(o.salesName||o.salesId||"-")}</td>
-<td>${esc(o.outlet||"-")}</td>
-<td>${qty}</td>
-<td>Rp ${amount.toLocaleString("id-ID")}</td>
-<td>
-<span class="badge ${
-status==="paid"||
-status==="sudah dibayar"||
-status==="cash"
-?"green":
-status==="retur"||
-status==="return"
-?"red":"yellow"
-}">
-${esc(o.paymentStatus||o.status||"Sudah Dibayar")}
-</span>
-</td>
-`;
-
-tbody.appendChild(row);
-
-});
-
-document.getElementById(
-"monthPack"
-).innerText=monthPack.toLocaleString("id-ID");
-
-document.getElementById(
-"todayRevenue"
-).innerText=
-"Rp "+todayRevenue.toLocaleString("id-ID");
-
-document.getElementById(
-"commissionTotal"
-).innerText=
-"Rp "+totalCommission.toLocaleString("id-ID");
-
-}
-
-
-/* =========================
-DEPOSITS
-========================= */
-
-function renderDeposits(){
-
-const tbody=
-document.getElementById("depositTable");
-
-tbody.innerHTML="";
-
-let total=0;
-
-Object.values(depositsData||{})
-.reverse()
-.forEach(d=>{
-
-if(!d)return;
-
-const amount=Number(d.amount||0);
-
-total+=amount;
-
-const row=document.createElement("tr");
-
-row.innerHTML=`
-
-<td>${d.date?
-new Date(d.date).toLocaleString("id-ID"):"-"}</td>
-
-<td>${esc(d.salesName||d.salesId||"-")}</td>
-
-<td>Rp ${amount.toLocaleString("id-ID")}</td>
-
-<td>${esc(d.note||"-")}</td>
-
-<td>
-<span class="badge yellow">
-${esc(d.status||"MENUNGGU VERIFIKASI")}
-</span>
-</td>
-`;
-
-tbody.appendChild(row);
-
-});
-
-document.getElementById(
-"depositTotal"
-).innerText=
-"Rp "+total.toLocaleString("id-ID");
-
-}
-
-
-/* =========================
-CHECKINS / MAPS
-========================= */
-
-function renderCheckins(){
-
-const tbody=
-document.getElementById("visitTable");
-
-tbody.innerHTML="";
-
-Object.values(checkinsData||{})
-.reverse()
-.forEach(c=>{
-
-if(!c)return;
-
-const lat=Number(c.latitude||0);
-const lng=Number(c.longitude||0);
-
-if(!lat&&!lng)return;
-
-const url=
-"https://www.google.com/maps?q="+
-lat+","+lng;
-
-const row=document.createElement("tr");
-
-row.innerHTML=`
-
-<td>${c.date?
-new Date(c.date).toLocaleString("id-ID"):"-"}</td>
-
-<td>${esc(c.salesName||c.salesId||"-")}</td>
-
-<td>${esc(c.outlet||"-")}</td>
-
-<td>${lat.toFixed(6)}, ${lng.toFixed(6)}</td>
-
-<td>
-<button class="btn-blue btn-small"
-onclick="showMap(${lat},${lng})">
-PETA
-</button>
-
-<a href="${url}" target="_blank">
-<button class="btn-dark btn-small">
-GOOGLE MAPS
-</button>
-</a>
-</td>
-`;
-
-tbody.appendChild(row);
-
-});
-
-}
-
-
-window.showMap=function(lat,lng){
-
-document.getElementById(
-"mapFrame"
-).src=
-"https://www.google.com/maps?q="+
-lat+","+lng+
-"&output=embed";
-
-showPage(
-"map",
-document.querySelector(".tabs button:nth-child(7)")
-);
+  }
 
 };
 
 
-/* =========================
-STOCK
-========================= */
+/* =========================================================
+   SALES ROUTE
+========================================================= */
 
-function renderStock(){
+function renderSalesRoute() {
 
-const tbody=
-document.getElementById("stockTable");
+  const main =
+    document.getElementById(
+      "main-content"
+    );
 
-tbody.innerHTML="";
+  const user =
+    state.currentUser;
 
-Object.entries(salesData).forEach(
-([key,s])=>{
 
-if(!s)return;
+  const stores =
+    state.stores
+      .filter(
+        s => s.salesId === user.id
+      )
+      .sort(
+        (a,b) =>
+          b.daysSinceLastVisit -
+          a.daysSinceLastVisit
+      );
 
-const stock=
-stocksData[s.salesId]||
-stocksData[key]||
-{};
 
-const awal=Number(stock.opening||0);
-const masuk=Number(stock.received||0);
-const retur=Number(stock.returned||0);
+  main.innerHTML = `
 
-const stats=getSalesStats(s);
+    <div class="bg-white rounded-3xl
+                border shadow-sm p-6">
 
-const akhir=
-awal+
-masuk-
-stats.pack-
-retur;
+      <h2 class="text-xl font-bold">
+        Rute Canvassing Hari Ini
+      </h2>
 
-const row=document.createElement("tr");
+      <p class="text-xs text-slate-500 mb-6">
+        Prioritas berdasarkan siklus 14 hari.
+      </p>
 
-row.innerHTML=`
 
-<td>${esc(s.name||s.salesId)}</td>
-<td>${awal}</td>
-<td>${masuk}</td>
-<td>${stats.pack}</td>
-<td>${retur}</td>
-<td>
-<b>${akhir}</b>
-${akhir<0?
-'<span class="badge red">SELISIH</span>':""}
-</td>
-`;
+      <div class="space-y-3">
 
-tbody.appendChild(row);
+        ${stores.map((store,index) => `
 
-});
+          <div class="border rounded-2xl
+                      p-4 flex items-center
+                      justify-between gap-3">
+
+            <div class="flex gap-3">
+
+              <div class="w-9 h-9
+                          rounded-xl
+                          bg-brand-600
+                          text-white
+                          flex items-center
+                          justify-center
+                          font-bold">
+
+                ${index + 1}
+
+              </div>
+
+              <div>
+
+                <b class="text-sm">
+
+                  ${escapeHTML(
+                    store.name
+                  )}
+
+                </b>
+
+                <p class="text-xs
+                          text-slate-500">
+
+                  ${escapeHTML(
+                    store.address
+                  )}
+
+                </p>
+
+                <p class="text-[11px]
+                          ${
+                            store.daysSinceLastVisit >= 14
+                              ? "text-rose-600 font-bold"
+                              : "text-slate-500"
+                          }">
+
+                  ${store.daysSinceLastVisit}
+                  hari sejak kunjungan terakhir
+
+                </p>
+
+              </div>
+
+            </div>
+
+
+            <div class="flex gap-2">
+
+              <a
+                href="https://maps.google.com/?q=${store.lat},${store.lng}"
+                target="_blank"
+                class="bg-slate-100
+                       px-3 py-2
+                       rounded-xl
+                       text-xs">
+
+                <i class="fa-solid
+                          fa-diamond-turn-right"></i>
+
+              </a>
+
+              <button
+                onclick="openCheckInModal('${store.id}')"
+                class="bg-brand-600
+                       text-white
+                       px-3 py-2
+                       rounded-xl
+                       text-xs font-bold">
+
+                Check-in
+
+              </button>
+
+            </div>
+
+          </div>
+
+        `).join("")}
+
+      </div>
+
+    </div>
+
+  `;
 
 }
 
 
-/* =========================
-PAYROLL
-========================= */
+/* =========================================================
+   SALES STORE
+========================================================= */
 
-function renderPayroll(){
+function renderSalesStores() {
 
-const tbody=
-document.getElementById("payrollTable");
+  const main =
+    document.getElementById(
+      "main-content"
+    );
 
-tbody.innerHTML="";
-
-let totalKpi=0;
-let count=0;
-
-Object.values(salesData).forEach(s=>{
-
-if(!s||s.status!=="ACTIVE")return;
-
-const stats=getSalesStats(s);
-
-const target=
-Number(
-s.targetMonthly||
-settingsData.targetMonthly||
-1500
-);
-
-const achievement=
-target
-?Math.min(100,stats.pack/target*100)
-:0;
-
-const commission=
-stats.paidPack*
-(settingsData.commission||1000);
-
-const bonus=
-achievement>=100
-?(settingsData.bonus||500000):0;
-
-const salary=
-(settingsData.salary||2000000)+
-(settingsData.operational||750000)+
-commission+
-bonus;
-
-const kpi=
-Math.round(
-achievement*.35+
-Math.min(100,stats.transactions/100*100)*.20+
-Math.min(100,stats.paidPack/target*100)*.15+
-Math.min(100,stats.transactions/30*100)*.15+
-80*.15
-);
-
-totalKpi+=kpi;
-count++;
-
-const row=document.createElement("tr");
-
-row.innerHTML=`
-
-<td><b>${esc(s.name)}</b></td>
-<td>Rp ${(settingsData.salary||2000000).toLocaleString("id-ID")}</td>
-<td>Rp ${(settingsData.operational||750000).toLocaleString("id-ID")}</td>
-<td>Rp ${commission.toLocaleString("id-ID")}</td>
-<td>Rp ${bonus.toLocaleString("id-ID")}</td>
-<td><b>Rp ${salary.toLocaleString("id-ID")}</b></td>
-`;
-
-tbody.appendChild(row);
-
-});
-
-document.getElementById(
-"avgKpi"
-).innerText=count?
-Math.round(totalKpi/count):0;
-
-}
+  const user =
+    state.currentUser;
 
 
-/* =========================
-DASHBOARD
-========================= */
-
-function renderDashboard(){
-
-const list=[];
-
-Object.values(salesData).forEach(s=>{
-
-if(!s)return;
-
-const stats=getSalesStats(s);
-
-const target=
-Number(
-s.targetMonthly||
-settingsData.targetMonthly||
-1500
-);
-
-const achievement=
-target?
-Math.min(100,Math.round(stats.pack/target*100)):0;
-
-const commission=
-stats.paidPack*
-(settingsData.commission||1000);
-
-const bonus=
-achievement>=100?
-(settingsData.bonus||500000):0;
-
-const income=
-(settingsData.salary||2000000)+
-(settingsData.operational||750000)+
-commission+
-bonus;
-
-const kpi=
-Math.round(
-achievement*.35+
-Math.min(100,stats.transactions/100*100)*.20+
-Math.min(100,stats.paidPack/target*100)*.15+
-Math.min(100,stats.transactions/30*100)*.15+
-80*.15
-);
-
-list.push({
-name:s.name||s.salesId,
-pack:stats.pack,
-target,
-achievement,
-kpi,
-income
-});
-
-});
-
-list.sort((a,b)=>b.pack-a.pack);
-
-const tbody=
-document.getElementById("leaderboard");
-
-tbody.innerHTML="";
-
-list.forEach((s,i)=>{
-
-const row=document.createElement("tr");
-
-row.innerHTML=`
-
-<td><b>${i+1}</b></td>
-<td>${esc(s.name)}</td>
-<td>${s.pack.toLocaleString("id-ID")}</td>
-<td>${s.target.toLocaleString("id-ID")}</td>
-<td>${s.achievement}%</td>
-<td>${s.kpi}</td>
-<td>Rp ${s.income.toLocaleString("id-ID")}</td>
-`;
-
-tbody.appendChild(row);
-
-});
-
-const totalPack=
-list.reduce((a,b)=>a+b.pack,0);
-
-const totalTarget=
-list.reduce((a,b)=>a+b.target,0);
-
-document.getElementById(
-"companyAchievement"
-).innerText=
-totalTarget?
-Math.round(totalPack/totalTarget*100)+"%":"0%";
-
-renderAlerts(list);
-
-}
+  const stores =
+    state.stores.filter(
+      s => s.salesId === user.id
+    );
 
 
-/* =========================
-ALERT
-========================= */
+  main.innerHTML = `
 
-function renderAlerts(list){
+    <div class="bg-white rounded-3xl
+                border shadow-sm p-6">
 
-const box=
-document.getElementById("alerts");
+      <div class="flex justify-between
+                  items-center mb-6">
 
-box.innerHTML="";
+        <div>
 
-let found=false;
+          <h2 class="text-xl font-bold">
+            Daftar Toko Binaan
+          </h2>
 
-list.forEach(s=>{
+          <p class="text-xs text-slate-500">
+            Data toko yang dikelola sales.
+          </p>
 
-if(s.achievement<70){
+        </div>
 
-found=true;
+        <button
+          onclick="openAddStoreModal()"
+          class="bg-brand-600
+                 text-white
+                 px-4 py-2.5
+                 rounded-xl
+                 text-xs font-bold">
 
-box.innerHTML+=`
-<div class="alert">
-⚠️ <b>${esc(s.name)}</b>
-masih tertinggal dari target.
-Achievement ${s.achievement}%.
-</div>
-`;
+          + Tambah Toko
+
+        </button>
+
+      </div>
+
+
+      <div class="grid
+                  grid-cols-1
+                  md:grid-cols-2
+                  gap-4">
+
+        ${stores.map(store => `
+
+          <div class="border
+                      rounded-2xl p-5">
+
+            <div class="flex justify-between
+                        items-start">
+
+              <div>
+
+                <h3 class="font-bold">
+                  ${escapeHTML(store.name)}
+                </h3>
+
+                <p class="text-xs
+                          text-slate-500">
+
+                  Pemilik:
+                  ${escapeHTML(store.owner)}
+
+                </p>
+
+              </div>
+
+              <span class="text-[10px]
+                           font-bold
+                           px-2 py-1
+                           rounded-full
+                           ${
+                             store.status ===
+                             "PRIORITAS"
+                               ? "bg-rose-100 text-rose-700"
+                               : "bg-emerald-100 text-emerald-700"
+                           }">
+
+                ${store.status}
+
+              </span>
+
+            </div>
+
+
+            <p class="text-xs
+                      text-slate-500 mt-2">
+
+              ${escapeHTML(
+                store.address
+              )}
+
+            </p>
+
+
+            <div class="grid
+                        grid-cols-3
+                        gap-2 mt-4
+                        bg-slate-50
+                        rounded-xl p-3
+                        text-center">
+
+              <div>
+
+                <p class="text-[10px]
+                          text-slate-400">
+                  Visit
+                </p>
+
+                <b class="text-xs">
+                  ${store.daysSinceLastVisit}
+                  hr
+                </b>
+
+              </div>
+
+              <div>
+
+                <p class="text-[10px]
+                          text-slate-400">
+                  Stok
+                </p>
+
+                <b class="text-xs">
+                  ${store.stock}
+                </b>
+
+              </div>
+
+              <div>
+
+                <p class="text-[10px]
+                          text-slate-400">
+                  Terjual
+                </p>
+
+                <b class="text-xs">
+                  ${store.totalSales}
+                </b>
+
+              </div>
+
+            </div>
+
+
+            <button
+              onclick="openCheckInModal('${store.id}')"
+              class="mt-4 w-full
+                     bg-slate-900
+                     text-white
+                     py-2.5
+                     rounded-xl
+                     text-xs font-bold">
+
+              CHECK-IN
+
+            </button>
+
+          </div>
+
+        `).join("")}
+
+      </div>
+
+    </div>
+
+  `;
 
 }
 
-});
 
-Object.values(depositsData||{}).forEach(d=>{
+/* =========================================================
+   CHECK-IN
+========================================================= */
 
-if(
-d &&
-String(d.status||"").toLowerCase()
-.includes("menunggu")
-){
+window.openCheckInModal =
+function(storeId) {
 
-found=true;
+  const store =
+    state.stores.find(
+      s => s.id === storeId
+    );
 
-box.innerHTML+=`
-<div class="alert">
-💰 Setoran ${esc(d.salesName||d.salesId||"sales")}
-belum diverifikasi.
-</div>
-`;
+  if (!store) return;
 
-}
-
-});
-
-if(!found){
-
-box.innerHTML=
-'<span class="badge green">🟢 Tidak ada alert kritis</span>';
-
-}
-
-}
+  state.activeCheckInStore = store;
 
 
-/* =========================
-FILTER SALES
-========================= */
-
-function renderSalesFilters(){
-
-const ids=[
-"filterSales",
-"reportSales"
-];
-
-ids.forEach(id=>{
-
-const select=document.getElementById(id);
-
-const current=select.value;
-
-select.innerHTML=
-'<option value="">Semua Sales</option>';
-
-Object.values(salesData).forEach(s=>{
-
-if(!s)return;
-
-const opt=document.createElement("option");
-
-opt.value=s.salesId;
-
-opt.textContent=s.name+
-" ("+s.salesId+")";
-
-select.appendChild(opt);
-
-});
-
-select.value=current;
-
-});
-
-}
+  const products =
+    state.products.filter(
+      p => p.status === "AKTIF"
+    );
 
 
-/* =========================
-REPORT
-========================= */
+  const html = `
 
-window.printReport=function(){
+    <div class="space-y-4 text-xs">
 
-const selected=
-document.getElementById("reportSales").value;
+      <div class="bg-amber-50
+                  p-3 rounded-xl
+                  border border-amber-200">
 
-let pack=0;
-let revenue=0;
-let transactions=0;
+        <b>${escapeHTML(
+          store.name
+        )}</b>
 
-Object.values(ordersData||{}).forEach(o=>{
+        <p>
+          ${escapeHTML(
+            store.address
+          )}
+        </p>
 
-if(
-selected &&
-o.salesId!==selected
-)return;
+      </div>
 
-const d=o.date?new Date(o.date):new Date();
-const now=new Date();
 
-if(
-document.getElementById("reportPeriod").value==="month" &&
-(d.getMonth()!==now.getMonth()||
-d.getFullYear()!==now.getFullYear())
-)return;
+      <div>
 
-pack+=Number(o.quantity||0);
-revenue+=Number(o.amount||0);
-transactions++;
+        <label class="block font-bold mb-1">
+          Stok Awal Toko
+        </label>
 
-});
+        <input
+          type="number"
+          id="visit-initial-stock"
+          value="${store.stock}"
+          min="0"
+          class="w-full border
+                 rounded-xl p-2.5">
 
-document.getElementById(
-"reportContent"
-).innerHTML=`
+      </div>
 
-<p><b>Periode:</b> ${
-document.getElementById("reportPeriod").value==="month"
-?"Bulan Ini":"Semua Data"
-}</p>
 
-<p><b>Sales:</b> ${
-selected||"Semua Sales"
-}</p>
+      <div>
 
-<br>
+        <label class="block font-bold mb-2">
+          Produk Terjual
+        </label>
 
-<table>
+        <div class="border rounded-xl
+                    divide-y">
 
-<tr>
-<td>Total Pack</td>
-<td><b>${pack.toLocaleString("id-ID")}</b></td>
-</tr>
+          ${products.map(p => `
 
-<tr>
-<td>Total Transaksi</td>
-<td><b>${transactions}</b></td>
-</tr>
+            <div class="p-3
+                        flex justify-between
+                        items-center">
 
-<tr>
-<td>Total Omzet</td>
-<td><b>Rp ${revenue.toLocaleString("id-ID")}</b></td>
-</tr>
+              <div>
 
-</table>
+                <b>
+                  ${escapeHTML(p.name)}
+                </b>
 
-<br>
+                <p class="text-[10px]
+                          text-slate-500">
 
-<p>Dicetak: ${
-new Date().toLocaleString("id-ID")
-}</p>
-`;
+                  ${formatRupiah(p.price)}
 
-window.print();
+                  • Gudang:
+                  ${p.stock} pack
+
+                </p>
+
+              </div>
+
+
+              <input
+                type="number"
+                min="0"
+                max="${p.stock}"
+                value="0"
+                data-prodid="${p.id}"
+                class="visit-qty-input
+                       w-20
+                       border rounded-lg
+                       p-2 text-center">
+
+            </div>
+
+          `).join("")}
+
+        </div>
+
+      </div>
+
+
+      <div>
+
+        <label class="block font-bold mb-1">
+          Retur / Rusak
+        </label>
+
+        <input
+          type="number"
+          id="visit-return-qty"
+          value="0"
+          min="0"
+          class="w-full border
+                 rounded-xl p-2.5">
+
+      </div>
+
+
+      <div>
+
+        <label class="block font-bold mb-1">
+          Sisa Stok Toko
+        </label>
+
+        <input
+          type="number"
+          id="visit-final-stock"
+          value="${store.stock}"
+          min="0"
+          class="w-full border
+                 rounded-xl p-2.5">
+
+      </div>
+
+
+      <div>
+
+        <label class="block font-bold mb-1">
+          Catatan
+        </label>
+
+        <textarea
+          id="visit-notes"
+          rows="3"
+          class="w-full border
+                 rounded-xl p-2.5"></textarea>
+
+      </div>
+
+
+      <button
+        onclick="submitCheckOutForm()"
+        class="w-full bg-emerald-600
+               text-white font-bold
+               py-3.5 rounded-xl">
+
+        SIMPAN KUNJUNGAN
+
+      </button>
+
+    </div>
+
+  `;
+
+
+  openModal(
+    `Check-in: ${store.name}`,
+    html
+  );
 
 };
 
 
-/* =========================
-PASSWORD
-========================= */
+/* =========================================================
+   CHECK-OUT
+========================================================= */
 
-window.changePassword=async function(){
+window.submitCheckOutForm =
+function() {
 
-const oldPassword=
-document.getElementById("oldPassword").value;
+  const store =
+    state.activeCheckInStore;
 
-const newPassword=
-document.getElementById("newPassword").value;
+  if (!store) return;
 
-const confirm=
-document.getElementById("confirmPassword").value;
 
-const user=auth.currentUser;
+  const initialStock =
+    Number(
+      document.getElementById(
+        "visit-initial-stock"
+      ).value
+    ) || 0;
 
-if(!user){
 
-return;
+  const finalStock =
+    Number(
+      document.getElementById(
+        "visit-final-stock"
+      ).value
+    ) || 0;
 
-}
 
-if(!oldPassword||!newPassword){
+  const returnQty =
+    Number(
+      document.getElementById(
+        "visit-return-qty"
+      ).value
+    ) || 0;
 
-alert("Password wajib diisi.");
 
-return;
+  const notes =
+    document.getElementById(
+      "visit-notes"
+    ).value.trim();
 
-}
 
-if(newPassword!==confirm){
+  let totalSold = 0;
 
-alert("Konfirmasi password tidak sama.");
+  let totalAmount = 0;
 
-return;
 
-}
+  document
+    .querySelectorAll(".visit-qty-input")
+    .forEach(input => {
 
-if(newPassword.length<6){
+      const qty =
+        Number(input.value) || 0;
 
-alert("Password minimal 6 karakter.");
+      if (qty <= 0) return;
 
-return;
 
-}
+      const productId =
+        input.dataset.prodid;
 
-try{
 
-const credential=
-EmailAuthProvider.credential(
-user.email,
-oldPassword
-);
+      const product =
+        state.products.find(
+          p => p.id === productId
+        );
 
-await reauthenticateWithCredential(
-user,
-credential
-);
 
-await updatePassword(
-user,
-newPassword
-);
+      if (!product) return;
 
-await audit(
-"UBAH PASSWORD OWNER",
-user.email
-);
 
-document.getElementById(
-"passwordStatus"
-).innerText=
-"✅ Password berhasil diubah.";
+      if (qty > product.stock) {
 
-document.getElementById(
-"oldPassword"
-).value="";
+        showToast(
+          `Stok ${product.name} tidak cukup.`,
+          "error"
+        );
 
-document.getElementById(
-"newPassword"
-).value="";
+        return;
 
-document.getElementById(
-"confirmPassword"
-).value="";
+      }
 
-}
-catch(error){
 
-document.getElementById(
-"passwordStatus"
-).innerText=
-"❌ "+error.message;
+      const amount =
+        qty * product.price;
 
-}
+
+      totalSold += qty;
+
+      totalAmount += amount;
+
+
+      /*
+        STOK GUDANG DIKURANGI.
+      */
+
+      product.stock -= qty;
+
+
+      state.transactions.unshift({
+
+        id:
+          "trx_" +
+          Date.now() +
+          "_" +
+          productId,
+
+        date: "2026-08-26",
+
+        salesId:
+          state.currentUser.id,
+
+        salesName:
+          state.currentUser.name,
+
+        storeId:
+          store.id,
+
+        storeName:
+          store.name,
+
+        productId,
+
+        qty,
+
+        unitPrice:
+          product.price,
+
+        totalAmount:
+          amount,
+
+        paymentStatus:
+          "LUNAS",
+
+        paymentMethod:
+          "CASH"
+
+      });
+
+    });
+
+
+  /*
+    UPDATE TOKO
+  */
+
+  store.stock =
+    finalStock;
+
+  store.totalSales =
+    Number(store.totalSales || 0) +
+    totalSold;
+
+  store.lastVisitDate =
+    "2026-08-26";
+
+  store.daysSinceLastVisit =
+    0;
+
+  store.status =
+    "AKTIF";
+
+  if (notes) {
+    store.notes = notes;
+  }
+
+
+  /*
+    SIMPAN RIWAYAT
+  */
+
+  state.visits.unshift({
+
+    id:
+      "visit_" + Date.now(),
+
+    storeId:
+      store.id,
+
+    salesId:
+      state.currentUser.id,
+
+    storeName:
+      store.name,
+
+    date:
+      "2026-08-26",
+
+    checkIn:
+      "09:00",
+
+    checkOut:
+      "09:15",
+
+    durationMinutes:
+      15,
+
+    initialStock,
+
+    soldCount:
+      totalSold,
+
+    addedCount:
+      totalSold,
+
+    returnCount:
+      returnQty,
+
+    deposit:
+      totalAmount,
+
+    notes,
+
+    gps:
+      `${store.lat},${store.lng}`
+
+  });
+
+
+  logAudit(
+    state.currentUser.name,
+    "Check-Out Visit",
+    `Toko ${store.name}, terjual ${totalSold} pack, omzet ${formatRupiah(totalAmount)}`
+  );
+
+
+  saveDatabase();
+
+  closeModal();
+
+  showToast(
+    "Kunjungan berhasil disimpan.",
+    "success"
+  );
+
+  renderSalesContent();
 
 };
 
 
-/* =========================
-AUDIT
-========================= */
+/* =========================================================
+   SALES DEPOSIT
+========================================================= */
 
-async function audit(action,detail){
+function renderSalesDeposit() {
 
-const user=auth.currentUser;
+  const main =
+    document.getElementById(
+      "main-content"
+    );
 
-const r=push(
-ref(database,"audit_logs")
-);
+  const user =
+    state.currentUser;
 
-await set(r,{
 
-action,
-detail,
-user:user?user.email:"unknown",
-createdAt:Date.now()
+  const todayTrx =
+    state.transactions.filter(
+      t =>
+        t.salesId === user.id &&
+        t.date === "2026-08-26"
+    );
 
-});
+
+  const total =
+    todayTrx.reduce(
+      (sum,t) =>
+        sum + t.totalAmount,
+      0
+    );
+
+
+  main.innerHTML = `
+
+    <div class="bg-white
+                rounded-3xl
+                border
+                shadow-sm
+                p-6">
+
+      <h2 class="text-xl font-bold">
+        Setoran Harian & Bensin
+      </h2>
+
+      <p class="text-xs
+                text-slate-500 mb-6">
+
+        Pencatatan uang penjualan
+        dan biaya operasional.
+
+      </p>
+
+
+      <div class="grid
+                  md:grid-cols-2
+                  gap-5">
+
+
+        <div class="border
+                    rounded-2xl p-5">
+
+          <h3 class="font-bold mb-3">
+
+            Setoran Kas
+
+          </h3>
+
+          <p class="text-xs
+                    text-slate-500">
+
+            Penjualan hari ini
+
+          </p>
+
+          <p class="text-xl font-black">
+            ${formatRupiah(total)}
+          </p>
+
+
+          <input
+            type="number"
+            id="deposit-amount"
+            value="${total}"
+            class="w-full border
+                   rounded-xl
+                   p-3 mt-4">
+
+
+          <button
+            onclick="submitDepositForm()"
+            class="w-full mt-3
+                   bg-emerald-600
+                   text-white
+                   rounded-xl
+                   py-3
+                   font-bold">
+
+            Simpan Setoran
+
+          </button>
+
+        </div>
+
+
+        <div class="border
+                    rounded-2xl p-5">
+
+          <h3 class="font-bold mb-3">
+            Klaim Bensin
+          </h3>
+
+
+          <div class="grid
+                      grid-cols-2
+                      gap-2">
+
+            <input
+              type="number"
+              id="odo-start"
+              placeholder="Odo awal"
+              class="border rounded-xl p-3">
+
+            <input
+              type="number"
+              id="odo-end"
+              placeholder="Odo akhir"
+              class="border rounded-xl p-3">
+
+          </div>
+
+
+          <input
+            type="number"
+            id="fuel-claim"
+            value="${user.fuelAllowance}"
+            class="w-full border
+                   rounded-xl p-3 mt-3">
+
+
+          <button
+            onclick="submitFuelForm()"
+            class="w-full mt-3
+                   bg-slate-900
+                   text-white
+                   rounded-xl
+                   py-3
+                   font-bold">
+
+            Catat Bensin
+
+          </button>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  `;
 
 }
 
 
-function renderAudit(data){
+window.submitDepositForm =
+function() {
 
-const tbody=
-document.getElementById("auditTable");
+  const user =
+    state.currentUser;
 
-if(!tbody)return;
 
-tbody.innerHTML="";
+  const trx =
+    state.transactions.filter(
+      t =>
+        t.salesId === user.id &&
+        t.date === "2026-08-26"
+    );
 
-Object.values(data)
-.reverse()
-.slice(0,100)
-.forEach(x=>{
 
-const row=document.createElement("tr");
+  const gross =
+    trx.reduce(
+      (sum,t) =>
+        sum + t.totalAmount,
+      0
+    );
 
-row.innerHTML=`
 
-<td>${
-x.createdAt?
-new Date(x.createdAt).toLocaleString("id-ID"):"-"
-}</td>
+  const deposited =
+    Number(
+      document.getElementById(
+        "deposit-amount"
+      ).value
+    ) || 0;
 
-<td>${esc(x.user||"-")}</td>
 
-<td>${esc(x.action||"-")}</td>
+  const discrepancy =
+    gross - deposited;
 
-<td>${esc(x.detail||"-")}</td>
+
+  state.deposits.unshift({
+
+    id:
+      "dep_" + Date.now(),
+
+    date:
+      "2026-08-26",
+
+    salesId:
+      user.id,
+
+    salesName:
+      user.name,
+
+    grossSales:
+      gross,
+
+    collectedCash:
+      gross,
+
+    depositedCash:
+      deposited,
+
+    discrepancy,
+
+    status:
+      discrepancy === 0
+        ? "VERIFIED"
+        : "SELISIH"
+
+  });
+
+
+  logAudit(
+    user.name,
+    "Submit Deposit",
+    `Setoran ${formatRupiah(deposited)}`
+  );
+
+
+  saveDatabase();
+
+  showToast(
+    discrepancy === 0
+      ? "Setoran terverifikasi."
+      : "Setoran memiliki selisih.",
+    discrepancy === 0
+      ? "success"
+      : "warning"
+  );
+
+};
+
+
+window.submitFuelForm =
+function() {
+
+  const user =
+    state.currentUser;
+
+
+  const start =
+    Number(
+      document.getElementById(
+        "odo-start"
+      ).value
+    ) || 0;
+
+
+  const end =
+    Number(
+      document.getElementById(
+        "odo-end"
+      ).value
+    ) || 0;
+
+
+  const amount =
+    Number(
+      document.getElementById(
+        "fuel-claim"
+      ).value
+    ) || 0;
+
+
+  state.fuelRecords.unshift({
+
+    id:
+      "fuel_" + Date.now(),
+
+    date:
+      "2026-08-26",
+
+    salesId:
+      user.id,
+
+    salesName:
+      user.name,
+
+    odoStart:
+      start,
+
+    odoEnd:
+      end,
+
+    distanceKm:
+      Math.max(0,end-start),
+
+    amount,
+
+    notes:
+      "Pencatatan harian motoris"
+
+  });
+
+
+  logAudit(
+    user.name,
+    "Submit Fuel",
+    `Klaim bensin ${formatRupiah(amount)}`
+  );
+
+
+  saveDatabase();
+
+  showToast(
+    "Klaim bensin tersimpan.",
+    "success"
+  );
+
+};
+
+
+/* =========================================================
+   OWNER NAVIGATION
+========================================================= */
+
+window.navigateOwner =
+function(viewName) {
+
+  state.activeOwnerTab =
+    viewName;
+
+  renderOwnerContent();
+
+};
+
+
+/* =========================================================
+   OWNER APP
+========================================================= */
+
+function renderOwnerApp() {
+
+  document
+    .getElementById("mobile-nav")
+    .classList.add("hidden");
+
+  renderHeader();
+
+  renderOwnerContent();
+
+}
+
+
+/* =========================================================
+   OWNER CONTENT
+========================================================= */
+
+function renderOwnerContent() {
+
+  const main =
+    document.getElementById(
+      "main-content"
+    );
+
+
+  main.innerHTML = `
+
+    <div class="flex flex-col
+                md:flex-row gap-6">
+
+
+      <!-- SIDEBAR -->
+
+      <aside
+        class="w-full md:w-64
+               bg-slate-900
+               text-white
+               rounded-3xl
+               p-4
+               shadow-xl
+               h-fit
+               space-y-1">
+
+
+        <div class="px-3 py-2
+                    border-b
+                    border-slate-800
+                    mb-2">
+
+          <span class="text-[10px]
+                       uppercase
+                       text-brand-400
+                       font-bold">
+
+            OWNER DASHBOARD
+
+          </span>
+
+          <h3 class="font-bold text-sm">
+
+            PETEKRES MANAGEMENT
+
+          </h3>
+
+        </div>
+
+
+        ${ownerNavButton(
+          "dashboard",
+          "chart-line",
+          "Ringkasan Eksekutif"
+        )}
+
+        ${ownerNavButton(
+          "ai-business",
+          "brain",
+          "AI Business Advisor"
+        )}
+
+        ${ownerNavButton(
+          "sales",
+          "users",
+          "Kelola Tim Sales"
+        )}
+
+        ${ownerNavButton(
+          "products",
+          "boxes-stacked",
+          "Produk & Stok Master"
+        )}
+
+        ${ownerNavButton(
+          "stores",
+          "store",
+          "Kelola Toko"
+        )}
+
+        ${ownerNavButton(
+          "financials",
+          "wallet",
+          "Laporan Keuangan"
+        )}
+
+        ${ownerNavButton(
+          "audit",
+          "shield-halved",
+          "Audit Log Sistem"
+        )}
+
+      </aside>
+
+
+      <!-- DISPLAY -->
+
+      <section
+        id="owner-display-panel"
+        class="flex-1">
+
+      </section>
+
+    </div>
+
+  `;
+
+
+  renderOwnerSubView();
+
+}
+
+
+function ownerNavButton(
+  tab,
+  icon,
+  text
+) {
+
+  const active =
+    state.activeOwnerTab === tab;
+
+
+  return `
+
+    <button
+      onclick="navigateOwner('${tab}')"
+      class="owner-sidebar-btn
+             w-full text-left
+             px-4 py-3
+             rounded-xl
+             text-xs font-bold
+             flex items-center
+             gap-3
+             ${
+               active
+                 ? "bg-brand-600 text-white"
+                 : "text-slate-300 hover:bg-slate-800"
+             }">
+
+      <i class="fa-solid fa-${icon}"></i>
+
+      <span>
+        ${text}
+      </span>
+
+    </button>
+
+  `;
+
+}
+
+
+/* =========================================================
+   OWNER SUBVIEW
+========================================================= */
+
+function renderOwnerSubView() {
+
+  const panel =
+    document.getElementById(
+      "owner-display-panel"
+    );
+
+
+  if (!panel) return;
+
+
+  switch (
+    state.activeOwnerTab
+  ) {
+
+    case "dashboard":
+      renderOwnerDashboard(panel);
+      break;
+
+    case "ai-business":
+      renderOwnerAIBusinessAdvisor(panel);
+      break;
+
+    case "sales":
+      renderOwnerSalesMaster(panel);
+      break;
+
+    case "products":
+      renderOwnerProductsMaster(panel);
+      break;
+
+    case "stores":
+      renderOwnerStoresMaster(panel);
+      break;
+
+    case "financials":
+      renderOwnerFinancials(panel);
+      break;
+
+    case "audit":
+      renderOwnerAuditLogs(panel);
+      break;
+
+  }
+
+}
+
+
+/* =========================================================
+   OWNER DASHBOARD
+========================================================= */
+
+function renderOwnerDashboard(panel) {
+
+  const totalOmzet =
+    state.transactions.reduce(
+      (sum,t) =>
+        sum + t.totalAmount,
+      0
+    );
+
+
+  const totalPacks =
+    state.transactions.reduce(
+      (sum,t) =>
+        sum + t.qty,
+      0
+    );
+
+
+  const totalHpp =
+    state.transactions.reduce(
+      (sum,t) => {
+
+        const product =
+          state.products.find(
+            p => p.id === t.productId
+          );
+
+        return sum +
+          (product
+            ? product.hpp * t.qty
+            : 0);
+
+      },
+      0
+    );
+
+
+  const grossProfit =
+    totalOmzet - totalHpp;
+
+
+  const fuel =
+    state.fuelRecords.reduce(
+      (sum,f) =>
+        sum + f.amount,
+      0
+    );
+
+
+  const commission =
+    state.transactions.reduce(
+      (sum,t) => {
+
+        const sales =
+          state.salesList.find(
+            s => s.id === t.salesId
+          );
+
+        return sum +
+          t.qty *
+          (sales
+            ? sales.commissionRate
+            : 500);
+
+      },
+      0
+    );
+
+
+  const netProfit =
+    grossProfit -
+    fuel -
+    commission;
+
+
+  const overdue =
+    state.stores.filter(
+      s =>
+        calculateDaysDifference(
+          s.lastVisitDate
+        ) >= 14
+    ).length;
+
+
+  panel.innerHTML = `
+
+    <div class="grid
+                grid-cols-1
+                sm:grid-cols-2
+                lg:grid-cols-4
+                gap-4 mb-6">
+
+
+      <div class="bg-white
+                  p-5 rounded-3xl
+                  border shadow-sm">
+
+        <span class="text-xs
+                     text-slate-400
+                     font-bold">
+
+          TOTAL OMZET
+
+        </span>
+
+        <h3 class="text-2xl
+                   font-black mt-1">
+
+          ${formatRupiah(totalOmzet)}
+
+        </h3>
+
+        <p class="text-xs
+                  text-emerald-600
+                  font-bold mt-2">
+
+          ${totalPacks} Pack
+
+        </p>
+
+      </div>
+
+
+      <div class="bg-white
+                  p-5 rounded-3xl
+                  border shadow-sm">
+
+        <span class="text-xs
+                     text-slate-400
+                     font-bold">
+
+          LABA KOTOR
+
+        </span>
+
+        <h3 class="text-2xl
+                   font-black
+                   text-emerald-600 mt-1">
+
+          ${formatRupiah(
+            grossProfit
+          )}
+
+        </h3>
+
+      </div>
+
+
+      <div class="bg-white
+                  p-5 rounded-3xl
+                  border shadow-sm">
+
+        <span class="text-xs
+                     text-slate-400
+                     font-bold">
+
+          LABA OPERASIONAL
+
+        </span>
+
+        <h3 class="text-2xl
+                   font-black
+                   text-brand-600 mt-1">
+
+          ${formatRupiah(
+            netProfit
+          )}
+
+        </h3>
+
+      </div>
+
+
+      <div class="bg-white
+                  p-5 rounded-3xl
+                  border shadow-sm">
+
+        <span class="text-xs
+                     text-slate-400
+                     font-bold">
+
+          TOKO OVERDUE
+
+        </span>
+
+        <h3 class="text-2xl
+                   font-black
+                   text-rose-600 mt-1">
+
+          ${overdue}
+
+        </h3>
+
+        <p class="text-xs
+                  text-slate-500">
+
+          ≥14 hari
+
+        </p>
+
+      </div>
+
+    </div>
+
+
+    <!-- CONTROL CENTER -->
+
+    <div class="bg-white
+                rounded-3xl
+                border shadow-sm
+                p-6 mb-6">
+
+      <div class="flex justify-between
+                  items-center mb-5">
+
+        <div>
+
+          <h3 class="text-lg font-bold">
+
+            Owner Control Center
+
+          </h3>
+
+          <p class="text-xs text-slate-500">
+
+            Semua master data dapat
+            dikontrol dari menu berikut.
+
+          </p>
+
+        </div>
+
+      </div>
+
+
+      <div class="grid
+                  grid-cols-1
+                  sm:grid-cols-3
+                  gap-4">
+
+
+        <button
+          onclick="navigateOwner('products')"
+          class="border
+                 rounded-2xl
+                 p-5 text-left
+                 hover:border-brand-500">
+
+          <i class="fa-solid
+                    fa-boxes-stacked
+                    text-2xl
+                    text-brand-600"></i>
+
+          <h4 class="font-bold mt-3">
+            Produk & Stok
+          </h4>
+
+          <p class="text-xs
+                    text-slate-500">
+
+            ${state.products.length}
+            produk
+
+          </p>
+
+        </button>
+
+
+        <button
+          onclick="navigateOwner('sales')"
+          class="border
+                 rounded-2xl
+                 p-5 text-left
+                 hover:border-brand-500">
+
+          <i class="fa-solid
+                    fa-users
+                    text-2xl
+                    text-brand-600"></i>
+
+          <h4 class="font-bold mt-3">
+            Tim Sales
+          </h4>
+
+          <p class="text-xs
+                    text-slate-500">
+
+            ${
+              state.salesList.filter(
+                s => s.status === "AKTIF"
+              ).length
+            }
+            sales aktif
+
+          </p>
+
+        </button>
+
+
+        <button
+          onclick="navigateOwner('stores')"
+          class="border
+                 rounded-2xl
+                 p-5 text-left
+                 hover:border-brand-500">
+
+          <i class="fa-solid
+                    fa-store
+                    text-2xl
+                    text-brand-600"></i>
+
+          <h4 class="font-bold mt-3">
+            Toko / Outlet
+          </h4>
+
+          <p class="text-xs
+                    text-slate-500">
+
+            ${state.stores.length}
+            outlet
+
+          </p>
+
+        </button>
+
+      </div>
+
+    </div>
+
+
+    <!-- SALES RANKING -->
+
+    <div class="bg-white
+                rounded-3xl
+                border
+                shadow-sm
+                p-6">
+
+      <h3 class="font-bold text-lg">
+        Performa Sales
+      </h3>
+
+      <div class="overflow-x-auto mt-4">
+
+        <table class="w-full text-xs">
+
+          <thead>
+
+            <tr class="bg-slate-50">
+
+              <th class="p-3 text-left">
+                Sales
+              </th>
+
+              <th class="p-3">
+                Pack
+              </th>
+
+              <th class="p-3">
+                Omzet
+              </th>
+
+              <th class="p-3">
+                Target
+              </th>
+
+            </tr>
+
+          </thead>
+
+          <tbody>
+
+            ${state.salesList.map(
+              sales => {
+
+                const trx =
+                  state.transactions.filter(
+                    t =>
+                      t.salesId ===
+                      sales.id
+                  );
+
+
+                const packs =
+                  trx.reduce(
+                    (sum,t) =>
+                      sum + t.qty,
+                    0
+                  );
+
+
+                const omzet =
+                  trx.reduce(
+                    (sum,t) =>
+                      sum + t.totalAmount,
+                    0
+                  );
+
+
+                return `
+
+                  <tr class="border-b">
+
+                    <td class="p-3 font-bold">
+
+                      ${escapeHTML(
+                        sales.name
+                      )}
+
+                    </td>
+
+                    <td class="p-3 text-center">
+
+                      ${packs}
+
+                    </td>
+
+                    <td class="p-3
+                               text-center
+                               text-emerald-600
+                               font-bold">
+
+                      ${formatRupiah(
+                        omzet
+                      )}
+
+                    </td>
+
+                    <td class="p-3 text-center">
+
+                      ${sales.monthlyTarget}
+
+                    </td>
+
+                  </tr>
+
+                `;
+
+              }
+            ).join("")}
+
+          </tbody>
+
+        </table>
+
+      </div>
+
+    </div>
+
+  `;
+
+}
+
+
+/* =========================================================
+   OWNER PRODUCTS MASTER
+========================================================= */
+
+function renderOwnerProductsMaster(panel) {
+
+  panel.innerHTML = `
+
+    <div class="bg-white
+                rounded-3xl
+                border shadow-sm
+                p-6">
+
+      <div class="flex flex-col
+                  sm:flex-row
+                  justify-between
+                  gap-3 mb-6">
+
+        <div>
+
+          <h2 class="text-xl font-bold">
+
+            Produk & Stok Master
+
+          </h2>
+
+          <p class="text-xs text-slate-500">
+
+            OWNER dapat mengubah seluruh
+            data produk dan stok gudang.
+
+          </p>
+
+        </div>
+
+
+        <button
+          onclick="openAddProductModal()"
+          class="bg-brand-600
+                 text-white
+                 font-bold
+                 text-xs
+                 px-4 py-2.5
+                 rounded-xl">
+
+          + Tambah Produk
+
+        </button>
+
+      </div>
+
+
+      <div class="grid
+                  grid-cols-1
+                  md:grid-cols-2
+                  gap-4">
+
+        ${state.products.map(
+          product => `
+
+          <div class="border
+                      rounded-2xl
+                      p-5">
+
+            <div class="flex
+                        justify-between
+                        items-start">
+
+              <div>
+
+                <span class="text-[10px]
+                             text-slate-400">
+
+                  ${escapeHTML(
+                    product.sku
+                  )}
+
+                </span>
+
+                <h4 class="font-bold">
+
+                  ${escapeHTML(
+                    product.name
+                  )}
+
+                </h4>
+
+              </div>
+
+
+              <span class="${
+                product.status === "AKTIF"
+                  ? "bg-emerald-100 text-emerald-700"
+                  : "bg-slate-200 text-slate-600"
+              }
+                           text-[10px]
+                           font-bold
+                           px-2 py-1
+                           rounded-full">
+
+                ${product.status}
+
+              </span>
+
+            </div>
+
+
+            <div class="grid
+                        grid-cols-3
+                        gap-2
+                        bg-slate-50
+                        rounded-xl
+                        p-3
+                        mt-4
+                        text-center">
+
+              <div>
+
+                <p class="text-[10px]
+                          text-slate-400">
+
+                  Harga
+
+                </p>
+
+                <b class="text-xs">
+
+                  ${formatRupiah(
+                    product.price
+                  )}
+
+                </b>
+
+              </div>
+
+
+              <div>
+
+                <p class="text-[10px]
+                          text-slate-400">
+
+                  HPP
+
+                </p>
+
+                <b class="text-xs">
+
+                  ${formatRupiah(
+                    product.hpp
+                  )}
+
+                </b>
+
+              </div>
+
+
+              <div>
+
+                <p class="text-[10px]
+                          text-slate-400">
+
+                  STOK
+
+                </p>
+
+                <b class="text-sm
+                          ${
+                            product.stock <= 20
+                              ? "text-rose-600"
+                              : "text-brand-600"
+                          }">
+
+                  ${product.stock}
+
+                </b>
+
+              </div>
+
+            </div>
+
+
+            <div class="flex
+                        gap-2 mt-4">
+
+              <button
+                onclick="editProductModal('${product.id}')"
+                class="flex-1
+                       bg-brand-600
+                       text-white
+                       py-2.5
+                       rounded-xl
+                       text-xs
+                       font-bold">
+
+                <i class="fa-solid fa-pen"></i>
+                EDIT
+
+              </button>
+
+
+              <button
+                onclick="deleteProduct('${product.id}')"
+                class="bg-rose-100
+                       text-rose-700
+                       px-4
+                       rounded-xl
+                       text-xs
+                       font-bold">
+
+                <i class="fa-solid
+                          fa-trash"></i>
+
+              </button>
+
+            </div>
+
+          </div>
+
+        `
+        ).join("")}
+
+      </div>
+
+    </div>
+
+  `;
+
+}
+
+
+/* =========================================================
+   ADD PRODUCT
+========================================================= */
+
+window.openAddProductModal =
+function() {
+
+  openModal(
+    "Tambah Produk Baru",
+
+    `
+
+    <div class="space-y-3 text-xs">
+
+      <input
+        id="product-sku"
+        placeholder="SKU"
+        class="w-full border rounded-xl p-3">
+
+
+      <input
+        id="product-name"
+        placeholder="Nama Produk"
+        class="w-full border rounded-xl p-3">
+
+
+      <input
+        id="product-price"
+        type="number"
+        placeholder="Harga Jual"
+        class="w-full border rounded-xl p-3">
+
+
+      <input
+        id="product-hpp"
+        type="number"
+        placeholder="HPP"
+        class="w-full border rounded-xl p-3">
+
+
+      <input
+        id="product-stock"
+        type="number"
+        placeholder="Stok"
+        value="0"
+        class="w-full border rounded-xl p-3">
+
+
+      <select
+        id="product-status"
+        class="w-full border rounded-xl p-3">
+
+        <option value="AKTIF">
+          AKTIF
+        </option>
+
+        <option value="NONAKTIF">
+          NONAKTIF
+        </option>
+
+      </select>
+
+
+      <button
+        onclick="saveNewProduct()"
+        class="w-full
+               bg-brand-600
+               text-white
+               py-3
+               rounded-xl
+               font-bold">
+
+        SIMPAN PRODUK
+
+      </button>
+
+    </div>
+
+    `
+  );
+
+};
+
+
+window.saveNewProduct =
+function() {
+
+  const sku =
+    document.getElementById(
+      "product-sku"
+    ).value.trim();
+
+
+  const name =
+    document.getElementById(
+      "product-name"
+    ).value.trim();
+
+
+  const price =
+    Number(
+      document.getElementById(
+        "product-price"
+      ).value
+    ) || 0;
+
+
+  const hpp =
+    Number(
+      document.getElementById(
+        "product-hpp"
+      ).value
+    ) || 0;
+
+
+  const stock =
+    Number(
+      document.getElementById(
+        "product-stock"
+      ).value
+    ) || 0;
+
+
+  const status =
+    document.getElementById(
+      "product-status"
+    ).value;
+
+
+  if (!sku || !name) {
+
+    showToast(
+      "SKU dan nama produk wajib diisi.",
+      "error"
+    );
+
+    return;
+
+  }
+
+
+  const product = {
+
+    id:
+      "prod_" + Date.now(),
+
+    sku,
+
+    name,
+
+    price,
+
+    hpp,
+
+    stock,
+
+    status
+
+  };
+
+
+  state.products.push(product);
+
+
+  logAudit(
+    "OWNER",
+    "Add Product",
+    `Produk ${name} ditambahkan. Stok ${stock}.`
+  );
+
+
+  saveDatabase();
+
+  closeModal();
+
+  showToast(
+    "Produk berhasil ditambahkan.",
+    "success"
+  );
+
+  renderOwnerSubView();
+
+};
+
+
+/* =========================================================
+   EDIT PRODUCT
+========================================================= */
+
+window.editProductModal =
+function(productId) {
+
+  const product =
+    state.products.find(
+      p => p.id === productId
+    );
+
+  if (!product) return;
+
+
+  openModal(
+    "Edit Produk",
+
+    `
+
+    <div class="space-y-3 text-xs">
+
+      <label class="font-bold">
+        SKU
+      </label>
+
+      <input
+        id="edit-product-sku"
+        value="${escapeHTML(product.sku)}"
+        class="w-full border rounded-xl p-3">
+
+
+      <label class="font-bold">
+        Nama Barang
+      </label>
+
+      <input
+        id="edit-product-name"
+        value="${escapeHTML(product.name)}"
+        class="w-full border rounded-xl p-3">
+
+
+      <label class="font-bold">
+        Harga Jual
+      </label>
+
+      <input
+        id="edit-product-price"
+        type="number"
+        value="${product.price}"
+        class="w-full border rounded-xl p-3">
+
+
+      <label class="font-bold">
+        HPP
+      </label>
+
+      <input
+        id="edit-product-hpp"
+        type="number"
+        value="${product.hpp}"
+        class="w-full border rounded-xl p-3">
+
+
+      <label class="font-bold">
+        STOK GUDANG
+      </label>
+
+      <input
+        id="edit-product-stock"
+        type="number"
+        value="${product.stock}"
+        class="w-full border-2
+               border-brand-500
+               rounded-xl p-3
+               font-bold">
+
+
+      <label class="font-bold">
+        Status
+      </label>
+
+      <select
+        id="edit-product-status"
+        class="w-full border rounded-xl p-3">
+
+        <option
+          value="AKTIF"
+          ${
+            product.status === "AKTIF"
+              ? "selected"
+              : ""
+          }>
+
+          AKTIF
+
+        </option>
+
+        <option
+          value="NONAKTIF"
+          ${
+            product.status === "NONAKTIF"
+              ? "selected"
+              : ""
+          }>
+
+          NONAKTIF
+
+        </option>
+
+      </select>
+
+
+      <button
+        onclick="saveProductEdit('${product.id}')"
+        class="w-full
+               bg-brand-600
+               text-white
+               py-3
+               rounded-xl
+               font-bold">
+
+        SIMPAN PERUBAHAN
+
+      </button>
+
+    </div>
+
+    `
+  );
+
+};
+
+
+window.saveProductEdit =
+function(productId) {
+
+  const product =
+    state.products.find(
+      p => p.id === productId
+    );
+
+  if (!product) return;
+
+
+  const oldStock =
+    product.stock;
+
+
+  product.sku =
+    document.getElementById(
+      "edit-product-sku"
+    ).value.trim();
+
+
+  product.name =
+    document.getElementById(
+      "edit-product-name"
+    ).value.trim();
+
+
+  product.price =
+    Number(
+      document.getElementById(
+        "edit-product-price"
+      ).value
+    ) || 0;
+
+
+  product.hpp =
+    Number(
+      document.getElementById(
+        "edit-product-hpp"
+      ).value
+    ) || 0;
+
+
+  product.stock =
+    Number(
+      document.getElementById(
+        "edit-product-stock"
+      ).value
+    ) || 0;
+
+
+  product.status =
+    document.getElementById(
+      "edit-product-status"
+    ).value;
+
+
+  logAudit(
+    "OWNER",
+    "Edit Product",
+    `${product.name}: stok ${oldStock} → ${product.stock}`
+  );
+
+
+  saveDatabase();
+
+  closeModal();
+
+  showToast(
+    "Produk berhasil diperbarui.",
+    "success"
+  );
+
+
+  /*
+    Jika Owner dan Sales membuka aplikasi
+    dalam TAB yang sama browser,
+    event storage akan membuat tampilan
+    Sales ikut berubah.
+
+    Pada tab Owner sendiri kita render ulang.
+  */
+
+  renderOwnerSubView();
+
+};
+
+
+window.deleteProduct =
+function(productId) {
+
+  const product =
+    state.products.find(
+      p => p.id === productId
+    );
+
+  if (!product) return;
+
+
+  const used =
+    state.transactions.some(
+      t => t.productId === productId
+    );
+
+
+  if (used) {
+
+    product.status =
+      "NONAKTIF";
+
+    saveDatabase();
+
+    showToast(
+      "Produk pernah dipakai transaksi. Produk dinonaktifkan, bukan dihapus.",
+      "warning"
+    );
+
+    renderOwnerSubView();
+
+    return;
+
+  }
+
+
+  if (
+    !confirm(
+      `Hapus produk ${product.name}?`
+    )
+  ) return;
+
+
+  state.products =
+    state.products.filter(
+      p => p.id !== productId
+    );
+
+
+  logAudit(
+    "OWNER",
+    "Delete Product",
+    `Produk ${product.name} dihapus.`
+  );
+
+
+  saveDatabase();
+
+  showToast(
+    "Produk dihapus.",
+    "success"
+  );
+
+  renderOwnerSubView();
+
+};
+
+
+/* =========================================================
+   OWNER SALES MASTER
+========================================================= */
+
+function renderOwnerSalesMaster(panel) {
+
+  panel.innerHTML = `
+
+    <div class="bg-white
+                rounded-3xl
+                border
+                shadow-sm
+                p-6">
+
+      <div class="flex justify-between
+                  items-center mb-6">
+
+        <div>
+
+          <h2 class="text-xl font-bold">
+
+            Kelola Tim Sales Motoris
+
+          </h2>
+
+          <p class="text-xs
+                    text-slate-500">
+
+            Semua parameter sales dapat
+            diedit Owner.
+
+          </p>
+
+        </div>
+
+
+        <button
+          onclick="openAddSalesModal()"
+          class="bg-brand-600
+                 text-white
+                 px-4 py-2.5
+                 rounded-xl
+                 text-xs
+                 font-bold">
+
+          + Tambah Sales
+
+        </button>
+
+      </div>
+
+
+      <div class="space-y-4">
+
+        ${state.salesList.map(
+          sales => `
+
+          <div class="border
+                      rounded-2xl
+                      p-5">
+
+            <div class="flex flex-col
+                        md:flex-row
+                        justify-between
+                        gap-4">
+
+              <div>
+
+                <div class="flex gap-2
+                            items-center">
+
+                  <h3 class="font-bold">
+
+                    ${escapeHTML(
+                      sales.name
+                    )}
+
+                  </h3>
+
+                  <span class="${
+                    sales.status === "AKTIF"
+                      ? "bg-emerald-100 text-emerald-700"
+                      : "bg-rose-100 text-rose-700"
+                  }
+                               text-[10px]
+                               px-2 py-1
+                               rounded-full
+                               font-bold">
+
+                    ${sales.status}
+
+                  </span>
+
+                </div>
+
+
+                <p class="text-xs
+                          text-slate-500 mt-1">
+
+                  Username:
+                  <b>${escapeHTML(
+                    sales.username
+                  )}</b>
+
+                  • Area:
+                  <b>${escapeHTML(
+                    sales.area
+                  )}</b>
+
+                </p>
+
+
+                <p class="text-xs
+                          text-slate-500">
+
+                  Target:
+                  <b>${sales.monthlyTarget}
+                  pack/bulan</b>
+
+                  • Harian:
+                  <b>${sales.dailyTarget}
+                  pack</b>
+
+                </p>
+
+
+                <p class="text-xs
+                          text-slate-500">
+
+                  Gaji:
+                  <b>${formatRupiah(
+                    sales.baseSalary
+                  )}</b>
+
+                  • Komisi:
+                  <b>${formatRupiah(
+                    sales.commissionRate
+                  )}/pack</b>
+
+                  • Bensin:
+                  <b>${formatRupiah(
+                    sales.fuelAllowance
+                  )}</b>
+
+                </p>
+
+              </div>
+
+
+              <div>
+
+                <button
+                  onclick="editSalesModal('${sales.id}')"
+                  class="bg-brand-600
+                         text-white
+                         px-4 py-2.5
+                         rounded-xl
+                         text-xs
+                         font-bold">
+
+                  <i class="fa-solid fa-pen"></i>
+
+                  EDIT SALES
+
+                </button>
+
+              </div>
+
+            </div>
+
+          </div>
+
+        `
+        ).join("")}
+
+      </div>
+
+    </div>
+
+  `;
+
+}
+
+
+/* =========================================================
+   ADD SALES
+========================================================= */
+
+window.openAddSalesModal =
+function() {
+
+  openModal(
+    "Tambah Sales Baru",
+
+    `
+
+    <div class="space-y-3 text-xs">
+
+      <input
+        id="new-sales-name"
+        placeholder="Nama Sales"
+        class="w-full border rounded-xl p-3">
+
+
+      <input
+        id="new-sales-username"
+        placeholder="Username Login"
+        class="w-full border rounded-xl p-3">
+
+
+      <input
+        id="new-sales-email"
+        placeholder="Email"
+        class="w-full border rounded-xl p-3">
+
+
+      <input
+        id="new-sales-password"
+        placeholder="Password"
+        value="sales123"
+        class="w-full border rounded-xl p-3">
+
+
+      <input
+        id="new-sales-area"
+        placeholder="Area"
+        class="w-full border rounded-xl p-3">
+
+
+      <input
+        id="new-sales-daily"
+        type="number"
+        value="58"
+        placeholder="Target Harian"
+        class="w-full border rounded-xl p-3">
+
+
+      <input
+        id="new-sales-monthly"
+        type="number"
+        value="1500"
+        placeholder="Target Bulanan"
+        class="w-full border rounded-xl p-3">
+
+
+      <input
+        id="new-sales-salary"
+        type="number"
+        value="2800000"
+        placeholder="Gaji Pokok"
+        class="w-full border rounded-xl p-3">
+
+
+      <input
+        id="new-sales-commission"
+        type="number"
+        value="500"
+        placeholder="Komisi / Pack"
+        class="w-full border rounded-xl p-3">
+
+
+      <input
+        id="new-sales-fuel"
+        type="number"
+        value="25000"
+        placeholder="Uang Bensin"
+        class="w-full border rounded-xl p-3">
+
+
+      <select
+        id="new-sales-status"
+        class="w-full border rounded-xl p-3">
+
+        <option value="AKTIF">
+          AKTIF
+        </option>
+
+        <option value="NONAKTIF">
+          NONAKTIF
+        </option>
+
+      </select>
+
+
+      <button
+        onclick="saveNewSales()"
+        class="w-full
+               bg-brand-600
+               text-white
+               py-3
+               rounded-xl
+               font-bold">
+
+        SIMPAN SALES
+
+      </button>
+
+    </div>
+
+    `
+  );
+
+};
+
+
+window.saveNewSales =
+function() {
+
+  const name =
+    document.getElementById(
+      "new-sales-name"
+    ).value.trim();
+
+
+  const username =
+    document.getElementById(
+      "new-sales-username"
+    ).value.trim();
+
+
+  const email =
+    document.getElementById(
+      "new-sales-email"
+    ).value.trim();
+
+
+  const password =
+    document.getElementById(
+      "new-sales-password"
+    ).value.trim()
+    || "sales123";
+
+
+  const area =
+    document.getElementById(
+      "new-sales-area"
+    ).value.trim();
+
+
+  if (!name || !username) {
+
+    showToast(
+      "Nama dan username wajib diisi.",
+      "error"
+    );
+
+    return;
+
+  }
+
+
+  const newSales = {
+
+    id:
+      "sales_" + Date.now(),
+
+    name,
+
+    username,
+
+    email:
+      email ||
+      username + "@crisfish.com",
+
+    password,
+
+    role:
+      "SALES",
+
+    area,
+
+    dailyTarget:
+      Number(
+        document.getElementById(
+          "new-sales-daily"
+        ).value
+      ) || 0,
+
+    monthlyTarget:
+      Number(
+        document.getElementById(
+          "new-sales-monthly"
+        ).value
+      ) || 0,
+
+    baseSalary:
+      Number(
+        document.getElementById(
+          "new-sales-salary"
+        ).value
+      ) || 0,
+
+    commissionRate:
+      Number(
+        document.getElementById(
+          "new-sales-commission"
+        ).value
+      ) || 0,
+
+    fuelAllowance:
+      Number(
+        document.getElementById(
+          "new-sales-fuel"
+        ).value
+      ) || 0,
+
+    status:
+      document.getElementById(
+        "new-sales-status"
+      ).value
+
+  };
+
+
+  state.salesList.push(newSales);
+
+
+  logAudit(
+    "OWNER",
+    "Add Sales",
+    `Sales ${name} ditambahkan.`
+  );
+
+
+  saveDatabase();
+
+  closeModal();
+
+  showToast(
+    "Sales berhasil ditambahkan.",
+    "success"
+  );
+
+  renderOwnerSubView();
+
+};
+
+
+/* =========================================================
+   EDIT SALES
+========================================================= */
+
+window.editSalesModal =
+function(salesId) {
+
+  const sales =
+    state.salesList.find(
+      s => s.id === salesId
+    );
+
+  if (!sales) return;
+
+
+  openModal(
+    "Edit Data Sales",
+
+    `
+
+    <div class="space-y-3 text-xs">
+
+      <label class="font-bold">
+        Nama Sales
+      </label>
+
+      <input
+        id="edit-sales-name"
+        value="${escapeHTML(
+          sales.name
+        )}"
+        class="w-full border rounded-xl p-3">
+
+
+      <label class="font-bold">
+        Username
+      </label>
+
+      <input
+        id="edit-sales-username"
+        value="${escapeHTML(
+          sales.username
+        )}"
+        class="w-full border rounded-xl p-3">
+
+
+      <label class="font-bold">
+        Email
+      </label>
+
+      <input
+        id="edit-sales-email"
+        value="${escapeHTML(
+          sales.email
+        )}"
+        class="w-full border rounded-xl p-3">
+
+
+      <label class="font-bold">
+        Password
+      </label>
+
+      <input
+        id="edit-sales-password"
+        value="${escapeHTML(
+          sales.password || "sales123"
+        )}"
+        class="w-full border rounded-xl p-3">
+
+
+      <label class="font-bold">
+        Area
+      </label>
+
+      <input
+        id="edit-sales-area"
+        value="${escapeHTML(
+          sales.area
+        )}"
+        class="w-full border rounded-xl p-3">
+
+
+      <div class="grid
+                  grid-cols-2
+                  gap-2">
+
+        <div>
+
+          <label class="font-bold">
+            Target Harian
+          </label>
+
+          <input
+            id="edit-sales-daily"
+            type="number"
+            value="${sales.dailyTarget}"
+            class="w-full border
+                   rounded-xl p-3">
+
+        </div>
+
+
+        <div>
+
+          <label class="font-bold">
+            Target Bulanan
+          </label>
+
+          <input
+            id="edit-sales-monthly"
+            type="number"
+            value="${sales.monthlyTarget}"
+            class="w-full border
+                   rounded-xl p-3">
+
+        </div>
+
+      </div>
+
+
+      <label class="font-bold">
+        Gaji Pokok
+      </label>
+
+      <input
+        id="edit-sales-salary"
+        type="number"
+        value="${sales.baseSalary}"
+        class="w-full border rounded-xl p-3">
+
+
+      <label class="font-bold">
+        Komisi / Pack
+      </label>
+
+      <input
+        id="edit-sales-commission"
+        type="number"
+        value="${sales.commissionRate}"
+        class="w-full border rounded-xl p-3">
+
+
+      <label class="font-bold">
+        Uang Bensin
+      </label>
+
+      <input
+        id="edit-sales-fuel"
+        type="number"
+        value="${sales.fuelAllowance}"
+        class="w-full border rounded-xl p-3">
+
+
+      <label class="font-bold">
+        Status
+      </label>
+
+      <select
+        id="edit-sales-status"
+        class="w-full border rounded-xl p-3">
+
+        <option
+          value="AKTIF"
+          ${
+            sales.status === "AKTIF"
+              ? "selected"
+              : ""
+          }>
+
+          AKTIF
+
+        </option>
+
+        <option
+          value="NONAKTIF"
+          ${
+            sales.status === "NONAKTIF"
+              ? "selected"
+              : ""
+          }>
+
+          NONAKTIF
+
+        </option>
+
+      </select>
+
+
+      <button
+        onclick="saveSalesEdit('${sales.id}')"
+        class="w-full
+               bg-brand-600
+               text-white
+               py-3
+               rounded-xl
+               font-bold">
+
+        SIMPAN PERUBAHAN SALES
+
+      </button>
+
+
+      <button
+        onclick="deleteSales('${sales.id}')"
+        class="w-full
+               bg-rose-100
+               text-rose-700
+               py-3
+               rounded-xl
+               font-bold">
+
+        NONAKTIFKAN SALES
+
+      </button>
+
+    </div>
+
+    `
+  );
+
+};
+
+
+window.saveSalesEdit =
+function(salesId) {
+
+  const sales =
+    state.salesList.find(
+      s => s.id === salesId
+    );
+
+  if (!sales) return;
+
+
+  sales.name =
+    document.getElementById(
+      "edit-sales-name"
+    ).value.trim();
+
+
+  sales.username =
+    document.getElementById(
+      "edit-sales-username"
+    ).value.trim();
+
+
+  sales.email =
+    document.getElementById(
+      "edit-sales-email"
+    ).value.trim();
+
+
+  sales.password =
+    document.getElementById(
+      "edit-sales-password"
+    ).value.trim();
+
+
+  sales.area =
+    document.getElementById(
+      "edit-sales-area"
+    ).value.trim();
+
+
+  sales.dailyTarget =
+    Number(
+      document.getElementById(
+        "edit-sales-daily"
+      ).value
+    ) || 0;
+
+
+  sales.monthlyTarget =
+    Number(
+      document.getElementById(
+        "edit-sales-monthly"
+      ).value
+    ) || 0;
+
+
+  sales.baseSalary =
+    Number(
+      document.getElementById(
+        "edit-sales-salary"
+      ).value
+    ) || 0;
+
+
+  sales.commissionRate =
+    Number(
+      document.getElementById(
+        "edit-sales-commission"
+      ).value
+    ) || 0;
+
+
+  sales.fuelAllowance =
+    Number(
+      document.getElementById(
+        "edit-sales-fuel"
+      ).value
+    ) || 0;
+
+
+  sales.status =
+    document.getElementById(
+      "edit-sales-status"
+    ).value;
+
+
+  logAudit(
+    "OWNER",
+    "Edit Sales",
+    `Data sales ${sales.name} diperbarui.`
+  );
+
+
+  saveDatabase();
+
+  closeModal();
+
+  showToast(
+    "Data Sales berhasil diperbarui.",
+    "success"
+  );
+
+  renderOwnerSubView();
+
+};
+
+
+window.deleteSales =
+function(salesId) {
+
+  const sales =
+    state.salesList.find(
+      s => s.id === salesId
+    );
+
+  if (!sales) return;
+
+
+  sales.status =
+    "NONAKTIF";
+
+
+  logAudit(
+    "OWNER",
+    "Deactivate Sales",
+    `Sales ${sales.name} dinonaktifkan.`
+  );
+
+
+  saveDatabase();
+
+  closeModal();
+
+  showToast(
+    "Sales dinonaktifkan.",
+    "success"
+  );
+
+  renderOwnerSubView();
+
+};
+
+
+/* =========================================================
+   OWNER STORE MASTER
+========================================================= */
+
+function renderOwnerStoresMaster(panel) {
+
+  panel.innerHTML = `
+
+    <div class="bg-white
+                rounded-3xl
+                border shadow-sm
+                p-6">
+
+      <div class="flex justify-between
+                  items-center mb-6">
+
+        <div>
+
+          <h2 class="text-xl font-bold">
+            Kelola Semua Toko
+          </h2>
+
+          <p class="text-xs
+                    text-slate-500">
+
+            Owner dapat mengubah
+            seluruh data outlet.
+
+          </p>
+
+        </div>
+
+
+        <button
+          onclick="openAddStoreModal(true)"
+          class="bg-brand-600
+                 text-white
+                 px-4 py-2.5
+                 rounded-xl
+                 text-xs font-bold">
+
+          + Tambah Toko
+
+        </button>
+
+      </div>
+
+
+      <div class="space-y-3">
+
+        ${state.stores.map(
+          store => {
+
+            const sales =
+              state.salesList.find(
+                s =>
+                  s.id ===
+                  store.salesId
+              );
+
+
+            return `
+
+              <div class="border
+                          rounded-2xl
+                          p-4">
+
+                <div class="flex
+                            flex-col
+                            md:flex-row
+                            justify-between
+                            gap-3">
+
+                  <div>
+
+                    <h3 class="font-bold">
+
+                      ${escapeHTML(
+                        store.name
+                      )}
+
+                    </h3>
+
+                    <p class="text-xs
+                              text-slate-500">
+
+                      Pemilik:
+                      ${escapeHTML(
+                        store.owner
+                      )}
+
+                      • Sales:
+                      <b>
+                        ${
+                          sales
+                            ? escapeHTML(
+                                sales.name
+                              )
+                            : "-"
+                        }
+                      </b>
+
+                    </p>
+
+                    <p class="text-xs
+                              text-slate-500">
+
+                      ${escapeHTML(
+                        store.address
+                      )}
+
+                    </p>
+
+                    <p class="text-xs
+                              text-slate-500">
+
+                      Stok:
+                      <b>${store.stock}
+                      pack</b>
+
+                      • Terjual:
+                      <b>${store.totalSales}
+                      pack</b>
+
+                    </p>
+
+                  </div>
+
+
+                  <button
+                    onclick="editStoreModal('${store.id}')"
+                    class="bg-brand-600
+                           text-white
+                           px-4 py-2
+                           rounded-xl
+                           text-xs
+                           font-bold">
+
+                    <i class="fa-solid fa-pen"></i>
+                    EDIT TOKO
+
+                  </button>
+
+                </div>
+
+              </div>
+
+            `;
+
+          }
+        ).join("")}
+
+      </div>
+
+    </div>
+
+  `;
+
+}
+
+
+/* =========================================================
+   ADD STORE
+========================================================= */
+
+window.openAddStoreModal =
+function(fromOwner = false) {
+
+  const salesOptions =
+    state.salesList
+      .filter(
+        s => s.status === "AKTIF"
+      )
+      .map(
+        s => `
+          <option value="${s.id}">
+            ${escapeHTML(s.name)}
+          </option>
+        `
+      )
+      .join("");
+
+
+  openModal(
+    "Tambah Toko Baru",
+
+    `
+
+    <div class="space-y-3 text-xs">
+
+      <input
+        id="new-store-name"
+        placeholder="Nama Toko"
+        class="w-full border rounded-xl p-3">
+
+
+      <input
+        id="new-store-owner"
+        placeholder="Nama Pemilik"
+        class="w-full border rounded-xl p-3">
+
+
+      <input
+        id="new-store-phone"
+        placeholder="Nomor HP"
+        class="w-full border rounded-xl p-3">
+
+
+      <textarea
+        id="new-store-address"
+        placeholder="Alamat"
+        class="w-full border rounded-xl p-3"></textarea>
+
+
+      <select
+        id="new-store-sales"
+        class="w-full border rounded-xl p-3">
+
+        <option value="">
+          Pilih Sales
+        </option>
+
+        ${salesOptions}
+
+      </select>
+
+
+      <input
+        id="new-store-stock"
+        type="number"
+        value="0"
+        placeholder="Stok Toko"
+        class="w-full border rounded-xl p-3">
+
+
+      <input
+        id="new-store-avg"
+        type="number"
+        value="0"
+        placeholder="Rata-rata Penjualan"
+        class="w-full border rounded-xl p-3">
+
+
+      <textarea
+        id="new-store-notes"
+        placeholder="Catatan"
+        class="w-full border rounded-xl p-3"></textarea>
+
+
+      <button
+        onclick="saveNewStore()"
+        class="w-full
+               bg-brand-600
+               text-white
+               py-3
+               rounded-xl
+               font-bold">
+
+        SIMPAN TOKO
+
+      </button>
+
+    </div>
+
+    `
+  );
+
+};
+
+
+window.saveNewStore =
+function() {
+
+  const name =
+    document.getElementById(
+      "new-store-name"
+    ).value.trim();
+
+
+  const owner =
+    document.getElementById(
+      "new-store-owner"
+    ).value.trim();
+
+
+  const salesId =
+    document.getElementById(
+      "new-store-sales"
+    ).value;
+
+
+  if (!name || !salesId) {
+
+    showToast(
+      "Nama toko dan sales wajib diisi.",
+      "error"
+    );
+
+    return;
+
+  }
+
+
+  const store = {
+
+    id:
+      "store_" + Date.now(),
+
+    name,
+
+    owner,
+
+    phone:
+      document.getElementById(
+        "new-store-phone"
+      ).value.trim(),
+
+    address:
+      document.getElementById(
+        "new-store-address"
+      ).value.trim(),
+
+    salesId,
+
+    lastVisitDate:
+      "2026-08-26",
+
+    daysSinceLastVisit:
+      0,
+
+    stock:
+      Number(
+        document.getElementById(
+          "new-store-stock"
+        ).value
+      ) || 0,
+
+    totalSales:
+      0,
+
+    avgSales:
+      Number(
+        document.getElementById(
+          "new-store-avg"
+        ).value
+      ) || 0,
+
+    status:
+      "AKTIF",
+
+    lat:
+      -6.9000,
+
+    lng:
+      107.6500,
+
+    notes:
+      document.getElementById(
+        "new-store-notes"
+      ).value.trim()
+
+  };
+
+
+  state.stores.push(store);
+
+
+  logAudit(
+    "OWNER",
+    "Add Store",
+    `Toko ${name} ditambahkan.`
+  );
+
+
+  saveDatabase();
+
+  closeModal();
+
+  showToast(
+    "Toko berhasil ditambahkan.",
+    "success"
+  );
+
+
+  if (
+    state.currentUser?.role ===
+    "OWNER"
+  ) {
+
+    renderOwnerSubView();
+
+  } else {
+
+    renderSalesContent();
+
+  }
+
+};
+
+
+/* =========================================================
+   EDIT STORE
+========================================================= */
+
+window.editStoreModal =
+function(storeId) {
+
+  const store =
+    state.stores.find(
+      s => s.id === storeId
+    );
+
+  if (!store) return;
+
+
+  const salesOptions =
+    state.salesList.map(
+      s => `
+
+        <option
+          value="${s.id}"
+          ${
+            s.id === store.salesId
+              ? "selected"
+              : ""
+          }>
+
+          ${escapeHTML(s.name)}
+
+        </option>
+
+      `
+    ).join("");
+
+
+  openModal(
+    "Edit Data Toko",
+
+    `
+
+    <div class="space-y-3 text-xs">
+
+      <label class="font-bold">
+        Nama Toko
+      </label>
+
+      <input
+        id="edit-store-name"
+        value="${escapeHTML(
+          store.name
+        )}"
+        class="w-full border rounded-xl p-3">
+
+
+      <label class="font-bold">
+        Nama Pemilik
+      </label>
+
+      <input
+        id="edit-store-owner"
+        value="${escapeHTML(
+          store.owner
+        )}"
+        class="w-full border rounded-xl p-3">
+
+
+      <label class="font-bold">
+        Nomor HP
+      </label>
+
+      <input
+        id="edit-store-phone"
+        value="${escapeHTML(
+          store.phone
+        )}"
+        class="w-full border rounded-xl p-3">
+
+
+      <label class="font-bold">
+        Alamat
+      </label>
+
+      <textarea
+        id="edit-store-address"
+        class="w-full border rounded-xl p-3"
+        rows="3">${escapeHTML(
+          store.address
+        )}</textarea>
+
+
+      <label class="font-bold">
+        Sales Penanggung Jawab
+      </label>
+
+      <select
+        id="edit-store-sales"
+        class="w-full border rounded-xl p-3">
+
+        ${salesOptions}
+
+      </select>
+
+
+      <label class="font-bold">
+        STOK TOKO
+      </label>
+
+      <input
+        id="edit-store-stock"
+        type="number"
+        value="${store.stock}"
+        class="w-full border-2
+               border-brand-500
+               rounded-xl p-3
+               font-bold">
+
+
+      <label class="font-bold">
+        Rata-rata Penjualan
+      </label>
+
+      <input
+        id="edit-store-avg"
+        type="number"
+        value="${store.avgSales}"
+        class="w-full border rounded-xl p-3">
+
+
+      <label class="font-bold">
+        Catatan
+      </label>
+
+      <textarea
+        id="edit-store-notes"
+        class="w-full border rounded-xl p-3"
+        rows="3">${escapeHTML(
+          store.notes
+        )}</textarea>
+
+
+      <button
+        onclick="saveStoreEdit('${store.id}')"
+        class="w-full
+               bg-brand-600
+               text-white
+               py-3
+               rounded-xl
+               font-bold">
+
+        SIMPAN PERUBAHAN TOKO
+
+      </button>
+
+    </div>
+
+    `
+  );
+
+};
+
+
+window.saveStoreEdit =
+function(storeId) {
+
+  const store =
+    state.stores.find(
+      s => s.id === storeId
+    );
+
+  if (!store) return;
+
+
+  store.name =
+    document.getElementById(
+      "edit-store-name"
+    ).value.trim();
+
+
+  store.owner =
+    document.getElementById(
+      "edit-store-owner"
+    ).value.trim();
+
+
+  store.phone =
+    document.getElementById(
+      "edit-store-phone"
+    ).value.trim();
+
+
+  store.address =
+    document.getElementById(
+      "edit-store-address"
+    ).value.trim();
+
+
+  store.salesId =
+    document.getElementById(
+      "edit-store-sales"
+    ).value;
+
+
+  store.stock =
+    Number(
+      document.getElementById(
+        "edit-store-stock"
+      ).value
+    ) || 0;
+
+
+  store.avgSales =
+    Number(
+      document.getElementById(
+        "edit-store-avg"
+      ).value
+    ) || 0;
+
+
+  store.notes =
+    document.getElementById(
+      "edit-store-notes"
+    ).value.trim();
+
+
+  logAudit(
+    "OWNER",
+    "Edit Store",
+    `Data toko ${store.name} diperbarui.`
+  );
+
+
+  saveDatabase();
+
+  closeModal();
+
+  showToast(
+    "Data toko berhasil diperbarui.",
+    "success"
+  );
+
+  renderOwnerSubView();
+
+};
+
+
+/* =========================================================
+   OWNER FINANCIAL
+========================================================= */
+
+function renderOwnerFinancials(panel) {
+
+  const omzet =
+    state.transactions.reduce(
+      (sum,t) =>
+        sum + t.totalAmount,
+      0
+    );
+
+
+  const hpp =
+    state.transactions.reduce(
+      (sum,t) => {
+
+        const product =
+          state.products.find(
+            p => p.id === t.productId
+          );
+
+        return sum +
+          (
+            product
+              ? product.hpp * t.qty
+              : 0
+          );
+
+      },
+      0
+    );
+
+
+  const gross =
+    omzet - hpp;
+
+
+  const fuel =
+    state.fuelRecords.reduce(
+      (sum,f) =>
+        sum + f.amount,
+      0
+    );
+
+
+  const commission =
+    state.transactions.reduce(
+      (sum,t) => {
+
+        const sales =
+          state.salesList.find(
+            s => s.id === t.salesId
+          );
+
+        return sum +
+          t.qty *
+          (
+            sales
+              ? sales.commissionRate
+              : 500
+          );
+
+      },
+      0
+    );
+
+
+  const net =
+    gross -
+    fuel -
+    commission;
+
+
+  panel.innerHTML = `
+
+    <div class="bg-white
+                rounded-3xl
+                border
+                shadow-sm
+                p-6">
+
+      <h2 class="text-xl font-bold">
+
+        Laporan Keuangan
+
+      </h2>
+
+      <p class="text-xs
+                text-slate-500 mb-6">
+
+        Perhitungan otomatis dari transaksi.
+
+      </p>
+
+
+      <div class="space-y-3
+                  max-w-xl">
+
+        <div class="flex
+                    justify-between
+                    p-4
+                    bg-slate-50
+                    rounded-xl">
+
+          <span>
+            Omzet
+          </span>
+
+          <b>
+            ${formatRupiah(omzet)}
+          </b>
+
+        </div>
+
+
+        <div class="flex
+                    justify-between
+                    p-4
+                    bg-slate-50
+                    rounded-xl">
+
+          <span>
+            HPP
+          </span>
+
+          <b class="text-rose-600">
+
+            - ${formatRupiah(hpp)}
+
+          </b>
+
+        </div>
+
+
+        <div class="flex
+                    justify-between
+                    p-4
+                    bg-emerald-50
+                    rounded-xl
+                    font-bold">
+
+          <span>
+            LABA KOTOR
+          </span>
+
+          <span>
+            ${formatRupiah(gross)}
+          </span>
+
+        </div>
+
+
+        <div class="flex
+                    justify-between
+                    p-4
+                    bg-slate-50
+                    rounded-xl">
+
+          <span>
+            Bensin
+          </span>
+
+          <b class="text-rose-600">
+
+            - ${formatRupiah(fuel)}
+
+          </b>
+
+        </div>
+
+
+        <div class="flex
+                    justify-between
+                    p-4
+                    bg-slate-50
+                    rounded-xl">
+
+          <span>
+            Komisi Sales
+          </span>
+
+          <b class="text-rose-600">
+
+            - ${formatRupiah(
+              commission
+            )}
+
+          </b>
+
+        </div>
+
+
+        <div class="flex
+                    justify-between
+                    p-5
+                    bg-slate-900
+                    text-white
+                    rounded-2xl
+                    font-bold">
+
+          <span>
+            LABA OPERASIONAL
+          </span>
+
+          <span class="text-amber-400">
+
+            ${formatRupiah(net)}
+
+          </span>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  `;
+
+}
+
+
+/* =========================================================
+   OWNER AI BUSINESS
+========================================================= */
+
+function renderOwnerAIBusinessAdvisor(panel) {
+
+  const omzet =
+    state.transactions.reduce(
+      (sum,t) =>
+        sum + t.totalAmount,
+      0
+    );
+
+
+  const overdue =
+    state.stores.filter(
+      s =>
+        calculateDaysDifference(
+          s.lastVisitDate
+        ) >= 14
+    ).length;
+
+
+  panel.innerHTML = `
+
+    <div class="bg-white
+                rounded-3xl
+                border
+                shadow-sm
+                p-6">
+
+      <div class="flex justify-between
+                  items-center mb-6">
+
+        <div>
+
+          <h2 class="text-xl font-bold">
+
+            AI Business Advisor
+
+          </h2>
+
+          <p class="text-xs
+                    text-slate-500">
+
+            Konsultan bisnis untuk Owner.
+
+          </p>
+
+        </div>
+
+
+        <button
+          onclick="generateGeminiOwnerAdvice()"
+          class="bg-slate-900
+                 text-white
+                 px-4 py-2.5
+                 rounded-xl
+                 text-xs
+                 font-bold">
+
+          Jalankan AI
+
+        </button>
+
+      </div>
+
+
+      <div id="owner-ai-container">
+
+        <div class="bg-slate-900
+                    text-white
+                    rounded-2xl
+                    p-5
+                    text-xs">
+
+          <b class="text-amber-400">
+
+            Ringkasan Owner
+
+          </b>
+
+          <p class="mt-2">
+
+            Omzet:
+            <b>
+              ${formatRupiah(omzet)}
+            </b>
+
+          </p>
+
+          <p>
+
+            Toko overdue:
+            <b>${overdue}</b>
+
+          </p>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  `;
+
+}
+
+
+window.generateGeminiOwnerAdvice =
+async function() {
+
+  const container =
+    document.getElementById(
+      "owner-ai-container"
+    );
+
+
+  if (!apiKey) {
+
+    container.innerHTML = `
+
+      <div class="bg-amber-50
+                  border border-amber-200
+                  rounded-2xl
+                  p-5 text-xs">
+
+        Gemini API belum diaktifkan.
+
+        <br><br>
+
+        Tetapi berdasarkan data lokal:
+
+        <ul class="list-disc ml-5 mt-2">
+
+          <li>
+            Fokuskan kunjungan pada toko
+            ≥14 hari.
+          </li>
+
+          <li>
+            Pantau produk dengan stok rendah.
+          </li>
+
+          <li>
+            Evaluasi sales berdasarkan
+            omzet, pack, komisi dan bensin.
+          </li>
+
+        </ul>
+
+      </div>
+
+    `;
+
+    return;
+
+  }
+
+
+  container.innerHTML = `
+
+    <div class="text-center py-8">
+
+      <i class="fa-solid
+                fa-spinner
+                fa-spin
+                text-3xl
+                text-brand-600"></i>
+
+      <p class="text-xs mt-2">
+        AI sedang menganalisis bisnis...
+      </p>
+
+    </div>
+
+  `;
+
+
+  try {
+
+    const prompt = `
+Anda adalah konsultan bisnis CRISFISH.
+
+Analisis data:
+Sales: ${JSON.stringify(state.salesList)}
+Produk: ${JSON.stringify(state.products)}
+Toko: ${JSON.stringify(state.stores)}
+Transaksi: ${JSON.stringify(state.transactions)}
+
+Berikan 5 rekomendasi bisnis yang praktis
+untuk meningkatkan omzet, profit,
+produktivitas sales dan kunjungan toko.
+Gunakan bahasa Indonesia.
 `;
 
-tbody.appendChild(row);
 
-});
+    const response =
+      await fetch(
+        `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`,
+        {
+          method: "POST",
+
+          headers: {
+            "Content-Type":
+              "application/json"
+          },
+
+          body: JSON.stringify({
+            contents: [
+              {
+                parts: [
+                  {
+                    text: prompt
+                  }
+                ]
+              }
+            ]
+          })
+        }
+      );
+
+
+    const data =
+      await response.json();
+
+
+    const answer =
+      data.candidates?.[0]
+        ?.content?.parts?.[0]?.text
+      || "Tidak ada hasil.";
+
+
+    container.innerHTML = `
+
+      <div class="bg-amber-50
+                  border border-amber-200
+                  rounded-2xl
+                  p-5 text-sm
+                  leading-relaxed">
+
+        ${answer}
+
+      </div>
+
+    `;
+
+  } catch(error) {
+
+    console.error(error);
+
+    showToast(
+      "AI gagal dihubungi.",
+      "warning"
+    );
+
+  }
+
+};
+
+
+/* =========================================================
+   AUDIT LOG
+========================================================= */
+
+function renderOwnerAuditLogs(panel) {
+
+  panel.innerHTML = `
+
+    <div class="bg-white
+                rounded-3xl
+                border
+                shadow-sm
+                p-6">
+
+      <h2 class="text-xl font-bold">
+        Audit Log Sistem
+      </h2>
+
+      <p class="text-xs
+                text-slate-500 mb-6">
+
+        Semua perubahan Owner/Sales
+        dicatat di sini.
+
+      </p>
+
+
+      <div class="space-y-2
+                  max-h-[600px]
+                  overflow-y-auto">
+
+        ${
+          state.auditLogs.length
+            ? state.auditLogs.map(
+                log => `
+
+                  <div class="border-b
+                              p-3">
+
+                    <div class="flex
+                                justify-between
+                                gap-3">
+
+                      <b class="text-xs">
+
+                        [${escapeHTML(
+                          log.actor
+                        )}]
+
+                        ${escapeHTML(
+                          log.action
+                        )}
+
+                      </b>
+
+                      <span class="text-[10px]
+                                   text-slate-400">
+
+                        ${escapeHTML(
+                          log.timestamp
+                        )}
+
+                      </span>
+
+                    </div>
+
+                    <p class="text-xs
+                              text-slate-500
+                              mt-1">
+
+                      ${escapeHTML(
+                        log.details
+                      )}
+
+                    </p>
+
+                  </div>
+
+                `
+              ).join("")
+            : `
+              <p class="text-xs
+                        text-slate-500">
+
+                Belum ada log.
+
+              </p>
+            `
+        }
+
+      </div>
+
+    </div>
+
+  `;
 
 }
 
 
-/* =========================
-NAVIGATION
-========================= */
+/* =========================================================
+   EXPORT
+========================================================= */
 
-window.showPage=function(id,button){
+window.exportReportToCSV =
+function() {
 
-document.querySelectorAll(".page")
-.forEach(p=>p.classList.remove("active"));
+  let csv =
+    "Tanggal,Sales,Toko,Produk,Qty,Harga,Total\n";
 
-document.getElementById(id)
-.classList.add("active");
 
-document.querySelectorAll(".tabs button")
-.forEach(b=>b.classList.remove("active"));
+  state.transactions.forEach(
+    transaction => {
 
-if(button)
-button.classList.add("active");
+      const product =
+        state.products.find(
+          p =>
+            p.id ===
+            transaction.productId
+        );
 
-renderAll();
+
+      csv +=
+        `"${transaction.date}",` +
+        `"${transaction.salesName}",` +
+        `"${transaction.storeName}",` +
+        `"${product
+          ? product.name
+          : transaction.productId}",` +
+        `${transaction.qty},` +
+        `${transaction.unitPrice},` +
+        `${transaction.totalAmount}\n`;
+
+    }
+  );
+
+
+  const blob =
+    new Blob(
+      [csv],
+      {
+        type:
+          "text/csv;charset=utf-8;"
+      }
+    );
+
+
+  const url =
+    URL.createObjectURL(blob);
+
+
+  const a =
+    document.createElement("a");
+
+
+  a.href = url;
+
+  a.download =
+    "Laporan_CRISFISH.csv";
+
+  a.click();
+
+
+  URL.revokeObjectURL(url);
 
 };
 
 
-/* =========================
-RENDER ALL
-========================= */
+/* =========================================================
+   INITIALIZE
+========================================================= */
 
-window.renderAll=function(){
+window.onload =
+function() {
 
-renderSales();
-renderSalesFilters();
-renderOrders();
-renderOutlets();
-renderDeposits();
-renderCheckins();
-renderStock();
-renderPayroll();
-renderDashboard();
+  renderLogin();
 
 };
 
 
-/* =========================
-MODAL
-========================= */
+/* =========================================================
+   AUTO SAVE PERIODIC
+========================================================= */
 
-window.closeModal=function(id){
-
-document.getElementById(id)
-.style.display="none";
-
-};
-
-
-/* =========================
-ESCAPE HTML
-========================= */
-
-function esc(value){
-
-return String(value??"")
-.replaceAll("&","&amp;")
-.replaceAll("<","&lt;")
-.replaceAll(">","&gt;")
-.replaceAll('"',"&quot;")
-.replaceAll("'","&#039;");
-
-}
+setInterval(
+  saveDatabase,
+  3000
+);
 
 </script>
 
