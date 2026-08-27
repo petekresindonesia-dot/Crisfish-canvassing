@@ -6,12 +6,21 @@
 <title>CRISFISH — Owner Dashboard</title>
 
 <script src="https://cdn.tailwindcss.com"></script>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 
 <style>
 body{font-family:Inter,system-ui,sans-serif}
-.card{background:#fff;border:1px solid #e2e8f0;border-radius:20px;box-shadow:0 4px 18px #0f172a0a}
-.navbtn.active{background:#ea580c;color:#fff}
+.card{
+  background:#fff;
+  border:1px solid #e2e8f0;
+  border-radius:20px;
+  box-shadow:0 4px 18px #0f172a0a
+}
+.navbtn.active{
+  background:#ea580c;
+  color:#fff
+}
 .modal{background:#0f172a99}
 .hiddenx{display:none!important}
 </style>
@@ -19,15 +28,22 @@ body{font-family:Inter,system-ui,sans-serif}
 
 <body class="bg-slate-100 text-slate-800">
 
-<!-- LOGIN OWNER -->
-<div id="login" class="min-h-screen flex items-center justify-center p-4 bg-slate-950">
+<!-- LOGIN -->
+<div id="login"
+class="min-h-screen flex items-center justify-center p-4 bg-slate-950">
 
 <div class="bg-white rounded-3xl p-7 w-full max-w-md shadow-2xl">
 
 <div class="text-center">
 <div class="text-5xl">🐟</div>
-<h1 class="text-2xl font-black mt-2">CRISFISH OWNER</h1>
-<p class="text-xs text-slate-500">OWNER DASHBOARD • PETEKRES</p>
+
+<h1 class="text-2xl font-black mt-2">
+CRISFISH OWNER
+</h1>
+
+<p class="text-xs text-slate-500">
+OWNER DASHBOARD • PETEKRES
+</p>
 </div>
 
 <form id="loginForm" class="mt-6 space-y-3">
@@ -36,21 +52,18 @@ body{font-family:Inter,system-ui,sans-serif}
 id="email"
 type="email"
 required
-autocomplete="username"
 class="w-full border rounded-xl p-3"
-placeholder="Email Owner">
+placeholder="Email owner">
 
 <input
 id="password"
 type="password"
 required
-autocomplete="current-password"
 class="w-full border rounded-xl p-3"
-placeholder="Password Owner">
+placeholder="Password owner">
 
 <button
-type="submit"
-class="w-full bg-orange-600 hover:bg-orange-700 text-white rounded-xl p-3 font-bold">
+class="w-full bg-orange-600 text-white rounded-xl p-3 font-bold">
 MASUK OWNER
 </button>
 
@@ -58,17 +71,20 @@ MASUK OWNER
 type="button"
 id="resetBtn"
 class="w-full text-xs text-orange-700">
-LUPA PASSWORD
+Lupa password / kirim reset email
 </button>
 
-<p id="loginMsg" class="text-xs text-center text-rose-600"></p>
+<p
+id="loginMsg"
+class="text-xs text-center text-rose-600">
+</p>
 
 </form>
 </div>
 </div>
 
 
-<!-- APPLICATION -->
+<!-- APP -->
 <div id="app" class="hiddenx min-h-screen">
 
 <header class="bg-slate-950 text-white sticky top-0 z-30">
@@ -84,7 +100,8 @@ OWNER DASHBOARD • PETEKRES
 
 <div class="flex items-center gap-2">
 
-<span id="conn"
+<span
+id="conn"
 class="text-xs bg-emerald-600 px-2 py-1 rounded-full">
 ONLINE
 </span>
@@ -104,7 +121,8 @@ Keluar
 
 <div class="flex flex-col md:flex-row gap-5">
 
-<aside class="md:w-64 bg-slate-950 rounded-3xl p-3 text-white h-fit">
+<aside
+class="md:w-64 bg-slate-950 rounded-3xl p-3 text-white h-fit">
 
 <div class="p-3 border-b border-slate-800 mb-2">
 
@@ -132,7 +150,8 @@ OWNER DASHBOARD
 id="modal"
 class="modal fixed inset-0 z-50 hiddenx items-center justify-center p-4">
 
-<div class="bg-white rounded-3xl w-full max-w-lg max-h-[90vh] overflow-auto p-6">
+<div
+class="bg-white rounded-3xl w-full max-w-lg max-h-[90vh] overflow-auto p-6">
 
 <div class="flex justify-between">
 
@@ -148,15 +167,24 @@ class="modal fixed inset-0 z-50 hiddenx items-center justify-center p-4">
 </div>
 
 
-<div id="toast" class="fixed top-20 right-4 z-50"></div>
+<div id="toast"
+class="fixed top-20 right-4 z-50">
+</div>
 
 
 <script type="module">
 
+/* =========================
+   FIREBASE
+========================= */
+
 import {
-initializeApp
-} from
-'https://www.gstatic.com/firebasejs/12.0.0/firebase-app.js';
+initializeApp,
+getApps,
+getApp
+}
+from
+"https://www.gstatic.com/firebasejs/12.0.0/firebase-app.js";
 
 import {
 getAuth,
@@ -165,8 +193,9 @@ signInWithEmailAndPassword,
 sendPasswordResetEmail,
 signOut,
 createUserWithEmailAndPassword
-} from
-'https://www.gstatic.com/firebasejs/12.0.0/firebase-auth.js';
+}
+from
+"https://www.gstatic.com/firebasejs/12.0.0/firebase-auth.js";
 
 import {
 getDatabase,
@@ -174,22 +203,15 @@ ref,
 onValue,
 set,
 update,
-push,
-remove
-} from
-'https://www.gstatic.com/firebasejs/12.0.0/firebase-database.js';
-
-import {
-getAI,
-getGenerativeModel,
-GoogleAIBackend
-} from
-'https://www.gstatic.com/firebasejs/12.0.0/firebase-ai.js';
+push
+}
+from
+"https://www.gstatic.com/firebasejs/12.0.0/firebase-database.js";
 
 
-/* ===============================
-   FIREBASE
-================================ */
+/* =========================
+   FIREBASE CONFIG
+========================= */
 
 const firebaseConfig = {
 
@@ -220,170 +242,106 @@ measurementId:
 };
 
 
-/* ===============================
-   OWNER UID TERBARU
-================================ */
+/* =========================
+   FIREBASE INIT
+========================= */
 
-const OWNER_UID =
-"M6pRwWMFi4Rrk7c2dDwX02cHdNp1";
+const app = initializeApp(firebaseConfig);
 
+const auth = getAuth(app);
 
-/* ===============================
-   FIREBASE APP
-================================ */
-
-const app =
-initializeApp(firebaseConfig);
-
-const auth =
-getAuth(app);
-
-const db =
-getDatabase(app);
+const db = getDatabase(app);
 
 
-/* ===============================
-   GEMINI
-================================ */
-
-const ai =
-getAI(app,{
-backend:new GoogleAIBackend()
-});
-
-const gemini =
-getGenerativeModel(ai,{
-model:"gemini-3.7-flash"
-});
-
-
-/* ===============================
+/* =========================
    STATE
-================================ */
+========================= */
 
 const state = {
-
 tab:"dashboard",
-
 data:{},
-
 user:null
-
 };
 
 
-/* ===============================
-   HELPER
-================================ */
-
-const $ =
-id => document.getElementById(id);
+const $ = id =>
+document.getElementById(id);
 
 
-const esc =
-s =>
+const esc = s =>
 String(s ?? "")
-.replace(
-/[&<>'"]/g,
-c =>
-({
+.replace(/[&<>'"]/g,c=>({
 "&":"&amp;",
 "<":"&lt;",
 ">":"&gt;",
 "'":"&#39;",
 '"':"&quot;"
-}[c])
-);
+}[c]));
 
 
-const arr =
-k =>
-Object.entries(
-state.data[k] || {}
-).map(
-([id,v]) => ({
-id,
-...v
-})
-);
+const arr = k =>
+Object.entries(state.data[k] || {})
+.map(([id,v])=>({id,...v}));
 
 
-const rup =
-n =>
-new Intl.NumberFormat(
-"id-ID",
-{
+const rup = n =>
+new Intl.NumberFormat("id-ID",{
 style:"currency",
 currency:"IDR",
 maximumFractionDigits:0
-}
-).format(Number(n)||0);
+}).format(Number(n)||0);
 
 
-const today =
-() =>
-new Date()
-.toISOString()
-.slice(0,10);
+const today = () =>
+new Date().toISOString().slice(0,10);
 
 
-const month =
-() =>
+const month = () =>
 today().slice(0,7);
 
 
-const days =
-d =>
-{
-if(!d)return 999;
+const days = d => {
+
+if(!d) return 999;
 
 return Math.floor(
 (
 Date.now() -
-new Date(
-d+"T00:00:00"
-).getTime()
+new Date(d+"T00:00:00").getTime()
 ) / 86400000
 );
+
 };
 
 
-const toast =
-m =>
-{
+const toast = m => {
 
 $("toast").innerHTML =
-`
-<div class="bg-slate-900 text-white px-4 py-3 rounded-xl shadow-lg text-xs">
+`<div class="bg-slate-900 text-white px-4 py-3 rounded-xl shadow-lg text-xs">
 ${esc(m)}
-</div>
-`;
+</div>`;
 
-setTimeout(
-() => $("toast").innerHTML="",
-2500
-);
+setTimeout(()=>{
+$("toast").innerHTML="";
+},2500);
 
 };
 
 
-/* ===============================
+/* =========================
    LOGIN
-================================ */
+========================= */
 
-function showLoginMsg(m)
-{
+function showLoginMsg(m){
 $("loginMsg").textContent=m;
 }
 
 
-$("loginForm").onsubmit =
-async e =>
-{
+$("loginForm").onsubmit = async e => {
 
 e.preventDefault();
 
-showLoginMsg("Memeriksa login...");
+showLoginMsg("");
 
 try{
 
@@ -393,14 +351,10 @@ $("email").value.trim(),
 $("password").value
 );
 
-}
-catch(error){
-
-console.error(error);
+}catch(e){
 
 showLoginMsg(
-"Login gagal: "+
-(error.code || error.message)
+"Login gagal: "+e.code
 );
 
 }
@@ -408,46 +362,21 @@ showLoginMsg(
 };
 
 
-/* ===============================
-   RESET PASSWORD
-================================ */
-
-$("resetBtn").onclick =
-async () =>
-{
-
-const email =
-$("email").value.trim();
-
-if(!email){
-
-showLoginMsg(
-"Masukkan email Owner terlebih dahulu."
-);
-
-return;
-
-}
+$("resetBtn").onclick = async()=>{
 
 try{
 
 await sendPasswordResetEmail(
 auth,
-email
+$("email").value.trim()
 );
 
-showLoginMsg(
-"Email reset password sudah dikirim."
-);
+toast("Email reset password dikirim.");
 
-}
-catch(error){
-
-console.error(error);
+}catch(e){
 
 showLoginMsg(
-"Gagal mengirim reset password: "+
-(error.code || error.message)
+"Masukkan email Owner terlebih dahulu."
 );
 
 }
@@ -455,98 +384,42 @@ showLoginMsg(
 };
 
 
-/* ===============================
-   LOGOUT
-================================ */
-
-$("logout").onclick =
-() =>
+$("logout").onclick = () =>
 signOut(auth);
 
 
-/* ===============================
-   CEK OWNER
-================================ */
+/* =========================
+   NAVIGATION
+========================= */
 
-function isOwner()
-{
+function nav(){
 
-return (
-state.user &&
-(
-state.user.uid === OWNER_UID ||
-state.data.users?.[state.user.uid]?.role === "owner"
-)
-);
+const items=[
 
-}
+["dashboard","chart-line","Ringkasan Eksekutif"],
 
+["ai","brain","AI Business Advisor"],
 
-/* ===============================
-   NAVIGASI
-================================ */
+["sales","users","Kelola Tim Sales"],
 
-function nav()
-{
+["products","boxes-stacked","Produk & Stok Master"],
 
-const items = [
+["stores","store","Kelola Toko"],
 
-[
-"dashboard",
-"chart-line",
-"Ringkasan Eksekutif"
-],
+["financials","wallet","Laporan Keuangan"],
 
-[
-"ai",
-"brain",
-"AI Business Advisor"
-],
-
-[
-"sales",
-"users",
-"Kelola Tim Sales"
-],
-
-[
-"products",
-"boxes-stacked",
-"Produk & Stok Master"
-],
-
-[
-"stores",
-"store",
-"Kelola Toko"
-],
-
-[
-"financials",
-"wallet",
-"Laporan Keuangan"
-],
-
-[
-"audit",
-"shield-halved",
-"Audit Log Sistem"
-]
+["audit","shield-halved","Audit Log Sistem"]
 
 ];
 
-
 $("nav").innerHTML =
-items.map(
-x =>
-`
+items.map(x=>`
 
 <button
 onclick="window.goto('${x[0]}')"
 class="navbtn ${
-state.tab===x[0] ? "active" : ""
-}
-w-full text-left px-3 py-3 rounded-xl text-xs font-bold">
+state.tab===x[0]?"active":""
+} w-full text-left px-3 py-3 rounded-xl text-xs font-bold">
 
 <i class="fa-solid fa-${x[1]} w-6"></i>
 
@@ -554,15 +427,12 @@ ${x[2]}
 
 </button>
 
-`
-).join("");
+`).join("");
 
 }
 
 
-window.goto =
-t =>
-{
+window.goto = t => {
 
 state.tab=t;
 
@@ -573,163 +443,108 @@ render();
 };
 
 
-/* ===============================
-   FIREBASE REALTIME
-================================ */
+/* =========================
+   REALTIME FIREBASE
+========================= */
 
-function subscribe()
-{
+function subscribe(){
 
 onValue(
 ref(db,"/"),
+snap=>{
 
-snap =>
-{
-
-state.data =
-snap.val() || {};
+state.data=snap.val() || {};
 
 render();
 
-$("conn").textContent =
-"● ONLINE";
+$("conn").textContent="● ONLINE";
 
-$("conn").className =
+$("conn").className=
 "text-xs bg-emerald-600 px-2 py-1 rounded-full";
 
 },
-
-error =>
-{
+error=>{
 
 console.error(error);
 
-$("conn").textContent =
-"● OFFLINE";
+$("conn").textContent="OFFLINE";
 
-$("conn").className =
+$("conn").className=
 "text-xs bg-rose-600 px-2 py-1 rounded-full";
 
-}
-
-);
+});
 
 }
 
 
-/* ===============================
-   DATA AWAL
-================================ */
+/* =========================
+   OWNER SETUP
+========================= */
 
-async function seed()
-{
+async function setupOwner(){
 
-if(!isOwner())return;
+const u = auth.currentUser;
 
-const base = {
-
-settings:{
-companyName:"CRISFISH",
-consignmentDays:14
-},
-
-products:{
-
-prod_1:{
-name:"Petekres Original",
-price:12000,
-hpp:7000,
-stock:0,
-status:"AKTIF"
-},
-
-prod_2:{
-name:"Petekres Rumput Laut",
-price:12000,
-hpp:7000,
-stock:0,
-status:"AKTIF"
-}
-
-}
-
-};
-
-
-for(
-const [k,v]
-of Object.entries(base)
-){
-
-if(!state.data[k]){
+if(!u) return;
 
 await set(
-ref(db,k),
-v
-);
-
-}
-
-}
-
-
-await set(
-ref(
-db,
-"users/"+auth.currentUser.uid
-),
+ref(db,"users/"+u.uid),
 {
 role:"owner",
 name:"Owner CRISFISH",
-email:auth.currentUser.email
+email:u.email
+}
+);
+
+if(!state.data.settings){
+
+await set(
+ref(db,"settings"),
+{
+companyName:"CRISFISH",
+consignmentDays:14
 }
 );
 
 }
 
+}
 
-/* ===============================
-   STATISTIK
-================================ */
 
-function stats()
-{
+/* =========================
+   STATISTICS
+========================= */
+
+function stats(){
 
 const tx =
 arr("transactions")
-.filter(
-x =>
-(x.date||"")
-.startsWith(month())
+.filter(x=>
+(x.date||"").startsWith(month())
 );
 
 const sales =
 arr("sales")
-.filter(
-x =>
-x.status!=="NONAKTIF"
-);
+.filter(x=>x.status!=="NONAKTIF");
 
 
 const omzet =
 tx.reduce(
-(a,x) =>
-a+(+x.totalAmount||0),
+(a,x)=>a+(+x.totalAmount||0),
 0
 );
 
 
 const qty =
 tx.reduce(
-(a,x) =>
-a+(+x.qty||0),
+(a,x)=>a+(+x.qty||0),
 0
 );
 
 
 const hpp =
 tx.reduce(
-(a,x) =>
+(a,x)=>
 a+
 (+x.qty||0)*
 (+state.data.products?.[x.productId]?.hpp||0),
@@ -739,14 +554,11 @@ a+
 
 const fuel =
 arr("fuelRecords")
-.filter(
-x =>
-String(x.date||"")
-.startsWith(month())
+.filter(x=>
+String(x.date||"").startsWith(month())
 )
 .reduce(
-(a,x)=>
-a+(+x.amount||0),
+(a,x)=>a+(+x.amount||0),
 0
 );
 
@@ -761,30 +573,23 @@ a+
 );
 
 
-return {
+return{
 
 omzet,
 
 qty,
 
-gross:
-omzet-hpp,
+gross:omzet-hpp,
 
-net:
-omzet-hpp-fuel-comm,
+net:omzet-hpp-fuel-comm,
 
-sales:
-sales.length,
+sales:sales.length,
 
-stores:
-arr("stores").length,
+stores:arr("stores").length,
 
 overdue:
 arr("stores")
-.filter(
-s =>
-days(s.lastVisitDate)>=14
-)
+.filter(s=>days(s.lastVisitDate)>=14)
 .length
 
 };
@@ -792,76 +597,22 @@ days(s.lastVisitDate)>=14
 }
 
 
-/* ===============================
+/* =========================
    RENDER
-================================ */
+========================= */
 
-function render()
-{
+function render(){
 
-if(!state.user)return;
+if(!state.user) return;
 
-const s =
-stats();
+const s=stats();
 
 nav();
 
 
-if(
-state.tab==="dashboard"
-)
-renderDashboard();
+if(state.tab==="dashboard"){
 
-
-else if(
-state.tab==="ai"
-)
-renderAI();
-
-
-else if(
-state.tab==="sales"
-)
-renderSales();
-
-
-else if(
-state.tab==="products"
-)
-renderProducts();
-
-
-else if(
-state.tab==="stores"
-)
-renderStores();
-
-
-else if(
-state.tab==="financials"
-)
-renderFinancials();
-
-
-else
-renderAudit();
-
-}
-
-
-/* ===============================
-   DASHBOARD
-================================ */
-
-function renderDashboard()
-{
-
-const s =
-stats();
-
-$("content").innerHTML =
-
-`
+$("content").innerHTML=`
 
 <div class="space-y-4">
 
@@ -872,7 +623,7 @@ Ringkasan Eksekutif
 </h2>
 
 <p class="text-xs text-slate-500">
-Data realtime CRISFISH dari Firebase.
+Data realtime dari Firebase.
 </p>
 
 </div>
@@ -880,64 +631,49 @@ Data realtime CRISFISH dari Firebase.
 
 <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-3">
 
-
 <div class="card p-5">
-
 <div class="text-xs text-slate-500">
-Omzet Bulan Ini
+Omzet
 </div>
-
 <b class="text-2xl text-emerald-600">
 ${rup(s.omzet)}
 </b>
-
 </div>
 
 
 <div class="card p-5">
-
 <div class="text-xs text-slate-500">
 Terjual
 </div>
-
 <b class="text-2xl text-blue-600">
 ${s.qty} pack
 </b>
-
 </div>
 
 
 <div class="card p-5">
-
 <div class="text-xs text-slate-500">
-Laba Bersih
+Laba bersih
 </div>
-
 <b class="text-2xl text-orange-600">
 ${rup(s.net)}
 </b>
-
 </div>
 
 
 <div class="card p-5">
-
 <div class="text-xs text-slate-500">
-Toko Overdue
+Toko overdue
 </div>
-
 <b class="text-2xl text-rose-600">
 ${s.overdue} toko
 </b>
-
 </div>
-
 
 </div>
 
 
 <div class="grid md:grid-cols-2 gap-4">
-
 
 <div class="card p-5">
 
@@ -960,7 +696,6 @@ ${s.overdue} toko sudah ≥14 hari belum dikunjungi
 </div>
 
 </div>
-
 </div>
 
 
@@ -970,27 +705,21 @@ ${s.overdue} toko sudah ≥14 hari belum dikunjungi
 Stok Produk
 </h3>
 
-${arr("products").map(
-p =>
-`
+${
+arr("products").map(p=>`
 
 <div class="flex justify-between py-2 border-b text-sm">
 
-<span>
-${esc(p.name)}
-</span>
+<span>${esc(p.name)}</span>
 
-<b>
-${p.stock||0} pack
-</b>
+<b>${p.stock||0} pack</b>
 
 </div>
 
-`
-).join("")}
+`).join("")
+}
 
 </div>
-
 
 </div>
 
@@ -1000,17 +729,28 @@ ${p.stock||0} pack
 
 }
 
+else if(state.tab==="ai") renderAI();
 
-/* ===============================
-   AI GEMINI
-================================ */
+else if(state.tab==="sales") renderSales();
 
-function renderAI()
-{
+else if(state.tab==="products") renderProducts();
 
-$("content").innerHTML =
+else if(state.tab==="stores") renderStores();
 
-`
+else if(state.tab==="financials") renderFinancials();
+
+else renderAudit();
+
+}
+
+
+/* =========================
+   AI OWNER
+========================= */
+
+function renderAI(){
+
+$("content").innerHTML=`
 
 <div class="card p-6">
 
@@ -1023,7 +763,7 @@ AI Business Advisor
 </h2>
 
 <p class="text-xs text-slate-500">
-Gemini menganalisis data CRISFISH realtime.
+AI membaca data CRISFISH dan memberi rekomendasi bisnis.
 </p>
 
 </div>
@@ -1039,11 +779,10 @@ ANALISIS AI
 </div>
 
 
-<div
-id="aiout"
+<div id="aiout"
 class="mt-5 bg-slate-50 rounded-2xl p-5 text-sm">
 
-Tekan ANALISIS AI untuk mendapatkan rekomendasi bisnis.
+Tekan ANALISIS AI.
 
 </div>
 
@@ -1054,120 +793,97 @@ Tekan ANALISIS AI untuk mendapatkan rekomendasi bisnis.
 }
 
 
-window.askAI =
-async () =>
-{
+window.askAI = async()=>{
 
-const o =
-stats();
+$("aiout").innerHTML=
+"AI sedang menganalisis...";
 
 
-const stores =
-arr("stores")
-.map(
-x =>
-({
-
-name:x.name,
-
-salesId:x.salesId,
-
-stock:x.stock,
-
-lastVisitDate:x.lastVisitDate,
-
-daysSinceLastVisit:
-days(x.lastVisitDate),
-
-avgSales:x.avgSales
-
-})
-);
+const s=stats();
 
 
-$("aiout").innerHTML =
-"🤖 AI sedang menganalisis data CRISFISH...";
+const prompt=`
+
+Anda adalah konsultan bisnis CRISFISH/Petekres.
+
+Data bulan berjalan:
+
+Omzet:
+${s.omzet}
+
+Terjual:
+${s.qty} pack
+
+Laba bersih:
+${s.net}
+
+Toko overdue:
+${s.overdue}
+
+Berikan rekomendasi praktis untuk Owner:
+
+1. Prioritas toko yang harus dikunjungi
+2. Target sales
+3. Stok
+4. Penjualan
+5. Tindakan 7 hari
+
+Gunakan bahasa Indonesia.
+Singkat dan mudah dipahami.
+`;
 
 
 try{
 
-const prompt =
-
-`
-
-Anda adalah konsultan bisnis canvassing CRISFISH / PETEKRES.
-
-Analisis data bisnis berikut.
-
-Omzet bulan berjalan:
-${o.omzet}
-
-Terjual:
-${o.qty} pack
-
-Laba bersih:
-${o.net}
-
-Toko overdue:
-${o.overdue}
-
-Data toko:
-${JSON.stringify(stores)}
-
-Berikan rekomendasi praktis untuk OWNER.
-
-Fokus pada:
-
-1. Toko yang harus segera dikunjungi.
-2. Sales yang perlu perhatian.
-3. Target penjualan.
-4. Stok produk.
-5. Strategi meningkatkan penjualan.
-6. Risiko konsinyasi 14 hari.
-7. Rencana tindakan 7 hari.
-
-Gunakan bahasa Indonesia yang sederhana.
-
-Gunakan bullet point.
-
-Jangan memberikan jawaban terlalu panjang.
-
-`;
-
-
-const r =
-await gemini.generateContent(
-prompt
+const response =
+await fetch(
+"https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=AIzaSyDCBW8FxoTJqIc6OwmjraRYuq-FkpBsISc"
+,{
+method:"POST",
+headers:{
+"Content-Type":"application/json"
+},
+body:JSON.stringify({
+contents:[
+{
+parts:[
+{
+text:prompt
+}
+]
+}
+]
+})
+}
 );
 
 
-$("aiout").innerHTML =
+const data=await response.json();
 
+const text=
+data?.candidates?.[0]?.content?.parts?.[0]?.text;
+
+
+if(!text)
+throw new Error(
+"Gemini belum memberikan jawaban."
+);
+
+
+$("aiout").innerHTML=
+`<div class="whitespace-pre-wrap">
+${esc(text)}
+</div>`;
+
+}catch(e){
+
+$("aiout").innerHTML=
 `
-
-<div class="whitespace-pre-wrap">
-${esc(r.response.text())}
-</div>
-
-`;
-
-}
-catch(e){
-
-console.error(e);
-
-$("aiout").innerHTML =
-
-`
-
-<b class="text-rose-600">
-Gemini belum aktif atau belum memiliki izin.
-</b>
+<b>AI belum aktif.</b>
 
 <div class="text-xs mt-2">
 ${esc(e.message)}
 </div>
-
 `;
 
 }
@@ -1175,16 +891,13 @@ ${esc(e.message)}
 };
 
 
-/* ===============================
+/* =========================
    SALES
-================================ */
+========================= */
 
-function renderSales()
-{
+function renderSales(){
 
-$("content").innerHTML =
-
-`
+$("content").innerHTML=`
 
 <div class="card p-6">
 
@@ -1197,12 +910,10 @@ Kelola Tim Sales
 </h2>
 
 <p class="text-xs text-slate-500">
-Owner dapat mengedit nama, target,
-gaji, komisi, area dan status sales.
+Data sales otomatis tersimpan ke Firebase.
 </p>
 
 </div>
-
 
 <button
 onclick="window.addSales()"
@@ -1217,22 +928,23 @@ class="bg-orange-600 text-white px-4 py-2 rounded-xl text-xs font-bold">
 
 <div class="space-y-3">
 
-${arr("sales").map(
-s =>
-`
+${
+arr("sales").map(s=>`
 
-<div class="border rounded-2xl p-4 flex flex-col md:flex-row justify-between gap-3">
+<div class="border rounded-2xl p-4">
+
+<div class="flex justify-between gap-3">
 
 <div>
 
-<b>
-${esc(s.name)}
-</b>
+<b>${esc(s.name)}</b>
 
 <div class="text-xs text-slate-500">
-${esc(s.code)} •
-${esc(s.area)} •
-${esc(s.email)}
+
+${esc(s.code||"")} •
+
+${esc(s.area||"")}
+
 </div>
 
 <div class="text-xs mt-1">
@@ -1250,15 +962,9 @@ ${rup(s.baseSalary)}
 Komisi:
 ${rup(s.commissionRate)}/pack
 
-•
-
-Bensin:
-${rup(s.fuelAllowance)}
-
 </div>
 
 </div>
-
 
 <button
 onclick="window.editSales('${s.id}')"
@@ -1270,11 +976,11 @@ EDIT
 
 </div>
 
-`
-).join("") ||
+</div>
 
-'<p class="text-sm text-slate-500">Belum ada sales.</p>'
-
+`).join("")
+||
+"<p class='text-sm text-slate-500'>Belum ada sales.</p>"
 }
 
 </div>
@@ -1286,17 +992,14 @@ EDIT
 }
 
 
-/* ===============================
-   TAMBAH SALES
-================================ */
+/* =========================
+   ADD SALES
+========================= */
 
-window.addSales =
-() =>
-{
+window.addSales=()=>{
 
 modal(
 "Tambah Sales",
-
 `
 
 <div class="space-y-2">
@@ -1317,7 +1020,7 @@ placeholder="Email Login Sales">
 <input id="s_password"
 type="password"
 class="w-full border rounded-xl p-3"
-placeholder="Password Awal Sales">
+placeholder="Password Awal">
 
 <input id="s_area"
 class="w-full border rounded-xl p-3"
@@ -1326,27 +1029,27 @@ placeholder="Area">
 <input id="s_daily"
 type="number"
 class="w-full border rounded-xl p-3"
-placeholder="Target Harian (pack)">
+placeholder="Target harian">
 
 <input id="s_monthly"
 type="number"
 class="w-full border rounded-xl p-3"
-placeholder="Target Bulanan (pack)">
+placeholder="Target bulanan">
 
 <input id="s_salary"
 type="number"
 class="w-full border rounded-xl p-3"
-placeholder="Gaji Pokok">
+placeholder="Gaji pokok">
 
 <input id="s_comm"
 type="number"
 class="w-full border rounded-xl p-3"
-placeholder="Komisi / Pack">
+placeholder="Komisi / pack">
 
 <input id="s_fuel"
 type="number"
 class="w-full border rounded-xl p-3"
-placeholder="Uang Bensin">
+placeholder="Uang bensin">
 
 <button
 onclick="window.saveNewSales()"
@@ -1357,81 +1060,82 @@ BUAT AKUN SALES
 </button>
 
 </div>
-
 `
 );
 
 };
 
 
-/* ===============================
-   BUAT AKUN SALES
-================================ */
+/* =========================
+   CREATE SALES ACCOUNT
+========================= */
 
-window.saveNewSales =
-async () =>
-{
+window.saveNewSales=async()=>{
 
 try{
 
-const email =
+const email=
 $("s_email").value.trim();
 
-const password =
+const password=
 $("s_password").value.trim();
 
+if(!email)
+throw new Error("Email wajib diisi.");
 
-if(
-!email ||
-password.length<6
-){
-
-throw Error(
-"Email dan password minimal 6 karakter."
+if(password.length<6)
+throw new Error(
+"Password minimal 6 karakter."
 );
-
-}
 
 
 /*
-Membuat akun sales menggunakan
-Firebase App kedua agar akun Owner
-tidak keluar dari sesi login.
+Aplikasi Firebase kedua.
+Supaya Owner tidak logout
+ketika membuat akun Sales.
 */
 
-const creatorName =
+const secondaryName=
 "salesCreator";
 
-const creator =
+const secondaryApp=
+getApps().some(
+a=>a.name===secondaryName
+)
+?
+getApp(secondaryName)
+:
 initializeApp(
 firebaseConfig,
-creatorName
+secondaryName
 );
 
-const ca =
-getAuth(creator);
+
+const secondaryAuth=
+getAuth(secondaryApp);
 
 
-const cred =
+const cred=
 await createUserWithEmailAndPassword(
-ca,
+secondaryAuth,
 email,
 password
 );
 
 
-const uid =
-cred.user.uid;
+const uid=cred.user.uid;
 
 
-await signOut(ca);
+/* logout dari aplikasi kedua */
+
+await signOut(secondaryAuth);
 
 
-const id =
+const salesId=
 "sales_"+uid.slice(0,8);
 
 
-const profile = {
+const profile={
 
 uid,
 
@@ -1461,11 +1165,15 @@ commissionRate:
 fuelAllowance:
 +$("s_fuel").value||0,
 
-status:
-"AKTIF"
+status:"AKTIF"
 
 };
 
+
+/*
+Simpan identitas login
+Sales
+*/
 
 await update(
 ref(db),
@@ -1474,38 +1182,38 @@ ref(db),
 ["users/"+uid]:
 {
 role:"sales",
-salesId:id,
+salesId,
 name:profile.name,
 email
 },
 
-["sales/"+id]:
+["sales/"+salesId]:
 profile
 
 }
 );
 
 
+/* Audit */
+
 await log(
-"Add Sales",
-"Sales "+profile.name+" dibuat"
+"ADD SALES",
+"Sales "+profile.name+" dibuat."
 );
 
 
 closeModal();
 
 toast(
-"Akun sales berhasil dibuat."
+"AKUN SALES BERHASIL DIBUAT"
 );
 
-}
-catch(e){
+}catch(e){
 
 console.error(e);
 
 toast(
-"Gagal membuat sales: "+
-e.message
+"Gagal membuat sales: "+e.message
 );
 
 }
@@ -1513,70 +1221,74 @@ e.message
 };
 
 
-/* ===============================
+/* =========================
    EDIT SALES
-================================ */
+========================= */
 
-window.editSales =
-id =>
-{
+window.editSales=id=>{
 
-const s =
-state.data.sales[id];
-
+const s=state.data.sales[id];
 
 modal(
 "Edit Sales",
-
 `
 
 <div class="space-y-2">
 
-<input id="e_name"
+<input
+id="e_name"
 value="${esc(s.name)}"
 class="w-full border rounded-xl p-3"
 placeholder="Nama">
 
-<input id="e_code"
+<input
+id="e_code"
 value="${esc(s.code)}"
 class="w-full border rounded-xl p-3"
 placeholder="Kode">
 
-<input id="e_email"
+<input
+id="e_email"
 value="${esc(s.email)}"
 class="w-full border rounded-xl p-3"
 placeholder="Email">
 
-<input id="e_area"
+<input
+id="e_area"
 value="${esc(s.area)}"
 class="w-full border rounded-xl p-3"
 placeholder="Area">
 
-<input id="e_daily"
+<input
+id="e_daily"
 type="number"
 value="${s.dailyTarget||0}"
 class="w-full border rounded-xl p-3"
 placeholder="Target harian">
 
-<input id="e_monthly"
+<input
+id="e_monthly"
 type="number"
 value="${s.monthlyTarget||0}"
 class="w-full border rounded-xl p-3"
 placeholder="Target bulanan">
 
-<input id="e_salary"
+<input
+id="e_salary"
 type="number"
 value="${s.baseSalary||0}"
 class="w-full border rounded-xl p-3"
 placeholder="Gaji">
 
-<input id="e_comm"
+<input
+id="e_comm"
 type="number"
 value="${s.commissionRate||0}"
 class="w-full border rounded-xl p-3"
-placeholder="Komisi / pack">
+placeholder="Komisi">
 
-<input id="e_fuel"
+<input
+id="e_fuel"
 type="number"
 value="${s.fuelAllowance||0}"
 class="w-full border rounded-xl p-3"
@@ -1624,19 +1336,12 @@ KIRIM RESET PASSWORD
 };
 
 
-/* ===============================
-   SIMPAN SALES
-================================ */
+window.saveSales=async id=>{
 
-window.saveSales =
-async id =>
-{
-
-const s =
-state.data.sales[id];
+const s=state.data.sales[id];
 
 
-const n = {
+const n={
 
 ...s,
 
@@ -1677,8 +1382,7 @@ await update(
 ref(db),
 {
 
-["sales/"+id]:
-n,
+["sales/"+id]:n,
 
 ["users/"+s.uid+"/name"]:
 n.name,
@@ -1691,31 +1395,24 @@ n.email
 
 
 await log(
-"Edit Sales",
-"Sales "+n.name+" diperbarui"
+"EDIT SALES",
+"Sales "+n.name+" diperbarui."
 );
 
 
 closeModal();
 
 toast(
-"Data sales diperbarui."
+"DATA SALES DIPERBARUI"
 );
 
 };
 
 
-/* ===============================
-   RESET SALES
-================================ */
+window.resetSales=async id=>{
 
-window.resetSales =
-async id =>
-{
-
-const email =
+const email=
 state.data.sales[id]?.email;
-
 
 try{
 
@@ -1728,8 +1425,7 @@ toast(
 "Email reset password dikirim."
 );
 
-}
-catch(e){
+}catch(e){
 
 toast(e.message);
 
@@ -1738,16 +1434,13 @@ toast(e.message);
 };
 
 
-/* ===============================
-   PRODUK
-================================ */
+/* =========================
+   PRODUCTS
+========================= */
 
-function renderProducts()
-{
+function renderProducts(){
 
-$("content").innerHTML =
-
-`
+$("content").innerHTML=`
 
 <div class="card p-6">
 
@@ -1770,9 +1463,8 @@ class="bg-orange-600 text-white px-4 py-2 rounded-xl text-xs font-bold">
 
 <div class="space-y-3">
 
-${arr("products").map(
-p =>
-`
+${
+arr("products").map(p=>`
 
 <div class="border rounded-2xl p-4 flex justify-between items-center">
 
@@ -1792,7 +1484,6 @@ HPP ${rup(p.hpp)}
 
 </div>
 
-
 <div class="flex items-center gap-2">
 
 <b>${p.stock||0} pack</b>
@@ -1809,8 +1500,9 @@ EDIT
 
 </div>
 
-`
-).join("")}
+`).join("")
+
+}
 
 </div>
 
@@ -1821,34 +1513,29 @@ EDIT
 }
 
 
-window.addProduct =
-() =>
+window.addProduct=()=>{
+
 modal(
 "Tambah Produk",
-
 `
 
 <div class="space-y-2">
 
-<input
-id="p_name"
+<input id="p_name"
 class="w-full border rounded-xl p-3"
-placeholder="Nama Produk">
+placeholder="Nama produk">
 
-<input
-id="p_price"
+<input id="p_price"
 type="number"
 class="w-full border rounded-xl p-3"
-placeholder="Harga Jual">
+placeholder="Harga jual">
 
-<input
-id="p_hpp"
+<input id="p_hpp"
 type="number"
 class="w-full border rounded-xl p-3"
 placeholder="HPP">
 
-<input
-id="p_stock"
+<input id="p_stock"
 type="number"
 class="w-full border rounded-xl p-3"
 placeholder="Stok">
@@ -1862,18 +1549,15 @@ SIMPAN
 </button>
 
 </div>
-
 `
 );
 
+};
 
-window.saveProduct =
-async () =>
-{
 
-const id =
-"prod_"+Date.now();
+window.saveProduct=async()=>{
 
+const id="prod_"+Date.now();
 
 await set(
 ref(db,"products/"+id),
@@ -1891,39 +1575,29 @@ hpp:
 stock:
 +$("p_stock").value||0,
 
-status:
-"AKTIF"
+status:"AKTIF"
 
 }
 );
 
-
 await log(
-"Add Product",
-"Produk ditambahkan"
+"ADD PRODUCT",
+"Produk ditambahkan."
 );
-
 
 closeModal();
 
-toast(
-"Produk berhasil ditambahkan."
-);
+toast("Produk ditambahkan.");
 
 };
 
 
-window.editProduct =
-id =>
-{
+window.editProduct=id=>{
 
-const p =
-state.data.products[id];
-
+const p=state.data.products[id];
 
 modal(
 "Edit Produk & Stok",
-
 `
 
 <div class="space-y-2">
@@ -1960,16 +1634,13 @@ SIMPAN STOK & PRODUK
 </button>
 
 </div>
-
 `
 );
 
 };
 
 
-window.saveProductEdit =
-async id =>
-{
+window.saveProductEdit=async id=>{
 
 await update(
 ref(db,"products/"+id),
@@ -1990,12 +1661,10 @@ stock:
 }
 );
 
-
 await log(
-"Edit Product",
-"Produk "+id+" diperbarui"
+"EDIT PRODUCT",
+"Produk "+id+" diperbarui."
 );
-
 
 closeModal();
 
@@ -2006,16 +1675,13 @@ toast(
 };
 
 
-/* ===============================
-   TOKO
-================================ */
+/* =========================
+   STORES
+========================= */
 
-function renderStores()
-{
+function renderStores(){
 
-$("content").innerHTML =
-
-`
+$("content").innerHTML=`
 
 <div class="card p-6">
 
@@ -2033,7 +1699,6 @@ Konsinyasi 14 hari.
 
 </div>
 
-
 <button
 onclick="window.addStore()"
 class="bg-orange-600 text-white px-4 py-2 rounded-xl text-xs font-bold">
@@ -2047,22 +1712,19 @@ class="bg-orange-600 text-white px-4 py-2 rounded-xl text-xs font-bold">
 
 <div class="grid md:grid-cols-2 gap-3">
 
-${arr("stores").map(
-s =>
-{
+${
+arr("stores").map(s=>{
 
-const sl =
+const sl=
 state.data.sales?.[s.salesId];
 
-return `
+return`
 
 <div class="border rounded-2xl p-4">
 
 <div class="flex justify-between">
 
-<b>
-${esc(s.name)}
-</b>
+<b>${esc(s.name)}</b>
 
 <button
 onclick="window.editStore('${s.id}')"
@@ -2074,7 +1736,6 @@ EDIT
 
 </div>
 
-
 <div class="text-xs text-slate-500 mt-1">
 
 ${esc(s.owner)}
@@ -2085,7 +1746,6 @@ Sales:
 ${esc(sl?.name||"-")}
 
 </div>
-
 
 <div class="text-xs mt-2">
 
@@ -2099,18 +1759,18 @@ hari belum dikunjungi
 
 </div>
 
-
 <div class="text-xs text-slate-500">
+
 ${esc(s.address)}
+
 </div>
 
 </div>
 
 `;
 
-}
-).join("") ||
-
+}).join("")
+||
 "<p>Belum ada toko.</p>"
 
 }
@@ -2124,35 +1784,22 @@ ${esc(s.address)}
 }
 
 
-/* ===============================
-   TAMBAH TOKO
-================================ */
+window.addStore=()=>{
 
-window.addStore =
-() =>
-{
-
-const opts =
+const opts=
 arr("sales")
-.filter(
-s =>
-s.status==="AKTIF"
-)
-.map(
-s =>
-`
+.filter(s=>s.status==="AKTIF")
+.map(s=>`
 
 <option value="${s.id}">
 ${esc(s.name)}
 </option>
 
-`
-).join("");
+`).join("");
 
 
 modal(
 "Tambah Toko",
-
 `
 
 <div class="space-y-2">
@@ -2160,17 +1807,17 @@ modal(
 <input
 id="t_name"
 class="w-full border rounded-xl p-3"
-placeholder="Nama Toko">
+placeholder="Nama toko">
 
 <input
 id="t_owner"
 class="w-full border rounded-xl p-3"
-placeholder="Nama Pemilik">
+placeholder="Nama pemilik">
 
 <input
 id="t_phone"
 class="w-full border rounded-xl p-3"
-placeholder="No HP">
+placeholder="No. HP">
 
 <input
 id="t_address"
@@ -2189,19 +1836,18 @@ ${opts}
 id="t_stock"
 type="number"
 class="w-full border rounded-xl p-3"
-placeholder="Stok Awal">
+placeholder="Stok awal">
 
 <input
 id="t_avg"
 type="number"
 class="w-full border rounded-xl p-3"
-placeholder="Rata-rata Penjualan">
+placeholder="Rata-rata penjualan">
 
 <textarea
 id="t_notes"
 class="w-full border rounded-xl p-3"
-placeholder="Catatan">
-</textarea>
+placeholder="Catatan"></textarea>
 
 <button
 onclick="window.saveStore()"
@@ -2212,89 +1858,62 @@ SIMPAN TOKO
 </button>
 
 </div>
-
 `
 );
 
 };
 
 
-window.saveStore =
-async () =>
-{
+window.saveStore=async()=>{
 
-const id =
-"store_"+Date.now();
-
+const id="store_"+Date.now();
 
 await set(
 ref(db,"stores/"+id),
 {
 
-name:
-$("t_name").value.trim(),
+name:$("t_name").value.trim(),
 
-owner:
-$("t_owner").value.trim(),
+owner:$("t_owner").value.trim(),
 
-phone:
-$("t_phone").value.trim(),
+phone:$("t_phone").value.trim(),
 
-address:
-$("t_address").value.trim(),
+address:$("t_address").value.trim(),
 
-salesId:
-$("t_sales").value,
+salesId:$("t_sales").value,
 
-stock:
-+$("t_stock").value||0,
+stock:+$("t_stock").value||0,
 
-avgSales:
-+$("t_avg").value||0,
+avgSales:+$("t_avg").value||0,
 
 lastVisitDate:"",
 
-notes:
-$("t_notes").value.trim(),
+notes:$("t_notes").value.trim(),
 
 status:"AKTIF"
 
 }
 );
 
-
 await log(
-"Add Store",
-"Toko ditambahkan"
+"ADD STORE",
+"Toko ditambahkan."
 );
-
 
 closeModal();
 
-toast(
-"Toko berhasil ditambahkan."
-);
+toast("Toko ditambahkan.");
 
 };
 
 
-/* ===============================
-   EDIT TOKO
-================================ */
+window.editStore=id=>{
 
-window.editStore =
-id =>
-{
+const s=state.data.stores[id];
 
-const s =
-state.data.stores[id];
-
-
-const opts =
+const opts=
 arr("sales")
-.map(
-x =>
-`
+.map(x=>`
 
 <option
 value="${x.id}"
@@ -2304,13 +1923,11 @@ ${esc(x.name)}
 
 </option>
 
-`
-).join("");
+`).join("");
 
 
 modal(
 "Edit Toko",
-
 `
 
 <div class="space-y-2">
@@ -2364,7 +1981,9 @@ class="w-full border rounded-xl p-3">
 <textarea
 id="et_notes"
 class="w-full border rounded-xl p-3">
+
 ${esc(s.notes)}
+
 </textarea>
 
 <button
@@ -2376,99 +1995,75 @@ SIMPAN TOKO
 </button>
 
 </div>
-
 `
 );
 
 };
 
 
-window.saveStoreEdit =
-async id =>
-{
+window.saveStoreEdit=async id=>{
 
 await update(
 ref(db,"stores/"+id),
 {
 
-name:
-$("et_name").value.trim(),
+name:$("et_name").value.trim(),
 
-owner:
-$("et_owner").value.trim(),
+owner:$("et_owner").value.trim(),
 
-phone:
-$("et_phone").value.trim(),
+phone:$("et_phone").value.trim(),
 
-address:
-$("et_address").value.trim(),
+address:$("et_address").value.trim(),
 
-salesId:
-$("et_sales").value,
+salesId:$("et_sales").value,
 
-stock:
-+$("et_stock").value||0,
+stock:+$("et_stock").value||0,
 
-avgSales:
-+$("et_avg").value||0,
+avgSales:+$("et_avg").value||0,
 
-lastVisitDate:
-$("et_last").value,
+lastVisitDate:$("et_last").value,
 
-notes:
-$("et_notes").value.trim()
+notes:$("et_notes").value.trim()
 
 }
 );
 
-
 await log(
-"Edit Store",
-"Toko "+id+" diperbarui"
+"EDIT STORE",
+"Toko diperbarui."
 );
-
 
 closeModal();
 
-toast(
-"Toko berhasil diperbarui."
-);
+toast("Toko diperbarui.");
 
 };
 
 
-/* ===============================
-   KEUANGAN
-================================ */
+/* =========================
+   FINANCIAL
+========================= */
 
-function renderFinancials()
-{
+function renderFinancials(){
 
-const o =
-stats();
+const o=stats();
 
-
-const fuel =
+const fuel=
 arr("fuelRecords")
 .reduce(
-(a,x)=>
-a+(+x.amount||0),
+(a,x)=>a+(+x.amount||0),
 0
 );
 
-
-const dep =
+const dep=
 arr("deposits")
 .reduce(
-(a,x)=>
-a+(+x.amount||0),
+(a,x)=>a+(+x.amount||0),
 0
 );
 
 
-$("content").innerHTML =
-
-`
+$("content").innerHTML=`
 
 <div class="space-y-4">
 
@@ -2478,53 +2073,35 @@ $("content").innerHTML =
 Laporan Keuangan
 </h2>
 
-
 <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-3 mt-4">
 
-
 <div class="bg-slate-50 rounded-2xl p-4">
-
 <div class="text-xs text-slate-500">
 Omzet
 </div>
-
 <b>${rup(o.omzet)}</b>
-
 </div>
 
-
 <div class="bg-slate-50 rounded-2xl p-4">
-
 <div class="text-xs text-slate-500">
 HPP
 </div>
-
 <b>${rup(o.omzet-o.gross)}</b>
-
 </div>
 
-
 <div class="bg-slate-50 rounded-2xl p-4">
-
 <div class="text-xs text-slate-500">
 Bensin
 </div>
-
 <b>${rup(fuel)}</b>
-
 </div>
 
-
 <div class="bg-slate-50 rounded-2xl p-4">
-
 <div class="text-xs text-slate-500">
 Setoran
 </div>
-
 <b>${rup(dep)}</b>
-
 </div>
-
 
 </div>
 
@@ -2537,33 +2114,27 @@ Setoran
 Pendapatan Sales Bulan Ini
 </h3>
 
+${
+arr("sales").map(s=>{
 
-${arr("sales").map(
-s =>
-{
-
-const q =
+const q=
 arr("transactions")
-.filter(
-t =>
+.filter(t=>
 t.salesId===s.id &&
-(t.date||"")
-.startsWith(month())
+(t.date||"").startsWith(month())
 )
 .reduce(
-(a,t)=>
-a+(+t.qty||0),
+(a,t)=>a+(+t.qty||0),
 0
 );
 
-
-const g =
+const g=
 (s.baseSalary||0)+
 q*(s.commissionRate||0)+
 (s.fuelAllowance||0);
 
 
-return `
+return`
 
 <div class="flex justify-between border-b py-3 text-sm">
 
@@ -2577,36 +2148,32 @@ ${q} pack
 
 </span>
 
-<b>
-${rup(g)}
-</b>
+<b>${rup(g)}</b>
+
+</div>
+
+`;
+
+}).join("")
+
+}
+
+</div>
 
 </div>
 
 `;
 
 }
-).join("")}
-
-</div>
-
-</div>
-
-`;
-
-}
 
 
-/* ===============================
+/* =========================
    AUDIT
-================================ */
+========================= */
 
-function renderAudit()
-{
+function renderAudit(){
 
-$("content").innerHTML =
-
-`
+$("content").innerHTML=`
 
 <div class="card p-6">
 
@@ -2614,24 +2181,19 @@ $("content").innerHTML =
 Audit Log Sistem
 </h2>
 
-
 <div class="mt-4 space-y-2">
 
-${arr("auditLogs")
+${
+arr("auditLogs")
 .sort(
-(a,b)=>
-(b.ts||0)-(a.ts||0)
+(a,b)=>(b.ts||0)-(a.ts||0)
 )
 .slice(0,100)
-.map(
-x =>
-`
+.map(x=>`
 
 <div class="border-b py-2 text-xs">
 
-<b>
-${esc(x.actor||"")}
-</b>
+<b>${esc(x.actor||"")}</b>
 
 •
 
@@ -2643,9 +2205,9 @@ ${esc(x.details||"")}
 
 </div>
 
-`
-).join("") ||
+`).join("")
 
+||
 "Belum ada log."
 
 }
@@ -2659,62 +2221,42 @@ ${esc(x.details||"")}
 }
 
 
-/* ===============================
+/* =========================
    MODAL
-================================ */
+========================= */
 
-function modal(
-title,
-body
-)
-{
+function modal(title,body){
 
-$("mt").textContent =
-title;
+$("mt").textContent=title;
 
-$("mb").innerHTML =
-body;
+$("mb").innerHTML=body;
 
-$("modal")
-.classList.remove("hiddenx");
+$("modal").classList.remove("hiddenx");
 
-$("modal")
-.classList.add("flex");
+$("modal").classList.add("flex");
 
 }
 
 
-window.closeModal =
-() =>
-{
+window.closeModal=()=>{
 
-$("modal")
-.classList.add("hiddenx");
+$("modal").classList.add("hiddenx");
 
-$("modal")
-.classList.remove("flex");
+$("modal").classList.remove("flex");
 
 };
 
 
-/* ===============================
+/* =========================
    AUDIT LOG
-================================ */
+========================= */
 
-async function log(
-action,
-details
-)
-{
+async function log(action,details){
 
 if(!auth.currentUser)return;
 
-
-const r =
-push(
-ref(db,"auditLogs")
-);
-
+const r=
+push(ref(db,"auditLogs"));
 
 await set(
 r,
@@ -2724,8 +2266,7 @@ ts:Date.now(),
 
 actor:"OWNER",
 
-uid:
-auth.currentUser.uid,
+uid:auth.currentUser.uid,
 
 action,
 
@@ -2737,127 +2278,96 @@ details
 }
 
 
-/* ===============================
-   START APLIKASI
-================================ */
+/* =========================
+   BOOT OWNER
+========================= */
 
-async function boot(u)
-{
+async function boot(u){
 
 state.user=u;
 
 
 /*
-Membaca profil user
+Pastikan akun yang login
+adalah Owner.
 */
 
-try{
-
-const snap =
+const snap=
 await new Promise(
-(resolve,reject)=>
+(resolve,reject)=>{
 
 onValue(
-ref(
-db,
-"users/"+u.uid
-),
+ref(db,"users/"+u.uid),
+s=>resolve(s),
+reject,
+{onlyOnce:true}
+);
 
-s =>
-resolve(s),
-
-{
-onlyOnce:true
 }
-
-)
 );
 
 
-const profile =
-snap.val();
+let profile=snap.val();
 
 
 /*
-Pastikan akun adalah Owner
+Jika akun belum punya profile,
+jadikan Owner hanya jika
+memang login dari halaman Owner.
 */
 
 if(
-u.uid!==OWNER_UID &&
-profile?.role!=="owner"
+!profile ||
+profile.role!=="owner"
 ){
 
-await signOut(auth);
+try{
 
-showLoginMsg(
-"Akun ini bukan akun Owner."
+await set(
+ref(db,"users/"+u.uid),
+{
+role:"owner",
+name:"Owner CRISFISH",
+email:u.email
+}
 );
 
-return;
+}catch(e){
+
+console.error(e);
+
+}
 
 }
 
 
-/*
-Siapkan database awal
-*/
+$("login").classList.add("hiddenx");
 
-await seed();
-
-
-/*
-Tampilkan dashboard
-*/
-
-$("login")
-.classList.add("hiddenx");
-
-$("app")
-.classList.remove("hiddenx");
-
+$("app").classList.remove("hiddenx");
 
 subscribe();
 
 }
-catch(error){
 
-console.error(error);
-
-showLoginMsg(
-"Gagal membuka dashboard: "+
-error.message
-);
-
-}
-
-}
-
-
-/* ===============================
-   AUTH STATE
-================================ */
 
 onAuthStateChanged(
 auth,
-u =>
-{
+u=>{
 
 if(u){
 
 boot(u);
 
-}
-else{
+}else{
 
-$("login")
-.classList.remove("hiddenx");
+$("login").classList.remove("hiddenx");
 
-$("app")
-.classList.add("hiddenx");
+$("app").classList.add("hiddenx");
 
 }
 
-});
+}
+);
 
 </script>
 
